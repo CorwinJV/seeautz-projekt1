@@ -22,11 +22,11 @@ That should automatically suck everything down to your hard-drive. When using SV
 This pulls down any new or modified files from the repository.
      svn update
 This commits a file (or all changed files) to the repository, effectively replacing the current build. The filename part is optional but the comment is not (explain what you're doing and why a little bit).
-     svn commit <filename> -m "Your Comment Goes Here"
+     svn commit {filename} -m "Your Comment Goes Here"
 SVN Status shows you what state the files are currently in (modified? conflicted? added?).
      svn status
 SVN add well, it adds files to the repository. Don't forget you can't just add the files, you have to add them and then commit them to the repository. 
-     svn add <filename>
+     svn add {filename}
 
 
 You can cd (change directory) and ls (list) the contents of every folder. You can also mv (move) files, and rm (remove) them. Good luck! Command line (kind of cool.)
