@@ -16,7 +16,7 @@ class oglApp
 {
 public:
 	oglApp(std::string title, int sizeX, int sizeY, int argc, char **argv);
-	~oglApp();
+	~oglApp() {};
 
 	virtual void updateScene(void) {};
 	virtual void drawScene(void);
