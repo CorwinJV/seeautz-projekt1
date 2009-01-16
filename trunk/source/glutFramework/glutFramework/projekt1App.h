@@ -13,8 +13,11 @@ public:
 	void drawScene(void);
 
 private:
+	void initOpenGL();
+	
+private:
 	GameStateManager myStateManager;
-
+	
 };
 
 #endif
