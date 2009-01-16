@@ -19,8 +19,9 @@ oglApp::oglApp(std::string title, int sizeX, int sizeY, int argc, char **argv)
 {
 	glutInitWindowSize(sizeX, sizeY);
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutCreateWindow(title.c_str());
+
 	// Unfortunately the glut callback registration stuff is tricky
 	// and has to be done from program.cpp
 }
