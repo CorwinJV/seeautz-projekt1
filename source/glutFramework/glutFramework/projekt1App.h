@@ -3,6 +3,7 @@
 
 #include "oglApp.h"
 #include "GameStateManager.h"
+#include "pixmap.h"
 
 class projekt1App : public oglApp
 {
@@ -17,7 +18,8 @@ private:
 	
 private:
 	GameStateManager myStateManager;
-	
+	pixmap* img;
+
 };
 
 #endif

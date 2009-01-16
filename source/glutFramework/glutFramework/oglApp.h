@@ -20,7 +20,8 @@ public:
 
 	virtual void updateScene(void) {};
 	virtual void drawScene(void);
-
+	void glEnable2D();
+	void glDisable2D();
 	virtual int run();
 
 protected:
