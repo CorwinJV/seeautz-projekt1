@@ -38,3 +38,34 @@ void oglApp::drawScene(void)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glutSwapBuffers();
 }
+
+// glEnable2D and glDisable2D borrowed from a GameDev.net 
+// tutorial & thread by: Brandon Fleming
+void oglApp::glEnable2D()
+{
+   int vPort[4];
+
+   glGetIntegerv(GL_VIEWPORT, vPort);
+
+   glMatrixMode(GL_PROJECTION);
+   glPushMatrix();
+   glLoadIdentity();
+
+   glOrtho(vPort[0], vPort[0]+vPort[2], vPort[1], vPort[1]+vPort[3], -1, 1);
+   glMatrixMode(GL_MODELVIEW);
+   glPushMatrix();
+   glLoadIdentity();
+   glTranslatef(0.375, 0.375, 0.);
+
+   glPushAttrib(GL_DEPTH_BUFFER_BIT);
+   glDisable(GL_DEPTH_TEST);
+}
+
+void oglApp::glDisable2D()
+{
+   glPopAttrib();
+   glMatrixMode(GL_PROJECTION);
+   glPopMatrix();   
+   glMatrixMode(GL_MODELVIEW);
+   glPopMatrix();       
+}

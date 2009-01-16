@@ -183,6 +183,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\pixmap.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\program.cpp"
 				>
 			</File>
@@ -210,6 +214,10 @@
 			</File>
 			<File
 				RelativePath=".\oglUtility.h"
+				>
+			</File>
+			<File
+				RelativePath=".\pixmap.h"
 				>
 			</File>
 			<File
