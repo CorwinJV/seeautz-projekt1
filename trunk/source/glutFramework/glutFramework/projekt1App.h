@@ -2,6 +2,7 @@
 #define PROJEKT1APP_H
 
 #include "oglApp.h"
+#include "GameStateManager.h"
 
 class projekt1App : public oglApp
 {
@@ -12,6 +13,7 @@ public:
 	void drawScene(void);
 
 private:
+	GameStateManager myStateManager;
 
 };
 
