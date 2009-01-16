@@ -18,7 +18,7 @@ public:
 	oglApp(std::string title, int sizeX, int sizeY, int argc, char **argv);
 	~oglApp();
 
-	virtual void updateScene(float elapsed) {};
+	virtual void updateScene(void) {};
 	virtual void drawScene(void);
 
 	virtual int run();

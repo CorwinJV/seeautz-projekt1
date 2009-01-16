@@ -6,12 +6,12 @@ projekt1App::projekt1App(std::string title, int sizeX, int sizeY, int argc, char
 
 }
 
-void projekt1App::updateScene(float elapsed)
+void projekt1App::updateScene(void)
 {
 
 }
 
-void projekt1App::drawScene()
+void projekt1App::drawScene(void)
 {
 	oglApp::drawScene();
 }
