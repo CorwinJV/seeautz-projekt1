@@ -8,8 +8,8 @@ class projekt1App : public oglApp
 public:
 	projekt1App(std::string title, int sizeX, int sizeY, int argc, char **argv);
 	~projekt1App();
-	void updateScene(float elapsed);
-	void drawScene();
+	void updateScene(void);
+	void drawScene(void);
 
 private:
 
