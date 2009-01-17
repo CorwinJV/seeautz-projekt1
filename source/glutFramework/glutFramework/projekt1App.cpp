@@ -28,8 +28,18 @@ void projekt1App::initOpenGL()
 
 void projekt1App::updateScene(void)
 {
-	img->mX += 100;
-	cout << img->mX;
+    int vPort[4];
+    glGetIntegerv(GL_VIEWPORT, vPort);
+
+	img->mX += 1;
+	if(img->mX > vPort[2])
+		img->mX = 0;
+
+	img->mY += 2;
+	if(img->mY > vPort[3])
+		img->mY = 0;
+
+	cout << img->mX << endl;
 }
 
 void projekt1App::drawScene(void)

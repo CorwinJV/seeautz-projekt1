@@ -91,15 +91,26 @@ void pixmap::drawPixMap()
 	// We have to change the glRasterPosition to the lower-left point
 	// of our screen we'd like to start drawing. The problem is that
 	// glRasterPosition takes float values from -1 to 1 which represent
-	// the corners of the viewport. Take pixel positions and divide.
+	// the corners of the viewport.
     int vPort[4];
     glGetIntegerv(GL_VIEWPORT, vPort);
 	
 	int vpX = vPort[2];
 	int vpY = vPort[3];
 
-	float newRasterX = ((float)mX / (float)vpX) - 1.0f;
-	float newRasterY = ((float)mY / (float)vpY) - 1.0f;
+	// first figure out the size of a single "pixel" for x and y
+	// such that if we have 1000 pixels wide, since we are using
+	// a range from -1.0 to 1.0 (range of 2), we have 2/1000 for
+	// a pixel width which is 0.002
+	float pixelwidth  = 2/(float)vpX;
+	float pixelheight = 2/(float)vpY;
+
+	// then multiply our x and y by the pixelwidth and pixelheight
+	// in order to put it in the proper position'
+	// such that if we want a pixel in position 48, we multiply
+	// 48 by 0.002 and endup with 0.096 for the viewport position
+	float newRasterX = (float)(mX*pixelwidth) - 1.0f;
+	float newRasterY = (float)(mY*pixelheight - 1.0f);
 
 	glRasterPos2f(newRasterX, newRasterY);
 	glDrawPixels(this->width, this->height, GL_RGB, GL_UNSIGNED_BYTE, data);
