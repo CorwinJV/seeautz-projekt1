@@ -20,7 +20,14 @@ public:
     bool Initialize();
 
 	template <class T>
-    bool addGameState();
+	inline bool addGameState()
+	{
+		T* newGS = new T();
+		stateList.push_back(newGS);
+		return true;
+		// if something bad happens, return false
+	}
+
     bool removeGameStateAt(int index);
     bool removeTopGameState();//(GameState game)
     bool Update();//(GameTime gameTime)

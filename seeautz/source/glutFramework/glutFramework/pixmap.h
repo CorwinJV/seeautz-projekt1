@@ -1,3 +1,6 @@
+#ifndef PIXMAP_H
+#define PIXMAP_H
+
 // pixmap.h
 typedef char byte;
 typedef unsigned char ubyte;
@@ -21,3 +24,5 @@ struct pixmap
 
 	void drawPixMap();
 };
+
+#endif

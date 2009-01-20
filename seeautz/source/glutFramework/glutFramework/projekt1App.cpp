@@ -1,13 +1,16 @@
 #include "projekt1App.h"
+#include "TestState.h"
+
 #include <iostream>
 using namespace std;
 
 projekt1App::projekt1App(std::string title, int sizeX, int sizeY, int argc, char **argv)
-	: oglApp(title, sizeX, sizeY, argc, argv), img(NULL)
+	: oglApp(title, sizeX, sizeY, argc, argv)
 {
 	initOpenGL();
 
-	img = new pixmap("awesome.bmp");
+	// Load our starting state into the GameStateManager
+	myStateManager.addGameState<TestState>();
 }
 
 void projekt1App::initOpenGL()
@@ -28,26 +31,13 @@ void projekt1App::initOpenGL()
 
 void projekt1App::updateScene(void)
 {
-    int vPort[4];
-    glGetIntegerv(GL_VIEWPORT, vPort);
-
-	img->mX += 1;
-	if(img->mX > vPort[2])
-		img->mX = 0;
-
-	img->mY += 2;
-	if(img->mY > vPort[3])
-		img->mY = 0;
-
-	cout << img->mX << endl;
+	myStateManager.Update();
 }
 
 void projekt1App::drawScene(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	if(img != NULL)
-		img->drawPixMap();
+	myStateManager.Draw();
 
 	// Not sure why, bottom left of the screen is 0,0
 	// Top right of the screen is 800,600
