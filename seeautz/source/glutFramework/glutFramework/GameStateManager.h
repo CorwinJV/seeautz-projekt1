@@ -10,7 +10,7 @@ class GameStateManager
 
 private:
 	// Members
-	vector<GameState*> mStateList;
+	vector<GameState*> stateList;
     //*** List<GameState2D> stateList;
 
 
@@ -18,9 +18,11 @@ public:
 
 	GameStateManager();//(Game game)        : base(game)
     bool Initialize();
+
+	template <class T>
     bool addGameState();
     bool removeGameStateAt(int index);
-    bool removeGameState();//(GameState game)
+    bool removeTopGameState();//(GameState game)
     bool Update();//(GameTime gameTime)
     bool Draw();//(GameTime gameTime)
 };

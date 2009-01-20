@@ -18,7 +18,6 @@ bool GameState::initialize()
 	// debug options
 	displayCollisionDebug = true;
 
-
     // Initialize status
     currentStatus = Active;
 
