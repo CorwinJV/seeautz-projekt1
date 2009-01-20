@@ -18,7 +18,7 @@ private:
 	
 private:
 	GameStateManager myStateManager;
-	pixmap* img;
+
 
 };
 

@@ -13,17 +13,6 @@ bool GameStateManager::Initialize()
 	// if something bad happens, return false
 }
 
-template <class T>
-bool GameStateManager::addGameState()
-{
-	T* newGS = new T();
-	stateList.push_back(newGS)
-	return true;
-	// if something bad happens, return false
-}
-
-;
-
 bool GameStateManager::removeGameStateAt(int index)
 {
 	if (index < 0) // make sure we have an index that's at least position 0

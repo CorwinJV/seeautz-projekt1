@@ -8,7 +8,7 @@ enum State {
 
 class GameState
 {
-private:
+protected:
 	// Current State
 	State currentStatus;
 
@@ -20,9 +20,9 @@ public:
 	GameState();
 	~GameState();
 	
-	bool initialize();
-	bool Update();
-    bool Draw();
+	virtual bool initialize();
+	virtual bool Update();
+    virtual bool Draw();
 };
 
 #endif
