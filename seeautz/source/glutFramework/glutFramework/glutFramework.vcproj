@@ -198,6 +198,10 @@
 				RelativePath=".\TestState.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\TestState2.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -230,6 +234,10 @@
 			</File>
 			<File
 				RelativePath=".\TestState.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TestState2.h"
 				>
 			</File>
 		</Filter>

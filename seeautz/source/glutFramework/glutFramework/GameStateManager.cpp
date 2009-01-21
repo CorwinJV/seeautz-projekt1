@@ -31,7 +31,10 @@ bool GameStateManager::removeGameStateAt(int index)
 			return false;
 		}
 	}
+
+	delete (*itr);
 	stateList.erase(itr);
+
 	numStates--;
 
 	return true;
@@ -49,6 +52,7 @@ bool GameStateManager::removeGameStateID(int nukeID)
     {
 		if((*itr)->getID() == nukeID)
 		{
+			delete (*itr);
 			stateList.erase(itr);
 			numStates--;
 			return true; // item is found and erased
