@@ -2,12 +2,25 @@
 
 GameState::GameState()	// constructor
 {
+	stateID = 0;
     //graphics = new GraphicsDeviceManager(this);
     //content = new ContentManager(Services);
     // graphics.IsFullScreen = true;
 
     initialize();
 }
+
+GameState::GameState(GameStateManager &Parent, int newID)	// constructor
+{
+	GSM = &Parent;
+	stateID = newID;
+    //graphics = new GraphicsDeviceManager(this);
+    //content = new ContentManager(Services);
+    // graphics.IsFullScreen = true;
+
+    initialize();
+}
+
 GameState::~GameState()
 {
 
@@ -66,4 +79,20 @@ bool GameState::Draw()//GameTime gameTime)
 
 	return true;
 	// if something horribly bad happens return false
+}
+
+bool GameState::setStatus(State newStatus)
+{
+	currentStatus = newStatus;
+	return true;
+}
+
+State GameState::getStatus()
+{
+	return currentStatus;
+}
+
+int GameState::getID()
+{
+	return stateID;
 }

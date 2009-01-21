@@ -1,4 +1,5 @@
 #include "GameStateManager.h"
+#include <iostream>
 
 GameStateManager::GameStateManager()//(Game game)        : base(game)
 {
@@ -8,6 +9,8 @@ GameStateManager::GameStateManager()//(Game game)        : base(game)
 bool GameStateManager::Initialize()
 {
     // TODO: Add your initialization code here
+	stateCount = -1;
+	numStates = 0;
 
 	return true;
 	// if something bad happens, return false
@@ -28,13 +31,32 @@ bool GameStateManager::removeGameStateAt(int index)
 			return false;
 		}
 	}
-
 	stateList.erase(itr);
+	numStates--;
 
 	return true;
 	// if something bad happens, return false
 }
 
+bool GameStateManager::removeGameStateID(int nukeID)
+{
+	if (nukeID < 0) // make sure we have an index that's at least position 0
+		return false;
+
+	// erase the item at this index
+	vector<GameState*>::iterator itr = stateList.begin();
+	for (; itr != stateList.end(); itr++)
+    {
+		if((*itr)->getID() == nukeID)
+		{
+			stateList.erase(itr);
+			numStates--;
+			return true; // item is found and erased
+		}
+    }
+
+	return false; // item wasn't found
+}
 
 bool GameStateManager::removeTopGameState()
 {
@@ -51,7 +73,14 @@ bool GameStateManager::Update()
 
 	for (; itr != stateList.end(); itr++)
     {
-		(*itr)->Update();
+		//std::cout << "State ID : " << (*itr)->getID() << " status is " << (*itr)->getStatus() << endl;
+
+		if((*itr)->getStatus() == Active)
+		{
+			(*itr)->Update();
+			//std::cout << "State ID : " << (*itr)->getID() << " has been updated" << endl;
+
+		}
     }
 
 	return true;
@@ -65,9 +94,41 @@ bool GameStateManager::Draw()//(GameTime gameTime)
 
 	for (; itr != stateList.end(); itr++)
     {
-		(*itr)->Draw();
+		if((*itr)->getStatus() <= Passive)
+		{
+			(*itr)->Draw();
+			//std::cout << "State ID : " << (*itr)->getID() << " has been drawn" << endl;
+		}
     }
 
 	return true;
 	// if something bad happens, return false
+}
+
+bool GameStateManager::setState(int stateID, State newStatus = Active)
+{
+	if (stateID < 0) // make sure we have an index that's at least position 0
+		return false;
+
+	// erase the item at this index
+	vector<GameState*>::iterator itr = stateList.begin();
+	for (; itr != stateList.end(); itr++)
+    {
+		if((*itr)->getID() == stateID)
+		{
+			(*itr)->setStatus(newStatus);
+			return true; // item is found and erased
+		}
+    }
+	return false; // item wasn't found
+}
+
+int GameStateManager::getStateCount()
+{
+	return stateCount;
+}
+
+int GameStateManager::getNumStates()
+{
+	return numStates;
 }
