@@ -1,4 +1,5 @@
 #include "GameState.h"
+#include "GameStateManager.h"
 
 GameState::GameState()	// constructor
 {

@@ -75,15 +75,51 @@ bool GameStateManager::Update()
     // TODO: Add your update code here
 	vector<GameState*>::iterator itr = stateList.begin();
 
+	// update statelist
 	for (; itr != stateList.end(); itr++)
     {
-		//std::cout << "State ID : " << (*itr)->getID() << " status is " << (*itr)->getStatus() << endl;
+		std::cout << "GSM - State ID : " << (*itr)->getID() << " status is ";
+		switch((*itr)->getStatus())
+		{
+		case 0:
+			std::cout << " Active ";
+			break;
+		case 1:
+			std::cout << " Passive ";
+			break;
+		case 2:
+			std::cout << " Hidden ";
+			break;
+		case 3:
+			std::cout << " DeleteMe ";
+			break;
+		default:
+			std::cout << " INVALID STATE ";
+			break;
+		}			
+		std::cout << endl;
 
 		if((*itr)->getStatus() == Active)
 		{
 			(*itr)->Update();
-			//std::cout << "State ID : " << (*itr)->getID() << " has been updated" << endl;
+			std::cout << "GSM - State ID : " << (*itr)->getID() << " has been updated" << endl;
 
+		}
+    }
+
+	itr = stateList.end();
+		itr--;
+
+	// delete any states flagged for deletion
+	for (; itr != stateList.begin(); itr--)
+    {
+		if((*itr)->getStatus() == DeleteMe)
+		{
+			std::cout << "GSM - State ID : " << (*itr)->getID() << " is about to be deleted" << endl;
+			delete (*itr);
+			stateList.erase(itr);
+			numStates--;
+			break;
 		}
     }
 
@@ -101,7 +137,7 @@ bool GameStateManager::Draw()//(GameTime gameTime)
 		if((*itr)->getStatus() <= Passive)
 		{
 			(*itr)->Draw();
-			//std::cout << "State ID : " << (*itr)->getID() << " has been drawn" << endl;
+			std::cout << "GSM - State ID : " << (*itr)->getID() << " has been drawn" << endl;
 		}
     }
 

@@ -12,18 +12,18 @@ projekt1App::projekt1App(std::string title, int sizeX, int sizeY, int argc, char
 
 	// Load our starting state into the GameStateManager
 	myStateManager.addGameState<TestState>();		// 0
-	myStateManager.addGameState<TestState2>();		// 1	gets deleted
-	myStateManager.addGameState<TestState2>();		// 2	stays active
-	myStateManager.addGameState<TestState2>();		// 3	gets set passive
-	myStateManager.addGameState<TestState2>();		// 4	gets set hidden
-	//myStateManager.addGameState<TestState2>();		// 5
-	//myStateManager.addGameState<TestState2>();		// 6
-	//myStateManager.addGameState<TestState2>();		// 7
+	//myStateManager.addGameState<TestState2>();		// 1	gets deleted
+	//myStateManager.addGameState<TestState2>();		// 2	stays active
+	//myStateManager.addGameState<TestState2>();		// 3	gets set passive
+	//myStateManager.addGameState<TestState2>();		// 4	gets set hidden
+	////myStateManager.addGameState<TestState2>();		// 5
+	////myStateManager.addGameState<TestState2>();		// 6
+	////myStateManager.addGameState<TestState2>();		// 7
 
-	myStateManager.removeGameStateID(1);
+	//myStateManager.removeGameStateID(1);
 
-	myStateManager.setState(3, Passive);
-	myStateManager.setState(4, Hidden);
+	//myStateManager.setState(3, Passive);
+	//myStateManager.setState(4, Hidden);
 }
 
 void projekt1App::initOpenGL()
@@ -44,6 +44,7 @@ void projekt1App::initOpenGL()
 
 void projekt1App::updateScene(void)
 {
+	std::cout << "project1App - Starting Update" << std::endl;
 	myStateManager.Update();
 }
 
