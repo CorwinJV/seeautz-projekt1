@@ -12,9 +12,14 @@ class GameStateManager
 private:
 	// Members
 	vector<GameState*> stateList;
+<<<<<<< .mine
+	int stateCount;	// id numbers
+	int numStates;	// current number of states
+=======
     //*** List<GameState2D> stateList;
 	int stateCount;	// id numbers
 	int numStates;	// current number of states
+>>>>>>> .r39
 
 public:
 
@@ -27,8 +32,13 @@ public:
 
 		stateCount++;
 		numStates++;
+<<<<<<< .mine
+
+		std::cout << "GSM:addGAmeState - Adding new Gamestate " << std::endl;
+=======
 
 		std::cout << "GSM:addGAmeState - Adding new Gamestate ";
+>>>>>>> .r39
 		T* newGS = new T(*this, stateCount);
 		newGS->setStatus(newState);
 		stateList.push_back(newGS);
@@ -44,6 +54,7 @@ public:
 	bool setState(int stateID, State newStatus);
     bool Update();//(GameTime gameTime)
     bool Draw();//(GameTime gameTime)
+	bool setList(vector<GameState*> newlist);
 };
 
 #endif

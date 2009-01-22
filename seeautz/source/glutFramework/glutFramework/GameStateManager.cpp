@@ -12,6 +12,18 @@ bool GameStateManager::Initialize()
 	stateCount = -1;
 	numStates = 0;
 
+	// my VERY horribly horribly bad way of fixing the pointer issue with the vectors resizing themselves
+	GameState* tempGS = new GameState(*this, stateCount);
+
+	for(int x = 0; x < 500; x++)
+	{
+		stateList.push_back(tempGS);
+	}
+
+	stateList.erase(stateList.begin(), stateList.end());
+	delete tempGS;
+
+	
 	return true;
 	// if something bad happens, return false
 }
@@ -78,6 +90,18 @@ bool GameStateManager::Update()
 	// update statelist
 	for (; itr != stateList.end(); itr++)
     {
+<<<<<<< .mine
+		std::cout << "GSM - State ID : " << (*itr)->getID() << " status is ";
+		switch((*itr)->getStatus())
+		{
+		case 0:			std::cout << " Active ";			break;	
+		case 1:			std::cout << " Passive ";			break;	
+		case 2:			std::cout << " Hidden ";			break;
+		case 3:			std::cout << " DeleteMe ";			break;
+		default:		std::cout << " INVALID STATE ";		break;
+		}			
+		std::cout << endl;
+=======
 		std::cout << "GSM - State ID : " << (*itr)->getID() << " status is ";
 		switch((*itr)->getStatus())
 		{
@@ -98,6 +122,7 @@ bool GameStateManager::Update()
 			break;
 		}			
 		std::cout << endl;
+>>>>>>> .r39
 
 		if((*itr)->getStatus() == Active)
 		{
@@ -107,6 +132,24 @@ bool GameStateManager::Update()
 		}
     }
 
+<<<<<<< .mine
+	itr = stateList.end();
+	itr--;
+
+	// delete any states flagged for deletion
+	for (; itr != stateList.begin(); itr--)
+    {
+		if((*itr)->getStatus() == DeleteMe)
+		{
+			std::cout << "GSM - State ID : " << (*itr)->getID() << " is about to be deleted" << endl;
+			delete (*itr);
+			stateList.erase(itr);
+			numStates--;
+			break;
+		}
+    }
+
+=======
 	itr = stateList.end();
 		itr--;
 
@@ -123,6 +166,7 @@ bool GameStateManager::Update()
 		}
     }
 
+>>>>>>> .r39
 	return true;
 	// if something bad happens, return false
 }
@@ -171,4 +215,11 @@ int GameStateManager::getStateCount()
 int GameStateManager::getNumStates()
 {
 	return numStates;
+}
+
+bool GameStateManager::setList(vector<GameState*> newlist)
+{
+	// delete stateList; // ?? not sure if this is needed or not
+	stateList = newlist;
+	return true;
 }
