@@ -13,8 +13,8 @@ private:
 	// Members
 	vector<GameState*> stateList;
     //*** List<GameState2D> stateList;
-	int stateCount;
-	int numStates;
+	int stateCount;	// id numbers
+	int numStates;	// current number of states
 
 public:
 
@@ -24,8 +24,11 @@ public:
 	template <class T>
 	inline bool addGameState(State newState = Active)
 	{
+
 		stateCount++;
 		numStates++;
+
+		std::cout << "GSM:addGAmeState - Adding new Gamestate ";
 		T* newGS = new T(*this, stateCount);
 		newGS->setStatus(newState);
 		stateList.push_back(newGS);

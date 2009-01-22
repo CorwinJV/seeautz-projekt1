@@ -28,15 +28,15 @@ bool TestState::Update()
     int vPort[4];
     glGetIntegerv(GL_VIEWPORT, vPort);
 
-	img->mX += 1;
+	img->mX += 2;
 	if(img->mX > vPort[2])
 		img->mX = 0;
 
-	if(img->mX % 100 == 0)
+	if(img->mX % 50 == 0)
 	{
-		if(GSM->getNumStates() < 6)
+		if(GSM->getNumStates() < 7)
 		{
-			std::cout << "attempting to add a new teststate" << std::endl;
+			std::cout << "TestState - attempting to add a new teststate2" << std::endl;
 			GSM->addGameState<TestState2>();
 		}
 	}
@@ -45,7 +45,7 @@ bool TestState::Update()
 	if(img->mY > vPort[3])
 		img->mY = 0;
 
-	std::cout << img->mX  << " ";
+	std::cout << "TestState - ID:" << stateID << " img->mX = " << img->mX  << endl;
 
 	return true;
 }
