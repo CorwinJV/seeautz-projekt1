@@ -171,11 +171,19 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\Button.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\GameState.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\GameStateManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MenuSystem.cpp"
 				>
 			</File>
 			<File
@@ -209,11 +217,23 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\Button.h"
+				>
+			</File>
+			<File
 				RelativePath=".\GameState.h"
 				>
 			</File>
 			<File
 				RelativePath=".\GameStateManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MenuSystem.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ogIApp.h"
 				>
 			</File>
 			<File
