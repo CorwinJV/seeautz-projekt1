@@ -34,9 +34,20 @@ bool TestState::Update()
 
 	if(img->mX % 50 == 0)
 	{
+<<<<<<< .mine
+		//if(GSM->getNumStates() < 7)
+=======
 		if(GSM->getNumStates() < 7)
+>>>>>>> .r39
 		{
+<<<<<<< .mine
+			//std::cout << "TestState - attempting to add a new teststate2 " << GSM->getStateCount() << " - " << GSM->getNumStates() << std::endl;
+			// create new temp vector
+			// add state to vector
+			// merge vectors
+=======
 			std::cout << "TestState - attempting to add a new teststate2" << std::endl;
+>>>>>>> .r39
 			GSM->addGameState<TestState2>();
 		}
 	}
@@ -45,7 +56,11 @@ bool TestState::Update()
 	if(img->mY > vPort[3])
 		img->mY = 0;
 
+<<<<<<< .mine
+	//std::cout << "TestState - ID:" << stateID << " img->mX = " << img->mX  << endl;
+=======
 	std::cout << "TestState - ID:" << stateID << " img->mX = " << img->mX  << endl;
+>>>>>>> .r39
 
 	return true;
 }

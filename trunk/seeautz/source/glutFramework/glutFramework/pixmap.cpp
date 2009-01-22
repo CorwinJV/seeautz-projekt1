@@ -42,7 +42,7 @@ void pixmap::read(const char *fname)
 
 	fin.read((byte *)&width, sizeof(unsigned));
 	fin.read((byte *)&height, sizeof(unsigned));
-	cout << "width: " << width << " height: " << height << '\n';
+	//cout << "width: " << width << " height: " << height << '\n';
 
 	fin.read((byte *)&planes, sizeof(unsigned short));
 	if( planes != 1 )
