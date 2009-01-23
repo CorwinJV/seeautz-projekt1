@@ -21,7 +21,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -210,6 +210,74 @@
 				RelativePath=".\TestState2.cpp"
 				>
 			</File>
+			<Filter
+				Name="States_SourceFiles"
+				>
+				<File
+					RelativePath=".\States\AbortState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\States\DevLogoState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\States\ExecutionModeState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\States\LevelViewState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\States\LoadGameState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\States\LogicViewState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\States\MainGameLoopState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\States\MainMenuState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\States\NewLevelState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\States\OptionsState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\States\PostGameState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\States\PreGameState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\States\ProfileMgrState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\States\StartNewGameState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\States\StopLoopState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\States\SucceedState.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -264,12 +332,80 @@
 				RelativePath=".\TestState2.h"
 				>
 			</File>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
-			>
+			<Filter
+				Name="States_HeaderFiles"
+				>
+				<File
+					RelativePath=".\States\AbortState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\States\DevLogoState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\States\ExecutionModeState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\States\LevelViewState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\States\LoadGameState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\States\LogicViewState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\States\MainGameLoopState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\States\MainMenuState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\States\NewLevelState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\States\OptionsState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\States\PostGameState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\States\PreGameState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\States\ProfileMgrState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\States\StartNewGameState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\States\StopLoopState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\States\SucceedState.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Resource Files"
+				Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
+				UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
+				>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>
