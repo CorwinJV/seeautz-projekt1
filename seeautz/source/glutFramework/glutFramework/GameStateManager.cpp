@@ -15,15 +15,6 @@ bool GameStateManager::Initialize()
 	// my VERY horribly horribly bad way of fixing the pointer issue with the vectors resizing themselves
 	GameState* tempGS = new GameState(*this, stateCount);
 
-	for(int x = 0; x < 500; x++)
-	{
-		stateList.push_back(tempGS);
-	}
-
-	stateList.erase(stateList.begin(), stateList.end());
-	delete tempGS;
-
-	
 	return true;
 	// if something bad happens, return false
 }
@@ -84,7 +75,9 @@ bool GameStateManager::removeTopGameState()
 
 bool GameStateManager::Update()
 {
-    // TODO: Add your update code here
+	//=======================================
+	// Update Game States
+	//=======================================
 	vector<GameState*>::iterator itr = stateList.begin();
 
 	// update statelist
@@ -109,8 +102,12 @@ bool GameStateManager::Update()
 		}
     }
 
+	//=======================================
+	// Delete Pending Game States
+	//=======================================
 	itr = stateList.end();
-	itr--;
+	if(stateList.empty() == false)
+		itr--;
 
 	// delete any states flagged for deletion
 	for (; itr != stateList.begin(); itr--)
@@ -124,6 +121,18 @@ bool GameStateManager::Update()
 			break;
 		}
     }
+
+	//=======================================
+	// Add Pending Game States
+	//=======================================
+	itr = statesToAdd.begin();
+	for(; itr != statesToAdd.end(); itr++)
+	{
+		stateList.push_back((*itr));
+		stateCount++;
+		numStates++;
+	}
+	statesToAdd.clear();
 
 	return true;
 	// if something bad happens, return false
