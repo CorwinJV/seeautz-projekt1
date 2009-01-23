@@ -7,13 +7,9 @@ TestState::TestState() : GameState() // constructor
 {
 }
 
-TestState::TestState(GameStateManager &Parent, int newID) : GameState() // constructor
+TestState::TestState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 {
-	GSM = &Parent;
-	stateID = newID;
-    //graphics = new GraphicsDeviceManager(this);
-    //content = new ContentManager(Services);
-    // graphics.IsFullScreen = true;
+
 	img = new pixmap("awesome.bmp");
 
 	testMenu = new MenuSys(250, 350, "blankmenu.bmp");
