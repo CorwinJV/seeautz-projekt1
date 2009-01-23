@@ -12,6 +12,7 @@ class GameStateManager
 private:
 	// Members
 	vector<GameState*> stateList;
+	vector<GameState*> statesToAdd;
 	int stateCount;	// id numbers
 	int numStates;	// current number of states
 
@@ -23,14 +24,10 @@ public:
 	template <class T>
 	inline bool addGameState(State newState = Active)
 	{
-
-		stateCount++;
-		numStates++;
-
 		std::cout << "GSM:addGAmeState - Adding new Gamestate " << std::endl;
 		T* newGS = new T(*this, stateCount);
 		newGS->setStatus(newState);
-		stateList.push_back(newGS);
+		statesToAdd.push_back(newGS);
 		return true;
 		// if something bad happens, return false
 	}
