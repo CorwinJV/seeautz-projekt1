@@ -109,8 +109,12 @@ void pixmap::drawPixMap()
 	// in order to put it in the proper position'
 	// such that if we want a pixel in position 48, we multiply
 	// 48 by 0.002 and endup with 0.096 for the viewport position
+
+	float newmY = vpY - mY - height;
+	//std::cout << "mY = " << mY << " height = " << height << std::endl;
 	float newRasterX = (float)(mX*pixelwidth) - 1.0f;
-	float newRasterY = (float)(mY*pixelheight - 1.0f);
+	float newRasterY = (float)(newmY*pixelheight - 1.0f);
+	
 
 	glRasterPos2f(newRasterX, newRasterY);
 	glDrawPixels(this->width, this->height, GL_RGB, GL_UNSIGNED_BYTE, data);

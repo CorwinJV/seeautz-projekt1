@@ -12,7 +12,7 @@ TestState::TestState(GameStateManager &Parent, int newID) : GameState(Parent, ne
 
 	img = new pixmap("awesome.bmp");
 
-	testMenu = new MenuSys(250, 350, "blankmenu.bmp");
+	testMenu = new MenuSys(250, 50, "blankmenu.bmp");
 	testMenu->addButton( 5, 5, "button1normal.bmp", "button1down.bmp", "button1over.bmp");
 	testMenu->addButton( 5, 5, "button2normal.bmp", "button2down.bmp", "button2over.bmp");
 	testMenu->addButton( 5, 5, "button3normal.bmp", "button3down.bmp", "button3over.bmp");
