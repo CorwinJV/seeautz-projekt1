@@ -60,6 +60,25 @@ bool Button::Remove()
 
 bool Button::Update()
 {
+	if(normal != NULL)
+		normal->mY = buttonYPos;
+
+	if(hover != NULL)
+		hover->mY = buttonYPos;
+
+	if(clicked != NULL)
+		clicked->mY = buttonYPos;
+
+	if(normal != NULL)
+		normal->mX = buttonXPos;
+
+	if(hover != NULL)
+		hover->mX = buttonXPos;
+
+	if(clicked != NULL)
+		clicked->mX = buttonXPos;
+
+
 	//check for mouse position
 	//update button images
 	return true;
