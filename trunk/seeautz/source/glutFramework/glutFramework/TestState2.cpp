@@ -20,7 +20,7 @@ TestState2::TestState2(GameStateManager &Parent, int newID) : GameState() // con
 }
 TestState2::~TestState2()
 {
-
+	delete img;
 }
 
 bool TestState2::Update()
@@ -28,11 +28,11 @@ bool TestState2::Update()
     int vPort[4];
     glGetIntegerv(GL_VIEWPORT, vPort);
 
-	img->mX += 5;
+	img->mX += 2;
 	if(img->mX > vPort[2])
 		img->mX = 0;
 
-	img->mY += 5;
+	img->mY += 2;
 	if(img->mY > vPort[3])
 		img->mY = 0;
 
