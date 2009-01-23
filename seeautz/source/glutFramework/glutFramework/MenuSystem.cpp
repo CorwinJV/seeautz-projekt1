@@ -4,7 +4,8 @@
 #include <cstring>
 
 //constructor
-MenuSys::MenuSys(int xpos, int ypos, string imgname)
+MenuSys::MenuSys(int xpos, int ypos, string imgname, Justification nbuttonJust)
+: menuImage(NULL)
 {
 	menuXPos = xpos;
 	menuYPos = ypos;
@@ -12,6 +13,17 @@ MenuSys::MenuSys(int xpos, int ypos, string imgname)
 	menuImage->mX = xpos;
 	menuImage->mY = ypos;
 	numButtons = 0;
+	buttonJust = nbuttonJust;
+	
+}
+
+MenuSys::MenuSys()
+{
+	menuXPos = 0;
+	menuYPos = 0;
+	menuImage = NULL;
+	numButtons = 0;
+	buttonJust = None;
 }
 
 //destructor
@@ -90,28 +102,31 @@ void MenuSys::setMenuYPos(int position)
 
 void MenuSys::recalcButtonPositions()
 {
-	if(numButtons > 0)
+	if((buttonJust == Auto) && (menuImage != NULL))
 	{
-		double tempheight = 0;
-		double offsety = 0;
-		double totalheight = 0;
-		double currentspot = 0;
-
-		for(int x = 0; x < numButtons; x++)
+		if(numButtons > 0)
 		{
-			totalheight += buttonList[x]->getHeight();			
-		}
-		tempheight = menuImage->height - totalheight;
-		offsety = (tempheight / numButtons);
-		currentspot = offsety/2;
+			double tempheight = 0;
+			double offsety = 0;
+			double totalheight = 0;
+			double currentspot = 0;
 
-		currentspot += menuImage->mY;
-		for(int x = 0; x < numButtons; x++)
-		{
-			buttonList[x]->setButtonYPos(currentspot);
-			buttonList[x]->setButtonXPos((((menuImage->mX + menuImage->width + menuImage->mX) / 2) - (buttonList[x]->getWidth()/2)));
-			currentspot += buttonList[x]->getHeight();
-			currentspot += offsety;
+			for(int x = 0; x < numButtons; x++)
+			{
+				totalheight += buttonList[x]->getHeight();			
+			}
+			tempheight = menuImage->height - totalheight;
+			offsety = (tempheight / numButtons);
+			currentspot = offsety/2;
+
+			currentspot += menuImage->mY;
+			for(int x = 0; x < numButtons; x++)
+			{
+				buttonList[x]->setButtonYPos(currentspot);
+				buttonList[x]->setButtonXPos((((menuImage->mX + menuImage->width + menuImage->mX) / 2) - (buttonList[x]->getWidth()/2)));
+				currentspot += buttonList[x]->getHeight();
+				currentspot += offsety;
+			}
 		}
 	}
 }

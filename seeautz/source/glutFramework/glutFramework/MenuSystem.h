@@ -10,6 +10,11 @@
 
 using namespace std;
 
+enum Justification{ 
+				None,		// no justification - use default values
+				Auto		// automatically justified
+};
+
 class MenuSys
 {
 protected:
@@ -18,11 +23,14 @@ protected:
 	int menuXPos;
 	int menuYPos;
 	int numButtons;
+	Justification buttonJust;
+
 	pixmap* menuImage;
 	vector<Button*> buttonList;
 
 public:
-	MenuSys(int xpos = 0, int ypos = 0, string imgname = "");
+	MenuSys(int xpos, int ypos, string imgname, Justification nbuttonJust = Auto);
+	MenuSys();
 	~MenuSys();
 
 	//template <class T>
@@ -31,6 +39,17 @@ public:
 		numButtons++;
 		std::cout << "MS:addButton - Adding new Button " << std::endl;
 		Button* newButton = new Button(buttonXpos, buttonYpos, buttonImageNormal, buttonImageClicked, buttonImageHover);  // this needs to be implemented for button constructor
+		buttonList.push_back(newButton);
+		recalcButtonPositions();
+		return true;
+		// if something bad happens, return false
+	}
+
+	inline bool addButton(string buttonImageNormal = "normal.bmp", string buttonImageClicked = "clicked.bmp", string buttonImageHover = "hover.bmp")
+	{
+		numButtons++;
+		std::cout << "MS:addButton - Adding new Button " << std::endl;
+		Button* newButton = new Button(0, 0, buttonImageNormal, buttonImageClicked, buttonImageHover);  // this needs to be implemented for button constructor
 		buttonList.push_back(newButton);
 
 		recalcButtonPositions();
