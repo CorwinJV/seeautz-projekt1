@@ -7,8 +7,11 @@ oglApp* newApp = NULL;
 // Function prototypes
 void doRendering( void );
 
+// mouse stuff
+
 int main(int argc, char **argv)
 {
+
 	newApp = new projekt1App("Awesome", 1024, 768, argc, argv);
 	glutDisplayFunc(doRendering);
 	glutIdleFunc(doRendering);
