@@ -211,7 +211,7 @@
 				>
 			</File>
 			<Filter
-				Name="States_SourceFiles"
+				Name="States"
 				>
 				<File
 					RelativePath=".\States\AbortState.cpp"
@@ -333,7 +333,7 @@
 				>
 			</File>
 			<Filter
-				Name="States_HeaderFiles"
+				Name="States"
 				>
 				<File
 					RelativePath=".\States\AbortState.h"

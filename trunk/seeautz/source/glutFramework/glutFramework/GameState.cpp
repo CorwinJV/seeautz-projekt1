@@ -57,7 +57,9 @@ bool GameState::initialize()
 
 bool GameState::Update()//GameTime gameTime)
 {
-    // The only important line for managing objects
+	myMenu->Update();
+	
+	// The only important line for managing objects
    // myObjManager.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
     //myObjManager.CollectGarbage();
 
@@ -67,7 +69,9 @@ bool GameState::Update()//GameTime gameTime)
 
 bool GameState::Draw()//GameTime gameTime)
 {
-    //graphics.GraphicsDevice.Clear(Color.Black);
+	myMenu-Draw();
+ 
+	//graphics.GraphicsDevice.Clear(Color.Black);
 
     //batchRender.Begin();
     /*foreach (BasicObject tempObject in myObjManager.ObjectList)

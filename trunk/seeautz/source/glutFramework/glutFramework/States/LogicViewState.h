@@ -6,7 +6,14 @@
 class LogicViewState : public GameState
 {
 public:
-	// add public stuff here
+	LogicViewState() {};
+	LogicViewState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
+	{
+	}
+
+	bool LogicViewState::Update();
+	bool LogicViewState::Draw();
+
 private:
 	// add private stuuf here
 

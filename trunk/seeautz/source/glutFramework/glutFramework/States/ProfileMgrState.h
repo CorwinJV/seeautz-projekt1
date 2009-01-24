@@ -6,7 +6,13 @@
 class ProfileMgrState : public GameState
 {
 public:
-	// add public stuff here
+	ProfileMgrState() {};
+	ProfileMgrState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
+	{
+	}
+
+	bool ProfileMgrState::Update();
+	bool ProfileMgrState::Draw();
 
 private:
 	// add private stuff here

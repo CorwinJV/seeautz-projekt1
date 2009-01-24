@@ -6,7 +6,13 @@
 class MainMenuState : public GameState
 {
 public:
-	// add public stuff here
+	MainMenuState() {};
+	MainMenuState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
+	{
+	}
+
+	bool MainMenuState::Update();
+	bool MainMenuState::Draw();
 
 private:
 

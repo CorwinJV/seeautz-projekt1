@@ -1,7 +1,15 @@
 #ifndef MENUSYS_H
 #define MENUSYS_H
+
+///      Hey guys. When I moved to put a MenuSys pointer into the base GameState
+/// it fucked everything up because MenuSystem.h and Button.h both had 
+/// references to GameState.h which means we put the compiler in a nice little
+/// infinite loop xD.
+///      I moved the definition for the "State" enum into
+/// oglUtility for now. I know it's not the best fix but I think that it
+/// will work for everything we need it to. -Corwin
+
 #include "oglUtility.h"
-#include "GameState.h"
 #include "pixmap.h"
 #include "Button.h"
 #include <cstring>

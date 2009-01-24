@@ -7,8 +7,13 @@
 class AbortState : public GameState
 {
 public:
+	AbortState() {};
+	AbortState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
+	{
+	}
 
-	//add public stuff here
+	bool AbortState::Update();
+	bool AbortState::Draw();
 
 private:
 	// add private stuff here

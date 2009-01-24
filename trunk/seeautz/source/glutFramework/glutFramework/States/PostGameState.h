@@ -6,7 +6,13 @@
 class PostGameState : public GameState
 {
 public:
-	// add public stuff here
+	PostGameState() {};
+	PostGameState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
+	{
+	}
+
+	bool PostGameState::Update();
+	bool PostGameState::Draw();
 
 private:
 	// add private stuff here

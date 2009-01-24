@@ -3,7 +3,6 @@
 #include "oglUtility.h"
 #include "GameState.h"
 #include "pixmap.h"
-#include "MenuSystem.h"
 #include "TestState2.h"
 
 class TestState : public GameState
@@ -17,7 +16,6 @@ public:
 
 private:
 	pixmap* img;
-	MenuSys *testMenu;
 };
 
 #endif

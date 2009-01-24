@@ -6,8 +6,13 @@
 class PreGameState : public GameState
 {
 public:
+	PreGameState() {};
+	PreGameState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
+	{
+	}
 
-	// add public stuff here
+	bool PreGameState::Update();
+	bool PreGameState::Draw();
 
 private:
 

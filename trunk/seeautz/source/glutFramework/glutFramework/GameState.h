@@ -1,15 +1,9 @@
 #ifndef GAMESTATE_H
 #define GAMESTATE_H
 
-enum State { 
-				Active,		// updating	and drawing
-				Passive,	// drawing and not updating
-				Hidden,		// not updating and not drawing
-				DeleteMe,	// flagged for removal
-};
+#include "MenuSystem.h"
 
 class GameStateManager;
-
 class GameState
 {
 protected:
@@ -20,7 +14,9 @@ protected:
 	bool displayCollisionDebug;
     int screenHeight;
     int screenWidth;
+	
 	GameStateManager *GSM;
+	MenuSys *myMenu;
 
 public:
 	GameState();

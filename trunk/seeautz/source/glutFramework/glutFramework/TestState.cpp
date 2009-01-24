@@ -13,11 +13,11 @@ TestState::TestState(GameStateManager &Parent, int newID) : GameState(Parent, ne
 	img = new pixmap("awesome.bmp");
 
 	//testMenu = new MenuSys(250, 50, "blankmenu.bmp", Auto);
-	testMenu = new MenuSys();
-	testMenu->addButton( 25, 100, "button1normal.bmp", "button1down.bmp", "button1over.bmp");
-	testMenu->addButton( 125, 200, "button2normal.bmp", "button2down.bmp", "button2over.bmp");
-	testMenu->addButton( 150, 300, "button3normal.bmp", "button3down.bmp", "button3over.bmp");
-	testMenu->addButton( 225, 400, "button4normal.bmp", "button4down.bmp", "button4over.bmp");
+	myMenu = new MenuSys();
+	myMenu->addButton( 25, 100, "button1normal.bmp", "button1down.bmp", "button1over.bmp");
+	myMenu->addButton( 125, 200, "button2normal.bmp", "button2down.bmp", "button2over.bmp");
+	myMenu->addButton( 150, 300, "button3normal.bmp", "button3down.bmp", "button3over.bmp");
+	myMenu->addButton( 225, 400, "button4normal.bmp", "button4down.bmp", "button4over.bmp");
     initialize();
 }
 TestState::~TestState()
@@ -52,7 +52,6 @@ bool TestState::Update()
 		img->mY = 0;
 
 	//std::cout << "TestState - ID:" << stateID << " img->mX = " << img->mX  << endl;
-	testMenu->Update();
 
 	return true;
 }
@@ -62,6 +61,5 @@ bool TestState::Draw()
 	if(img != NULL)
 		img->drawPixMap();
 
-	testMenu->Draw();
 	return true;
 }
