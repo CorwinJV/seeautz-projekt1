@@ -6,7 +6,13 @@
 class MainGameLoopState : public GameState
 {
 public:
-	// add public stuff here
+	MainGameLoopState() {};
+	MainGameLoopState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
+	{
+	}
+
+	bool MainGameLoopState::Update();
+	bool MainGameLoopState::Draw();
 
 private:
 

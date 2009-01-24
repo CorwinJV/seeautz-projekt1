@@ -6,7 +6,13 @@
 class StopLoopState : public GameState
 {
 public:
-	// add public stuff here
+	StopLoopState() {};
+	StopLoopState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
+	{
+	}
+
+	bool StopLoopState::Update();
+	bool StopLoopState::Draw();
 
 private:
 	// add private stuff here

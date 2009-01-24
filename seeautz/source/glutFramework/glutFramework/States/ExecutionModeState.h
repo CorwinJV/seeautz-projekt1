@@ -6,9 +6,13 @@
 class ExecutionModeState : public GameState
 {
 public:
+	ExecutionModeState() {};
+	ExecutionModeState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
+	{
+	}
 
-	// add public stuff here
-
+	bool ExecutionModeState::Update();
+	bool ExecutionModeState::Draw();
 private:
 
 	// add private stuff here

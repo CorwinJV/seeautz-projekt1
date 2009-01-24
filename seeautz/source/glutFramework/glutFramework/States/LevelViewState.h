@@ -6,7 +6,13 @@
 class LevelViewState : public GameState
 {
 public:
-	// add public stuff here
+	LevelViewState() {};
+	LevelViewState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
+	{
+	}
+
+	bool LevelViewState::Update();
+	bool LevelViewState::Draw();
 
 private:
 	// add private stuff here

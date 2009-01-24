@@ -1,6 +1,7 @@
 #ifndef BUTTONS_H
 #define BUTTONS_H
-#include "GameState.h"
+
+#include "oglUtility.h"
 #include "pixmap.h"
 #include <cstring>
 #include <iostream>

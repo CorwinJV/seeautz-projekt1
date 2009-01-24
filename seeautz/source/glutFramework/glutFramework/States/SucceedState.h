@@ -6,7 +6,13 @@
 class SucceedState : public GameState
 {
 public:
-	// add public stuff here
+	SucceedState() {};
+	SucceedState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
+	{
+	}
+
+	bool SucceedState::Update();
+	bool SucceedState::Draw();
 
 private:
 	// add private stuff here

@@ -44,7 +44,6 @@ void oglApp::drawScene(void)
 void oglApp::glEnable2D()
 {
    int vPort[4];
-
    glGetIntegerv(GL_VIEWPORT, vPort);
 
    glMatrixMode(GL_PROJECTION);
