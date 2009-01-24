@@ -12,8 +12,8 @@ TestState::TestState(GameStateManager &Parent, int newID) : GameState(Parent, ne
 
 	img = new pixmap("awesome.bmp");
 
-	//testMenu = new MenuSys(250, 50, "blankmenu.bmp", Auto);
-	myMenu = new MenuSys();
+	myMenu = new MenuSys(250, 50, "blankmenu.bmp", Auto);
+	//myMenu = new MenuSys();
 	myMenu->addButton( 25, 100, "button1normal.bmp", "button1down.bmp", "button1over.bmp");
 	myMenu->addButton( 125, 200, "button2normal.bmp", "button2down.bmp", "button2over.bmp");
 	myMenu->addButton( 150, 300, "button3normal.bmp", "button3down.bmp", "button3over.bmp");
@@ -53,6 +53,8 @@ bool TestState::Update()
 
 	//std::cout << "TestState - ID:" << stateID << " img->mX = " << img->mX  << endl;
 
+	myMenu->Update();
+
 	return true;
 }
 
@@ -60,6 +62,8 @@ bool TestState::Draw()
 {
 	if(img != NULL)
 		img->drawPixMap();
+
+	myMenu->Draw();
 
 	return true;
 }

@@ -12,7 +12,6 @@ bool GameStateManager::Initialize()
 	stateCount = -1;
 	numStates = 0;
 
-	// my VERY horribly horribly bad way of fixing the pointer issue with the vectors resizing themselves
 	GameState* tempGS = new GameState(*this, stateCount);
 
 	return true;

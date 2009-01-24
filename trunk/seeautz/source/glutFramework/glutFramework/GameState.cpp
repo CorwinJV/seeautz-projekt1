@@ -57,7 +57,8 @@ bool GameState::initialize()
 
 bool GameState::Update()//GameTime gameTime)
 {
-	myMenu->Update();
+	if(myMenu != NULL)
+		myMenu->Update();
 	
 	// The only important line for managing objects
    // myObjManager.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
@@ -69,7 +70,8 @@ bool GameState::Update()//GameTime gameTime)
 
 bool GameState::Draw()//GameTime gameTime)
 {
-	myMenu-Draw();
+	if(myMenu != NULL)
+		myMenu-Draw();
  
 	//graphics.GraphicsDevice.Clear(Color.Black);
 
