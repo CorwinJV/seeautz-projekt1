@@ -85,11 +85,11 @@ bool GameStateManager::Update()
 		std::cout << "GSM - State ID : " << (*itr)->getID() << " status is ";
 		switch((*itr)->getStatus())
 		{
-		case 0:			std::cout << " Active ";			break;	
-		case 1:			std::cout << " Passive ";			break;	
-		case 2:			std::cout << " Hidden ";			break;
-		case 3:			std::cout << " DeleteMe ";			break;
-		default:		std::cout << " INVALID STATE ";		break;
+			case 0:			std::cout << " Active ";			break;	
+			case 1:			std::cout << " Passive ";			break;	
+			case 2:			std::cout << " Hidden ";			break;
+			case 3:			std::cout << " DeleteMe ";			break;
+			default:		std::cout << " INVALID STATE ";		break;
 		}			
 		std::cout << endl;
 
@@ -104,22 +104,37 @@ bool GameStateManager::Update()
 	//=======================================
 	// Delete Pending Game States
 	//=======================================
-	itr = stateList.end();
-	if(stateList.empty() == false)
-		itr--;
-
-	// delete any states flagged for deletion
-	for (; itr != stateList.begin(); itr--)
-    {
-		if((*itr)->getStatus() == DeleteMe)
+	// Instead of using the same iterator to delete, let's use a reverse_iterator
+	vector<GameState*>::reverse_iterator rItr = stateList.rbegin();
+	for(; rItr != stateList.rend(); rItr++)
+	{
+		if((*rItr)->getStatus() == DeleteMe)
 		{
-			std::cout << "GSM - State ID : " << (*itr)->getID() << " is about to be deleted" << endl;
-			delete (*itr);
-			stateList.erase(itr);
+			std::cout << "GSM - State ID : " << (*rItr)->getID() << " is about to be deleted" << endl;
+			delete(*rItr);
+			stateList.erase(rItr.base() - 1);
 			numStates--;
 			break;
 		}
-    }
+	}
+
+	//itr = stateList.end();
+
+	//if(stateList.empty() == false)
+	//	itr--;
+
+	//// delete any states flagged for deletion
+	//for (; itr != stateList.begin(); itr--)
+ //   {
+	//	if((*itr)->getStatus() == DeleteMe)
+	//	{
+	//		std::cout << "GSM - State ID : " << (*itr)->getID() << " is about to be deleted" << endl;
+	//		delete (*itr);
+	//		stateList.erase(itr);
+	//		numStates--;
+	//		break;
+	//	}
+ //   }
 
 	//=======================================
 	// Add Pending Game States
@@ -128,7 +143,6 @@ bool GameStateManager::Update()
 	for(; itr != statesToAdd.end(); itr++)
 	{
 		stateList.push_back((*itr));
-		stateCount++;
 		numStates++;
 	}
 	statesToAdd.clear();
@@ -160,14 +174,13 @@ bool GameStateManager::setState(int stateID, State newStatus = Active)
 	if (stateID < 0) // make sure we have an index that's at least position 0
 		return false;
 
-	// erase the item at this index
 	vector<GameState*>::iterator itr = stateList.begin();
 	for (; itr != stateList.end(); itr++)
     {
 		if((*itr)->getID() == stateID)
 		{
 			(*itr)->setStatus(newStatus);
-			return true; // item is found and erased
+			return true;
 		}
     }
 	return false; // item wasn't found

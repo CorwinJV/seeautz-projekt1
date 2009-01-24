@@ -26,8 +26,10 @@ public:
 	inline bool addGameState(State newState = Active)
 	{
 		std::cout << "GSM:addGAmeState - Adding new Gamestate " << std::endl;
+		stateCount++;
 		T* newGS = new T(*this, stateCount);
 		newGS->setStatus(newState);
+		
 		statesToAdd.push_back(newGS);
 		return true;
 		// if something bad happens, return false
