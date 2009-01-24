@@ -321,10 +321,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\TestMenu.h"
-				>
-			</File>
-			<File
 				RelativePath=".\TestState.h"
 				>
 			</File>
