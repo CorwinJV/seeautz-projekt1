@@ -3,9 +3,11 @@
 
 #include "oglUtility.h"
 #include "pixmap.h"
+#include "FunctionPointer.h"
 #include <cstring>
 #include <iostream>
 
+using namespace BE;
 //class Button; 
 
 class Button 
@@ -19,6 +21,7 @@ protected:
 	pixmap* normal;
 	pixmap* clicked;
 	pixmap* hover;
+	CFunctionPointer0R<bool>	mClickHandler;	// Matches 'bool foo()'
 
 public:
 	Button();
@@ -38,6 +41,8 @@ public:
 	virtual bool	Update();
     virtual bool	Draw();
 	virtual bool	Remove();
+	virtual void setClickHandler(CFunctionPointer0R<bool> clickHandler);
+	virtual bool callClickHandler();
 };
 
 #endif

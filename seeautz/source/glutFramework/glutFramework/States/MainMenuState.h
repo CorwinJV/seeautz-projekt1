@@ -1,7 +1,11 @@
 #ifndef MAINMENUSTATE_H
 #define MAINMENUSTATE_H
 
-#include ".\..\GameState.h" 
+#include ".\..\GameState.h"
+#include ".\..\FunctionPointer.h"
+#include <iostream>
+
+using namespace BE;
 
 class MainMenuState : public GameState
 {
@@ -10,14 +14,21 @@ public:
 	MainMenuState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
 		myMenu = new MenuSys(250, 50, "blankmenu.bmp", Auto);
-		myMenu->addButton( 25, 100, "button1normal.bmp", "button1down.bmp", "button1over.bmp");
-		myMenu->addButton( 125, 200, "button2normal.bmp", "button2down.bmp", "button2over.bmp");
-		myMenu->addButton( 150, 300, "button3normal.bmp", "button3down.bmp", "button3over.bmp");
-		myMenu->addButton( 225, 400, "button4normal.bmp", "button4down.bmp", "button4over.bmp");
+		myMenu->addButton("button1normal.bmp", "button1down.bmp", "button1over.bmp", CreateFunctionPointer0R(this, &MainMenuState::button1Callback));
+		myMenu->addButton("button2normal.bmp", "button2down.bmp", "button2over.bmp");
+		myMenu->addButton("button3normal.bmp", "button3down.bmp", "button3over.bmp");
+		myMenu->addButton("button4normal.bmp", "button4down.bmp", "button4over.bmp");
 	}
 
-	bool MainMenuState::Update();
-	bool MainMenuState::Draw();
+	bool Update();
+	bool Draw();
+	bool HandleClick();
+
+	bool button1Callback()
+	{
+		std::cout << " BUTTON 1 CALLBACK WORKING ";
+		return true;
+	}
 
 private:
 

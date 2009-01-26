@@ -84,6 +84,23 @@ bool Button::Update()
 	return true;
 }
 
+void Button::setClickHandler(CFunctionPointer0R<bool> clickHandler)
+{
+	mClickHandler = clickHandler;
+}
+
+bool Button::callClickHandler()
+{
+	if(mClickHandler)
+	{
+		return mClickHandler();
+	}
+	else
+	{
+		return false;
+	}
+}
+
 void Button::setButtonXPos(int position)
 {
 	buttonXPos = position;
@@ -138,3 +155,4 @@ int Button::getWidth()
 {
 	return normal->width;
 }
+

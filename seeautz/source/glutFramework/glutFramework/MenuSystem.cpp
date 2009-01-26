@@ -14,7 +14,6 @@ MenuSys::MenuSys(int xpos, int ypos, string imgname, Justification nbuttonJust)
 	menuImage->mY = ypos;
 	numButtons = 0;
 	buttonJust = nbuttonJust;
-	
 }
 
 MenuSys::MenuSys()

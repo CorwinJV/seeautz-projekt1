@@ -42,29 +42,33 @@ public:
 	~MenuSys();
 
 	//template <class T>
-	inline bool addButton(int buttonXpos = 0, int buttonYpos = 0, string buttonImageNormal = "normal.bmp", string buttonImageClicked = "clicked.bmp", string buttonImageHover = "hover.bmp")
+	inline bool addButton(string buttonImageNormal = "normal.bmp", string buttonImageClicked = "clicked.bmp", string buttonImageHover = "hover.bmp", int buttonXpos = 0, int buttonYpos = 0)
 	{
 		numButtons++;
 		std::cout << "MS:addButton - Adding new Button " << std::endl;
 		Button* newButton = new Button(buttonXpos, buttonYpos, buttonImageNormal, buttonImageClicked, buttonImageHover);  // this needs to be implemented for button constructor
+
 		buttonList.push_back(newButton);
 		recalcButtonPositions();
 		return true;
 		// if something bad happens, return false
 	}
 
-	inline bool addButton(string buttonImageNormal = "normal.bmp", string buttonImageClicked = "clicked.bmp", string buttonImageHover = "hover.bmp")
+	inline bool addButton(string buttonImageNormal, string buttonImageClicked, string buttonImageHover, CFunctionPointer0R<bool> clickEventHandler)
 	{
 		numButtons++;
 		std::cout << "MS:addButton - Adding new Button " << std::endl;
 		Button* newButton = new Button(0, 0, buttonImageNormal, buttonImageClicked, buttonImageHover);  // this needs to be implemented for button constructor
-		buttonList.push_back(newButton);
+		
+		// Click handler (callback / function pointer)
+		if(clickEventHandler)
+			newButton->setClickHandler(clickEventHandler);
 
+		buttonList.push_back(newButton);
 		recalcButtonPositions();
 		return true;
-		// if something bad happens, return false
 	}
-	
+
 	virtual void recalcButtonPositions();
 	virtual void setMenuXPos(int position);
 	virtual void setMenuYPos(int position);

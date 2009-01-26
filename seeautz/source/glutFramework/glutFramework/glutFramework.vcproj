@@ -289,6 +289,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\FunctionPointer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\FunctionPointer.inl"
+				>
+			</File>
+			<File
 				RelativePath=".\GameState.h"
 				>
 			</File>

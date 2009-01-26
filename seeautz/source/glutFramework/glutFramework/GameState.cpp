@@ -71,7 +71,7 @@ bool GameState::Update()//GameTime gameTime)
 bool GameState::Draw()//GameTime gameTime)
 {
 	if(myMenu != NULL)
-		myMenu-Draw();
+		myMenu->Draw();
  
 	//graphics.GraphicsDevice.Clear(Color.Black);
 
