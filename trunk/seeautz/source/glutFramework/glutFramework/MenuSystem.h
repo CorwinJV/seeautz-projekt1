@@ -33,6 +33,11 @@ protected:
 	int numButtons;
 	Justification buttonJust;
 
+	bool leftButtonDown;
+	bool rightButtonDown;
+	int mouseXPos;
+	int mouseYPos;
+
 	pixmap* menuImage;
 	vector<Button*> buttonList;
 
@@ -74,6 +79,13 @@ public:
 	virtual void setMenuYPos(int position);
 	virtual int getXPos();
 	virtual int getYPos();
+	virtual int getMouseXPos();
+	virtual int getMouseYPos();
+	virtual void setMousePos(int x, int y);
+	virtual void processMouse(int x, int y);
+	virtual void processMouseClick(int button, int state, int x, int y);
+	virtual void setLeftButtonStatus(bool);
+	virtual void setRightButtonStatus(bool);
 	virtual bool Initialize();
 	virtual bool Update();
     virtual bool Draw();

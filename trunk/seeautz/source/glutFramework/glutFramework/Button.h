@@ -41,8 +41,9 @@ public:
 	virtual bool	Update();
     virtual bool	Draw();
 	virtual bool	Remove();
-	virtual void setClickHandler(CFunctionPointer0R<bool> clickHandler);
-	virtual bool callClickHandler();
+	virtual void	setClickHandler(CFunctionPointer0R<bool> clickHandler);
+	virtual bool	callClickHandler();
+	virtual bool	checkInBounds(int x, int y);
 };
 
 #endif

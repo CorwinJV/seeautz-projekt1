@@ -68,3 +68,13 @@ void oglApp::glDisable2D()
    glMatrixMode(GL_MODELVIEW);
    glPopMatrix();       
 }
+
+void oglApp::processMouse(int x, int y)
+{
+	
+}
+
+void oglApp::processMouseClick(int button, int state, int x, int y)
+{
+
+}

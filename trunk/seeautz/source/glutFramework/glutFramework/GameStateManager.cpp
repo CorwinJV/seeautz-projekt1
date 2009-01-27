@@ -202,3 +202,31 @@ bool GameStateManager::setList(vector<GameState*> newlist)
 	stateList = newlist;
 	return true;
 }
+
+void GameStateManager::processMouse(int x, int y)
+{
+	//=======================================
+	// Update Mouse States
+	//=======================================
+	vector<GameState*>::iterator itr = stateList.begin();
+
+	// update statelist
+	for (; itr != stateList.end(); itr++)
+    {
+		(*itr)->processMouse(x, y);
+	}			
+}
+
+void GameStateManager::processMouseClick(int button, int state, int x, int y)
+{
+	//=======================================
+	// Update Mouse States
+	//=======================================
+	vector<GameState*>::iterator itr = stateList.begin();
+
+	// update statelist
+	for (; itr != stateList.end(); itr++)
+    {
+		(*itr)->processMouseClick(button, state, x, y);
+	}	
+}

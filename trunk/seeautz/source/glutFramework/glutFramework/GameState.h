@@ -18,6 +18,7 @@ protected:
 	GameStateManager *GSM;
 	MenuSys *myMenu;
 
+
 public:
 	GameState();
 	GameState(GameStateManager &Parent, int newID);
@@ -29,6 +30,8 @@ public:
 	virtual bool initialize();
 	virtual bool Update();
     virtual bool Draw();
+	virtual void processMouse(int x, int y);
+	virtual void processMouseClick(int button, int state, int x, int y);
 };
 
 #endif

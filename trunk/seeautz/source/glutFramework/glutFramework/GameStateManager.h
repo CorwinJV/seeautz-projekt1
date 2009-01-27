@@ -44,6 +44,8 @@ public:
     bool Update();//(GameTime gameTime)
     bool Draw();//(GameTime gameTime)
 	bool setList(vector<GameState*> newlist);
+	void processMouse(int x, int y);
+	void processMouseClick(int button, int state, int x, int y);
 };
 
 #endif

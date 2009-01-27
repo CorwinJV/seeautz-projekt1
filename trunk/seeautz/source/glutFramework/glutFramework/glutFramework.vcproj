@@ -309,10 +309,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\ogIApp.h"
-				>
-			</File>
-			<File
 				RelativePath=".\oglApp.h"
 				>
 			</File>

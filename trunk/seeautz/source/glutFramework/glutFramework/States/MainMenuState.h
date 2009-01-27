@@ -23,6 +23,8 @@ public:
 	bool Update();
 	bool Draw();
 	bool HandleClick();
+	void MainMenuState::processMouse(int x, int y);
+	void MainMenuState::processMouseClick(int button, int state, int x, int y);
 
 	bool button1Callback()
 	{

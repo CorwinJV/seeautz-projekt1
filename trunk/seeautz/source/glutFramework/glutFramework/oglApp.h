@@ -20,6 +20,8 @@ public:
 
 	virtual void updateScene(void) {};
 	virtual void drawScene(void);
+	virtual void processMouse(int x, int y);
+	virtual void processMouseClick(int button, int state, int x, int y);
 	void glEnable2D();
 	void glDisable2D();
 	virtual int run();

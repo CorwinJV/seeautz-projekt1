@@ -71,6 +71,16 @@ int MenuSys::getYPos()
 	return menuYPos;
 }
 
+int MenuSys::getMouseXPos()
+{
+	return mouseXPos;
+}
+
+int MenuSys::getMouseYPos()
+{
+	return mouseYPos;
+}
+
 bool MenuSys::Remove()
 {
 	return true;
@@ -97,6 +107,64 @@ void MenuSys::setMenuXPos(int position)
 void MenuSys::setMenuYPos(int position)
 {
 	menuYPos = position;
+}
+
+void MenuSys::processMouse(int x, int y)
+{
+	setMousePos(x, y);
+	std::cout << "MOUSE POSITION:: " << x << ", " << y << endl;
+	/*if (button==GLUT_LEFT_BUTTON && state==GLUT_DOWN)
+	{
+		setLeftButtonStatus(true);
+		std::cout<<"Left button Pressed" << endl;
+	}
+	if (button==GLUT_LEFT_BUTTON && state==GLUT_UP)
+	{
+		setLeftButtonStatus(false);
+		std::cout<<"Left button not Pressed" << endl;
+	}
+
+	if (button==GLUT_LEFT_BUTTON && state==GLUT_DOWN)
+	{
+		setRightButtonStatus(true);
+		std::cout<<"right button Pressed" << endl;
+	}
+	if (button==GLUT_LEFT_BUTTON && state==GLUT_UP)
+	{
+		setRightButtonStatus(false);
+		std::cout<<"right button not Pressed" << endl;
+	}*/
+}
+
+void MenuSys::processMouseClick(int button, int state, int x, int y)
+{
+	if (button==GLUT_LEFT_BUTTON && state==GLUT_DOWN)
+	{
+		vector<Button*>::iterator itr = buttonList.begin();
+		for(; itr != buttonList.end(); itr++)
+		{
+			//(*itr)->buttonXPos;
+			//(*itr)->buttonYPos;
+
+			//(*itr)->callClickHandler();
+		}
+	}
+}
+
+void MenuSys::setMousePos(int x, int y)
+{
+	mouseXPos = x;
+	mouseYPos = y;
+}
+
+void MenuSys::setLeftButtonStatus(bool left)
+{
+	leftButtonDown = left;
+}
+
+void MenuSys::setRightButtonStatus(bool right)
+{
+	rightButtonDown = right;
 }
 
 void MenuSys::recalcButtonPositions()
