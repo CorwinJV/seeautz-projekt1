@@ -12,6 +12,8 @@ public:
 	~projekt1App();
 	void updateScene(void);
 	void drawScene(void);
+	void processMouse(int x, int y);
+	void processMouseClick(int button, int state, int x, int y);
 
 private:
 	void initOpenGL();

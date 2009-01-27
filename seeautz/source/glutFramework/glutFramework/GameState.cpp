@@ -103,3 +103,13 @@ int GameState::getID()
 {
 	return stateID;
 }
+
+void GameState::processMouse(int x, int y)
+{
+
+}
+
+void GameState::processMouseClick(int button, int state, int x, int y)
+{
+	
+}

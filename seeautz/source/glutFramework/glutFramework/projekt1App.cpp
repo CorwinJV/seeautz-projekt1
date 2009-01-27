@@ -64,3 +64,13 @@ void projekt1App::drawScene(void)
 	glFlush();
 	glutSwapBuffers();
 }
+
+void projekt1App::processMouse(int x, int y)
+{
+	myStateManager.processMouse(x, y);
+}
+
+void projekt1App::processMouseClick(int button, int state, int x, int y)
+{
+	myStateManager.processMouseClick(button, state, x, y);
+}
