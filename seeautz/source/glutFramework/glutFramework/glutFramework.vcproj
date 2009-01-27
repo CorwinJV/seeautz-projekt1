@@ -305,6 +305,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\gameBoard.h"
+				>
+			</File>
+			<File
 				RelativePath=".\GameState.h"
 				>
 			</File>
@@ -344,6 +348,10 @@
 				RelativePath=".\TestState2.h"
 				>
 			</File>
+			<File
+				RelativePath=".\tileEnums.h"
+				>
+			</File>
 			<Filter
 				Name="States"
 				>
@@ -357,10 +365,6 @@
 				</File>
 				<File
 					RelativePath=".\States\ExecutionModeState.h"
-					>
-				</File>
-				<File
-					RelativePath=".\gameBoard.h"
 					>
 				</File>
 				<File
@@ -413,10 +417,6 @@
 				</File>
 				<File
 					RelativePath=".\States\SucceedState.h"
-					>
-				</File>
-				<File
-					RelativePath=".\tileEnums.h"
 					>
 				</File>
 			</Filter>
