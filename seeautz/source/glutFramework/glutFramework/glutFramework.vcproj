@@ -175,11 +175,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\gameBoard.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\GameState.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\GameStateManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\mapTile.cpp"
 				>
 			</File>
 			<File
@@ -305,6 +313,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\mapTile.h"
+				>
+			</File>
+			<File
 				RelativePath=".\MenuSystem.h"
 				>
 			</File>
@@ -345,6 +357,10 @@
 				</File>
 				<File
 					RelativePath=".\States\ExecutionModeState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\gameBoard.h"
 					>
 				</File>
 				<File
@@ -397,6 +413,10 @@
 				</File>
 				<File
 					RelativePath=".\States\SucceedState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\tileEnums.h"
 					>
 				</File>
 			</Filter>
