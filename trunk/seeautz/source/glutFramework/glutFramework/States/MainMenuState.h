@@ -5,6 +5,7 @@
 #include ".\..\FunctionPointer.h"
 #include <iostream>
 
+
 using namespace BE;
 
 class MainMenuState : public GameState
@@ -26,11 +27,12 @@ public:
 	void MainMenuState::processMouse(int x, int y);
 	void MainMenuState::processMouseClick(int button, int state, int x, int y);
 
-	bool button1Callback()
-	{
-		std::cout << " BUTTON 1 CALLBACK WORKING ";
-		return true;
-	}
+	bool button1Callback();
+	//{
+	//	GSM->addGameState<StartNewGameState>();
+	//	std::cout << " BUTTON 1 CALLBACK WORKING ";
+	//	return true;
+	//}
 
 private:
 
