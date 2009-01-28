@@ -13,6 +13,10 @@ bool MainMenuState::Draw()
 {
 	if(myMenu != NULL)
 		myMenu->Draw();
+
+	if(img != NULL)
+		img->drawPixMap();
+
 	return false;
 }
 
@@ -36,4 +40,4 @@ bool MainMenuState::button1Callback()
 	std::cout << " BUTTON 1 CALLBACK WORKING ";
 #endif
 	return true;
-}
+} 

@@ -7,5 +7,7 @@ bool StartNewGameState::Update()
 
 bool StartNewGameState::Draw()
 {
+	if(img != NULL)
+		img->drawPixMap();
 	return false;
 }
