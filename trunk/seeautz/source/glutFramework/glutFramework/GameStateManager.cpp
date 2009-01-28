@@ -82,6 +82,7 @@ bool GameStateManager::Update()
 	// update statelist
 	for (; itr != stateList.end(); itr++)
     {
+#ifdef GSMStatus
 		std::cout << "GSM - State ID : " << (*itr)->getID() << " status is ";
 		switch((*itr)->getStatus())
 		{
@@ -92,11 +93,14 @@ bool GameStateManager::Update()
 			default:		std::cout << " INVALID STATE ";		break;
 		}			
 		std::cout << endl;
+#endif
 
 		if((*itr)->getStatus() == Active)
 		{
 			(*itr)->Update();
+#ifdef GSMStatus
 			std::cout << "GSM - State ID : " << (*itr)->getID() << " has been updated" << endl;
+#endif
 
 		}
     }
@@ -110,7 +114,9 @@ bool GameStateManager::Update()
 	{
 		if((*rItr)->getStatus() == DeleteMe)
 		{
+#ifdef GSMWork
 			std::cout << "GSM - State ID : " << (*rItr)->getID() << " is about to be deleted" << endl;
+#endif
 			delete(*rItr);
 			stateList.erase(rItr.base() - 1);
 			numStates--;
@@ -161,7 +167,9 @@ bool GameStateManager::Draw()//(GameTime gameTime)
 		if((*itr)->getStatus() <= Passive)
 		{
 			(*itr)->Draw();
+#ifdef GSMStatus
 			std::cout << "GSM - State ID : " << (*itr)->getID() << " has been drawn" << endl;
+#endif
 		}
     }
 

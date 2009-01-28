@@ -4,6 +4,7 @@
 #include <vector>
 #include "GameState.h"
 #include <iostream>
+#include "consoleDefines.h"
 using namespace std;
 
 
@@ -25,7 +26,9 @@ public:
 	template <class T>
 	inline bool addGameState(State newState = Active)
 	{
+#ifdef GSMWork
 		std::cout << "GSM:addGAmeState - Adding new Gamestate " << std::endl;
+#endif
 		stateCount++;
 		T* newGS = new T(*this, stateCount);
 		newGS->setStatus(newState);

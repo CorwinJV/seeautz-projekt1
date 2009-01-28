@@ -32,6 +32,8 @@ bool MainMenuState::button1Callback()
 {
 	GSM->addGameState<StartNewGameState>();
 	this->setStatus(DeleteMe);
+#ifdef buttonWork
 	std::cout << " BUTTON 1 CALLBACK WORKING ";
+#endif
 	return true;
 }

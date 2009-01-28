@@ -10,6 +10,12 @@
 using namespace BE;
 //class Button; 
 
+enum buttonState {
+		Normal,
+		Hover,
+		Clicked
+};
+
 class Button 
 {
 protected:
@@ -17,7 +23,7 @@ protected:
    // int buttonWidth;
 	int		buttonXPos;
 	int		buttonYPos;
-	State	buttonStatus;
+	buttonState	buttonStatus;
 	pixmap* normal;
 	pixmap* clicked;
 	pixmap* hover;
@@ -28,10 +34,10 @@ public:
 	Button(int, int, std::string, std::string, std::string);
 	~Button();
 	
-	virtual void	setButtonStatus(State buttonStatus);
+	virtual void	setButtonStatus(buttonState buttonStatus);
 	virtual int		getHeight();
 	virtual int		getWidth();
-	virtual State	getButtonStatus();
+	virtual buttonState	getButtonStatus();
 	virtual void	setButtonXPos(int position);
 	virtual void	setButtonYPos(int position);
 	virtual void	setButtonXYPos(int xPos, int yPos);

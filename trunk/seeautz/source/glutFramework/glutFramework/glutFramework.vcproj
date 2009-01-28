@@ -297,6 +297,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\consoleDefines.h"
+				>
+			</File>
+			<File
 				RelativePath=".\FunctionPointer.h"
 				>
 			</File>

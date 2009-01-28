@@ -112,27 +112,55 @@ void MenuSys::setMenuYPos(int position)
 void MenuSys::processMouse(int x, int y)
 {
 	setMousePos(x, y);
+#ifdef mouseWork
 	std::cout << "MOUSE POSITION:: " << x << ", " << y << endl;
+#endif
+
+	// process buttons with mouse coords
+	vector<Button*>::iterator itr = buttonList.begin();
+
+	// update buttonlist
+	for (; itr != buttonList.end(); itr++)
+    {
+		if( (*itr)->checkInBounds(x, y) )
+		{
+			(*itr)->setButtonStatus(Hover);
+		}
+		else
+		{
+			(*itr)->setButtonStatus(Normal);
+		}
+    }
+
+
 	/*if (button==GLUT_LEFT_BUTTON && state==GLUT_DOWN)
 	{
 		setLeftButtonStatus(true);
+		#ifdef mouseWork
 		std::cout<<"Left button Pressed" << endl;
+		#endif
 	}
 	if (button==GLUT_LEFT_BUTTON && state==GLUT_UP)
 	{
 		setLeftButtonStatus(false);
+		#ifdef mouseWork
 		std::cout<<"Left button not Pressed" << endl;
+		#endif
 	}
 
 	if (button==GLUT_LEFT_BUTTON && state==GLUT_DOWN)
 	{
 		setRightButtonStatus(true);
+		#ifdef mouseWork
 		std::cout<<"right button Pressed" << endl;
+		#endif
 	}
 	if (button==GLUT_LEFT_BUTTON && state==GLUT_UP)
 	{
 		setRightButtonStatus(false);
+		#ifdef mouseWork
 		std::cout<<"right button not Pressed" << endl;
+		#endif
 	}*/
 }
 

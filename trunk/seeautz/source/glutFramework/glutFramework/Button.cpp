@@ -33,12 +33,21 @@ bool Button::Initialize()
 
 bool Button::Draw()
 {
-	if(normal != NULL)
-		normal->drawPixMap();
-	if(clicked != NULL)
-		clicked->drawPixMap();
-	if(hover != NULL)
-		hover->drawPixMap();
+	switch(buttonStatus)
+	{
+	case Normal:
+		if(normal != NULL)
+			normal->drawPixMap();
+		break;
+	case Clicked:
+		if(clicked != NULL)
+			clicked->drawPixMap();
+		break;
+	case Hover:
+		if(hover != NULL)
+			hover->drawPixMap();
+		break;
+	}
 
 	return true;
 }
@@ -129,12 +138,12 @@ void Button::setButtonYPos(int position)
 		clicked->mY = buttonYPos;
 }
 
-void Button::setButtonStatus(State newButtonStatus)
+void Button::setButtonStatus(buttonState newButtonStatus)
 {
 	buttonStatus = newButtonStatus;
 }
 
-State Button::getButtonStatus()
+buttonState Button::getButtonStatus()
 {
 	return buttonStatus;
 }
