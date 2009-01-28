@@ -161,4 +161,6 @@ bool Button::checkInBounds(int x, int y)
 	if (((x > normal->mX) && (x < (normal->mX + normal->width))) &&
 		(y > normal->mY) && (y < (normal->mY + normal->height)))
 		return true;
+	else 
+		return false;
 }

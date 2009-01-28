@@ -143,9 +143,15 @@ void MenuSys::processMouseClick(int button, int state, int x, int y)
 		vector<Button*>::iterator itr = buttonList.begin();
 		for(; itr != buttonList.end(); itr++)
 		{
-			//(*itr)->buttonXPos;
-			//(*itr)->buttonYPos;
-
+			int mX = (*itr)->getXPos();
+			int mY = (*itr)->getYPos();
+			if((*itr)->checkInBounds(x, y))
+			{
+				(*itr)->callClickHandler();
+			}
+			
+			//(*itr)->buttonYPos);
+			//(*itr)->buttonXPos);
 			//(*itr)->callClickHandler();
 		}
 	}
