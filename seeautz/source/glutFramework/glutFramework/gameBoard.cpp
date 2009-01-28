@@ -1,3 +1,8 @@
+#include "gameBoard.h"
+#include <vector>
+
+using namespace std;
+
 gameBoard::gameBoard(int nWidth, int nHeight)
 {
 	// make it all empty
