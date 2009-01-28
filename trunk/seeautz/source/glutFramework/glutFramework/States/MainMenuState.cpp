@@ -1,6 +1,11 @@
 #include "MainMenuState.h"
 #include "StartNewGameState.h"
+#include "ProfileMgrState.h"
+#include "LoadGameState.h"
+#include "OptionsState.h"
 #include "..\GameStateManager.h"
+#include "MainGameLoopState.h"
+#include "PreGameState.h"
 
 bool MainMenuState::Update()
 {
@@ -36,8 +41,69 @@ bool MainMenuState::button1Callback()
 {
 	GSM->addGameState<StartNewGameState>();
 	this->setStatus(DeleteMe);
+	glClearColor(255, 0, 0, 0);
+	
+	//myMenu->addButton("button2normal.bmp", "button2down.bmp", "button2over.bmp", CreateFunctionPointer0R(this, &MainMenuState::button6Callback));
 #ifdef buttonWork
 	std::cout << " BUTTON 1 CALLBACK WORKING ";
+#endif
+	return true;
+} 
+
+bool MainMenuState::button2Callback()
+{
+	GSM->addGameState<ProfileMgrState>();
+	this->setStatus(DeleteMe);
+	glClearColor(0, 255, 0, 0);
+	Update();
+#ifdef buttonWork
+	std::cout << " BUTTON 2 CALLBACK WORKING ";
+#endif
+	return true;
+} 
+
+bool MainMenuState::button3Callback()
+{
+	GSM->addGameState<LoadGameState>();
+	this->setStatus(DeleteMe);
+	glClearColor(0, 0, 255, 0);
+	Update();
+#ifdef buttonWork
+	std::cout << " BUTTON 3 CALLBACK WORKING ";
+#endif
+	return true;
+} 
+
+bool MainMenuState::button4Callback()
+{
+	GSM->addGameState<OptionsState>();
+	this->setStatus(DeleteMe);
+	glClearColor(255, 0, 255, 0);
+
+#ifdef buttonWork
+	std::cout << " BUTTON 4 CALLBACK WORKING ";
+#endif
+	return true;
+} 
+
+bool MainMenuState::button5Callback()
+{
+	GSM->addGameState<PreGameState>();
+	this->setStatus(DeleteMe);
+	glClearColor(0, 255, 255, 0);
+#ifdef buttonWork
+	std::cout << " BUTTON 5 CALLBACK WORKING ";
+#endif
+	return true;
+} 
+
+bool MainMenuState::button6Callback()
+{
+	GSM->addGameState<MainGameLoopState>();
+	this->setStatus(DeleteMe);
+	glClearColor(255, 255, 0, 0);
+#ifdef buttonWork
+	std::cout << " BUTTON 6 CALLBACK WORKING ";
 #endif
 	return true;
 } 

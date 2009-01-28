@@ -177,10 +177,6 @@ void MenuSys::processMouseClick(int button, int state, int x, int y)
 			{
 				(*itr)->callClickHandler();
 			}
-			
-			//(*itr)->buttonYPos);
-			//(*itr)->buttonXPos);
-			//(*itr)->callClickHandler();
 		}
 	}
 }
