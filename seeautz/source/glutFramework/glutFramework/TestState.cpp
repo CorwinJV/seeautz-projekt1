@@ -38,7 +38,9 @@ bool TestState::Update()
 	{
 		//if(GSM->getNumStates() < 7)
 		{
-			//std::cout << "TestState - attempting to add a new teststate2 " << GSM->getStateCount() << " - " << GSM->getNumStates() << std::endl;
+#ifdef GSMWork
+			std::cout << "TestState - attempting to add a new teststate2 " << GSM->getStateCount() << " - " << GSM->getNumStates() << std::endl;
+#endif
 			// create new temp vector
 			// add state to vector
 			// merge vectors

@@ -1,6 +1,7 @@
 #ifndef PIXMAP_H
 #define PIXMAP_H
 
+#include "consoleDefines.h"
 // pixmap.h
 typedef char byte;
 typedef unsigned char ubyte;

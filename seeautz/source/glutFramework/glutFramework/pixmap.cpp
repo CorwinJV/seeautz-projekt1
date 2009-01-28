@@ -111,7 +111,9 @@ void pixmap::drawPixMap()
 	// 48 by 0.002 and endup with 0.096 for the viewport position
 
 	float newmY = vpY - mY - height;
-	//std::cout << "mY = " << mY << " height = " << height << std::endl;
+#ifdef pixmapWork
+	std::cout << "mY = " << mY << " height = " << height << std::endl;
+#endif
 	float newRasterX = (float)(mX*pixelwidth) - 1.0f;
 	float newRasterY = (float)(newmY*pixelheight - 1.0f);
 	

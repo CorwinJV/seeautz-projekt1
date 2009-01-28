@@ -34,7 +34,7 @@ void projekt1App::initOpenGL()
 
 void projekt1App::updateScene(void)
 {
-	std::cout << "project1App - Starting Update" << std::endl;
+	//std::cout << "project1App - Starting Update" << std::endl;
 	myStateManager.Update();
 }
 

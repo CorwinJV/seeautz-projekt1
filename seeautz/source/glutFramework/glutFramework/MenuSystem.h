@@ -15,6 +15,8 @@
 #include <cstring>
 #include <vector>
 #include <iostream>
+#include "consoleDefines.h"
+
 
 using namespace std;
 
@@ -50,7 +52,9 @@ public:
 	inline bool addButton(string buttonImageNormal = "normal.bmp", string buttonImageClicked = "clicked.bmp", string buttonImageHover = "hover.bmp", int buttonXpos = 0, int buttonYpos = 0)
 	{
 		numButtons++;
+#ifdef menuWork
 		std::cout << "MS:addButton - Adding new Button " << std::endl;
+#endif
 		Button* newButton = new Button(buttonXpos, buttonYpos, buttonImageNormal, buttonImageClicked, buttonImageHover);  // this needs to be implemented for button constructor
 
 		buttonList.push_back(newButton);
@@ -62,7 +66,9 @@ public:
 	inline bool addButton(string buttonImageNormal, string buttonImageClicked, string buttonImageHover, CFunctionPointer0R<bool> clickEventHandler)
 	{
 		numButtons++;
+#ifdef menuWork
 		std::cout << "MS:addButton - Adding new Button " << std::endl;
+#endif
 		Button* newButton = new Button(0, 0, buttonImageNormal, buttonImageClicked, buttonImageHover);  // this needs to be implemented for button constructor
 		
 		// Click handler (callback / function pointer)

@@ -28,11 +28,6 @@ public:
 	void MainMenuState::processMouseClick(int button, int state, int x, int y);
 
 	bool button1Callback();
-	//{
-	//	GSM->addGameState<StartNewGameState>();
-	//	std::cout << " BUTTON 1 CALLBACK WORKING ";
-	//	return true;
-	//}
 
 private:
 
