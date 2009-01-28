@@ -12,6 +12,7 @@ Button::Button(int buttonXPos, int buttonYPos, string normalImage, string clicke
 	normal =	new pixmap(normalImage.c_str());
 	clicked =	new pixmap(clickedImage.c_str());
 	hover =		new pixmap(hoverImage.c_str());
+	buttonStatus = Normal;
 
 	Initialize();
 }
