@@ -1,6 +1,7 @@
 #ifndef TILEENUMS_H
 #define TILEENUMS_H
 
+#define numTileTypes
 enum tileTypeEnum{ 
 				TEmpty,			// 0 empty
 				TDefault,		// 1 default floor tile

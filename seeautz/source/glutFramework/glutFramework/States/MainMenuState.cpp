@@ -7,6 +7,8 @@
 #include "MainGameLoopState.h"
 #include "PreGameState.h"
 
+#include "..\tutorialMap1.h"
+
 bool MainMenuState::Update()
 {
 	if(myMenu != NULL)
@@ -76,7 +78,7 @@ bool MainMenuState::button3Callback()
 
 bool MainMenuState::button4Callback()
 {
-	GSM->addGameState<OptionsState>();
+	GSM->addGameState<tutorialMap1>();
 	this->setStatus(DeleteMe);
 	glClearColor(255, 0, 255, 0);
 
