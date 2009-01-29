@@ -4,12 +4,13 @@
 #include ".\..\GameState.h" 
 #include ".\..\oglUtility.h"
 #include ".\..\pixmap.h"
+#include ".\..\oglTexture2D.h"
 
 
 class DevLogoState : public GameState
 {
 private:
-	pixmap* logo;
+	oglTexture2D* logo;
 	int timer;
 
 
@@ -18,7 +19,11 @@ public:
 	DevLogoState() {};
 	DevLogoState(GameStateManager &Parent, int newID) : GameState(Parent, newID), logo(NULL)
 	{
-		logo = new pixmap("seeautslogo.bmp");
+		logo = new oglTexture2D();
+		if(logo != NULL)
+			logo->loadImage("seeautslogo.bmp");
+		//logo->mX = -500;
+		//logo->mY = 500;
 		timer = 0;
 	}
 

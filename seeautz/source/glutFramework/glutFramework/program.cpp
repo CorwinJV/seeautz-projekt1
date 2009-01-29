@@ -1,5 +1,6 @@
 //#include "oglApp.h"
 #include "projekt1App.h"
+#include <IL\il.h>
 
 // App object
 oglApp* newApp = NULL;
@@ -20,6 +21,12 @@ int main(int argc, char **argv)
 	glutPassiveMotionFunc(processMouse);
 	glutMotionFunc(processMouse);
 	glutMouseFunc(processMouseClick);
+
+	// We're using DevIL library for image loading support
+		// So initialize it, will ya?
+	ilInit();
+
+	// Run the game...
 	newApp->run();
 }
 

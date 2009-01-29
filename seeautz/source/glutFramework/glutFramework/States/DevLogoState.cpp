@@ -7,7 +7,7 @@
 bool DevLogoState::Update()
 {
 	timer++;
-	if(timer > 200)
+	if(timer > 200000)
 	{
 		GSM->addGameState<MainMenuState>();
 		this->setStatus(DeleteMe);
@@ -17,7 +17,7 @@ bool DevLogoState::Update()
 
 bool DevLogoState::Draw()
 {
-	logo->drawPixMap();
+	logo->drawImage();
 
 	return false;
 }
