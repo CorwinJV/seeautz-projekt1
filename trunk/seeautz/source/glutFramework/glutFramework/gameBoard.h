@@ -8,12 +8,13 @@
 #include "mapTile.h"
 #include <vector>
 #include "tileEnums.h"
+#include "oglTexture2D.h"
 
 class gameBoard
 {
 protected:
 	std::vector<std::vector<mapTile*>> mapList;
-	std::vector<pixmap*> tileImages;
+	std::vector<oglTexture2D*> tileImages;
 	// 1 dimensional array of ai entities
 	int Width;
 	int Height;
