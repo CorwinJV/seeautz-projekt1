@@ -21,7 +21,7 @@ public:
 	{
 		logo = new oglTexture2D();
 		if(logo != NULL)
-			logo->loadImage("seeautslogo.bmp");
+			logo->loadImage("seeautslogo.png");
 		//logo->mX = -500;
 		//logo->mY = 500;
 		timer = 0;

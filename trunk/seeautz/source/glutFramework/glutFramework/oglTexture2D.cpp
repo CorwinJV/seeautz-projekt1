@@ -76,16 +76,16 @@ bool oglTexture2D::drawImage()
 	glBegin(GL_POLYGON); 
 		// Top left 
 		glTexCoord2f(0.0, 0.0); 
-		glVertex2i(mX, mY + mHeight); 
+		glVertex2i(mX, mY); 
 		// Top right 
 		glTexCoord2f(1.0, 0.0); 
-		glVertex2i(mX + mWidth, mY + mHeight); 
+		glVertex2i(mX + mWidth, mY); 
 		// Bottom right 
 		glTexCoord2f(1.0, 1.0); 
-		glVertex2i(mX + mWidth, mY); 
+		glVertex2i(mX + mWidth, mY + mHeight); 
 		// Bottom left 
 		glTexCoord2f(0.0, 1.0); 
-		glVertex2i(mX, mY); 
+		glVertex2i(mX, mY + mHeight); 
 		// Finish quad drawing 
 	glEnd();
 
