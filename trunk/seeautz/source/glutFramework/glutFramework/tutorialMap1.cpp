@@ -21,8 +21,6 @@ bool tutorialMap1::initialize()
 	//tutorial1map
 	tutorialmap1 = new gameBoard(2, 3);
 
-
-
 	tutorialmap1->setTileType(0, 2, TStart);
 	tutorialmap1->setTileType(0, 1, TDoorTR);
 	tutorialmap1->setTileType(0, 0, TEnd);
