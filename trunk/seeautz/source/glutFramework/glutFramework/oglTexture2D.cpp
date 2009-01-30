@@ -44,7 +44,7 @@ bool oglTexture2D::loadImage(std::string filename)
 		return false;
 	}
 	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE, texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
 	glTexParameteri(GL_TEXTURE_2D, 
 		GL_TEXTURE_MAG_FILTER, GL_LINEAR); // Use nice (linear) scaling 
 	glTexParameteri(GL_TEXTURE_2D, 
