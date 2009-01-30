@@ -18,6 +18,9 @@ protected:
 	// 1 dimensional array of ai entities
 	int Width;
 	int Height;
+	
+	double scale;
+	int mapOffsetX, mapOffsetY;
 
 public:
 	gameBoard();

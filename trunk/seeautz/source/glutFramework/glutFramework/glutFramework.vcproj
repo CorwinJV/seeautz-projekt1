@@ -216,14 +216,6 @@
 				RelativePath=".\projekt1App.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\TestState.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\TestState2.cpp"
-				>
-			</File>
 			<Filter
 				Name="States"
 				>
@@ -360,14 +352,6 @@
 			</File>
 			<File
 				RelativePath=".\projekt1App.h"
-				>
-			</File>
-			<File
-				RelativePath=".\TestState.h"
-				>
-			</File>
-			<File
-				RelativePath=".\TestState2.h"
 				>
 			</File>
 			<File

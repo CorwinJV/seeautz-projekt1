@@ -1,6 +1,4 @@
 #include "projekt1App.h"
-#include "TestState.h"
-#include "TestSTate2.h"
 #include "States\DevLogoState.h"
 
 #include <iostream>
