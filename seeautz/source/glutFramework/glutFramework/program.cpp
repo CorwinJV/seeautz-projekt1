@@ -15,7 +15,7 @@ void processMouseClick(int button, int state, int x, int y);
 int main(int argc, char **argv)
 {
 
-	newApp = new projekt1App("Awesome", 1024, 768, argc, argv);
+	newApp = new projekt1App("Projekt_01", 1024, 768, argc, argv);
 	glutDisplayFunc(doRendering);
 	glutIdleFunc(doRendering);
 	glutPassiveMotionFunc(processMouse);
