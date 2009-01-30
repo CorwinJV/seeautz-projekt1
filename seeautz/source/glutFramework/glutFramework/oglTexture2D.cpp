@@ -12,7 +12,7 @@ oglTexture2D::~oglTexture2D()
 
 }
 
-bool oglTexture2D::loadImage(std::string filename)
+bool oglTexture2D::loadImage(std::string filename, int dWidth, int dHeight)
 {
 	ilInit();
 	glEnable(GL_TEXTURE_2D);
@@ -36,6 +36,9 @@ bool oglTexture2D::loadImage(std::string filename)
 	mWidth = ilGetInteger(IL_IMAGE_WIDTH);
 	mHeight = ilGetInteger(IL_IMAGE_HEIGHT);
 
+	dX = dWidth;
+	dY = dHeight;\
+	
 	// Copy to OpenGL texture
 	if(!ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE))
 	{
@@ -65,8 +68,15 @@ bool oglTexture2D::loadImage(std::string filename)
 	return true;
 }
 
-bool oglTexture2D::drawImage()
+bool oglTexture2D::drawImage(int dWidth, int dHeight)
 {
+	if(dWidth != 0
+		&& dHeight != 0)
+	{
+		dX = dWidth;
+		dY = dHeight;
+	}
+
 	// Bind texture to current context 
 	glBindTexture(GL_TEXTURE_2D, texture); 
 	// Set the alpha 
@@ -79,29 +89,15 @@ bool oglTexture2D::drawImage()
 		glVertex2i(mX, mY); 
 		// Top right 
 		glTexCoord2f(1.0, 0.0); 
-		glVertex2i(mX + mWidth, mY); 
+		glVertex2i(mX + dX, mY); 
 		// Bottom right 
 		glTexCoord2f(1.0, 1.0); 
-		glVertex2i(mX + mWidth, mY + mHeight); 
+		glVertex2i(mX + dX, mY + dY); 
 		// Bottom left 
 		glTexCoord2f(0.0, 1.0); 
-		glVertex2i(mX, mY + mHeight); 
+		glVertex2i(mX, mY + dY); 
 		// Finish quad drawing 
 	glEnd();
 
 	return true;
 }
-
-	//// Top left 
-	//	glTexCoord2f(0.0, 0.0); 
-	//	glVertex2i(mX, mY); 
-	//	// Top right 
-	//	glTexCoord2f(1.0, 0.0); 
-	//	glVertex2i(mX + mWidth, mY); 
-	//	// Bottom right 
-	//	glTexCoord2f(1.0, 1.0); 
-	//	glVertex2i(mX + mWidth, mY + mHeight); 
-	//	// Bottom left 
-	//	glTexCoord2f(0.0, 1.0); 
-	//	glVertex2i(mX, mY + mHeight); 
-	//	// Finish quad drawing 

@@ -13,11 +13,13 @@ class oglTexture2D
 public:
 	oglTexture2D();
 	~oglTexture2D();
-	bool loadImage(std::string);
-	bool drawImage();
+	bool loadImage(std::string, int dWidth, int dHeight);
+	bool drawImage(int dWidth = 0, int dHeight = 0);
 
 	int mX;
 	int mY;
+	int dX;
+	int dY;
 
 private:
 	GLuint texture;
