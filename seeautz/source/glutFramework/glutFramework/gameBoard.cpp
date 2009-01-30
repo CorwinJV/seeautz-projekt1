@@ -26,6 +26,9 @@ gameBoard::gameBoard()
 		}
 	}
 	initialize();
+	scale = 100;
+	mapOffsetX = 100;
+	mapOffsetY = 100;
 }
 
 gameBoard::gameBoard(int nWidth, int nHeight)
@@ -82,12 +85,19 @@ bool gameBoard::update()
 
 bool gameBoard::draw()
 {
+	int hw = (int)(144/2);
+	int hh = (int)(72/2);
+	int basex = 0;
+	int basey = 0;
+
 	for(int x = 0; x < Width; x++)
 	{
+		basex = x*hw;
 		vector<mapTile*>::iterator itr = mapList[x].begin();
 		for(int y = 0; y < Height; y++)
 		{
-			drawTile((*itr)->getType(), x*158, y*72);
+			basey = y*hh;
+			drawTile((*itr)->getType(), x-(x*basex), y-(y*basey));
 			itr++;
 		}
 	}
