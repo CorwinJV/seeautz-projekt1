@@ -9,6 +9,7 @@
 #include <vector>
 #include "tileEnums.h"
 #include "oglTexture2D.h"
+#include <string>
 
 class gameBoard
 {
@@ -35,6 +36,7 @@ public:
 	tileTypeEnum getTileType(int x, int y);	
 	void initialize();
 	void cleanup();
+	bool LoadGameMapFromFile(std::string filename);
 	// bool addentity
 
 };
