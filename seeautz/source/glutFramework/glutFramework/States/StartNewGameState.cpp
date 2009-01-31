@@ -32,13 +32,20 @@ void StartNewGameState::processMouseClick(int button, int state, int x, int y)
 		myMenu->processMouseClick(button, state, x, y);
 }
 
-bool StartNewGameState::button5Callback()
+bool StartNewGameState::PreGameCallback()
 {
 	GSM->addGameState<PreGameState>();
 	this->setStatus(DeleteMe);
 	glClearColor(0, 255, 255, 0);
-#ifdef buttonWork
-	std::cout << " BUTTON 5 CALLBACK WORKING ";
-#endif
+
+	return true;
+} 
+
+bool StartNewGameState::tutorialCallback()
+{
+	GSM->addGameState<tutorialMap1>();
+	this->setStatus(DeleteMe);
+	glClearColor(255, 0, 255, 0);
+
 	return true;
 } 

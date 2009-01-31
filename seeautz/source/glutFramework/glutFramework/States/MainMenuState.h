@@ -16,11 +16,11 @@ public:
 	MainMenuState(GameStateManager &Parent, int newID) : GameState(Parent, newID),
 		img(NULL)
 	{
-		myMenu = new MenuSys(250, 50, "blankmenu.bmp", Auto);
-		myMenu->addButton("button1normal.bmp", "button1down.bmp", "button1over.bmp", CreateFunctionPointer0R(this, &MainMenuState::button1Callback));
-		myMenu->addButton("button2normal.bmp", "button2down.bmp", "button2over.bmp", CreateFunctionPointer0R(this, &MainMenuState::button2Callback));
-		myMenu->addButton("button3normal.bmp", "button3down.bmp", "button3over.bmp", CreateFunctionPointer0R(this, &MainMenuState::button3Callback));
-		myMenu->addButton("button4normal.bmp", "button4down.bmp", "button4over.bmp", CreateFunctionPointer0R(this, &MainMenuState::button4Callback));
+		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
+		myMenu->addButton("startnewgame.png", "button1down.bmp", "button1over.bmp", CreateFunctionPointer0R(this, &MainMenuState::StartNewGameCallback));
+		myMenu->addButton("profilemanagement.png", "button2down.bmp", "button2over.bmp", CreateFunctionPointer0R(this, &MainMenuState::ProfileManagerCallback));
+		myMenu->addButton("loadgame.png", "button3down.bmp", "button3over.bmp", CreateFunctionPointer0R(this, &MainMenuState::LoadGameCallback));
+		myMenu->addButton("options.png", "button4down.bmp", "button4over.bmp", CreateFunctionPointer0R(this, &MainMenuState::OptionsCallback));
 
 		img = new pixmap("statescreens/mainmenu.bmp");
 		img->mY = 618;
@@ -31,12 +31,10 @@ public:
 	bool HandleClick();
 	void MainMenuState::processMouse(int x, int y);
 	void MainMenuState::processMouseClick(int button, int state, int x, int y);
-	bool button1Callback();
-	bool button2Callback();
-	bool button3Callback();
-	bool button4Callback();
-	bool button5Callback();
-	bool button6Callback();
+	bool StartNewGameCallback();
+	bool ProfileManagerCallback();
+	bool LoadGameCallback();
+	bool OptionsCallback();
 
 private:
 
