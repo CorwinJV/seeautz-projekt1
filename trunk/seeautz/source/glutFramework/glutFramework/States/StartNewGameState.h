@@ -4,6 +4,7 @@
 #include ".\..\GameState.h" 
 #include ".\..\pixmap.h"
 #include "MainMenuState.h"
+#include "..\tutorialMap1.h"
 
 class StartNewGameState : public GameState
 {
@@ -13,8 +14,9 @@ public:
 	{
 		img = new pixmap("statescreens/startnewgame.bmp");
 		img->mY = 618;
-		myMenu = new MenuSys(250, 50, "blankmenu.bmp", Auto);
-		myMenu->addButton("button1normal.bmp", "button1down.bmp", "button1over.bmp", CreateFunctionPointer0R(this, &StartNewGameState::button5Callback));
+		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
+		myMenu->addButton("pregame.png", "button1down.bmp", "button1over.bmp", CreateFunctionPointer0R(this, &StartNewGameState::PreGameCallback));
+		myMenu->addButton("button2normal.bmp", "button2down.bmp", "button2over.bmp", CreateFunctionPointer0R(this, &StartNewGameState::tutorialCallback));
 		Update();
 	}
 
@@ -23,7 +25,8 @@ public:
 
 	void processMouse(int x, int y);
 	void processMouseClick(int button, int state, int x, int y);
-	bool button5Callback();
+	bool PreGameCallback();
+	bool tutorialCallback();
 
 private:
 	pixmap* img;

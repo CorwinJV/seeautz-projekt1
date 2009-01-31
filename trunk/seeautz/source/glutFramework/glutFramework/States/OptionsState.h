@@ -1,7 +1,10 @@
 #ifndef OPTIONSSTATE_H
 #define OPTIONSSTATE_H
 
-#include ".\..\GameState.h" 
+#include ".\..\GameState.h"
+#include ".\..\pixmap.h"
+#include "MainMenuState.h"
+#include "..\tutorialMap1.h"
 
 class OptionsState : public GameState
 {

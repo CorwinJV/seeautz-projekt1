@@ -1,4 +1,5 @@
 #include "NewLevelState.h"
+#include "StopLoopState.h"
 
 bool NewLevelState::Update()
 {
@@ -8,4 +9,13 @@ bool NewLevelState::Update()
 bool NewLevelState::Draw()
 {
 	return false;
+}
+
+bool NewLevelState::StopLoopCallback()
+{
+	GSM->addGameState<StopLoopState>();
+	this->setStatus(DeleteMe);
+	glClearColor(255, 0, 255, 0);
+
+	return true;
 }

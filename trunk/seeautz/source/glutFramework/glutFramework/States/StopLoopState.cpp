@@ -1,4 +1,5 @@
 #include "StopLoopState.h"
+#include "PreGameState.h"
 
 bool StopLoopState::Update()
 {
@@ -8,4 +9,13 @@ bool StopLoopState::Update()
 bool StopLoopState::Draw()
 {
 	return false;
+}
+
+bool StopLoopState::PreGameCallback()
+{
+	GSM->addGameState<PreGameState>();
+	this->setStatus(DeleteMe);
+	glClearColor(255, 0, 255, 0);
+
+	return true;
 }
