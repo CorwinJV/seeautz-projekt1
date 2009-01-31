@@ -56,6 +56,8 @@ gameBoard::gameBoard(int nWidth, int nHeight)
 		}
 	}
 	initialize();
+	mapOffsetX = 100;
+	mapOffsetY = 100;
 }
 
 gameBoard::~gameBoard()
@@ -90,14 +92,19 @@ bool gameBoard::draw()
 	int basex = 0;
 	int basey = 0;
 
+	mapOffsetX = 200;
+	mapOffsetY = 200;
+
 	for(int x = 0; x < Width; x++)
 	{
 		basex = x*hw;
+		basey = x*hh;
 		vector<mapTile*>::iterator itr = mapList[x].begin();
 		for(int y = 0; y < Height; y++)
 		{
 			basey = y*hh;
-			drawTile((*itr)->getType(), x-(x*basex), y-(y*basey));
+			std::cout << "Drawing Tile Type " << (*itr)->getType() << " at " <<  (x - (x*basex)) - y*hh + mapOffsetX << ", " <<  y-(y*basey) + mapOffsetY << endl;
+			drawTile((*itr)->getType(), (x - (x*basex)) - y*hh + mapOffsetX,  y-(y*basey) + mapOffsetY);
 			itr++;
 		}
 	}
@@ -124,6 +131,7 @@ tileTypeEnum gameBoard::getTileType(int x, int y)
 
 bool gameBoard::drawTile(tileTypeEnum nType, int txPos, int tyPos)
 {
+	glClearColor(128, 255, 128, 0);
 	oglTexture2D* toDraw;
 
 	toDraw = tileImages[nType];
@@ -131,7 +139,6 @@ bool gameBoard::drawTile(tileTypeEnum nType, int txPos, int tyPos)
 	toDraw->mX = txPos;
 	toDraw->mY = tyPos;
 	toDraw->drawImage();
-
 	return true;
 }
 
