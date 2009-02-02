@@ -9,7 +9,7 @@
 bool DevLogoState::Update()
 {
 	timer++;
-	if(timer > 200)
+	if(timer > 2)
 	{
 		GSM->addGameState<MainMenuState>();
 		this->setStatus(DeleteMe);
