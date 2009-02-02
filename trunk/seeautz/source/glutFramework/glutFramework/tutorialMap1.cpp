@@ -19,13 +19,7 @@ bool tutorialMap1::Draw()
 
 bool tutorialMap1::initialize()
 {
-	//tutorial1map
-	tutorialmap1 = new gameBoard(1, 3);
-
-	tutorialmap1->setTileType(0, 2, TStart);
-	tutorialmap1->setTileType(0, 1, TDoorBL);
-	tutorialmap1->setTileType(0, 0, TEnd);
-	//tutorialmap1->LoadGameMapFromFile(".\..\..\..\Content\maps\tutorialMap1.txt");
-
+	tutorialmap1 = new gameBoard();
+	tutorialmap1->LoadGameMapFromFile("maps\\tutorialMap1.txt");
 	return true;
 }
