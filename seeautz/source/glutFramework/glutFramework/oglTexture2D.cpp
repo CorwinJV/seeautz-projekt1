@@ -14,14 +14,8 @@ oglTexture2D::~oglTexture2D()
 
 bool oglTexture2D::loadImage(std::string filename, int dWidth, int dHeight)
 {
-	ilInit();
-	glEnable(GL_TEXTURE_2D);
-	gluOrtho2D(0.0, 1024.0, 768.0, 0.0);
-	glClearDepth(0.0f);
-	glEnable(GL_BLEND); 
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 	// Generate DevIL image and make current context
+	ilInit();
 	ILuint image = NULL;
 	ilGenImages(1, &image);
 	ilBindImage(image);

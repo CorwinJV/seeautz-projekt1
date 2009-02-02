@@ -25,6 +25,11 @@ int main(int argc, char **argv)
 	// We're using DevIL library for image loading support
 		// So initialize it, will ya?
 	ilInit();
+	glEnable(GL_TEXTURE_2D);
+	gluOrtho2D(0.0, 1024.0, 768.0, 0.0);
+	glClearDepth(0.0f);
+	glEnable(GL_BLEND); 
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// Run the game...
 	newApp->run();
