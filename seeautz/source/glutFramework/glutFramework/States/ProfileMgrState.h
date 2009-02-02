@@ -10,7 +10,6 @@ public:
 	ProfileMgrState() {};
 	ProfileMgrState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
-		myMenu = NULL;
 		img = new oglTexture2D();
 		if(img != NULL)
 			img->loadImage("..\\Content\\statescreens\\profilemanagement.png", 1024, 120);
