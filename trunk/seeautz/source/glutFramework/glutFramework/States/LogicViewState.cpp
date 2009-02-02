@@ -3,11 +3,18 @@
 
 bool LogicViewState::Update()
 {
+	if(myMenu != NULL)
+		myMenu->Update();
 	return true;
 }
 
 bool LogicViewState::Draw()
 {
+	if(img != NULL)
+		img->drawImage();
+
+	if(myMenu != NULL)
+		myMenu->Draw();
 	return false;
 }
 
@@ -18,4 +25,16 @@ bool LogicViewState::ExecutionModeCallback()
 	glClearColor(255, 0, 255, 0);
 
 	return true;
+}
+
+void LogicViewState::processMouse(int x, int y)
+{
+	if(myMenu != NULL)
+		myMenu->processMouse(x, y);
+}
+
+void LogicViewState::processMouseClick(int button, int state, int x, int y)
+{
+	if(myMenu != NULL)
+		myMenu->processMouseClick(button, state, x, y);
 }
