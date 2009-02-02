@@ -11,7 +11,8 @@ oglGameVars* oglGameVars::Instance ()
 	return pinstance; // address of sole instance
 }
 
-oglGameVars::oglGameVars() 
+oglGameVars::oglGameVars()
+: mTotalScore(0), mPlayerName("")
 { 
 	//... perform necessary instance initializations 
 }
@@ -20,5 +21,10 @@ oglGameVars::oglGameVars()
 // Non singleton functions here wee.
 std::string oglGameVars::getPlayerName()
 {
-	return "tmpString yay";
+	return mPlayerName;
+}
+
+void oglGameVars::setPlayerName(std::string name)
+{
+	mPlayerName = name;
 }
