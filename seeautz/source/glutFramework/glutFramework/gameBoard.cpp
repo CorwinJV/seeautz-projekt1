@@ -235,48 +235,55 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 	tutorialmap1->setTileType(0, 1, TDoorBL);
 	tutorialmap1->setTileType(0, 0, TEnd);*/
 
-	//fstream mapfile;
+	cout << "attempting to open file: " << filename << endl;
+	ifstream mapfile;
+	//if(!mapfile)
+	//	return false;
+
+	mapfile.open(filename.c_str());
 	//string line;
-	//mapfile.open(filename.c_str());
+	
+	int nWidth;
+	int nHeight;
+	//nWidth << mapfile;
+	mapfile >> nWidth;
+	mapfile >> nHeight;
 
-	//readline(mapfile, line);
+	// make it all empty
+	mapList.resize(nWidth);
+	for(int x = 0; x < nWidth; x++)
+	{
+		mapList[x].resize(nHeight);
+	}
 
-	//int x = line.substr(0, 2);
-	//int y = line.substr(3, 4);
+	mapTile* temp;	
 
-	////this->map
+	for(int x = 0; x < nWidth; x++)
+	{
+		vector<mapTile*>::iterator itr = mapList[x].begin();
+		
+		for (; itr != mapList[x].end(); itr++)
+		{
+			temp = new mapTile(TEmpty, true);
+			(*itr) = temp;
+		}
+	}
+	Width = nWidth;
+	Height = nHeight;
 
+	int temptile;
 
-	////for x = 0 to x
-	//// for y = 0 to y
+	for(int y = 0; y < Height; y++)
+	{
+		for(int x = 0; x < Width; x++)
+		{
+			mapfile >> temptile;
+			this->setTileType(x, y, (tileTypeEnum)temptile);
+		}
+	}
 
-	//// read in #
-	//// read in space
+	mapfile.close();
 
-
-	//Width = nWidth;
-	//Height = nHeight;
-	//// make it all empty
-
-	//mapList.resize(nWidth);
-	//for(int x = 0; x < nWidth; x++)
-	//{
-	//	mapList[x].resize(nHeight);
-	//}
-	//// populate it with default objects
-
-	//mapTile* temp;	
-
-	//for(int x = 0; x < nWidth; x++)
-	//{
-	//	vector<mapTile*>::iterator itr = mapList[x].begin();
-	//	
-	//	for (; itr != mapList[x].end(); itr++)
-	//	{
-	//		temp = new mapTile(TEmpty, true);
-	//		(*itr) = temp;
-	//	}
-	//}
 	return true;
 
 }
