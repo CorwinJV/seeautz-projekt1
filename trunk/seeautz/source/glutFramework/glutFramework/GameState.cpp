@@ -15,6 +15,7 @@ GameState::GameState(GameStateManager &Parent, int newID)	// constructor
 {
 	GSM = &Parent;
 	stateID = newID;
+	myMenu = NULL;
     //graphics = new GraphicsDeviceManager(this);
     //content = new ContentManager(Services);
     // graphics.IsFullScreen = true;
