@@ -201,6 +201,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\oglGameVars.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\oglTexture2D.cpp"
 				>
 			</File>
@@ -336,6 +340,10 @@
 			</File>
 			<File
 				RelativePath=".\oglApp.h"
+				>
+			</File>
+			<File
+				RelativePath=".\oglGameVars.h"
 				>
 			</File>
 			<File
