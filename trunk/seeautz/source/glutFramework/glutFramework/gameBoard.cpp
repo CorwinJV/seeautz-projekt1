@@ -1,5 +1,6 @@
 #include "gameBoard.h"
 #include <vector>
+#include <fstream>
 
 using namespace std;
 
@@ -91,9 +92,17 @@ bool gameBoard::draw()
 	int hh = (int)(72/2);
 	int basex = 0;
 	int basey = 0;
+	int drawAtX = 0;
+	int drawAtY = 0;
+	
+	mapOffsetX+=2;
+	mapOffsetY++;
 
-	mapOffsetX = 200;
-	mapOffsetY = 200;
+	if(mapOffsetX > 1024)
+		mapOffsetX = 0;
+
+	if(mapOffsetY > 768)
+		mapOffsetY = 0;
 
 	for(int x = 0; x < Width; x++)
 	{
@@ -102,9 +111,13 @@ bool gameBoard::draw()
 		vector<mapTile*>::iterator itr = mapList[x].begin();
 		for(int y = 0; y < Height; y++)
 		{
-			basey = y*hh;
-			std::cout << "Drawing Tile Type " << (*itr)->getType() << " at " <<  (x - (x*basex)) - y*hh + mapOffsetX << ", " <<  y-(y*basey) + mapOffsetY << endl;
-			drawTile((*itr)->getType(), (x - (x*basex)) - y*hh + mapOffsetX,  y-(y*basey) + mapOffsetY);
+			drawAtX = mapOffsetX + x*hw - (y * hw) + hw;
+			drawAtY = mapOffsetY + y*72 - (y * hh) + (x * hh);
+
+			drawTile((*itr)->getType(), drawAtX, drawAtY);
+			//basey = y*hh;
+			//std::cout << "Drawing Tile Type " << (*itr)->getType() << " at " <<  (x - (x*basex)) - y*hh + mapOffsetX << ", " <<  y-(y*basey) + mapOffsetY << endl;
+			//drawTile((*itr)->getType(), (x - (x*basex)) - y*hh + mapOffsetX,  y-(y*basey) + mapOffsetY);
 			itr++;
 		}
 	}
@@ -145,8 +158,6 @@ bool gameBoard::drawTile(tileTypeEnum nType, int txPos, int tyPos)
 void gameBoard::initialize()
 {
 	oglTexture2D* tempTile;
-
-	tempTile = new oglTexture2D(); tempTile->loadImage("tiles/TEmpty.png",		 144, 72); tileImages.push_back(tempTile);
 	tempTile = new oglTexture2D(); tempTile->loadImage("tiles/TEmpty.png",		 144, 72); tileImages.push_back(tempTile);		
 	tempTile = new oglTexture2D(); tempTile->loadImage("tiles/TDefault.png",	 144, 72); tileImages.push_back(tempTile);	
 	tempTile = new oglTexture2D(); tempTile->loadImage("tiles/TRaised1.png",	 144, 72); tileImages.push_back(tempTile);
@@ -205,6 +216,69 @@ void gameBoard::cleanup()
 	//{
 	//	
 	//	
+	//}
+
+}
+
+bool gameBoard::setOffsets(int x, int y)
+{
+	mapOffsetX = x;
+	mapOffsetY = y;
+	return true;
+}
+
+bool gameBoard::LoadGameMapFromFile(std::string filename)
+{
+
+	///*tutorialmap1 = new gameBoard(1, 3);
+
+	//tutorialmap1->setTileType(0, 2, TStart);
+	//tutorialmap1->setTileType(0, 1, TDoorBL);
+	//tutorialmap1->setTileType(0, 0, TEnd);*/
+
+	//fstream mapfile;
+	//string line;
+	//mapfile.open(filename.c_str());
+
+	//readline(mapfile, line);
+
+	//int x = line.substr(0, 2);
+	//int y = line.substr(3, 4);
+
+	//this->map
+
+
+
+	////for x = 0 to x
+	//// for y = 0 to y
+
+	//// read in #
+	//// read in space
+
+
+
+	//Width = nWidth;
+	//Height = nHeight;
+	//// make it all empty
+
+	//mapList.resize(nWidth);
+	//for(int x = 0; x < nWidth; x++)
+	//{
+	//	mapList[x].resize(nHeight);
+	//}
+	//// populate it with default objects
+
+	//mapTile* temp;	
+
+	//for(int x = 0; x < nWidth; x++)
+	//{
+	//	vector<mapTile*>::iterator itr = mapList[x].begin();
+	//	
+	//	for (; itr != mapList[x].end(); itr++)
+	//	{
+	//		temp = new mapTile(TEmpty, true);
+	//		(*itr) = temp;
+	//	}
 	//}
 
 }

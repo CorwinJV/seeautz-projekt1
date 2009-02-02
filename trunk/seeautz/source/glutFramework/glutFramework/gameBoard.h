@@ -37,6 +37,7 @@ public:
 	void initialize();
 	void cleanup();
 	bool LoadGameMapFromFile(std::string filename);
+	bool setOffsets(int x, int y);
 	// bool addentity
 
 };

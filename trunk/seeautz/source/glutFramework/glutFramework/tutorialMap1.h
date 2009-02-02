@@ -21,7 +21,6 @@ public:
 	tutorialMap1(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
 		initialize();
-		
 	}
 	bool initialize();
 	bool tutorialMap1::Update();
