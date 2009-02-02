@@ -32,6 +32,7 @@ public:
     virtual bool Draw();
 	virtual void processMouse(int x, int y);
 	virtual void processMouseClick(int button, int state, int x, int y);
+	virtual void keyboardInput(unsigned char c, int x, int y);
 };
 
 #endif

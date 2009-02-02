@@ -78,3 +78,8 @@ void oglApp::processMouseClick(int button, int state, int x, int y)
 {
 
 }
+
+void oglApp::keyboardInput(unsigned char c, int x, int y)
+{
+
+}

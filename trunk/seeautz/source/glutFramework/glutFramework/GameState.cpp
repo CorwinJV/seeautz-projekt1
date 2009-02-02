@@ -113,3 +113,9 @@ void GameState::processMouseClick(int button, int state, int x, int y)
 {
 	
 }
+
+void GameState::keyboardInput(unsigned char c, int x, int y)
+{
+	if (c == 'p') 
+		exit(0);
+}
