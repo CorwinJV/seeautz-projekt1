@@ -27,7 +27,7 @@ gameBoard::gameBoard()
 		}
 	}
 	initialize();
-	scale = 100;
+	scale = 1;
 	mapOffsetX = 100;
 	mapOffsetY = 100;
 }
@@ -59,6 +59,7 @@ gameBoard::gameBoard(int nWidth, int nHeight)
 	initialize();
 	mapOffsetX = 100;
 	mapOffsetY = 100;
+	scale = 1;
 }
 
 gameBoard::~gameBoard()
@@ -88,8 +89,13 @@ bool gameBoard::update()
 
 bool gameBoard::draw()
 {
-	int hw = (int)(144/2);
-	int hh = (int)(72/2);
+	int imageWidth = 144;
+	int imageHeight = 72;
+	imageWidth *= scale;
+	imageHeight *= scale;
+	int hw = (int)(imageWidth/2);	// half width
+	int hh = (int)(imageHeight/2);	// half height
+
 	int basex = 0;
 	int basey = 0;
 	int drawAtX = 0;
@@ -111,10 +117,10 @@ bool gameBoard::draw()
 		vector<mapTile*>::iterator itr = mapList[x].begin();
 		for(int y = 0; y < Height; y++)
 		{
-			drawAtX = mapOffsetX + x*hw - (y * hw) + hw;
-			drawAtY = mapOffsetY + y*72 - (y * hh) + (x * hh);
+			drawAtX = mapOffsetX + (x * hw - (y * hw) + (hw));
+			drawAtY = mapOffsetY + (y * imageHeight - (y * hh) + (x * hh));
 
-			drawTile((*itr)->getType(), drawAtX, drawAtY);
+			drawTile((*itr)->getType(), drawAtX, drawAtY, scale);
 			//basey = y*hh;
 			//std::cout << "Drawing Tile Type " << (*itr)->getType() << " at " <<  (x - (x*basex)) - y*hh + mapOffsetX << ", " <<  y-(y*basey) + mapOffsetY << endl;
 			//drawTile((*itr)->getType(), (x - (x*basex)) - y*hh + mapOffsetX,  y-(y*basey) + mapOffsetY);
@@ -142,16 +148,27 @@ tileTypeEnum gameBoard::getTileType(int x, int y)
 	return mapList[x][y]->getType();
 }
 
-bool gameBoard::drawTile(tileTypeEnum nType, int txPos, int tyPos)
+bool gameBoard::drawTile(tileTypeEnum nType, int txPos, int tyPos, double scale)
 {
 	glClearColor(128, 255, 128, 0);
 	oglTexture2D* toDraw;
 
 	toDraw = tileImages[nType];
 
+	int tempdx = toDraw->dX;
+	int tempdy = toDraw->dY;
+
+	toDraw->dX *= scale;
+	toDraw->dY *= scale;
+
 	toDraw->mX = txPos;
 	toDraw->mY = tyPos;
+
 	toDraw->drawImage();
+
+	toDraw->dX = tempdx;
+	toDraw->dY = tempdy;
+
 	return true;
 }
 
@@ -286,4 +303,16 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 
 	return true;
 
+}
+
+
+bool gameBoard::setScale(double newScale)
+{
+	scale = newScale;
+	return true;
+}
+
+double gameBoard::getScale()
+{
+	return scale;
 }

@@ -26,6 +26,7 @@ public:
 	bool tutorialMap1::Update();
 	bool tutorialMap1::Draw();
 
+
 };
 
 
