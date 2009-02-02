@@ -13,7 +13,8 @@ bool StartNewGameState::Update()
 bool StartNewGameState::Draw()
 {
 	if(img != NULL)
-		img->drawPixMap();
+		//img->drawPixMap();
+		img->drawImage();
 
 	if(myMenu != NULL)
 		myMenu->Draw();

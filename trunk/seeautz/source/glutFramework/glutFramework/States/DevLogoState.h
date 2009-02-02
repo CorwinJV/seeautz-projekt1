@@ -30,6 +30,7 @@ public:
 
 	bool DevLogoState::Update();
 	bool DevLogoState::Draw();
+	DevLogoState::~DevLogoState();
 
 };
 

@@ -17,7 +17,7 @@ public:
 //		img = new pixmap("statescreens/startnewgame.bmp");
 //		img->mY = 618;
 		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
-		myMenu->addButton("stoploop.png", "button1down.bmp", "button1over.bmp", CreateFunctionPointer0R(this, &AbortState::StopLoopCallback));
+		myMenu->addButton("..\\Content\\buttons\\stoploop.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &AbortState::StopLoopCallback));
 		Update();
 	}
 

@@ -14,7 +14,7 @@ public:
 		//img = new pixmap("statescreens/startnewgame.bmp");
 		//img->mY = 618;
 		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
-		myMenu->addButton("executionmode.png", "button1down.bmp", "button1over.bmp", CreateFunctionPointer0R(this, &LogicViewState::ExecutionModeCallback));
+		myMenu->addButton("..\\Content\\buttons\\executionmode.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &LogicViewState::ExecutionModeCallback));
 		Update();
 	}
 

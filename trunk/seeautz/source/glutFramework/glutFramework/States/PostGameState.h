@@ -13,7 +13,7 @@ public:
 	//	img = new pixmap("statescreens/startnewgame.bmp");
 	//	img->mY = 618;
 		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
-		myMenu->addButton("newlevel.png", "button1down.bmp", "button1over.bmp", CreateFunctionPointer0R(this, &PostGameState::NewLevelCallback));
+		myMenu->addButton("..\\Content\\buttons\\newlevel.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &PostGameState::NewLevelCallback));
 		Update();
 	}
 

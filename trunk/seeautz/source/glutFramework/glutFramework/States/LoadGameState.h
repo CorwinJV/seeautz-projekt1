@@ -15,8 +15,8 @@ public:
 	//	img = new pixmap("statescreens/startnewgame.bmp");
 	//	img->mY = 618;
 		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
-		myMenu->addButton("pregame.png", "button1down.bmp", "button1over.bmp", CreateFunctionPointer0R(this, &LoadGameState::PreGameCallback));
-		myMenu->addButton("button2normal.bmp", "button2down.bmp", "button2over.bmp", CreateFunctionPointer0R(this, &LoadGameState::tutorialCallback));
+		myMenu->addButton("..\\Content\\buttons\\pregame.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &LoadGameState::PreGameCallback));
+		myMenu->addButton("button2normal.png", "button2down.png", "button2over.png", CreateFunctionPointer0R(this, &LoadGameState::tutorialCallback));
 		Update();
 	}
 

@@ -22,7 +22,8 @@ bool MainMenuState::Draw()
 		myMenu->Draw();
 
 	if(img != NULL)
-		img->drawPixMap();
+		//img->drawPixMap();
+		img->drawImage();
 
 	return false;
 }
