@@ -16,13 +16,23 @@ class oglGameVars
 {
 public:
     static oglGameVars* Instance();
-	std::string getPlayerName();
 protected:
     oglGameVars();
     oglGameVars(const oglGameVars&);
     oglGameVars& operator= (const oglGameVars&);
 private:
     static oglGameVars* pinstance;
+
+	//===============================================
+	// Non singleton functions and data members here
+	//===============================================
+public:
+	std::string		getPlayerName();
+	void			setPlayerName(std::string name);
+
+private:
+	std::string mPlayerName;
+	int mTotalScore;
 };
 
 #endif // OGLGAMEVARS_H

@@ -13,7 +13,7 @@ public:
 	{
 		img = new oglTexture2D();
 		if(img != NULL)
-			img->loadImage("..\\Content\\statescreens\\startnewgame.png", 1024, 120);
+			img->loadImage("..\\Content\\statescreens\\succeed.png", 1024, 120);
 		img->mY = 618;
 
 		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
