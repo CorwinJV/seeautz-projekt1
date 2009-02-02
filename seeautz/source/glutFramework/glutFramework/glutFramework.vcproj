@@ -283,6 +283,10 @@
 					RelativePath=".\States\SucceedState.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\tempstate.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Maps"
@@ -423,6 +427,10 @@
 				</File>
 				<File
 					RelativePath=".\States\SucceedState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\tempstate.h"
 					>
 				</File>
 			</Filter>

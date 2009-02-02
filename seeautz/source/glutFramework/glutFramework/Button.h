@@ -6,6 +6,7 @@
 #include "FunctionPointer.h"
 #include <cstring>
 #include <iostream>
+#include "oglTexture2D.h"
 
 using namespace BE;
 //class Button; 
@@ -24,9 +25,9 @@ protected:
 	int		buttonXPos;
 	int		buttonYPos;
 	buttonState	buttonStatus;
-	pixmap* normal;
-	pixmap* clicked;
-	pixmap* hover;
+	oglTexture2D* normal;
+	oglTexture2D* clicked;
+	oglTexture2D* hover;
 	CFunctionPointer0R<bool>	mClickHandler;	// Matches 'bool foo()'
 
 public:

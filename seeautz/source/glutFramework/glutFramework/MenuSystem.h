@@ -16,6 +16,7 @@
 #include <vector>
 #include <iostream>
 #include "consoleDefines.h"
+#include "oglTexture2D.h"
 
 
 using namespace std;
@@ -40,7 +41,7 @@ protected:
 	int mouseXPos;
 	int mouseYPos;
 
-	pixmap* menuImage;
+	oglTexture2D* menuImage;
 	vector<Button*> buttonList;
 
 public:
@@ -49,7 +50,7 @@ public:
 	~MenuSys();
 
 	//template <class T>
-	inline bool addButton(string buttonImageNormal = "normal.bmp", string buttonImageClicked = "clicked.bmp", string buttonImageHover = "hover.bmp", int buttonXpos = 0, int buttonYpos = 0)
+	inline bool addButton(string buttonImageNormal = "normal.png", string buttonImageClicked = "clicked.png", string buttonImageHover = "hover.png", int buttonXpos = 0, int buttonYpos = 0)
 	{
 		numButtons++;
 #ifdef menuWork

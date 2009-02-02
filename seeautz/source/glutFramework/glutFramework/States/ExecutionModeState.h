@@ -13,8 +13,8 @@ public:
 //		img = new pixmap("statescreens/startnewgame.bmp");
 //		img->mY = 618;
 		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
-		myMenu->addButton("succeed.png", "button1down.bmp", "button1over.bmp", CreateFunctionPointer0R(this, &ExecutionModeState::SucceedCallback));
-		myMenu->addButton("abortfail.png", "button2down.bmp", "button2over.bmp", CreateFunctionPointer0R(this, &ExecutionModeState::AbortCallback));
+		myMenu->addButton("..\\Content\\buttons\\succeed.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &ExecutionModeState::SucceedCallback));
+		myMenu->addButton("..\\Content\\buttons\\abortfail.png", "button2down.png", "button2over.png", CreateFunctionPointer0R(this, &ExecutionModeState::AbortCallback));
 		Update();
 	}
 

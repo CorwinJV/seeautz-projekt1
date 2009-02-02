@@ -9,7 +9,9 @@ MenuSys::MenuSys(int xpos, int ypos, string imgname, Justification nbuttonJust)
 {
 	menuXPos = xpos;
 	menuYPos = ypos;
-	menuImage = new pixmap(imgname.c_str());
+	menuImage = new oglTexture2D();
+	if(menuImage != NULL)
+		menuImage->loadImage(imgname.c_str(), 600, 475);
 	menuImage->mX = xpos;
 	menuImage->mY = ypos;
 	numButtons = 0;
@@ -49,7 +51,7 @@ bool MenuSys::Draw()
 {
 	// draw myself first, then draw the buttons
 	if(menuImage != NULL)
-		menuImage->drawPixMap();
+		menuImage->drawImage();
 
 	vector<Button*>::iterator itr = buttonList.begin();
 
@@ -212,7 +214,10 @@ void MenuSys::recalcButtonPositions()
 			{
 				totalheight += buttonList[x]->getHeight();			
 			}
-			tempheight = menuImage->height - totalheight;
+			//tempheight = menuImage->height - totalheight;
+			//*** need to double check on if its dy, should be height
+			tempheight = menuImage->dY - totalheight;
+			
 			offsety = (tempheight / numButtons);
 			currentspot = offsety/2;
 
@@ -220,7 +225,9 @@ void MenuSys::recalcButtonPositions()
 			for(int x = 0; x < numButtons; x++)
 			{
 				buttonList[x]->setButtonYPos(currentspot);
-				buttonList[x]->setButtonXPos((((menuImage->mX + menuImage->width + menuImage->mX) / 2) - (buttonList[x]->getWidth()/2)));
+				//buttonList[x]->setButtonXPos((((menuImage->mX + menuImage->width + menuImage->mX) / 2) - (buttonList[x]->getWidth()/2)));
+				//*** need to double check on if its dx, should be width
+				buttonList[x]->setButtonXPos((((menuImage->mX + menuImage->dX + menuImage->mX) / 2) - (buttonList[x]->getWidth()/2)));
 				currentspot += buttonList[x]->getHeight();
 				currentspot += offsety;
 			}
