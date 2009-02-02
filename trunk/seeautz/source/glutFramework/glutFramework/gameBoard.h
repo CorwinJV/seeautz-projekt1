@@ -31,13 +31,15 @@ public:
 	bool moveTile(int sX, int sY, int dX, int dY);
 	bool update();
 	bool draw();
-	bool drawTile(tileTypeEnum ntype, int txPos, int tyPos);
+	bool drawTile(tileTypeEnum ntype, int txPos, int tyPos, double scale);
 	bool setTileType(int x, int y, tileTypeEnum ntileType);
 	tileTypeEnum getTileType(int x, int y);	
 	void initialize();
 	void cleanup();
 	bool LoadGameMapFromFile(std::string filename);
 	bool setOffsets(int x, int y);
+	bool setScale(double newScale);
+	double getScale();
 	// bool addentity
 
 };
