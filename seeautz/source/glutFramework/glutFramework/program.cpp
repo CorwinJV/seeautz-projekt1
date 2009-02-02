@@ -9,8 +9,8 @@ oglApp* newApp = NULL;
 void doRendering( void );
 void processMouse( int, int ) ;
 void processMouseClick(int button, int state, int x, int y);
-
-// mouse stuff
+void keyboardInput(unsigned char c, int x, int y);
+// mouse and keyboard stuff
 
 int main(int argc, char **argv)
 {
@@ -21,6 +21,7 @@ int main(int argc, char **argv)
 	glutPassiveMotionFunc(processMouse);
 	glutMotionFunc(processMouse);
 	glutMouseFunc(processMouseClick);
+	glutKeyboardFunc(keyboardInput);
 
 	// We're using DevIL library for image loading support
 		// So initialize it, will ya?
@@ -49,4 +50,9 @@ void processMouse(int x, int y)
 void processMouseClick(int button, int state, int x, int y)
 {
 	newApp->processMouseClick(button, state, x, y);
+}
+
+void keyboardInput(unsigned char c, int x, int y)
+{
+	newApp->keyboardInput(c, x, y);
 }

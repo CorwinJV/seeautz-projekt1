@@ -97,6 +97,7 @@ public:
 	virtual bool Update();
     virtual bool Draw();
 	virtual bool Remove();
+	virtual void keyboardInput(unsigned char c, int x, int y);
 };
 
 #endif

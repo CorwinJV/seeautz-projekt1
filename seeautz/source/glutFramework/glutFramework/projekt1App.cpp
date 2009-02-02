@@ -72,3 +72,8 @@ void projekt1App::processMouseClick(int button, int state, int x, int y)
 {
 	myStateManager.processMouseClick(button, state, x, y);
 }
+
+void projekt1App::keyboardInput(unsigned char c, int x, int y)
+{
+	myStateManager.keyboardInput(c, x, y);
+}

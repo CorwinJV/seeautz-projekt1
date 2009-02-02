@@ -111,6 +111,12 @@ void MenuSys::setMenuYPos(int position)
 	menuYPos = position;
 }
 
+void MenuSys::keyboardInput(unsigned char c, int x, int y)
+{
+	if (c == 'p') 
+		exit(0);
+}
+
 void MenuSys::processMouse(int x, int y)
 {
 	setMousePos(x, y);
