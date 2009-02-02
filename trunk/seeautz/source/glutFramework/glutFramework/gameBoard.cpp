@@ -229,56 +229,55 @@ bool gameBoard::setOffsets(int x, int y)
 
 bool gameBoard::LoadGameMapFromFile(std::string filename)
 {
+	*tutorialmap1 = new gameBoard(1, 3);
 
-	///*tutorialmap1 = new gameBoard(1, 3);
+	tutorialmap1->setTileType(0, 2, TStart);
+	tutorialmap1->setTileType(0, 1, TDoorBL);
+	tutorialmap1->setTileType(0, 0, TEnd);*/
 
-	//tutorialmap1->setTileType(0, 2, TStart);
-	//tutorialmap1->setTileType(0, 1, TDoorBL);
-	//tutorialmap1->setTileType(0, 0, TEnd);*/
+	fstream mapfile;
+	string line;
+	mapfile.open(filename.c_str());
 
-	//fstream mapfile;
-	//string line;
-	//mapfile.open(filename.c_str());
+	readline(mapfile, line);
 
-	//readline(mapfile, line);
+	int x = line.substr(0, 2);
+	int y = line.substr(3, 4);
 
-	//int x = line.substr(0, 2);
-	//int y = line.substr(3, 4);
-
-	//this->map
-
-
-
-	////for x = 0 to x
-	//// for y = 0 to y
-
-	//// read in #
-	//// read in space
+	this->map
 
 
 
-	//Width = nWidth;
-	//Height = nHeight;
-	//// make it all empty
+	//for x = 0 to x
+	// for y = 0 to y
 
-	//mapList.resize(nWidth);
-	//for(int x = 0; x < nWidth; x++)
-	//{
-	//	mapList[x].resize(nHeight);
-	//}
-	//// populate it with default objects
+	// read in #
+	// read in space
 
-	//mapTile* temp;	
 
-	//for(int x = 0; x < nWidth; x++)
-	//{
-	//	vector<mapTile*>::iterator itr = mapList[x].begin();
-	//	
-	//	for (; itr != mapList[x].end(); itr++)
-	//	{
-	//		temp = new mapTile(TEmpty, true);
-	//		(*itr) = temp;
-	//	}
-	//}
+
+	Width = nWidth;
+	Height = nHeight;
+	// make it all empty
+
+	mapList.resize(nWidth);
+	for(int x = 0; x < nWidth; x++)
+	{
+		mapList[x].resize(nHeight);
+	}
+	// populate it with default objects
+
+	mapTile* temp;	
+
+	for(int x = 0; x < nWidth; x++)
+	{
+		vector<mapTile*>::iterator itr = mapList[x].begin();
+		
+		for (; itr != mapList[x].end(); itr++)
+		{
+			temp = new mapTile(TEmpty, true);
+			(*itr) = temp;
+		}
+	}
 
 }
