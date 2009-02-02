@@ -3,6 +3,7 @@
 
 #include "MainMenuState.h"
 #include "..\tempstate.h"
+#include "..\oglGameVars.h"
 
 
 
