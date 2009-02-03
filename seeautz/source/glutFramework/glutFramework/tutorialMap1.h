@@ -10,10 +10,8 @@
 class tutorialMap1 : public GameState
 {
 private:
-
 	gameBoard *tutorialmap1;
 	int timer;
-
 
 public:
 
@@ -25,8 +23,8 @@ public:
 	bool initialize();
 	bool tutorialMap1::Update();
 	bool tutorialMap1::Draw();
-
-
+	void processMouse(int x, int y);
+	void processMouseClick(int button, int state, int x, int y);
 };
 
 
