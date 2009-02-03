@@ -28,3 +28,12 @@ void ProfileMgrState::processMouseClick(int button, int state, int x, int y)
 	if(myMenu != NULL)
 		myMenu->processMouseClick(button, state, x, y);
 }
+
+bool ProfileMgrState::MainMenuStateCallback()
+{
+	GSM->addGameState<MainMenuState>();
+	this->setStatus(DeleteMe);
+	glClearColor(0, 255, 255, 0);
+
+	return true;
+}
