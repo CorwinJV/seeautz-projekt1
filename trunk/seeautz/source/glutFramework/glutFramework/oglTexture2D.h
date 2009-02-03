@@ -15,6 +15,7 @@ public:
 	~oglTexture2D();
 	bool loadImage(std::string, int dWidth, int dHeight);
 	bool drawImage(int dWidth = 0, int dHeight = 0);
+	bool drawImageFaded(double amount);
 
 	int mX;
 	int mY;

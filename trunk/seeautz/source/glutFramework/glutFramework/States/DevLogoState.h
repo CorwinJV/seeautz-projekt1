@@ -12,6 +12,7 @@ class DevLogoState : public GameState
 private:
 	oglTexture2D* logo;
 	int timer;
+	double opacity;
 
 
 public:
@@ -19,6 +20,7 @@ public:
 	DevLogoState() {};
 	DevLogoState(GameStateManager &Parent, int newID) : GameState(Parent, newID), logo(NULL)
 	{
+		opacity = 0;
 		logo = new oglTexture2D();
 		if(logo != NULL)
 			logo->loadImage("seeautslogo.png", 1024, 768);
