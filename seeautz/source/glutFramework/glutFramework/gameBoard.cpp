@@ -57,8 +57,8 @@ gameBoard::gameBoard(int nWidth, int nHeight)
 		}
 	}
 	initialize();
-	mapOffsetX = 100;
-	mapOffsetY = 100;
+	mapOffsetX = -10000;
+	mapOffsetY = -10000;
 	scale = 1;
 }
 
@@ -381,16 +381,34 @@ void gameBoard::mapScroll()
 	}
 
 	//// max left ( checking right )
-	//if((mapOffsetX + overallWidth) < (screenWidth - screenWidth * screenEdge))
-	//{
-	//	mapOffsetX = (screenWidth - screenWidth * screenEdge)- overallWidth;
-	//}
+	if((mapOffsetX + ((Width +2)*hw)) < (screenWidth - screenWidth * screenEdge))
+	{
+		mapOffsetX = (screenWidth - screenWidth * screenEdge) - ((Width+2)*hw);
+	}
 
 	//// max right ( checking left )
+	if((mapOffsetX - ((Height-2)*hw)) > (screenWidth * screenEdge))
+	{
+		mapOffsetX = (screenWidth * screenEdge) + ((Height-2)*hw);
+	}
 	//if((mapOffsetX) > (screenWidth * screenEdge))
 	//{
 	//	mapOffsetX = screenWidth * screenEdge;
 	//}
 
+	// now lets see if this board should be centered or not
+	if(overallWidth < screenWidth)
+	{
+		// center horizontally
+		mapOffsetX = ((int)((Height - Width)/2) * hw) + (int)(screenWidth/2) - (int)(overallWidth/2);
+	}
+	
+	if(overallHeight < screenHeight)
+	{
+		// center vertically
+		mapOffsetY = ((int)((Width - Height)/2) * hh) + (int)(screenHeight/2) - (int)(overallHeight/2);
+
+
+	}
 
 }
