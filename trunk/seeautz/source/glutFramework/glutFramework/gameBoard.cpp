@@ -100,15 +100,6 @@ bool gameBoard::draw()
 	int basey = 0;
 	int drawAtX = 0;
 	int drawAtY = 0;
-	
-	mapOffsetX+=2;
-	mapOffsetY++;
-
-	if(mapOffsetX > 1024)
-		mapOffsetX = 0;
-
-	if(mapOffsetY > 768)
-		mapOffsetY = 0;
 
 	for(int x = 0; x < Width; x++)
 	{
@@ -315,4 +306,91 @@ bool gameBoard::setScale(double newScale)
 double gameBoard::getScale()
 {
 	return scale;
+}
+
+void gameBoard::processMouse(int x, int y)
+{
+	mouseX = x;
+	mouseY = y;
+	mapScroll();
+}
+
+void gameBoard::processMouseClick(int button, int state, int x, int y)
+{
+	/*if (button==GLUT_LEFT_BUTTON && state==GLUT_DOWN)
+	{
+		vector<Button*>::iterator itr = buttonList.begin();
+		for(; itr != buttonList.end(); itr++)
+		{
+			int mX = (*itr)->getXPos();
+			int mY = (*itr)->getYPos();
+			if((*itr)->checkInBounds(x, y))
+			{
+				(*itr)->callClickHandler();
+			}
+		}*/
+	
+}
+
+void gameBoard::mapScroll()
+{
+	int imageWidth = 144;
+	int imageHeight = 72;
+	imageWidth *= scale;
+	imageHeight *= scale;
+	int hw = (int)(imageWidth/2);	// half width
+	int hh = (int)(imageHeight/2);	// half height
+	int screenWidth = 1024;
+	int screenHeight = 768;
+	double screenEdge = 0.1;
+	double moveSpeed = 5*scale;
+
+	// see if mouse is at top of screen
+	if((mouseY > 0) && (mouseY < screenHeight*screenEdge))
+	{
+		mapOffsetY+= moveSpeed;
+	}
+	// see if mouse is at bottom of screen
+	if((mouseY < screenHeight) && (mouseY > (screenHeight - (screenHeight*screenEdge))))
+	{
+		mapOffsetY-= moveSpeed;
+	}
+	// see if mouse is at left side of screen
+	if((mouseX > 0) && (mouseX < screenWidth * screenEdge))
+	{
+		mapOffsetX+= moveSpeed;
+	}
+	// see if mouse is at right side of screen
+	if((mouseX < screenWidth) && (mouseX > (screenWidth - (screenWidth * screenEdge))))
+	{
+		mapOffsetX-= moveSpeed;
+	}
+
+	double overallHeight = (Height + Width) * hh;;
+	double overallWidth = (Height + Width) * hw;;
+
+	// max up ( checks bottom )
+	if((mapOffsetY + overallHeight) < (screenHeight - screenHeight * screenEdge))
+	{
+		mapOffsetY = (screenHeight - screenHeight * screenEdge) - overallHeight;
+	}
+	// max down ( checks top )
+	if((mapOffsetY) > (screenHeight * screenEdge))
+	{
+		mapOffsetY = screenHeight * screenEdge;
+	}
+
+	//// max left ( checking right )
+	//if((mapOffsetX + overallWidth) < (screenWidth - screenWidth * screenEdge))
+	//{
+	//	mapOffsetX = (screenWidth - screenWidth * screenEdge)- overallWidth;
+	//}
+
+	//// max right ( checking left )
+	//if((mapOffsetX) > (screenWidth * screenEdge))
+	//{
+	//	mapOffsetX = screenWidth * screenEdge;
+	//}
+
+
 }

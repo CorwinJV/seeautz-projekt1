@@ -19,6 +19,9 @@ protected:
 	// 1 dimensional array of ai entities
 	int Width;
 	int Height;
+
+	int mouseX;
+	int mouseY;
 	
 	double scale;
 	int mapOffsetX, mapOffsetY;
@@ -41,7 +44,9 @@ public:
 	bool setScale(double newScale);
 	double getScale();
 	// bool addentity
-
+	void processMouse(int x, int y);
+	void processMouseClick(int button, int state, int x, int y);
+	void mapScroll();
 };
 
 #endif
