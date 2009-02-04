@@ -24,6 +24,8 @@ protected:
 	int mouseY;
 	
 	double scale;
+	double maxscale;
+	double minscale;
 	int mapOffsetX, mapOffsetY;
 
 	// more stuff
@@ -62,6 +64,8 @@ public:
 	void mapScroll();
 	void verifyMapPosition();
 	void recalcPositions();
+	void keyboardInput(unsigned char c, int x, int y);
+
 };
 
 #endif

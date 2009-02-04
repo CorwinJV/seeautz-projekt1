@@ -241,6 +241,11 @@ void GameStateManager::processMouseClick(int button, int state, int x, int y)
 
 void GameStateManager::keyboardInput(unsigned char c, int x, int y)
 {
-	if (c == 'p') 
-		exit(0);
+	vector<GameState*>::iterator itr = stateList.begin();
+
+	// update statelist
+	for (; itr != stateList.end(); itr++)
+    {
+		(*itr)->keyboardInput( c,  x,  y);
+	}	
 }
