@@ -45,6 +45,8 @@ gameBoard::gameBoard()
 
 	screenEdge = 0.1;
 	moveSpeed = 5*scale;
+	maxscale = 2.0;
+	minscale = 0.2;
 }
 
 gameBoard::gameBoard(int nWidth, int nHeight)
@@ -90,6 +92,8 @@ gameBoard::gameBoard(int nWidth, int nHeight)
 
 	screenEdge = 0.1;
 	moveSpeed = 5*scale;
+	maxscale = 2.0;
+	minscale = 0.2;
 }
 
 gameBoard::~gameBoard()
@@ -386,6 +390,47 @@ void gameBoard::mapScroll()
 	{
 		mapOffsetX-= moveSpeed;
 	}
+
+	
+	verifyMapPosition();
+}
+
+void gameBoard::keyboardInput(unsigned char c, int x, int y)
+{
+	switch(c)
+	{
+	case 27:
+		exit(0);
+		break;
+	case 'w': 
+		mapOffsetY += moveSpeed;
+		break;
+	case 'a': 
+		mapOffsetX += moveSpeed;
+		break;
+	case 'd': 
+		mapOffsetX -= moveSpeed;
+		break;
+	case 's': 
+		mapOffsetY -= moveSpeed;
+		break;
+	case '-':
+		scale -= 0.05;
+		break;
+	case '=':
+		scale += 0.05;
+		break;
+	case '\\':
+		scale = 1;
+		break;
+	default:
+		break;
+	}
+
+	if (scale > maxscale)	scale = maxscale;
+	if (scale < minscale)	scale = minscale;
+
+	recalcPositions();
 	verifyMapPosition();
 }
 

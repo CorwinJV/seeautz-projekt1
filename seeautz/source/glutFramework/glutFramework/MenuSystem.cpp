@@ -113,7 +113,7 @@ void MenuSys::setMenuYPos(int position)
 
 void MenuSys::keyboardInput(unsigned char c, int x, int y)
 {
-	if (c == 'p') 
+	if (c == 27) 
 		exit(0);
 }
 
