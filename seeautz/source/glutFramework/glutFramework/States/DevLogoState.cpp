@@ -23,7 +23,7 @@ bool DevLogoState::Update()
 
 	// logo 3
 	int logo3fadeinstart = 700;		int logo3fadeinend = 800;
-	int logo3fadeoutstart = 900;	int logo3fadeoutend = 1000;
+	int logo3fadeoutstart = 900;	int logo3fadeoutend = 10;
 
 	double fadeinamt =  ((double)(devlogofadeinend  - devlogofadeinstart ) / 100) / 100;
 	double fadeoutamt = ((double)(devlogofadeoutend - devlogofadeoutstart) / 100) / 100;

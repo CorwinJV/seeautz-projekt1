@@ -18,8 +18,7 @@ bool tutorialMap1::Draw()
 bool tutorialMap1::initialize()
 {
 	tutorialmap1 = new gameBoard();
-	//tutorialmap1->LoadGameMapFromFile("maps\\tutorialMap4.txt");
-	tutorialmap1->LoadGameMapFromFile("maps\\Map11.txt");
+	tutorialmap1->LoadGameMapFromFile("maps\\tutorialMap1.txt");
 
 	return true;
 }
