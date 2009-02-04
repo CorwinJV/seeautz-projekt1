@@ -26,6 +26,19 @@ protected:
 	double scale;
 	int mapOffsetX, mapOffsetY;
 
+	// more stuff
+	double overallHeight;
+	double overallWidth;
+
+	int imageWidth;
+	int imageHeight;
+	int hw;
+	int hh;
+	int screenWidth;
+	int screenHeight;
+	double screenEdge;
+	double moveSpeed;
+
 public:
 	gameBoard();
 	gameBoard(int nwidth, int nheight);
@@ -47,6 +60,8 @@ public:
 	void processMouse(int x, int y);
 	void processMouseClick(int button, int state, int x, int y);
 	void mapScroll();
+	void verifyMapPosition();
+	void recalcPositions();
 };
 
 #endif

@@ -27,9 +27,24 @@ gameBoard::gameBoard()
 		}
 	}
 	initialize();
+	mapOffsetX = -10000;
+	mapOffsetY = -10000;
 	scale = 1;
-	mapOffsetX = 100;
-	mapOffsetY = 100;
+
+	imageWidth = 144;
+	imageHeight = 72;
+
+	hw = (int)(imageWidth/2);	// half width
+	hh = (int)(imageHeight/2);	// half height
+
+	imageWidth *= scale;
+	imageHeight *= scale;
+
+	screenWidth = 1024;
+	screenHeight = 768;
+
+	screenEdge = 0.1;
+	moveSpeed = 5*scale;
 }
 
 gameBoard::gameBoard(int nWidth, int nHeight)
@@ -60,6 +75,21 @@ gameBoard::gameBoard(int nWidth, int nHeight)
 	mapOffsetX = -10000;
 	mapOffsetY = -10000;
 	scale = 1;
+
+	imageWidth = 144;
+	imageHeight = 72;
+
+	hw = (int)(imageWidth/2);	// half width
+	hh = (int)(imageHeight/2);	// half height
+
+	imageWidth *= scale;
+	imageHeight *= scale;
+
+	screenWidth = 1024;
+	screenHeight = 768;
+
+	screenEdge = 0.1;
+	moveSpeed = 5*scale;
 }
 
 gameBoard::~gameBoard()
@@ -334,17 +364,8 @@ void gameBoard::processMouseClick(int button, int state, int x, int y)
 
 void gameBoard::mapScroll()
 {
-	int imageWidth = 144;
-	int imageHeight = 72;
-	imageWidth *= scale;
-	imageHeight *= scale;
-	int hw = (int)(imageWidth/2);	// half width
-	int hh = (int)(imageHeight/2);	// half height
-	int screenWidth = 1024;
-	int screenHeight = 768;
-	double screenEdge = 0.1;
-	double moveSpeed = 5*scale;
-
+	// mouse stuff
+	recalcPositions();
 	// see if mouse is at top of screen
 	if((mouseY > 0) && (mouseY < screenHeight*screenEdge))
 	{
@@ -365,10 +386,12 @@ void gameBoard::mapScroll()
 	{
 		mapOffsetX-= moveSpeed;
 	}
+	verifyMapPosition();
+}
 
-	double overallHeight = (Height + Width) * hh;;
-	double overallWidth = (Height + Width) * hw;;
-
+void gameBoard::verifyMapPosition()
+{
+	recalcPositions();
 	// max up ( checks bottom )
 	if((mapOffsetY + overallHeight) < (screenHeight - screenHeight * screenEdge))
 	{
@@ -410,5 +433,15 @@ void gameBoard::mapScroll()
 
 
 	}
+}
 
+void gameBoard::recalcPositions()
+{
+	imageWidth *= scale;
+	imageHeight *= scale;
+	hw = (int)imageWidth/2;
+	hh = (int)imageHeight/2;
+	overallWidth = (Height + Width) * hw;
+	overallHeight = (Height + Width) * hh;
+	
 }
