@@ -303,6 +303,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\aiInstructionEnums.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Button.h"
 				>
 			</File>
@@ -328,6 +332,10 @@
 			</File>
 			<File
 				RelativePath=".\GameStateManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\logicBlock.h"
 				>
 			</File>
 			<File
