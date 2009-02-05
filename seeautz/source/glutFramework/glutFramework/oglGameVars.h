@@ -2,6 +2,9 @@
 #define OGLGAMEVARS_H
 
 #include <string>
+#include <vector>
+#include "logicBlock.h"
+
 #define GameVars oglGameVars::Instance()
 
 //===========================
@@ -33,6 +36,8 @@ public:
 private:
 	std::string mPlayerName;
 	int mTotalScore;
+	std::vector<logicBlock> allLogicBlocks;
+
 };
 
 #endif // OGLGAMEVARS_H
