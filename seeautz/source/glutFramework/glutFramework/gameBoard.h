@@ -34,6 +34,8 @@ protected:
 
 	int imageWidth;
 	int imageHeight;
+	int imageBaseWidth;
+	int imageBaseHeight;
 	int hw;
 	int hh;
 	int screenWidth;
@@ -65,6 +67,8 @@ public:
 	void verifyMapPosition();
 	void recalcPositions();
 	void keyboardInput(unsigned char c, int x, int y);
+
+	void workDamnYou();
 
 };
 
