@@ -31,14 +31,14 @@ gameBoard::gameBoard()
 	mapOffsetY = -10000;
 	scale = 1;
 
-	imageWidth = 144;
-	imageHeight = 72;
+	imageBaseWidth = 144;
+	imageBaseHeight = 72;
 
 	hw = (int)(imageWidth/2);	// half width
 	hh = (int)(imageHeight/2);	// half height
 
-	imageWidth *= scale;
-	imageHeight *= scale;
+	imageWidth = imageBaseWidth *scale;
+	imageHeight = imageBaseHeight *scale;
 
 	screenWidth = 1024;
 	screenHeight = 768;
@@ -78,11 +78,15 @@ gameBoard::gameBoard(int nWidth, int nHeight)
 	mapOffsetY = -10000;
 	scale = 1;
 
-	imageWidth = 144;
-	imageHeight = 72;
+	imageBaseWidth = 144;
+	imageBaseHeight = 72;
 
 	hw = (int)(imageWidth/2);	// half width
 	hh = (int)(imageHeight/2);	// half height
+
+	imageWidth = imageBaseWidth *scale;
+	imageHeight = imageBaseHeight *scale;
+
 
 	imageWidth *= scale;
 	imageHeight *= scale;
@@ -374,70 +378,63 @@ void gameBoard::mapScroll()
 	if((mouseY > 0) && (mouseY < screenHeight*screenEdge))
 	{
 		mapOffsetY+= moveSpeed;
+#ifdef gameboardwork
+		std::cout << "mouse at top" << endl;
+#endif
 	}
 	// see if mouse is at bottom of screen
 	if((mouseY < screenHeight) && (mouseY > (screenHeight - (screenHeight*screenEdge))))
 	{
 		mapOffsetY-= moveSpeed;
+		#ifdef gameboardwork
+		std::cout << "mouse at bottom" << endl;
+#endif
 	}
 	// see if mouse is at left side of screen
 	if((mouseX > 0) && (mouseX < screenWidth * screenEdge))
 	{
 		mapOffsetX+= moveSpeed;
+		#ifdef gameboardwork
+		std::cout << "mouse at left" << endl;
+#endif
 	}
 	// see if mouse is at right side of screen
 	if((mouseX < screenWidth) && (mouseX > (screenWidth - (screenWidth * screenEdge))))
 	{
 		mapOffsetX-= moveSpeed;
+		#ifdef gameboardwork
+		std::cout << "mouse at right" << endl;
+#endif
 	}
 
-	
 	verifyMapPosition();
 }
 
 void gameBoard::keyboardInput(unsigned char c, int x, int y)
 {
-	//variable to control the speed through the keyboard
-	int keySpeed = moveSpeed*2;
-	
 	switch(c)
 	{
 	case 27:
 		exit(0);
 		break;
-	case 'q':
-		mapOffsetY += keySpeed;
-		mapOffsetX += keySpeed;
-		break;
-	case 'e':
-		mapOffsetY += keySpeed;
-		mapOffsetX -= keySpeed;
-		break;
-	case 'z':
-		mapOffsetY -= keySpeed;
-		mapOffsetX += keySpeed;
-		break;
-	case 'c':
-		mapOffsetY -= keySpeed;
-		mapOffsetX -= keySpeed;
-		break;
 	case 'w': 
-		mapOffsetY += keySpeed;
+		mapOffsetY += moveSpeed*2;
 		break;
 	case 'a': 
-		mapOffsetX += keySpeed;
+		mapOffsetX += moveSpeed*2;
 		break;
 	case 'd': 
-		mapOffsetX -= keySpeed;
+		mapOffsetX -= moveSpeed*2;
 		break;
 	case 's': 
-		mapOffsetY -= keySpeed;
+		mapOffsetY -= moveSpeed*2;
 		break;
 	case '-':
 		scale -= 0.05;
 		break;
 	case '=':
 		scale += 0.05;
+		std::cout << "+ pressed!" << endl;
 		break;
 	case '\\':
 		scale = 1;
@@ -449,13 +446,14 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	if (scale > maxscale)	scale = maxscale;
 	if (scale < minscale)	scale = minscale;
 
-	recalcPositions();
+	//recalcPositions();
 	verifyMapPosition();
 }
 
 void gameBoard::verifyMapPosition()
 {
 	recalcPositions();
+
 	// max up ( checks bottom )
 	if((mapOffsetY + overallHeight) < (screenHeight - screenHeight * screenEdge))
 	{
@@ -478,10 +476,6 @@ void gameBoard::verifyMapPosition()
 	{
 		mapOffsetX = (screenWidth * screenEdge) + ((Height-2)*hw);
 	}
-	//if((mapOffsetX) > (screenWidth * screenEdge))
-	//{
-	//	mapOffsetX = screenWidth * screenEdge;
-	//}
 
 	// now lets see if this board should be centered or not
 	if(overallWidth < screenWidth)
@@ -494,15 +488,35 @@ void gameBoard::verifyMapPosition()
 	{
 		// center vertically
 		mapOffsetY = ((int)((Width - Height)/2) * hh) + (int)(screenHeight/2) - (int)(overallHeight/2);
+
+
 	}
 }
 
 void gameBoard::recalcPositions()
 {
-	imageWidth *= scale;
-	imageHeight *= scale;
-	hw = (int)imageWidth/2;
-	hh = (int)imageHeight/2;
+	std::cout << "recalc positions starting" << endl;
+	imageWidth = imageBaseWidth * scale;
+	imageHeight = imageBaseHeight * scale;
+
+	//hw = (int)imageWidth/2;
+	//hh = (int)imageHeight/2;
+	hw = imageWidth/2;
+	hh = imageHeight/2;
 	overallWidth = (Height + Width) * hw;
-	overallHeight = (Height + Width) * hh;	
+	overallHeight = (Height + Width) * hh;
+	moveSpeed = 5*scale;	
+	workDamnYou();
+	std::cout << "recalc positions ending" << endl;
+}
+
+void gameBoard::workDamnYou()
+{
+	if(imageWidth > 500)
+	{
+		std::cout << "WTF" << endl;
+	}
+	std::cout << "Current Values! - mapOffsetX,Y = " << mapOffsetX << ", " << mapOffsetY << " | imageWidth/Height = " << imageWidth << ", " << imageHeight;
+	std::cout << " | hw/hh = " << hw << ", " << hh << " | overallWidth/Height = " << overallWidth << ", " << overallHeight;
+	std::cout << " | moveSpeed = " << moveSpeed << " | scale = " << scale << endl;
 }
