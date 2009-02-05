@@ -397,22 +397,41 @@ void gameBoard::mapScroll()
 
 void gameBoard::keyboardInput(unsigned char c, int x, int y)
 {
+	//variable to control the speed through the keyboard
+	int keySpeed = moveSpeed*2;
+	
 	switch(c)
 	{
 	case 27:
 		exit(0);
 		break;
+	case 'q':
+		mapOffsetY += keySpeed;
+		mapOffsetX += keySpeed;
+		break;
+	case 'e':
+		mapOffsetY += keySpeed;
+		mapOffsetX -= keySpeed;
+		break;
+	case 'z':
+		mapOffsetY -= keySpeed;
+		mapOffsetX += keySpeed;
+		break;
+	case 'c':
+		mapOffsetY -= keySpeed;
+		mapOffsetX -= keySpeed;
+		break;
 	case 'w': 
-		mapOffsetY += moveSpeed;
+		mapOffsetY += keySpeed;
 		break;
 	case 'a': 
-		mapOffsetX += moveSpeed;
+		mapOffsetX += keySpeed;
 		break;
 	case 'd': 
-		mapOffsetX -= moveSpeed;
+		mapOffsetX -= keySpeed;
 		break;
 	case 's': 
-		mapOffsetY -= moveSpeed;
+		mapOffsetY -= keySpeed;
 		break;
 	case '-':
 		scale -= 0.05;
@@ -475,8 +494,6 @@ void gameBoard::verifyMapPosition()
 	{
 		// center vertically
 		mapOffsetY = ((int)((Width - Height)/2) * hh) + (int)(screenHeight/2) - (int)(overallHeight/2);
-
-
 	}
 }
 
@@ -487,6 +504,5 @@ void gameBoard::recalcPositions()
 	hw = (int)imageWidth/2;
 	hh = (int)imageHeight/2;
 	overallWidth = (Height + Width) * hw;
-	overallHeight = (Height + Width) * hh;
-	
+	overallHeight = (Height + Width) * hh;	
 }
