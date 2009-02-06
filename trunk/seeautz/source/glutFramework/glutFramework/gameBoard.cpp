@@ -260,6 +260,7 @@ void gameBoard::initialize()
 	tempTile = new oglTexture2D(); tempTile->loadImage("tiles/TDoorTR.png",		 144, 72); tileImages.push_back(tempTile);	
 	tempTile = new oglTexture2D(); tempTile->loadImage("tiles/TDoorBL.png",		 144, 72); tileImages.push_back(tempTile);	
 	tempTile = new oglTexture2D(); tempTile->loadImage("tiles/TDoorBR.png",		 144, 72); tileImages.push_back(tempTile);			
+	tempTile = new oglTexture2D(); tempTile->loadImage("tiles/TTeleport.png",	 144, 72); tileImages.push_back(tempTile);			
 
 
 }
