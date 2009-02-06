@@ -68,8 +68,6 @@ public:
 	void recalcPositions();
 	void keyboardInput(unsigned char c, int x, int y);
 
-	void workDamnYou();
-
 };
 
 #endif
