@@ -40,7 +40,6 @@ bool DevLogoState::Update()
 	if(timer < (devlogofadeinend*1000))									 
 	{		
 		opacity = (clock() - (devlogofadeinstart*1000)) * fadeinamt * 0.1;
-		std::cout << "drawing with opacity of" << opacity << endl;
 	}
 	if((timer > (devlogofadeinend*1000)) && (timer < (devlogofadeoutstart*1000)))	 {		opacity = 1.0;	        }
 
@@ -83,11 +82,11 @@ bool DevLogoState::Update()
 	//if((timer > logo3fadeinend) && (timer < logo3fadeoutstart))	 {		opacity = 1.0;	        }
 	//if((timer > logo3fadeoutstart) && (timer < logo3fadeoutend)) {		opacity -= fadeoutamt;	}
 
-	//if(timer > logo3fadeoutend+25)
-	//{
-	//	GSM->addGameState<MainMenuState>();
-	//	this->setStatus(DeleteMe);
-	//}
+	if(timer > devlogofadeoutend*1000)
+	{
+		GSM->addGameState<MainMenuState>();
+		this->setStatus(DeleteMe);
+	}
 	return true;
 }
 
