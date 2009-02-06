@@ -351,23 +351,35 @@ void gameBoard::processMouse(int x, int y)
 	mouseX = x;
 	mouseY = y;
 	mapScroll();
+
 }
 
 void gameBoard::processMouseClick(int button, int state, int x, int y)
 {
-	/*if (button==GLUT_LEFT_BUTTON && state==GLUT_DOWN)
+	// Used for mouse wheel, has to be up
+	if (state == GLUT_UP )
 	{
-		vector<Button*>::iterator itr = buttonList.begin();
-		for(; itr != buttonList.end(); itr++)
+		if ( button == GLUT_WHEEL_UP )
 		{
-			int mX = (*itr)->getXPos();
-			int mY = (*itr)->getYPos();
-			if((*itr)->checkInBounds(x, y))
-			{
-				(*itr)->callClickHandler();
-			}
-		}*/
-	
+			std::cout << "Mouse up" << endl;
+		}
+		else if( button == GLUT_WHEEL_DOWN )
+		{
+			std::cout << "Mouse down" << endl;
+		}
+		else if( button == GLUT_LEFT_BUTTON )
+		{
+			std::cout << "Mouse LB" << endl;
+		}
+		else if( button == GLUT_RIGHT_BUTTON )
+		{
+			std::cout << "Mouse RB" << endl;
+		}
+		else if( button == GLUT_MIDDLE_BUTTON )
+		{
+			std::cout << "Mouse MB" << endl;
+		}
+	}
 }
 
 void gameBoard::mapScroll()
@@ -462,7 +474,6 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	if (scale > maxscale)	scale = maxscale;
 	if (scale < minscale)	scale = minscale;
 
-	//recalcPositions();
 	verifyMapPosition();
 }
 
@@ -504,34 +515,17 @@ void gameBoard::verifyMapPosition()
 	{
 		// center vertically
 		mapOffsetY = ((int)((Width - Height)/2) * hh) + (int)(screenHeight/2) - (int)(overallHeight/2);
-
-
 	}
 }
 
 void gameBoard::recalcPositions()
 {
-	std::cout << "recalc positions starting" << endl;
 	imageWidth = imageBaseWidth * scale;
 	imageHeight = imageBaseHeight * scale;
 
-	//hw = (int)imageWidth/2;
-	//hh = (int)imageHeight/2;
 	hw = imageWidth/2;
 	hh = imageHeight/2;
 	overallWidth = (Height + Width) * hw;
 	overallHeight = (Height + Width) * hh;
 	moveSpeed = 5*scale;	
-	std::cout << "recalc positions ending" << endl;
-}
-
-void gameBoard::workDamnYou()
-{
-	if(imageWidth > 500)
-	{
-		std::cout << "WTF" << endl;
-	}
-	std::cout << "Current Values! - mapOffsetX,Y = " << mapOffsetX << ", " << mapOffsetY << " | imageWidth/Height = " << imageWidth << ", " << imageHeight;
-	std::cout << " | hw/hh = " << hw << ", " << hh << " | overallWidth/Height = " << overallWidth << ", " << overallHeight;
-	std::cout << " | moveSpeed = " << moveSpeed << " | scale = " << scale << endl;
 }
