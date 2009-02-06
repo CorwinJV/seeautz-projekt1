@@ -14,7 +14,28 @@ private:
 	oglTexture2D* logo;
 	clock_t timer;
 	double opacity;
+	int logostate;
+	// logo 1
+	double devlogofadeinstart;			double devlogofadeinend;
+	double devlogofadeoutstart;			double devlogofadeoutend;
 
+	// logo 2
+	double logo2fadeinstart;			double logo2fadeinend;
+	double logo2fadeoutstart;			double logo2fadeoutend;
+
+	// logo 3
+	double logo3fadeinstart;			double logo3fadeinend;
+	double logo3fadeoutstart;			double logo3fadeoutend;
+
+	double devlogoduration;
+	double logo2duration;
+	double logo3duration;
+
+	double devlogopause;
+	double logo2pause;
+	double logo3pause;
+
+	double pausebetween;
 
 public:
 
@@ -29,6 +50,41 @@ public:
 		//logo->mX = -500;
 		//logo->mY = 500;
 		timer = 0;
+		logostate = 0;
+
+		double temptime = 0;
+
+		// the duration numbers are how long for fade in and out
+		 devlogoduration	= 1;
+		 logo2duration		= 1;
+		 logo3duration		= 1;
+
+		 // pause is how long to holod the logoo on the screen at full opacity
+		 devlogopause		= 1;
+		 logo2pause			= 1;
+		 logo3pause			= 1;
+
+		 // how long of a pause between logos
+		 pausebetween		= 1;
+
+		 
+		 devlogofadeinstart = 0;			 
+		 devlogofadeinend = devlogoduration;
+
+		 devlogofadeoutstart = devlogofadeinend + devlogopause;			 
+		 devlogofadeoutend = devlogofadeoutstart + devlogoduration;
+
+		// logo 2
+		 logo2fadeinstart = devlogofadeoutend + pausebetween;			 
+		 logo2fadeinend = logo2fadeinstart + logo2duration;
+		 logo2fadeoutstart = logo2fadeinend + logo2pause;			 
+		 logo2fadeoutend = logo2fadeoutstart + logo2duration;
+
+		// logo 3
+		 logo3fadeinstart = logo2fadeoutend + pausebetween;			 
+		 logo3fadeinend = logo3fadeinstart + logo3duration;
+		 logo3fadeoutstart = logo3fadeinend + logo3pause;			 
+		 logo3fadeoutend = logo3fadeoutstart + logo3duration;
 	}
 
 	bool DevLogoState::Update();
