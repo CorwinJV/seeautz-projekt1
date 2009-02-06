@@ -417,6 +417,22 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	case 27:
 		exit(0);
 		break;
+	case 'q':
+		mapOffsetY += moveSpeed*2;
+		mapOffsetX += moveSpeed*2;
+		break;
+	case 'e':
+		mapOffsetY += moveSpeed*2;
+		mapOffsetX -= moveSpeed*2;
+		break;
+	case 'z':
+		mapOffsetY -= moveSpeed*2;
+		mapOffsetX += moveSpeed*2;
+		break;
+	case 'c':
+		mapOffsetY -= moveSpeed*2;
+		mapOffsetX -= moveSpeed*2;
+		break;
 	case 'w': 
 		mapOffsetY += moveSpeed*2;
 		break;
@@ -506,7 +522,6 @@ void gameBoard::recalcPositions()
 	overallWidth = (Height + Width) * hw;
 	overallHeight = (Height + Width) * hh;
 	moveSpeed = 5*scale;	
-	workDamnYou();
 	std::cout << "recalc positions ending" << endl;
 }
 
