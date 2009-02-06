@@ -100,7 +100,7 @@ bool DevLogoState::Update()
 		this->setStatus(DeleteMe);
 	}
 
-	std::cout << "Opacity is " << opacity << endl;
+	//std::cout << "Opacity is " << opacity << endl;
 	return true;
 }
 

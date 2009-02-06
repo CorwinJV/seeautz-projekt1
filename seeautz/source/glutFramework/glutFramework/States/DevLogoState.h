@@ -55,17 +55,18 @@ public:
 		double temptime = 0;
 
 		// the duration numbers are how long for fade in and out
-		 devlogoduration	= 1;
+		 devlogoduration	= 1.5;
 		 logo2duration		= 1;
 		 logo3duration		= 1;
 
 		 // pause is how long to holod the logoo on the screen at full opacity
 		 devlogopause		= 1;
-		 logo2pause			= 1;
+		 logo2pause			= .5;
 		 logo3pause			= 1;
 
 		 // how long of a pause between logos
-		 pausebetween		= 1;
+		 pausebetween		= .25;
+		 // end values settings
 
 		 
 		 devlogofadeinstart = 0;			 

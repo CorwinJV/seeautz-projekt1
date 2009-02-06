@@ -27,17 +27,19 @@ protected:
 	double maxscale;
 	double minscale;
 	int mapOffsetX, mapOffsetY;
+	double centerX, centerY;
+	double currentX, currentY;
 
 	// more stuff
 	double overallHeight;
 	double overallWidth;
 
-	int imageWidth;
-	int imageHeight;
+	double imageWidth;
+	double imageHeight;
 	int imageBaseWidth;
 	int imageBaseHeight;
-	int hw;
-	int hh;
+	double hw;
+	double hh;
 	int screenWidth;
 	int screenHeight;
 	double screenEdge;
