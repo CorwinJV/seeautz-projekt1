@@ -27,15 +27,15 @@ gameBoard::gameBoard()
 		}
 	}
 	initialize();
-	mapOffsetX = -10000;
-	mapOffsetY = -10000;
+	mapOffsetX = 0;
+	mapOffsetY = 0;
 	scale = 1;
 
 	imageBaseWidth = 144;
 	imageBaseHeight = 72;
 
-	hw = (int)(imageWidth/2);	// half width
-	hh = (int)(imageHeight/2);	// half height
+	hw = (imageWidth/2);	// half width
+	hh = (imageHeight/2);	// half height
 
 	imageWidth = imageBaseWidth *scale;
 	imageHeight = imageBaseHeight *scale;
@@ -44,9 +44,15 @@ gameBoard::gameBoard()
 	screenHeight = 768;
 
 	screenEdge = 0.1;
-	moveSpeed = 5*scale;
+	moveSpeed = scale * 0.1;
 	maxscale = 2.0;
 	minscale = 0.2;
+	centerX = 0;
+	centerY = 0;
+	Height = 0;
+	Width = 0;
+	overallWidth = (Height + Width) * hw;
+	overallHeight = (Height + Width) * hh;
 }
 
 gameBoard::gameBoard(int nWidth, int nHeight)
@@ -74,15 +80,15 @@ gameBoard::gameBoard(int nWidth, int nHeight)
 		}
 	}
 	initialize();
-	mapOffsetX = -10000;
-	mapOffsetY = -10000;
+	mapOffsetX = 0;
+	mapOffsetY = 0;
 	scale = 1;
 
 	imageBaseWidth = 144;
 	imageBaseHeight = 72;
 
-	hw = (int)(imageWidth/2);	// half width
-	hh = (int)(imageHeight/2);	// half height
+	hw = (imageWidth/2);	// half width
+	hh = (imageHeight/2);	// half height
 
 	imageWidth = imageBaseWidth *scale;
 	imageHeight = imageBaseHeight *scale;
@@ -95,9 +101,21 @@ gameBoard::gameBoard(int nWidth, int nHeight)
 	screenHeight = 768;
 
 	screenEdge = 0.1;
-	moveSpeed = 5*scale;
+	moveSpeed = scale * 0.1;
 	maxscale = 2.0;
 	minscale = 0.2;
+
+	overallWidth = (Height + Width) * hw;
+	overallHeight = (Height + Width) * hh;
+
+
+	centerX = (int)((Width+1)/2);
+	centerY = (int)((Height+1)/2);
+	currentX = centerX;
+	currentY = centerY;
+
+	// time to setup offsets based on centers
+
 }
 
 gameBoard::~gameBoard()
@@ -131,13 +149,14 @@ bool gameBoard::draw()
 	int imageHeight = 72;
 	imageWidth *= scale;
 	imageHeight *= scale;
-	int hw = (int)(imageWidth/2);	// half width
-	int hh = (int)(imageHeight/2);	// half height
+	int hw = (imageWidth/2);	// half width
+	int hh = (imageHeight/2);	// half height
 
 	int basex = 0;
 	int basey = 0;
 	int drawAtX = 0;
 	int drawAtY = 0;
+
 
 	for(int x = 0; x < Width; x++)
 	{
@@ -150,9 +169,6 @@ bool gameBoard::draw()
 			drawAtY = mapOffsetY + (y * imageHeight - (y * hh) + (x * hh));
 
 			drawTile((*itr)->getType(), drawAtX, drawAtY, scale);
-			//basey = y*hh;
-			//std::cout << "Drawing Tile Type " << (*itr)->getType() << " at " <<  (x - (x*basex)) - y*hh + mapOffsetX << ", " <<  y-(y*basey) + mapOffsetY << endl;
-			//drawTile((*itr)->getType(), (x - (x*basex)) - y*hh + mapOffsetX,  y-(y*basey) + mapOffsetY);
 			itr++;
 		}
 	}
@@ -330,6 +346,21 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 
 	mapfile.close();
 
+	centerX = (int)((Width+1)/2);
+	centerY = (int)((Height+1)/2);
+	currentX = centerX;
+	currentY = centerY;
+
+	imageBaseWidth = 144;
+	imageBaseHeight = 72;
+
+	hw = (imageWidth/2);	// half width
+	hh = (imageHeight/2);	// half height
+	overallWidth = (Height + Width) * hw;
+	overallHeight = (Height + Width) * hh;
+
+	recalcPositions();
+
 	return true;
 
 }
@@ -380,6 +411,8 @@ void gameBoard::processMouseClick(int button, int state, int x, int y)
 			std::cout << "Mouse MB" << endl;
 		}
 	}
+
+	std::cout << "Button = " << button << " - State = " << state <<  endl;
 }
 
 void gameBoard::mapScroll()
@@ -389,34 +422,31 @@ void gameBoard::mapScroll()
 	// see if mouse is at top of screen
 	if((mouseY > 0) && (mouseY < screenHeight*screenEdge))
 	{
-		mapOffsetY+= moveSpeed;
-#ifdef gameboardwork
-		std::cout << "mouse at top" << endl;
-#endif
+		//mapOffsetY+= moveSpeed;
+		currentX-=moveSpeed;
+		currentY-=moveSpeed;
 	}
+
 	// see if mouse is at bottom of screen
 	if((mouseY < screenHeight) && (mouseY > (screenHeight - (screenHeight*screenEdge))))
 	{
-		mapOffsetY-= moveSpeed;
-		#ifdef gameboardwork
-		std::cout << "mouse at bottom" << endl;
-#endif
+		//mapOffsetY-= moveSpeed;
+		currentX+= moveSpeed;
+		currentY+= moveSpeed;
 	}
 	// see if mouse is at left side of screen
 	if((mouseX > 0) && (mouseX < screenWidth * screenEdge))
 	{
-		mapOffsetX+= moveSpeed;
-		#ifdef gameboardwork
-		std::cout << "mouse at left" << endl;
-#endif
+		//mapOffsetX+= moveSpeed;
+		currentX-=moveSpeed;
+		currentY+=moveSpeed;
 	}
 	// see if mouse is at right side of screen
 	if((mouseX < screenWidth) && (mouseX > (screenWidth - (screenWidth * screenEdge))))
 	{
-		mapOffsetX-= moveSpeed;
-		#ifdef gameboardwork
-		std::cout << "mouse at right" << endl;
-#endif
+		//mapOffsetX-= moveSpeed;
+		currentX+=moveSpeed;
+		currentY-=moveSpeed;
 	}
 
 	verifyMapPosition();
@@ -424,48 +454,53 @@ void gameBoard::mapScroll()
 
 void gameBoard::keyboardInput(unsigned char c, int x, int y)
 {
+	double kbmovespeed = moveSpeed;
 	switch(c)
 	{
 	case 27:
 		exit(0);
 		break;
-	case 'q':
-		mapOffsetY += moveSpeed*2;
-		mapOffsetX += moveSpeed*2;
+	case 'q': //up-left
+		currentX -= kbmovespeed;
 		break;
-	case 'e':
-		mapOffsetY += moveSpeed*2;
-		mapOffsetX -= moveSpeed*2;
+	case 'e': // up-right
+		currentY -= kbmovespeed;
 		break;
-	case 'z':
-		mapOffsetY -= moveSpeed*2;
-		mapOffsetX += moveSpeed*2;
+	case 'z': // down-left
+		currentY += kbmovespeed;
 		break;
-	case 'c':
-		mapOffsetY -= moveSpeed*2;
-		mapOffsetX -= moveSpeed*2;
+	case 'c': // down-right
+		currentX += kbmovespeed;
 		break;
-	case 'w': 
-		mapOffsetY += moveSpeed*2;
+
+	case 'w': // up
+		currentY -= kbmovespeed;
+		currentX -= kbmovespeed;
 		break;
-	case 'a': 
-		mapOffsetX += moveSpeed*2;
+	case 'a':  // left
+		currentY += kbmovespeed;
+		currentX -= kbmovespeed;
 		break;
-	case 'd': 
-		mapOffsetX -= moveSpeed*2;
+	case 'd': // right
+		currentX += kbmovespeed;
+		currentY -= kbmovespeed;
 		break;
-	case 's': 
-		mapOffsetY -= moveSpeed*2;
+	case 's': // down
+		currentY += kbmovespeed;
+		currentX += kbmovespeed;
 		break;
 	case '-':
 		scale -= 0.05;
 		break;
 	case '=':
 		scale += 0.05;
-		std::cout << "+ pressed!" << endl;
 		break;
 	case '\\':
 		scale = 1;
+		break;
+	case ']':
+		currentX = centerX;
+		currentY = centerY;
 		break;
 	default:
 		break;
@@ -505,27 +540,42 @@ void gameBoard::verifyMapPosition()
 	}
 
 	// now lets see if this board should be centered or not
-	if(overallWidth < screenWidth)
-	{
-		// center horizontally
-		mapOffsetX = ((int)((Height - Width)/2) * hw) + (int)(screenWidth/2) - (int)(overallWidth/2);
-	}
-	
-	if(overallHeight < screenHeight)
-	{
-		// center vertically
-		mapOffsetY = ((int)((Width - Height)/2) * hh) + (int)(screenHeight/2) - (int)(overallHeight/2);
-	}
+	//if(overallWidth < screenWidth)
+	//{
+	//	// center horizontally
+	//	mapOffsetX = ((int)((Height - Width)/2) * hw) + (int)(screenWidth/2) - (int)(overallWidth/2);
+	//}
+	//
+	//if(overallHeight < screenHeight)
+	//{
+	//	// center vertically
+	//	mapOffsetY = ((int)((Width - Height)/2) * hh) + (int)(screenHeight/2) - (int)(overallHeight/2);
+	//}
 }
 
 void gameBoard::recalcPositions()
 {
+	if(currentX > Width)	currentX = Width;
+	if(currentX < 0)		currentX = 0;
+	if(currentY > Height)	currentY = Height;
+	if(currentY < 0)		currentY = 0;
+
+	// setting offsety based on center spot
 	imageWidth = imageBaseWidth * scale;
 	imageHeight = imageBaseHeight * scale;
 
 	hw = imageWidth/2;
 	hh = imageHeight/2;
-	overallWidth = (Height + Width) * hw;
-	overallHeight = (Height + Width) * hh;
-	moveSpeed = 5*scale;	
+
+	overallWidth = (((Height + Width) * hw) + hw);
+	overallHeight = (((Height + Width) * hh) + hh);
+
+	moveSpeed = scale * 0.1;	
+
+
+
+	// setting offsetx based on center spot
+	// start at the center of the screen
+	mapOffsetX = (screenWidth/2) + (hw*currentY) - (hw*currentX);
+	mapOffsetY = (screenHeight/2)- (hh*currentY) - (hh*currentX);
 }
