@@ -43,6 +43,7 @@ enum tileTypeEnum{
 				TDoorTR,		// 37 door top right
 				TDoorBL,		// 38 door bottom left
 				TDoorBR,		// 39 door bottom right
+				TTeleport,		// 40 teleporter
 };
 #endif
 
