@@ -14,4 +14,7 @@ enum AiInstructions
 	LOOP
 };
 
+
 #endif // AIINSTRUCTIONSENUM_H
+
+

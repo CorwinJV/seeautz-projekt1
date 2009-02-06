@@ -12,6 +12,7 @@ bool GameStateManager::Initialize()
 	stateCount = -1;
 	numStates = 0;
 
+	//why is this here?
 	GameState* tempGS = new GameState(*this, stateCount);
 
 	return true;

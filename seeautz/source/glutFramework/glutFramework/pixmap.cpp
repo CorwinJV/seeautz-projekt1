@@ -65,7 +65,7 @@ void pixmap::read(const char *fname)
 	fin.read((byte *)data, size);
 
 	ubyte tmp;					// temporary color storage for bgr-rgb conversion.
-	for( int i(0); i < size; i += 3 )
+	for( unsigned int i(0); i < size; i += 3 )
 	{
 		tmp = data[i];
 		data[i] = data[i+2];
