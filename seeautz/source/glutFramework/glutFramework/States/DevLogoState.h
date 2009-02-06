@@ -5,13 +5,14 @@
 #include ".\..\oglUtility.h"
 #include ".\..\pixmap.h"
 #include ".\..\oglTexture2D.h"
+#include <ctime>
 
 
 class DevLogoState : public GameState
 {
 private:
 	oglTexture2D* logo;
-	int timer;
+	clock_t timer;
 	double opacity;
 
 

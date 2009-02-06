@@ -2,6 +2,7 @@
 #define GAMESTATE_H
 
 #include "MenuSystem.h"
+#include <ctime>
 
 class GameStateManager;
 class GameState
@@ -17,7 +18,7 @@ protected:
 	
 	GameStateManager *GSM;
 	MenuSys *myMenu;
-
+	clock_t startTime;
 
 public:
 	GameState();
