@@ -35,6 +35,7 @@ bool GameState::initialize()
 
     // Initialize status
     currentStatus = Active;
+	startTime = clock();
 
     // Initialize Spritebatch to render with
     //batchRender = new SpriteBatch(graphics.GraphicsDevice);
