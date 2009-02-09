@@ -22,18 +22,30 @@ int  objectManager::getOverallNumObjects()
 	return allObjects;
 };
 
-void objectManager::removeObjectsAt(int index){};
-void objectManager::removeObjectsID(int nukeObject){};
-
-template <class T>
-inline void objectManager::addNewObject(int x, int y, int direction)
+bool objectManager::removeObjectsAt(int index)
 {
-	allObjects++;
+	if (index < 0) 
+		return false;
 
-	T* newObj = new T(x, y, direction);
+	// erase the object at this index
+	vector<object*>::iterator itr = objectList.begin();
+	for(int i = 0; i < index; i++)
+	{
+		itr++;
+		if(itr >= objectList.end()) // lets also make sure that we're working within the confines of the vector
+		{
+			return false;
+		}
+	}
 
-	objectsToAdd.push_back(newObj);
+	delete (*itr);
+	objectList.erase(itr);
+
+	curObjects--;
+
+	return true;
 };
+
 
 void objectManager::update()
 {
