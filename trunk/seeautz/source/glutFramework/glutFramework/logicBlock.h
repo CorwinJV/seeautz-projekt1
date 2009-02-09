@@ -3,6 +3,18 @@
 
 #include "aiInstructionEnums.h"
 #include "oglTexture2D.h"
+#include <vector>
+#include <string>
+
+	//===============================================
+	// logicBlock
+	// This struct defines a container for a texture
+	// (icon), a description (like a tool tip),
+	// a point value, and a vector of AiInstructions
+	// enum values.
+	//
+	// These blocks are the building blocks of 
+	// execution.
 
 struct logicBlock
 {

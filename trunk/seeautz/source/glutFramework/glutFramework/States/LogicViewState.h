@@ -7,6 +7,7 @@
 #include ".\..\aiInstructionEnums.h"
 #include ".\..\logicBlock.h"
 #include ".\..\oglGameVars.h"
+#include ".\..\LogicInterface.h"
 #include <vector>
 #include <string>
 
@@ -36,18 +37,7 @@ public:
 
 private:
 	oglTexture2D* img;
+	LogicInterface mInterface;
 	
-	//===============================================
-	// logicBlock
-	// This struct defines a container for a texture
-	// (icon), a description (like a tool tip),
-	// a point value, and a vector of AiInstructions
-	// enum values.
-	//
-	// These blocks are the building blocks of 
-	// execution.
-
-	std::vector<logicBlock*> logicBank;		// The usable logic blocks
-	std::vector<logicBlock*> executionList;	// The command to give the robot
 };
 #endif
