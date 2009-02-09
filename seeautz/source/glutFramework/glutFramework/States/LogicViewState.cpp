@@ -5,6 +5,9 @@ bool LogicViewState::Update()
 {
 	if(myMenu != NULL)
 		myMenu->Update();
+
+	
+
 	return true;
 }
 
@@ -15,6 +18,9 @@ bool LogicViewState::Draw()
 
 	if(myMenu != NULL)
 		myMenu->Draw();
+
+	mInterface.Draw();
+
 	return false;
 }
 

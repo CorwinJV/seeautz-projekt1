@@ -11,6 +11,7 @@ enum AiInstructions
 	JUMP,
 	PUNCH,
 	MOVE_FORWARD_UNTIL_UNABLE,
+	SUB,
 	LOOP
 };
 

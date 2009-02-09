@@ -189,6 +189,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\LogicInterface.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\mapTile.cpp"
 				>
 			</File>
@@ -339,6 +343,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\LogicInterface.h"
+				>
+			</File>
+			<File
 				RelativePath=".\mapTile.h"
 				>
 			</File>
@@ -352,6 +360,10 @@
 			</File>
 			<File
 				RelativePath=".\oglGameVars.h"
+				>
+			</File>
+			<File
+				RelativePath=".\oglTexture2D.h"
 				>
 			</File>
 			<File
@@ -407,10 +419,6 @@
 				</File>
 				<File
 					RelativePath=".\States\NewLevelState.h"
-					>
-				</File>
-				<File
-					RelativePath=".\oglTexture2D.h"
 					>
 				</File>
 				<File
