@@ -13,10 +13,15 @@ protected:
 	int				xPos;
 	int				yPos;
 	int				direction;
+	bool			active;
+	int				startXPos;
+	int				startYPos;
+	int				startDirection;
+	bool			startActive;
 	oglTexture2D*	image;
 	vector<AiInstructions*>	instructionList;
 	vector<AiInstructions*>::iterator currentInstruction;
-	bool			active;
+
 
 public:
 	//default constructors, destructors
@@ -37,6 +42,7 @@ public:
 	virtual void	toggleActive();
 	virtual bool	getActive();
 	virtual AiInstructions*	getNextCommand();
+	virtual void	startOver();
 };
 
 #endif

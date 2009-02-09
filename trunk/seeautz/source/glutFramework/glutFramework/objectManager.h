@@ -18,13 +18,13 @@ public:
 
 	int  getCurrentNumObjects();
 	int  getOverallNumObjects();
-	template <class T> inline void addNewObject(object*);
+	template <class T> inline void addNewObject(int x, int y, int direction);
     void removeObjectsAt(int index);
 	void removeObjectsID(int nukeObject);
     void update(); 
     void draw(); 
 	void dumpTruck();
-	void setList(vector<object*> newlist);
+	void startOver();
 };
 
 #endif

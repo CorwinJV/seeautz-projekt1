@@ -1,19 +1,15 @@
 #include "objectManager.h"
 
-//vector<object*> objectList;
-//vector<object*> objectsToAdd;
-//int				curObjects;
-//int				allObjects;
-
 
 objectManager::objectManager()
 {
-
+	curObjects = 0;
+	allObjects = 0;
 }
 
 objectManager::~objectManager()
 {
-
+	dumpTruck();
 }
 
 int  objectManager::getCurrentNumObjects()
@@ -30,13 +26,12 @@ void objectManager::removeObjectsAt(int index){};
 void objectManager::removeObjectsID(int nukeObject){};
 
 template <class T>
-inline void objectManager::addNewObject(object* newObject)
+inline void objectManager::addNewObject(int x, int y, int direction)
 {
 	allObjects++;
 
-	T* newObj = new T(*this, allObjects);
-	newObj->setStatus(Active);
-	
+	T* newObj = new T(x, y, direction);
+
 	objectsToAdd.push_back(newObj);
 };
 
@@ -50,5 +45,24 @@ void objectManager::draw()
 	//draw objects here
 }; 
 
-void objectManager::dumpTruck(){};
-void objectManager::setList(vector<object*> newlist){};
+void objectManager::dumpTruck()
+{
+	vector<object*>::iterator itr = objectList.begin();
+
+	// delete buttonlist contents
+	for (; itr != objectList.end(); itr++)
+    {
+		(*itr)->~object();
+    }
+	objectList.clear();
+};
+
+void objectManager::startOver()
+{
+	vector<object*>::iterator itr = objectList.begin();
+
+	for (; itr != objectList.end(); itr++)
+    {
+		(*itr)->startOver();
+    }
+};
