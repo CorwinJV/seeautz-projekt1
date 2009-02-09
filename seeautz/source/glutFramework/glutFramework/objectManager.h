@@ -18,9 +18,16 @@ public:
 
 	int  getCurrentNumObjects();
 	int  getOverallNumObjects();
-	template <class T> inline void addNewObject(int x, int y, int direction);
-    void removeObjectsAt(int index);
-	void removeObjectsID(int nukeObject);
+	template <class T>
+	inline void addNewObject(int x, int y, int direction)
+	{
+		allObjects++;
+
+		T* newObj = new T(x, y, direction);
+
+		objectsToAdd.push_back(newObj);
+	}
+    bool removeObjectsAt(int index);
     void update(); 
     void draw(); 
 	void dumpTruck();
