@@ -13,6 +13,12 @@ object::object(int x, int y, int newDirection)
 	setXPos(x);
 	setYPos(y);
 	direction = newDirection;
+	active = true;
+}
+
+object::~object()
+{
+	delete image;
 }
 
 bool object::getActive()
@@ -87,4 +93,12 @@ void object::draw()
 void object::update()
 {
 	//advance animation code here
+}
+
+void object::startOver()
+{	
+	xPos = startXPos;
+	yPos = startYPos;
+	direction = startDirection;
+	active = startActive;
 }
