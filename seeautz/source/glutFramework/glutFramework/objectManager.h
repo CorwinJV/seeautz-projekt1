@@ -19,13 +19,11 @@ public:
 	int  getCurrentNumObjects();
 	int  getOverallNumObjects();
 	template <class T>
-	inline void addNewObject(int x, int y, int direction)
+	inline void addNewObject(int x, int y, int direction, objectEnum otype)
 	{
-		allObjects++;
-
-		T* newObj = new T(x, y, direction);
-
+		T* newObj = new T(x, y, direction, otype);
 		objectsToAdd.push_back(newObj);
+		allObjects++;
 	}
     bool removeObjectsAt(int index);
     void update(); 

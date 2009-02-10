@@ -10,6 +10,9 @@
 #include "tileEnums.h"
 #include "oglTexture2D.h"
 #include <string>
+#include "objectManager.h"
+#include "robot.h"
+
 
 class gameBoard
 {
@@ -17,6 +20,11 @@ protected:
 	std::vector<std::vector<mapTile*>> mapList;
 	std::vector<oglTexture2D*> tileImages;
 	// 1 dimensional array of ai entities
+	objectManager *OM;
+	oglTexture2D*	robotImage;
+	int robotX;
+	int robotY;
+
 	int Width;
 	int Height;
 
@@ -54,6 +62,7 @@ public:
 	bool update();
 	bool draw();
 	bool drawTile(tileTypeEnum ntype, int txPos, int tyPos, double scale);
+	bool drawObject(int objectType, int txPos, int tyPos, double scale);
 	bool setTileType(int x, int y, tileTypeEnum ntileType);
 	tileTypeEnum getTileType(int x, int y);	
 	void initialize();
@@ -69,6 +78,7 @@ public:
 	void verifyMapPosition();
 	void recalcPositions();
 	void keyboardInput(unsigned char c, int x, int y);
+	bool resetMap();
 
 };
 

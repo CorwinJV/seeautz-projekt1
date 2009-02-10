@@ -38,6 +38,7 @@ public:
 		return true;
 		// if something bad happens, return false
 	}
+	~GameStateManager();
 
 	int getStateCount();
 	int getNumStates();
