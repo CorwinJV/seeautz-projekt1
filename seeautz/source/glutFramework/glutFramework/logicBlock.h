@@ -22,20 +22,26 @@ struct logicBlock
 	{
 		blockTexture = NULL;
 	}
-	logicBlock(std::string textureName, int width, int height, std::string description)
+	logicBlock(std::string textureName, int width, int height, std::string description, int byteCost)
 	{
 		blockTexture = new oglTexture2D();
 		blockTexture->loadImage(textureName, width, height);
 		blockDescription = description;
+		logicBlock::byteCost = byteCost;
 	}
 	~logicBlock()
 	{
 		delete blockTexture;
 		blockTexture = NULL;
 	}
+	void addInstruction(AiInstructions instr)
+	{
+		instructionList.push_back(instr);
+	}
 	std::string							blockDescription;
 	oglTexture2D*						blockTexture; 
 	std::vector<AiInstructions>			instructionList;
+	int									byteCost;
 };
 
 #endif

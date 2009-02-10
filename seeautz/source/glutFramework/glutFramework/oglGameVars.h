@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "logicBlock.h"
+#include "aiInstructionEnums.h"
 
 #define GameVars oglGameVars::Instance()
 
@@ -32,12 +33,14 @@ private:
 public:
 	std::string		getPlayerName();
 	void			setPlayerName(std::string name);
+	void			loadAllLogicBlocks();
+	std::vector<logicBlock*>* oglGameVars::getAllLogicBlocks();
 
 private:
 	std::string mPlayerName;
 	int mTotalScore;
-	std::vector<logicBlock> allLogicBlocks;
-
+	std::vector<logicBlock*> allLogicBlocks;
+	
 };
 
 #endif // OGLGAMEVARS_H

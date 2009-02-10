@@ -37,10 +37,14 @@ void LogicViewState::processMouse(int x, int y)
 {
 	if(myMenu != NULL)
 		myMenu->processMouse(x, y);
+
+	mInterface.processMouse(x, y);
 }
 
 void LogicViewState::processMouseClick(int button, int state, int x, int y)
 {
 	if(myMenu != NULL)
 		myMenu->processMouseClick(button, state, x, y);
+
+	mInterface.processMouseClick(button, state, x, y);
 }
