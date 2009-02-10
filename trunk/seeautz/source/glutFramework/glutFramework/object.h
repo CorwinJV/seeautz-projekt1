@@ -5,6 +5,7 @@
 #include "aiInstructionEnums.h"
 #include <vector>
 #include "objectEnums.h"
+#include "logicBlock.h"
 
 using namespace std;
 
@@ -21,8 +22,8 @@ protected:
 	bool			startActive;
 	objectEnum		objectType;
 	oglTexture2D*	image;
-	vector<AiInstructions*>	instructionList;
-	vector<AiInstructions*>::iterator currentInstruction;
+	vector<logicBlock*>	instructionList;
+	vector<logicBlock*>::iterator currentInstruction;
 
 
 public:
@@ -43,8 +44,12 @@ public:
 	virtual void	setActive(bool);
 	virtual void	toggleActive();
 	virtual bool	getActive();
-	virtual AiInstructions*	getNextCommand();
+	virtual AiInstructions	getNextCommand();
 	virtual void	startOver();
+	virtual objectEnum		getType();
+	virtual void	addCommand(logicBlock *newCommand);
+	virtual void	removeLastCommand();
+	virtual void	coreDump();
 };
 
 #endif

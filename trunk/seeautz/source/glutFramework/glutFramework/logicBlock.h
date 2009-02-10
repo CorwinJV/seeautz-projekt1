@@ -5,6 +5,7 @@
 #include "oglTexture2D.h"
 #include <vector>
 #include <string>
+#include "aiInstructionEnums.h"
 
 	//===============================================
 	// logicBlock
@@ -22,12 +23,13 @@ struct logicBlock
 	{
 		blockTexture = NULL;
 	}
-	logicBlock(std::string textureName, int width, int height, std::string description, int byteCost)
+	logicBlock(std::string textureName, int width, int height, std::string description, int byteCost, AiInstructions enumInstruction)
 	{
 		blockTexture = new oglTexture2D();
 		blockTexture->loadImage(textureName, width, height);
 		blockDescription = description;
 		logicBlock::byteCost = byteCost;
+		logicBlock::enumInstruction = enumInstruction;
 	}
 	~logicBlock()
 	{
@@ -42,6 +44,7 @@ struct logicBlock
 	oglTexture2D*						blockTexture; 
 	std::vector<AiInstructions>			instructionList;
 	int									byteCost;
+	AiInstructions						enumInstruction;
 };
 
 #endif
