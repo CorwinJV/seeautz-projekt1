@@ -1,5 +1,7 @@
 #include "projekt1App.h"
 #include "States\DevLogoState.h"
+#include "States\LogicViewState.h"
+#include "oglGameVars.h"
 
 #include <iostream>
 using namespace std;
@@ -10,6 +12,8 @@ projekt1App::projekt1App(std::string title, int sizeX, int sizeY, int argc, char
 	initOpenGL();
 
 	// Load our starting state into the GameStateManager
+	GameVars->Instance();
+	//myStateManager.addGameState<LogicViewState>();
 	myStateManager.addGameState<DevLogoState>();		// 0
 
 }
