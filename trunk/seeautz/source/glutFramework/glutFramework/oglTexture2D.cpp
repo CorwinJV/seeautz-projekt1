@@ -123,3 +123,35 @@ bool oglTexture2D::drawImageFaded(double amount)
 
 	return true;
 }
+
+bool oglTexture2D::drawImageSegment(double topLeftX, double topLeftY, 
+									double topRightX, double topRightY,
+									double bottomLeftX, double bottomLeftY, 
+									double bottomRightX, double bottomRightY, 
+									double fadeAmount = 1)
+{
+	// Bind texture to current context 
+	glBindTexture(GL_TEXTURE_2D, texture); 
+	// Set the alpha
+	//glColor4f(1.0, 1.0, 1.0, 1.0); 
+	glColor4f(fadeAmount, fadeAmount, fadeAmount, fadeAmount);
+
+	// Draw texture using a quad 
+	glBegin(GL_POLYGON); 
+		// Top left 
+		glTexCoord2f(topLeftX, topLeftY); 
+		glVertex2i(mX, mY); 
+		// Top right 
+		glTexCoord2f(topRightX, topRightY); 
+		glVertex2i(mX + dX, mY); 
+		// Bottom right 
+		glTexCoord2f(bottomRightX, bottomRightY); 
+		glVertex2i(mX + dX, mY + dY); 
+		// Bottom left 
+		glTexCoord2f(bottomLeftX, bottomLeftY); 
+		glVertex2i(mX, mY + dY); 
+		// Finish quad drawing 
+	glEnd();
+
+	return true;
+}

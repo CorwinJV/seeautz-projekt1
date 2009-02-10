@@ -4,6 +4,7 @@
 #include "oglTexture2D.h"
 #include "aiInstructionEnums.h"
 #include <vector>
+#include "objectEnums.h"
 
 using namespace std;
 
@@ -18,6 +19,7 @@ protected:
 	int				startYPos;
 	int				startDirection;
 	bool			startActive;
+	objectEnum		objectType;
 	oglTexture2D*	image;
 	vector<AiInstructions*>	instructionList;
 	vector<AiInstructions*>::iterator currentInstruction;
@@ -26,7 +28,7 @@ protected:
 public:
 	//default constructors, destructors
 	object();
-	object(int x, int y, int newDirection = 0);
+	object(int x, int y, int newDirection = 0, objectEnum newType = ONothing);
 	~object();
 
 	virtual void	rotate(int);

@@ -12,7 +12,7 @@ bool GameStateManager::Initialize()
 	stateCount = -1;
 	numStates = 0;
 
-	//why is this here?
+	//why is this here? - so the gamestate knows who its parent gamestate manager is
 	GameState* tempGS = new GameState(*this, stateCount);
 
 	return true;
@@ -249,4 +249,16 @@ void GameStateManager::keyboardInput(unsigned char c, int x, int y)
     {
 		(*itr)->keyboardInput( c,  x,  y);
 	}	
+}
+
+GameStateManager::~GameStateManager()
+{
+	vector<GameState*>::iterator itr = stateList.begin();
+
+	// delete buttonlist contents
+	for (; itr != stateList.end(); itr++)
+    {
+		(*itr)->~GameState();
+    }
+	stateList.clear();
 }

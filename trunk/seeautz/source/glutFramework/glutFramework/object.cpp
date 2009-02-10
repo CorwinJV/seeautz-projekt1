@@ -8,17 +8,19 @@ object::object()
 	active = true;
 }
 
-object::object(int x, int y, int newDirection)
+object::object(int x, int y, int newDirection, objectEnum newType)
 {
 	setXPos(x);
 	setYPos(y);
 	direction = newDirection;
 	active = true;
+	objectType = newType;
 }
 
 object::~object()
 {
 	delete image;
+	std::cout << "tick tick tick boom" << endl;
 }
 
 bool object::getActive()

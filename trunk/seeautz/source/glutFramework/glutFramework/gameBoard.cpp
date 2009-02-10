@@ -1,6 +1,9 @@
 #include "gameBoard.h"
 #include <vector>
 #include <fstream>
+#include "objectManager.h"
+#include "robot.h"
+#include "objectEnums.h"
 
 using namespace std;
 
@@ -53,6 +56,9 @@ gameBoard::gameBoard()
 	Width = 0;
 	overallWidth = (Height + Width) * hw;
 	overallHeight = (Height + Width) * hh;
+
+	// and lets make an object manager
+	OM = new objectManager();
 }
 
 gameBoard::gameBoard(int nWidth, int nHeight)
@@ -172,6 +178,13 @@ bool gameBoard::draw()
 			itr++;
 		}
 	}
+	// draw the robot/objects
+	// todo - this will eventually iterate through all the objects in the 
+	// game board and draw them in the proper spot if they should be drawn at all
+	drawAtX = mapOffsetX + (robotX * hw - (robotY * hw) + (hw));
+	drawAtY = mapOffsetY + (robotY * imageHeight - (robotY * hh) + (robotX * hh));
+
+	drawObject(0, drawAtX, drawAtY, scale);
 	return true;
 }
 
@@ -261,7 +274,7 @@ void gameBoard::initialize()
 	tempTile = new oglTexture2D(); tempTile->loadImage("tiles/TDoorBL.png",		 144, 72); tileImages.push_back(tempTile);	
 	tempTile = new oglTexture2D(); tempTile->loadImage("tiles/TDoorBR.png",		 144, 72); tileImages.push_back(tempTile);			
 	tempTile = new oglTexture2D(); tempTile->loadImage("tiles/TTeleport.png",	 144, 72); tileImages.push_back(tempTile);			
-
+	robotImage = new oglTexture2D(); robotImage->loadImage("object/robotDefault.png", 50, 50);
 
 }
 
@@ -342,10 +355,22 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 		{
 			mapfile >> temptile;
 			this->setTileType(x, y, (tileTypeEnum)temptile);
+			// if its a start spot, add the robot to the object list
+			if(temptile == TStart)
+			{
+				OM->addNewObject<robot>(x, y, 1, ORobot);
+				robotX = x;
+				robotY = y;
+			}
 		}
 	}
 
 	mapfile.close();
+
+	// find the start spot on the map and place the robot there
+
+	// to add - reading t
+
 
 	centerX = (int)((Width+1)/2);
 	centerY = (int)((Height+1)/2);
@@ -418,36 +443,38 @@ void gameBoard::processMouseClick(int button, int state, int x, int y)
 
 void gameBoard::mapScroll()
 {
+	double mMoveSpeed = moveSpeed/2;
 	// mouse stuff
 	recalcPositions();
+
 	// see if mouse is at top of screen
 	if((mouseY > 0) && (mouseY < screenHeight*screenEdge))
 	{
 		//mapOffsetY+= moveSpeed;
-		currentX-=moveSpeed;
-		currentY-=moveSpeed;
+		currentX-=mMoveSpeed;
+		currentY-=mMoveSpeed;
 	}
 
 	// see if mouse is at bottom of screen
 	if((mouseY < screenHeight) && (mouseY > (screenHeight - (screenHeight*screenEdge))))
 	{
 		//mapOffsetY-= moveSpeed;
-		currentX+= moveSpeed;
-		currentY+= moveSpeed;
+		currentX+= mMoveSpeed;
+		currentY+= mMoveSpeed;
 	}
 	// see if mouse is at left side of screen
 	if((mouseX > 0) && (mouseX < screenWidth * screenEdge))
 	{
 		//mapOffsetX+= moveSpeed;
-		currentX-=moveSpeed;
-		currentY+=moveSpeed;
+		currentX-=mMoveSpeed;
+		currentY+=mMoveSpeed;
 	}
 	// see if mouse is at right side of screen
 	if((mouseX < screenWidth) && (mouseX > (screenWidth - (screenWidth * screenEdge))))
 	{
 		//mapOffsetX-= moveSpeed;
-		currentX+=moveSpeed;
-		currentY-=moveSpeed;
+		currentX+=mMoveSpeed;
+		currentY-=mMoveSpeed;
 	}
 
 	verifyMapPosition();
@@ -490,18 +517,56 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 		currentY += kbmovespeed;
 		currentX += kbmovespeed;
 		break;
-	case '-':
+	case '-':	// zoom out (decrease scale)
 		scale -= 0.05;
 		break;
-	case '=':
+	case '=':	// zoom in (increase scale)
 		scale += 0.05;
 		break;
-	case '\\':
+	case '\\':	// reset scale
 		scale = 1;
 		break;
-	case ']':
+	case ']':	// reset center on center of map
 		currentX = centerX;
 		currentY = centerY;
+		break;
+	case '[':	// center on robot
+		currentX = robotX;
+		currentY = robotY;
+		break;
+	// move forward
+	case 'i':
+	case 'I':
+		// find the robot
+//		vector<object*>::iterator itr = objectList.begin();
+		
+		// add move forward to the robot command queue
+
+		
+		break;
+	// turn left
+	case 'j':
+	case 'J':
+		break;
+	// turn right
+	case 'l':
+	case 'L':
+		break;
+	// jump
+	case 'u':
+	case 'U':
+		break;
+	// crouch
+	case 'k':
+	case 'K':
+		break;
+	// activate
+	case 'o':
+	case 'O':
+		break;
+	// punch
+	case 'p':
+	case 'P':
 		break;
 	default:
 		break;
@@ -573,10 +638,41 @@ void gameBoard::recalcPositions()
 
 	moveSpeed = scale * 0.1;	
 
-
-
 	// setting offsetx based on center spot
 	// start at the center of the screen
 	mapOffsetX = (screenWidth/2) + (hw*currentY) - (hw*currentX);
 	mapOffsetY = (screenHeight/2)- (hh*currentY) - (hh*currentX);
+}
+
+bool gameBoard::resetMap()
+{
+	OM->startOver();
+	return true;
+}
+
+
+bool gameBoard::drawObject(int objectType, int txPos, int tyPos, double scale)
+{
+	txPos += hw/1.5;
+	//tyPos += hh;
+	glClearColor(128, 255, 128, 0);
+	oglTexture2D* toDraw;
+
+	toDraw = robotImage;
+
+	int tempdx = toDraw->dX;
+	int tempdy = toDraw->dY;
+
+	toDraw->dX *= scale;
+	toDraw->dY *= scale;
+
+	toDraw->mX = txPos;
+	toDraw->mY = tyPos;
+
+	toDraw->drawImage();
+
+	toDraw->dX = tempdx;
+	toDraw->dY = tempdy;
+
+	return true;
 }
