@@ -12,6 +12,7 @@
 #include <string>
 #include "objectManager.h"
 #include "robot.h"
+#include "oglGameVars.h"
 
 
 class gameBoard
@@ -20,8 +21,11 @@ protected:
 	std::vector<std::vector<mapTile*>> mapList;
 	std::vector<oglTexture2D*> tileImages;
 	// 1 dimensional array of ai entities
+	std::vector<object*> objectList;
 	objectManager *OM;
 	oglTexture2D*	robotImage;
+	std::vector<logicBlock*>* logicBank;		// The usable logic blocks
+
 	int robotX;
 	int robotY;
 
@@ -61,7 +65,7 @@ public:
 	bool moveTile(int sX, int sY, int dX, int dY);
 	bool update();
 	bool draw();
-	bool drawTile(tileTypeEnum ntype, int txPos, int tyPos, double scale);
+	bool drawTile(tileTypeEnum ntype, int txPos, int tyPos, double scale, bool isActive);
 	bool drawObject(int objectType, int txPos, int tyPos, double scale);
 	bool setTileType(int x, int y, tileTypeEnum ntileType);
 	tileTypeEnum getTileType(int x, int y);	
@@ -79,7 +83,7 @@ public:
 	void recalcPositions();
 	void keyboardInput(unsigned char c, int x, int y);
 	bool resetMap();
-
+	void processRobot();
 };
 
 #endif

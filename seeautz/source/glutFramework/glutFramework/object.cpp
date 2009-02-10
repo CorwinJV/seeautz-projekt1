@@ -6,6 +6,11 @@ object::object()
 	yPos = 0;
 	direction = 0;
 	active = true;
+	startXPos = 0;
+	startYPos = 0;
+	startDirection = 0;
+	startActive = true;
+	currentInstruction = instructionList.begin();
 }
 
 object::object(int x, int y, int newDirection, objectEnum newType)
@@ -15,6 +20,11 @@ object::object(int x, int y, int newDirection, objectEnum newType)
 	direction = newDirection;
 	active = true;
 	objectType = newType;
+	startXPos = x;
+	startYPos = y;
+	startDirection = newDirection;
+	startActive = true;
+	currentInstruction = instructionList.begin();
 }
 
 object::~object()
@@ -58,7 +68,7 @@ void object::toggleActive()
 
 void object::rotate(int rotation)
 {
-	//send in a +1 for left, -1 for right
+	//send in a +1 for right, -1 for left
 	direction += rotation;
 
 	if(direction < 0)	direction = 3;
@@ -82,9 +92,9 @@ void object::advanceCommand()
 		currentInstruction = instructionList.begin();
 }
 
-AiInstructions* object::getNextCommand()
+AiInstructions object::getNextCommand()
 {
-	return *currentInstruction;
+	return (*currentInstruction)->enumInstruction;
 }
 
 void object::draw()
@@ -103,4 +113,32 @@ void object::startOver()
 	yPos = startYPos;
 	direction = startDirection;
 	active = startActive;
+}
+
+objectEnum object::getType()
+{
+	return objectType;
+}
+
+void object::addCommand(logicBlock* newCommand)
+{
+	instructionList.push_back(newCommand);
+	currentInstruction = instructionList.begin();
+}
+
+void object::removeLastCommand()
+{
+	instructionList.pop_back();
+}
+
+void object::coreDump()
+{
+	vector <logicBlock*>::iterator itr = instructionList.begin();
+
+	std::cout << "Core Dump: " << endl;
+	for(;itr < instructionList.end(); itr++)
+	{
+		std::cout << (*itr)->enumInstruction << " ";
+	}
+	std::cout << endl;
 }

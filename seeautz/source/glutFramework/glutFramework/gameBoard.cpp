@@ -4,6 +4,7 @@
 #include "objectManager.h"
 #include "robot.h"
 #include "objectEnums.h"
+#include "oglGameVars.h"
 
 using namespace std;
 
@@ -59,6 +60,8 @@ gameBoard::gameBoard()
 
 	// and lets make an object manager
 	OM = new objectManager();
+	objectList.clear();
+	logicBank = GameVars->Instance()->getAllLogicBlocks();
 }
 
 gameBoard::gameBoard(int nWidth, int nHeight)
@@ -122,6 +125,8 @@ gameBoard::gameBoard(int nWidth, int nHeight)
 
 	// time to setup offsets based on centers
 
+	logicBank = GameVars->Instance()->getAllLogicBlocks();
+	objectList.clear();
 }
 
 gameBoard::~gameBoard()
@@ -173,14 +178,17 @@ bool gameBoard::draw()
 		{
 			drawAtX = mapOffsetX + (x * hw - (y * hw) + (hw));
 			drawAtY = mapOffsetY + (y * imageHeight - (y * hh) + (x * hh));
-
-			drawTile((*itr)->getType(), drawAtX, drawAtY, scale);
+			if((*itr)->getIsActive())
+				drawTile((*itr)->getType(), drawAtX, drawAtY, scale, true);
+			else
+				drawTile((*itr)->getType(), drawAtX, drawAtY, scale, false);
 			itr++;
 		}
 	}
 	// draw the robot/objects
 	// todo - this will eventually iterate through all the objects in the 
 	// game board and draw them in the proper spot if they should be drawn at all
+	// for the time being, the only "object" that requires being drawn is the robot
 	drawAtX = mapOffsetX + (robotX * hw - (robotY * hw) + (hw));
 	drawAtY = mapOffsetY + (robotY * imageHeight - (robotY * hh) + (robotX * hh));
 
@@ -206,7 +214,7 @@ tileTypeEnum gameBoard::getTileType(int x, int y)
 	return mapList[x][y]->getType();
 }
 
-bool gameBoard::drawTile(tileTypeEnum nType, int txPos, int tyPos, double scale)
+bool gameBoard::drawTile(tileTypeEnum nType, int txPos, int tyPos, double scale, bool isActive)
 {
 	glClearColor(128, 255, 128, 0);
 	oglTexture2D* toDraw;
@@ -222,7 +230,10 @@ bool gameBoard::drawTile(tileTypeEnum nType, int txPos, int tyPos, double scale)
 	toDraw->mX = txPos;
 	toDraw->mY = tyPos;
 
-	toDraw->drawImage();
+	if(isActive)
+		toDraw->drawImageSegment(0.0, 0.0, 0.5, 0.0, 0.0, 1.0, 0.5, 1.0, 1);
+	else
+		toDraw->drawImageSegment(0.5, 0.0, 1.0, 0.0, 0.5, 1.0, 1.0, 1.0, 1);
 
 	toDraw->dX = tempdx;
 	toDraw->dY = tempdy;
@@ -358,7 +369,10 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 			// if its a start spot, add the robot to the object list
 			if(temptile == TStart)
 			{
-				OM->addNewObject<robot>(x, y, 1, ORobot);
+				//OM->addNewObject<robot>(x, y, 1, ORobot);
+				robot* tempObj;
+				tempObj = new robot(x, y, 0, ORobot);
+				objectList.push_back(tempObj);
 				robotX = x;
 				robotY = y;
 			}
@@ -482,6 +496,9 @@ void gameBoard::mapScroll()
 
 void gameBoard::keyboardInput(unsigned char c, int x, int y)
 {
+	vector<object*>::iterator oitr;
+	vector<logicBlock*>::iterator lbitr;
+
 	double kbmovespeed = moveSpeed;
 	switch(c)
 	{
@@ -538,44 +555,181 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	case 'i':
 	case 'I':
 		// find the robot
-//		vector<object*>::iterator itr = objectList.begin();
-		
-		// add move forward to the robot command queue
-
-		
+		oitr = objectList.begin();
+		for(;oitr != objectList.end(); oitr++)
+		{
+			if((*oitr)->getType() == ORobot)
+			{
+			// find forward in allLogicBlocks
+				lbitr = logicBank->begin();
+				for(;lbitr != logicBank->end(); lbitr++)
+				{
+					if((*lbitr)->enumInstruction == MOVE_FORWARD1)
+					{
+			//			// add move forward to the robot command queue
+						(*oitr)->addCommand(*lbitr);
+						std::cout << "added MOVE_FORWARD1 to robot command list " << endl;
+						(*oitr)->coreDump();
+					}
+				}
+			}
+		}		
 		break;
 	// turn left
 	case 'j':
 	case 'J':
+		// find the robot
+		oitr = objectList.begin();
+		for(;oitr != objectList.end(); oitr++)
+		{
+			if((*oitr)->getType() == ORobot)
+			{
+			// find turn left in allLogicBlocks
+				lbitr = logicBank->begin();
+				for(;lbitr != logicBank->end(); lbitr++)
+				{
+					if((*lbitr)->enumInstruction == TURN_LEFT1)
+					{
+			//			// add move forward to the robot command queue
+						(*oitr)->addCommand(*lbitr);
+						std::cout << "added TURN_LEFT1 to robot command list " << endl;
+						(*oitr)->coreDump();
+					}
+				}
+			}
+		}	
 		break;
 	// turn right
 	case 'l':
 	case 'L':
+		// find the robot
+		oitr = objectList.begin();
+		for(;oitr != objectList.end(); oitr++)
+		{
+			if((*oitr)->getType() == ORobot)
+			{
+			// find turn right in allLogicBlocks
+				lbitr = logicBank->begin();
+				for(;lbitr != logicBank->end(); lbitr++)
+				{
+					if((*lbitr)->enumInstruction == TURN_RIGHT1)
+					{
+			//			// add move forward to the robot command queue
+						(*oitr)->addCommand(*lbitr);
+						std::cout << "added TURN_RIGHT1 to robot command list " << endl;
+						(*oitr)->coreDump();
+					}
+				}
+			}
+		}	
+		break;
 		break;
 	// jump
 	case 'u':
 	case 'U':
+		// find the robot
+		oitr = objectList.begin();
+		for(;oitr != objectList.end(); oitr++)
+		{
+			if((*oitr)->getType() == ORobot)
+			{
+			// find JUMP in allLogicBlocks
+				lbitr = logicBank->begin();
+				for(;lbitr != logicBank->end(); lbitr++)
+				{
+					if((*lbitr)->enumInstruction == JUMP)
+					{
+			//			// add move forward to the robot command queue
+						(*oitr)->addCommand(*lbitr);
+						std::cout << "added JUMP to robot command list " << endl;
+						(*oitr)->coreDump();
+					}
+				}
+			}
+		}	
 		break;
 	// crouch
 	case 'k':
 	case 'K':
+		// find the robot
+		oitr = objectList.begin();
+		for(;oitr != objectList.end(); oitr++)
+		{
+			if((*oitr)->getType() == ORobot)
+			{
+			// find CROUCH in allLogicBlocks
+				lbitr = logicBank->begin();
+				for(;lbitr != logicBank->end(); lbitr++)
+				{
+					if((*lbitr)->enumInstruction == CROUCH)
+					{
+			//			// add move forward to the robot command queue
+						(*oitr)->addCommand(*lbitr);
+						std::cout << "added CROUCH to robot command list " << endl;
+						(*oitr)->coreDump();
+					}
+				}
+			}
+		}	
 		break;
 	// activate
 	case 'o':
 	case 'O':
+		// find the robot
+		oitr = objectList.begin();
+		for(;oitr != objectList.end(); oitr++)
+		{
+			if((*oitr)->getType() == ORobot)
+			{
+			// find ACTIVATE in allLogicBlocks
+				lbitr = logicBank->begin();
+				for(;lbitr != logicBank->end(); lbitr++)
+				{
+					if((*lbitr)->enumInstruction == ACTIVATE)
+					{
+			//			// add move forward to the robot command queue
+						(*oitr)->addCommand(*lbitr);
+						std::cout << "added ACTIVATE to robot command list " << endl;
+						(*oitr)->coreDump();
+					}
+				}
+			}
+		}	
 		break;
 	// punch
 	case 'p':
 	case 'P':
+		// find the robot
+		oitr = objectList.begin();
+		for(;oitr != objectList.end(); oitr++)
+		{
+			if((*oitr)->getType() == ORobot)
+			{
+			// find PUNCH in allLogicBlocks
+				lbitr = logicBank->begin();
+				for(;lbitr != logicBank->end(); lbitr++)
+				{
+					if((*lbitr)->enumInstruction == PUNCH)
+					{
+			//			// add move forward to the robot command queue
+						(*oitr)->addCommand(*lbitr);
+						std::cout << "added PUNCH to robot command list " << endl;
+						(*oitr)->coreDump();
+					}
+				}
+			}
+		}	
 		break;
+	case 't': // process next thing in robot loop
+	case 'T':
+		processRobot();
 	default:
 		break;
 	}
 
 	if (scale > maxscale)	scale = maxscale;
 	if (scale < minscale)	scale = minscale;
-
-	verifyMapPosition();
+	verifyMapPosition();	
 }
 
 void gameBoard::verifyMapPosition()
@@ -653,6 +807,7 @@ bool gameBoard::resetMap()
 
 bool gameBoard::drawObject(int objectType, int txPos, int tyPos, double scale)
 {
+	// for now, lets just draw the robot, additional code to come
 	txPos += hw/1.5;
 	//tyPos += hh;
 	glClearColor(128, 255, 128, 0);
@@ -669,10 +824,175 @@ bool gameBoard::drawObject(int objectType, int txPos, int tyPos, double scale)
 	toDraw->mX = txPos;
 	toDraw->mY = tyPos;
 
-	toDraw->drawImage();
-
+	// find the robot
+	vector<object*>::iterator oitr = objectList.begin();
+	for(;oitr != objectList.end(); oitr++)
+	{
+		if((*oitr)->getType() == ORobot)
+		{
+			// now lets see which direction its facing
+			switch((*oitr)->getDirection())
+			{
+			case 0:
+				toDraw->drawImageSegment(0.0, 0.0,	0.25, 0.0,
+										 0.0, 1.0,  0.25, 1.0, 1);
+				break;
+			case 1:
+				toDraw->drawImageSegment(0.25, 0.0,	0.5, 0.0,
+										 0.25, 1.0, 0.5, 1.0, 1);
+				break;
+			case 2:
+				toDraw->drawImageSegment(0.5, 0.0,	0.75, 0.0,
+										 0.5, 1.0,  0.75, 1.0, 1);
+				break;
+			case 3:
+				toDraw->drawImageSegment(0.75, 0.0,	1.0, 0.0,
+										 0.75, 1.0, 1.0, 1.0, 1);
+				break;
+			}
+		}
+	}
 	toDraw->dX = tempdx;
 	toDraw->dY = tempdy;
 
 	return true;
+}
+
+void gameBoard::processRobot()
+{
+	// find the robot
+	vector<object*>::iterator oitr = objectList.begin();
+	int destX;
+	int destY;
+	tileTypeEnum robotSquare;
+	int robotDirection;
+	tileTypeEnum destType;
+	bool		 destActive;
+
+	for(;oitr != objectList.end(); oitr++)
+	{
+		if((*oitr)->getType() == ORobot)
+		{
+			switch((*oitr)->getNextCommand())
+			{
+			case MOVE_FORWARD1:
+				destX = 0;
+				destY = 0;
+				robotSquare = mapList[robotX][robotY]->getType();
+				robotDirection = (*oitr)->getDirection();
+				
+				// see if the robot is going to die by attempting to move out of this square in the
+				// direction if they're facing
+				// if not (no death from current square move attempt) ...
+				//  we need to check if this square can be moved out of in the direction that the player is facing...
+				// if so, set the following dest values
+				// otherwise, just advance the command and don't move the robot
+				
+				switch(robotDirection)
+				{
+				case 0:// facing up/right (up on map)					
+					destY = -1;					
+					break;
+				case 1:// facing down/right (right on map)
+					destX = 1;
+					break;
+				case 2:// facing down/left (down on map)
+					destY = 1;
+					break;
+				case 3:// facing up/left (left on map)
+					destX = -1;
+					break;
+				}
+
+				// now lets check if the destination is valid safe square
+				if((destX >= 0) && (destX < Width) && (destY >= 0) && (destY < Height))
+				{
+					destType = (mapList[destX][destY]->getType()) ;
+					destActive = (mapList[destX][destY]->getIsActive());
+					
+					// valid squares that the player can move into		
+					// move player into destination square, advance commands
+					// special circumstance, ice, advance to destination square, do not advance command
+					
+
+
+					// if they are going to die at the destination square, advance to square and set dead					
+				}
+				break;
+
+			case TURN_LEFT1:
+				(*oitr)->rotate(-1);
+				break;
+			case TURN_RIGHT1:
+				(*oitr)->rotate(1);
+				break;
+			case CROUCH:  // just like move forward above, only far less squares that can be moved into
+				break;
+			case CLIMB:	  // just like move forward above, only far less squares that can be moved into
+				break;
+			case JUMP:	  // just like move forward above, only far less squares that can be moved into
+				break;
+			case PUNCH:	  // just like move forward above, only far less squares that can be moved into
+				break;
+			case MOVE_FORWARD_UNTIL_UNABLE: // just like move forward above, only no advancement of command until destination square is invalid and won't cause death
+				break;
+			case SUB:	// special case
+				break;
+			case LOOP:	// since this should always be displayed as the last command automatically, this isn't really needed
+						// the object's ai list automagically loops when it gets to its end
+				break;
+			case ACTIVATE:	// for now lets just check for a door so we can see it working in testmap1
+				int destX = 0;
+				int destY = 0;
+				robotSquare = mapList[robotX][robotY]->getType();
+				robotDirection = (*oitr)->getDirection();
+				
+				// lets see if the robot is facing a door				
+				switch(robotDirection)
+				{
+				case 0:// facing up/right (up on map)					
+					destY = -1;					
+					break;
+				case 1:// facing down/right (right on map)
+					destX = 1;
+					break;
+				case 2:// facing down/left (down on map)
+					destY = 1;
+					break;
+				case 3:// facing up/left (left on map)
+					destX = -1;
+					break;
+				}
+
+				// now lets check if the door that is facing the robot
+				if((destX >= 0) && (destX < Width) && (destY >= 0) && (destY < Height))
+				{
+					destType = (mapList[destX][destY]->getType()) ;
+					destActive = (mapList[destX][destY]->getIsActive());
+
+					switch(robotDirection)
+					{
+					case 0:// facing up/right (up on map)					
+						if(destType == TDoorBL)
+							mapList[destX][destY]->toggleActive();
+						break;
+					case 1:// facing down/right (right on map)
+						if(destType == TDoorTL)
+							mapList[destX][destY]->toggleActive();
+						break;
+					case 2:// facing down/left (down on map)
+						if(destType == TDoorTR)
+							mapList[destX][destY]->toggleActive();
+						break;
+					case 3:// facing up/left (left on map)
+						if(destType == TDoorBR)
+							mapList[destX][destY]->toggleActive();
+						break;
+					}
+				}
+				break;
+			}
+			(*oitr)->advanceCommand();
+		}
+	}	
 }
