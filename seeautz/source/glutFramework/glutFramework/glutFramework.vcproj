@@ -201,6 +201,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\object.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\objectManager.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\oglApp.cpp"
 				>
 			</File>
@@ -355,6 +363,18 @@
 				>
 			</File>
 			<File
+				RelativePath=".\object.h"
+				>
+			</File>
+			<File
+				RelativePath=".\objectEnums.h"
+				>
+			</File>
+			<File
+				RelativePath=".\objectManager.h"
+				>
+			</File>
+			<File
 				RelativePath=".\oglApp.h"
 				>
 			</File>
@@ -376,6 +396,10 @@
 			</File>
 			<File
 				RelativePath=".\projekt1App.h"
+				>
+			</File>
+			<File
+				RelativePath=".\robot.h"
 				>
 			</File>
 			<File
