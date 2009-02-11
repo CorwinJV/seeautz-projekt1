@@ -36,17 +36,18 @@ private:
 	// Non singleton functions and data members here
 	//===============================================
 public:
-	std::string		getPlayerName();
-	void			setPlayerName(std::string name);
-	void			loadAllLogicBlocks();
-	bool			LoadPlayerGame(std::string name);
-	bool			SavePlayerGame(std::string name);
-	std::vector<logicBlock*>* oglGameVars::getAllLogicBlocks();
-
+	std::string					getPlayerName();
+	void						setPlayerName(std::string name);
+	void						loadAllLogicBlocks();
+	std::vector<logicBlock*>*	oglGameVars::getAllLogicBlocks();
+	logicBlock*					getPlaceInstructionBlock();
+	bool						LoadPlayerGame(std::string name);
+	bool						SavePlayerGame(std::string name);
 private:
 	std::string mPlayerName;
 	int mTotalScore;
-	std::vector<logicBlock*> allLogicBlocks;
+	std::vector<logicBlock*>	allLogicBlocks;
+	logicBlock*					placeInstructionBlock;
 	
 };
 
