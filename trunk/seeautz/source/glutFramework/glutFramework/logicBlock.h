@@ -36,10 +36,32 @@ struct logicBlock
 		delete blockTexture;
 		blockTexture = NULL;
 	}
+
+	// Copy Constructor:
+	logicBlock(const logicBlock& p) 
+	{
+		blockDescription = p.blockDescription;
+		blockTexture = new oglTexture2D(*(p.blockTexture));
+		instructionList = p.instructionList;
+		byteCost = p.byteCost;
+		enumInstruction = p.enumInstruction;
+	}
+
 	void addInstruction(AiInstructions instr)
 	{
 		instructionList.push_back(instr);
 	}
+
+	bool checkInBounds(int x, int y, int widthBound, int heightBound)
+	{
+		// dX and dY should be width and height
+		if (((x > blockTexture->mX) && (x < (blockTexture->mX + widthBound))) &&
+			(y > blockTexture->mY) && (y < (blockTexture->mY + heightBound)))
+			return true;
+		else 
+			return false;
+	}
+
 	std::string							blockDescription;
 	oglTexture2D*						blockTexture; 
 	std::vector<AiInstructions>			instructionList;

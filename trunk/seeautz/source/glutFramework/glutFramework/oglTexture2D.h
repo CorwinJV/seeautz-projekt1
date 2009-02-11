@@ -13,6 +13,18 @@ class oglTexture2D
 public:
 	oglTexture2D();
 	~oglTexture2D();
+	// Copy Constructor:
+	oglTexture2D(const oglTexture2D& p) 
+	{
+		mX = p.mX;
+		mY = p.mY;
+		dX = p.dX;
+		dY = p.dY;
+		texture = p.texture;
+		mWidth = p.mWidth;
+		mHeight = p.mHeight;
+	}
+
 	bool loadImage(std::string, int dWidth, int dHeight);
 	bool drawImage(int dWidth = 0, int dHeight = 0);
 	bool drawImageFaded(double amount);

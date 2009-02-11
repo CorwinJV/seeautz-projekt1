@@ -23,11 +23,12 @@ public:
 private:
 	oglTexture2D* menuBar;
 	int bottomBarXOffset;
+	int sideBarYOffset;
+	bool isMouseDragging;
+	logicBlock* draggedBlock;
 
 	std::vector<logicBlock*>* logicBank;		// The usable logic blocks
 	std::vector<logicBlock*> executionList;	// The command to give the robot
-
-
 };
 
 #endif // LOGICINTERFACE_H

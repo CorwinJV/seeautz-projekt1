@@ -106,9 +106,16 @@ void oglGameVars::loadAllLogicBlocks()
 	tmpBlock = new logicBlock("instructions/activate.png", 130, 130, "Use this instruction to activate whatever is infront of you.", 2, ACTIVATE);
 	tmpBlock->addInstruction(ACTIVATE);
 	allLogicBlocks.push_back(tmpBlock);
+
+	placeInstructionBlock = new logicBlock("instructions/place_new_instruction.png", 130, 130, "Place a new instruction here.", 2, DO_NOT_PROCESS);
 }
 
 std::vector<logicBlock*>* oglGameVars::getAllLogicBlocks()
 {
 	return &allLogicBlocks;
+}
+
+logicBlock*	oglGameVars::getPlaceInstructionBlock()
+{
+	return placeInstructionBlock;
 }
