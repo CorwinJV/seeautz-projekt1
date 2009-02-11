@@ -1,4 +1,8 @@
 #include "oglGameVars.h"
+#include<fstream>
+#include<iostream>
+//#include<cstring>
+
 
 oglGameVars* oglGameVars::pinstance = 0;// initialize pointer
 
@@ -29,6 +33,36 @@ void oglGameVars::setPlayerName(std::string name)
 	mPlayerName = name;
 }
 
+bool oglGameVars::SavePlayerGame(std::string name) // AC
+{
+	std::cout << "Saving Game..." << name << std::endl;
+	
+	std::ofstream PlayerInfo;
+	if(!PlayerInfo)
+		return false;
+
+	PlayerInfo.open(name.c_str());
+	PlayerInfo.close();
+	
+	
+	return true;
+	
+
+}
+bool oglGameVars::LoadPlayerGame(std::string name) // AC
+{
+	
+	std::cout << "Loading Game...: " << name <<std::endl;
+	std::ifstream PlayerInfo;
+	
+	if(!PlayerInfo)
+		return false;
+
+	PlayerInfo.open(name.c_str());
+	PlayerInfo.close();
+	
+	return true;
+}
 void oglGameVars::loadAllLogicBlocks()
 {
 	logicBlock* tmpBlock;
