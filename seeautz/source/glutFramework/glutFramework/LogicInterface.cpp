@@ -61,6 +61,8 @@ void LogicInterface::Draw()
 		(*itr)->blockTexture->drawImage(140, 140);
 	}
 
+	//=============================================
+	// Dragged Block
 	if(draggedBlock != NULL)
 	{
 		draggedBlock->blockTexture->drawImage(140, 140);
@@ -98,9 +100,8 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 		}
 	}
 
-
 	if(button == GLUT_LEFT
-		&& state == GLUT_DOWN)
+		&& state == GLUT_UP)
 	{
 		if(isMouseDragging == true
 			&& draggedBlock != NULL)
@@ -113,8 +114,13 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 				delete draggedBlock;
 				draggedBlock = NULL;
 			}
+
+			delete draggedBlock;
+			draggedBlock = NULL;
+			isMouseDragging = false;
 		}
 	}
+
 }
 
 
