@@ -135,7 +135,6 @@ gameBoard::~gameBoard()
 	for(int x = 0; x < Width; x++)
 		for(int y = 0; y < Height; y++)
 			delete mapList[x][y];
-
 	mapList.clear();
 	cleanup();
 }
@@ -995,4 +994,13 @@ void gameBoard::processRobot()
 			(*oitr)->advanceCommand();
 		}
 	}	
+}
+
+bool gameBoard::robotAtEndSquare()
+{
+	// find the end square
+	if (mapList[robotX][robotY]->getType() == TEnd)
+		return true;
+	else
+		return false;
 }

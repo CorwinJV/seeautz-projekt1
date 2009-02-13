@@ -307,6 +307,10 @@
 					RelativePath=".\tutorialMap1.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\tutorialMap2.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -485,6 +489,10 @@
 				>
 				<File
 					RelativePath=".\tutorialMap1.h"
+					>
+				</File>
+				<File
+					RelativePath=".\tutorialMap2.h"
 					>
 				</File>
 			</Filter>
