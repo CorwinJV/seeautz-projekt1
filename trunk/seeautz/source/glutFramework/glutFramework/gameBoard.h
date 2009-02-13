@@ -84,6 +84,7 @@ public:
 	void keyboardInput(unsigned char c, int x, int y);
 	bool resetMap();
 	void processRobot();
+	bool robotAtEndSquare();
 };
 
 #endif

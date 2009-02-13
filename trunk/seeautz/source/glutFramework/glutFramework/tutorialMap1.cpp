@@ -6,6 +6,15 @@
 bool tutorialMap1::Update()
 {
 	tutorialmap1->mapScroll();
+	// see if the robot is at the end square
+	if(tutorialmap1->robotAtEndSquare)
+	{
+		tutorialmap1->~gameBoard();
+		delete tutorialmap1;
+		GSM->addGameState<tutorialMap2>();
+		this->setStatus(DeleteMe);
+	}
+
 	return true;
 }
 
