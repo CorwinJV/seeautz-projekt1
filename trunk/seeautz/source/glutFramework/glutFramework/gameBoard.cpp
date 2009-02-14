@@ -5,6 +5,7 @@
 #include "robot.h"
 #include "objectEnums.h"
 #include "oglGameVars.h"
+#include "Oswitch.h"
 
 using namespace std;
 
@@ -374,8 +375,60 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 				objectList.push_back(tempObj);
 				robotX = x;
 				robotY = y;
+				robotStartX = x;
+				robotStartY = y;
 			}
 		}
+	}
+
+	// now lets see if there's any switches in the game map
+	if(!mapfile.eof())
+	{
+		int switchcount;
+		int teleportcount;
+		mapfile >> switchcount;
+		mapfile >> teleportcount;
+
+		int numcnt;
+		int myX;
+		int myY;
+		int tempX;
+		int tempY;
+		Oswitch* tempObj;
+
+		// read in the switches
+
+		for(int x = 0; x < switchcount; x++)
+		{
+			
+			// switch data layout
+			// # of tiles controlled
+			mapfile >> numcnt;
+
+			// x y of this switch
+			mapfile >> myX;
+			mapfile >> myY;
+			
+			tempObj = new Oswitch(myX, myY, 0, OSwitch);
+
+			for(int sx = 0; sx < numcnt; sx++)
+			{
+				// x y of first tile controlled
+				mapfile >> tempX;
+				mapfile >> tempY;
+				tempObj->addTarget(tempX, tempY);
+				// ...
+				// x y of nth tile controlled
+			}
+			switchList.push_back(tempObj);
+		}
+
+		// read in the teleporters
+		for(int x = 0; x < teleportcount; x++)
+		{
+
+		}
+
 	}
 
 	mapfile.close();
@@ -722,6 +775,26 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	case 't': // process next thing in robot loop
 	case 'T':
 		processRobot();
+		break;
+	case 'r':
+	case 'R':
+		robotX = robotStartX;
+		robotY = robotStartY;
+		break;
+
+	case 'X':
+		robotX--;
+		break;
+	case 'x':
+		robotX++;
+		break;
+	case 'Y':
+		robotY--;
+		break;
+	case 'y':
+		robotY++;
+		break;
+
 	default:
 		break;
 	}
@@ -861,6 +934,8 @@ void gameBoard::processRobot()
 {
 	// find the robot
 	vector<object*>::iterator oitr = objectList.begin();
+	vector<Oswitch*>::iterator sitr = switchList.begin();
+	//Oswitch* tempSwitch;
 	int destX;
 	int destY;
 	tileTypeEnum robotSquare;
@@ -945,21 +1020,48 @@ void gameBoard::processRobot()
 				int destY = 0;
 				robotSquare = mapList[robotX][robotY]->getType();
 				robotDirection = (*oitr)->getDirection();
-				
-				// lets see if the robot is facing a door				
+
+				// first lets see if anything happens based upon the square we're standing in....
+
+				// are we standing in a door square facing the door in our own square?
+				// if so, lets toggle it
 				switch(robotDirection)
 				{
 				case 0:// facing up/right (up on map)					
-					destY = -1;					
+					if(robotSquare == TDoorTR)
+						mapList[robotX][robotY]->toggleActive();
 					break;
 				case 1:// facing down/right (right on map)
-					destX = 1;
+					if(robotSquare == TDoorBR)
+						mapList[robotX][robotY]->toggleActive();
 					break;
 				case 2:// facing down/left (down on map)
-					destY = 1;
+					if(robotSquare == TDoorBL)
+						mapList[robotX][robotY]->toggleActive();
 					break;
 				case 3:// facing up/left (left on map)
-					destX = -1;
+					if(robotSquare == TDoorTL)
+						mapList[robotX][robotY]->toggleActive();
+					break;
+				}
+
+				destX = robotX;
+				destY = robotY;
+				// now lets see if the robot is facing a door				
+				switch(robotDirection)
+				{
+				case 0:// facing up/right (up on map)					
+
+					destY = robotY -1;					
+					break;
+				case 1:// facing down/right (right on map)
+					destX = robotX +1;
+					break;
+				case 2:// facing down/left (down on map)
+					destY = robotY + 1;
+					break;
+				case 3:// facing up/left (left on map)
+					destX = robotX -1;
 					break;
 				}
 
@@ -989,11 +1091,41 @@ void gameBoard::processRobot()
 						break;
 					}
 				}
+
+				//// switches are crashing... will fix later
+				//// are we standing on a switch square?
+				//sitr = switchList.begin();
+
+				//int sx;
+				//int sy;
+
+				//if(robotSquare == TSwitch)
+				//{
+				//	for(;sitr != switchList.end(); sitr++)
+				//	{
+				//		//  find the switch in the object list
+				//		if(((*sitr)->getType() == OSwitch) && ((*sitr)->getXPos() == robotX) && ((*sitr)->getYPos() == robotY))
+				//		{
+				//			// process through its stuff
+				//			//tempSwitch = (*sitr);
+				//			for(int xyx = 0; xyx < (*sitr)->getNumTargets(); xyx++)
+				//			{
+				//				sx = (*sitr)->getNextX();
+				//				sy = (*sitr)->getNextY();
+				//			}
+				//		}
+				//	}
+				//}
+
+				// are we facing a switch in our own square?
+
+
 				break;
 			}
-			(*oitr)->advanceCommand();
+			
 		}
-	}	
+	}
+	(*oitr)->advanceCommand();
 }
 
 bool gameBoard::robotAtEndSquare()

@@ -13,7 +13,7 @@
 #include "objectManager.h"
 #include "robot.h"
 #include "oglGameVars.h"
-
+#include "Oswitch.h"
 
 class gameBoard
 {
@@ -22,12 +22,15 @@ protected:
 	std::vector<oglTexture2D*> tileImages;
 	// 1 dimensional array of ai entities
 	std::vector<object*> objectList;
+	std::vector<Oswitch*> switchList;
 	objectManager *OM;
 	oglTexture2D*	robotImage;
 	std::vector<logicBlock*>* logicBank;		// The usable logic blocks
 
 	int robotX;
 	int robotY;
+	int robotStartX;
+	int robotStartY;
 
 	int Width;
 	int Height;
