@@ -221,6 +221,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Oswitch.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\pixmap.cpp"
 				>
 			</File>
@@ -392,6 +396,10 @@
 			</File>
 			<File
 				RelativePath=".\oglUtility.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Oswitch.h"
 				>
 			</File>
 			<File
