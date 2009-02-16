@@ -794,6 +794,9 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	case 'y':
 		robotY++;
 		break;
+	case '9':
+		playSound();
+		break;
 
 	default:
 		break;
@@ -802,6 +805,13 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	if (scale > maxscale)	scale = maxscale;
 	if (scale < minscale)	scale = minscale;
 	verifyMapPosition();	
+}
+
+void gameBoard::playSound()
+{
+	soundEffect sound;
+	sound.playSound();
+
 }
 
 void gameBoard::verifyMapPosition()

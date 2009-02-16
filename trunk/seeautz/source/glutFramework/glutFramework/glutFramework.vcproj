@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="DevIL.lib"
+				AdditionalDependencies="DevIL.lib openal32.lib alut.lib odbc32.lib odbccp32.lib freetype.lib opengl32.lib glu32.lib "
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -234,6 +234,10 @@
 			</File>
 			<File
 				RelativePath=".\projekt1App.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\sound.cpp"
 				>
 			</File>
 			<Filter
@@ -412,6 +416,10 @@
 			</File>
 			<File
 				RelativePath=".\robot.h"
+				>
+			</File>
+			<File
+				RelativePath=".\sound.h"
 				>
 			</File>
 			<File
