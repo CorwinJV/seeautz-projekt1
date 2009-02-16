@@ -5,6 +5,8 @@ void Oswitch::addTarget(int x, int y)
 	targetX.push_back(x);
 	targetY.push_back(y);
 	numTargets++;
+	Xitr = targetX.begin();
+	Yitr = targetY.begin();
 	//std::cout << "switch target added at " << x << ", " << y << " total targets for this switch is now " << numTargets << endl;
 }
 int Oswitch::getNumTargets()

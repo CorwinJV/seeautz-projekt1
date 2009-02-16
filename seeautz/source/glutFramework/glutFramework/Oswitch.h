@@ -12,8 +12,8 @@ using namespace std;
 class Oswitch : public object
 {
 	vector<int> targetX;
-	vector<int>::iterator Xitr;
 	vector<int> targetY;
+	vector<int>::iterator Xitr;
 	vector<int>::iterator Yitr;
 	int numTargets;
 	
@@ -23,6 +23,8 @@ public:
 		: object(x, y, newDirection, newType)
 	{
 		numTargets = 0;
+		targetX.clear();
+		targetY.clear();
 		Xitr = targetX.begin();
 		Yitr = targetY.begin();
 		//std::cout << "switch created at " << x << ", " << y << endl;

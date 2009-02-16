@@ -1092,30 +1092,36 @@ void gameBoard::processRobot()
 					}
 				}
 
-				//// switches are crashing... will fix later
-				//// are we standing on a switch square?
-				//sitr = switchList.begin();
+				// switches are crashing... will fix later
+				// are we standing on a switch square?
+				sitr = switchList.begin();
 
-				//int sx;
-				//int sy;
+				int sx;
+				int sy;
 
-				//if(robotSquare == TSwitch)
-				//{
-				//	for(;sitr != switchList.end(); sitr++)
-				//	{
-				//		//  find the switch in the object list
-				//		if(((*sitr)->getType() == OSwitch) && ((*sitr)->getXPos() == robotX) && ((*sitr)->getYPos() == robotY))
-				//		{
-				//			// process through its stuff
-				//			//tempSwitch = (*sitr);
-				//			for(int xyx = 0; xyx < (*sitr)->getNumTargets(); xyx++)
-				//			{
-				//				sx = (*sitr)->getNextX();
-				//				sy = (*sitr)->getNextY();
-				//			}
-				//		}
-				//	}
-				//}
+				if((robotSquare == TSwitch) ||
+				   ((robotSquare == TSwitchTR) && (robotDirection == 0)) ||
+				   ((robotSquare == TSwitchBR) && (robotDirection == 1)) ||
+				   ((robotSquare == TSwitchBL) && (robotDirection == 2)) ||
+				   ((robotSquare == TSwitchTL) && (robotDirection == 3)))
+
+				{
+					for(;sitr != switchList.end(); sitr++)
+					{
+						//  find the switch in the object list
+						if(((*sitr)->getType() == OSwitch) && ((*sitr)->getXPos() == robotX) && ((*sitr)->getYPos() == robotY))
+						{
+							// process through its stuff
+							//tempSwitch = (*sitr);
+							for(int xyx = 0; xyx < (*sitr)->getNumTargets(); xyx++)
+							{
+								sx = (*sitr)->getNextX();
+								sy = (*sitr)->getNextY();
+								mapList[sx][sy]->toggleActive();
+							}
+						}
+					}
+				}
 
 				// are we facing a switch in our own square?
 
@@ -1124,8 +1130,8 @@ void gameBoard::processRobot()
 			}
 			
 		}
+		(*oitr)->advanceCommand();
 	}
-	(*oitr)->advanceCommand();
 }
 
 bool gameBoard::robotAtEndSquare()
