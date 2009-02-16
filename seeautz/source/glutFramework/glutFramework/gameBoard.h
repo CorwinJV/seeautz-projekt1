@@ -14,6 +14,7 @@
 #include "robot.h"
 #include "oglGameVars.h"
 #include "Oswitch.h"
+#include "sound.h"
 
 class gameBoard
 {
@@ -88,6 +89,7 @@ public:
 	bool resetMap();
 	void processRobot();
 	bool robotAtEndSquare();
+	void playSound();
 };
 
 #endif
