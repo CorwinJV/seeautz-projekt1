@@ -15,6 +15,7 @@
 #include "oglGameVars.h"
 #include "Oswitch.h"
 #include "Oteleport.h"
+#include "sound.h"
 
 class gameBoard
 {
@@ -92,6 +93,7 @@ public:
 	bool robotAtEndSquare();
 	void teleporterCheck();
 	void keepRobotOnTheBoard();
+	void playSound();
 };
 
 #endif

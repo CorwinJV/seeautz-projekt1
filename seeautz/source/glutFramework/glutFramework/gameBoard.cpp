@@ -802,6 +802,9 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 		robotY++;
 		currentY = robotY;
 		break;
+	case '9':
+		playSound();
+		break;
 	default:
 		break;
 	}
@@ -812,6 +815,12 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	keepRobotOnTheBoard();
 	verifyMapPosition();	
 	teleporterCheck();
+}
+
+void gameBoard::playSound()
+{
+	soundEffect ourSound;
+	ourSound.playSound();
 }
 
 void gameBoard::verifyMapPosition()
