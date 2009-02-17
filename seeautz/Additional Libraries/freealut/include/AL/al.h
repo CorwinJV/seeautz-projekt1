@@ -225,16 +225,38 @@ typedef void ALvoid;
  * Source is Streaming if one or more Buffers have been attached using alSourceQueueBuffers
  * Source is undetermined when it has the NULL buffer attached
  */
+#ifndef AL_SOURCE_TYPE
 #define AL_SOURCE_TYPE                            0x1027
+#endif
+
+#ifndef AL_STATIC
 #define AL_STATIC                                 0x1028
+#endif
+
+#ifndef AL_STREAMING
 #define AL_STREAMING                              0x1029
+#endif
+
+#ifndef AL_UNDETERMINED
 #define AL_UNDETERMINED                           0x1030
+#endif
 
 /** Sound samples: format specifier. */
+#ifndef AL_FORMAT_MONO8
 #define AL_FORMAT_MONO8                           0x1100
+#endif
+
+#ifndef AL_FORMAT_MONO16
 #define AL_FORMAT_MONO16                          0x1101
+#endif
+
+#ifndef AL_FORMAT_STEREO8
 #define AL_FORMAT_STEREO8                         0x1102
+#endif
+
+#ifndef AL_FORMAT_STEREO16
 #define AL_FORMAT_STEREO16                        0x1103
+#endif
 
 /**
  * source specific reference distance
@@ -244,7 +266,9 @@ typedef void ALvoid;
  * At 0.0, no distance attenuation occurs.  Default is
  * 1.0.
  */
+#ifndef AL_REFERENCE_DISTANCE
 #define AL_REFERENCE_DISTANCE                     0x1020
+#endif
 
 /**
  * source specific rolloff factor
@@ -252,7 +276,9 @@ typedef void ALvoid;
  * Range:  0.0 - +inf
  *
  */
+#ifndef AL_ROLLOFF_FACTOR
 #define AL_ROLLOFF_FACTOR                         0x1021
+#endif
 
 /**
  * Directional source, outer cone gain.
@@ -261,7 +287,9 @@ typedef void ALvoid;
  * Range:    [0.0 - 1.0]
  * Logarithmic
  */
+#ifndef AL_CONE_OUTER_GAIN
 #define AL_CONE_OUTER_GAIN                        0x1022
+#endif
 
 /**
  * Indicate distance above which sources are not
@@ -271,7 +299,9 @@ typedef void ALvoid;
  * Type: ALfloat
  * Range:  0.0 - +inf
  */
+#ifndef AL_MAX_DISTANCE
 #define AL_MAX_DISTANCE                           0x1023
+#endif
 
 /** 
  * Sound samples: frequency, in units of Hertz [Hz].
@@ -279,19 +309,38 @@ typedef void ALvoid;
  *  sample frequency marks the maximum significant
  *  frequency component.
  */
+#ifndef AL_FREQUENCY
 #define AL_FREQUENCY                              0x2001
+#endif
+
+#ifndef AL_BITS
 #define AL_BITS                                   0x2002
+#endif
+
+#ifndef AL_CHANNELS
 #define AL_CHANNELS                               0x2003
+#endif
+
+#ifndef AL_SIZE
 #define AL_SIZE                                   0x2004
+#endif
 
 /**
  * Buffer state.
  *
  * Not supported for public use (yet).
  */
+#ifndef AL_UNUSED
 #define AL_UNUSED                                 0x2010
+#endif
+
+#ifndef AL_PENDING
 #define AL_PENDING                                0x2011
+#endif
+
+#ifndef AL_PROCESSED
 #define AL_PROCESSED                              0x2012
+#endif
 
 
 /** Errors: No Error. */

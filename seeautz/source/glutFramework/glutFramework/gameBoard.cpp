@@ -286,7 +286,7 @@ void gameBoard::initialize()
 	tempTile = new oglTexture2D(); tempTile->loadImage("tiles/TDoorBL.png",		 144, 72); tileImages.push_back(tempTile);	
 	tempTile = new oglTexture2D(); tempTile->loadImage("tiles/TDoorBR.png",		 144, 72); tileImages.push_back(tempTile);			
 	tempTile = new oglTexture2D(); tempTile->loadImage("tiles/TTeleport.png",	 144, 72); tileImages.push_back(tempTile);			
-	robotImage = new oglTexture2D(); robotImage->loadImage("object/robotDefault.png", 50, 50);
+	robotImage = new oglTexture2D(); robotImage->loadImage("object/robotDefault.png", 195*0.45, 110*0.45);
 
 }
 
@@ -899,8 +899,8 @@ bool gameBoard::resetMap()
 bool gameBoard::drawObject(int objectType, int txPos, int tyPos, double scale)
 {
 	// for now, lets just draw the robot, additional code to come
-	txPos += hw/1.5;
-	//tyPos += hh;
+	txPos += (hh*0.7)+5;
+	tyPos += (hh*0.2)+5;
 	glClearColor(128, 255, 128, 0);
 	oglTexture2D* toDraw;
 
@@ -958,7 +958,7 @@ void gameBoard::processRobot()
 	int destX;
 	int destY;
 	tileTypeEnum robotSquare;
-	int robotDirection;
+	int			 robotDirection;
 	tileTypeEnum destType;
 	bool		 destActive;
 

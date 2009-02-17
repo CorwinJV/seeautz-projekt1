@@ -11,6 +11,7 @@
 class DevLogoState : public GameState
 {
 private:
+	bool theyWantOut;
 	oglTexture2D* logo;
 	clock_t timer;
 	double opacity;
@@ -42,6 +43,7 @@ public:
 	DevLogoState() {};
 	DevLogoState(GameStateManager &Parent, int newID) : GameState(Parent, newID), logo(NULL)
 	{
+		theyWantOut = false;
 		opacity = 0;
 		logo = new oglTexture2D();
 		if(logo != NULL)
@@ -88,10 +90,10 @@ public:
 		 logo3fadeoutend = logo3fadeoutstart + logo3duration;
 	}
 
-	bool DevLogoState::Update();
-	bool DevLogoState::Draw();
-	DevLogoState::~DevLogoState();
-
+	bool Update();
+	bool Draw();
+	~DevLogoState();
+	void keyboardInput(unsigned char c, int x, int y);
 };
 
 
