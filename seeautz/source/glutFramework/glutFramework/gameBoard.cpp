@@ -6,6 +6,7 @@
 #include "objectEnums.h"
 #include "oglGameVars.h"
 #include "Oswitch.h"
+#include "Oteleport.h"
 
 using namespace std;
 
@@ -316,11 +317,6 @@ bool gameBoard::setOffsets(int x, int y)
 
 bool gameBoard::LoadGameMapFromFile(std::string filename)
 {
-	/*tutorialmap1 = new gameBoard(1, 3);
-
-	tutorialmap1->setTileType(0, 2, TStart);
-	tutorialmap1->setTileType(0, 1, TDoorBL);
-	tutorialmap1->setTileType(0, 0, TEnd);*/
 
 	cout << "attempting to open file: " << filename << endl;
 	ifstream mapfile;
@@ -332,7 +328,6 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 	
 	int nWidth;
 	int nHeight;
-	//nWidth << mapfile;
 	mapfile >> nWidth;
 	mapfile >> nHeight;
 
@@ -395,6 +390,7 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 		int tempX;
 		int tempY;
 		Oswitch* tempObj;
+		Oteleport* tempObjT;
 
 		// read in the switches
 
@@ -427,6 +423,14 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 		for(int x = 0; x < teleportcount; x++)
 		{
 
+			mapfile >> myX;
+			mapfile >> myY;
+			mapfile >> tempX;
+			mapfile >> tempY;
+			tempObjT = new Oteleport(myX, myY, 0, OTeleport);
+			tempObjT->setTarget(tempX, tempY);
+			std::cout << "teleport about to be added at " << myX << ", " << myY << " which teleports to " << tempX << ", " << tempY << endl;
+			teleportList.push_back(tempObjT);
 		}
 
 	}
@@ -784,34 +788,30 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 
 	case 'X':
 		robotX--;
+		currentX = robotX;
 		break;
 	case 'x':
 		robotX++;
+		currentX = robotX;
 		break;
 	case 'Y':
 		robotY--;
+		currentY = robotY;
 		break;
 	case 'y':
 		robotY++;
+		currentY = robotY;
 		break;
-	case '9':
-		playSound();
-		break;
-
 	default:
 		break;
 	}
 
+	
 	if (scale > maxscale)	scale = maxscale;
 	if (scale < minscale)	scale = minscale;
+	keepRobotOnTheBoard();
 	verifyMapPosition();	
-}
-
-void gameBoard::playSound()
-{
-	soundEffect sound;
-	sound.playSound();
-
+	teleporterCheck();
 }
 
 void gameBoard::verifyMapPosition()
@@ -964,7 +964,6 @@ void gameBoard::processRobot()
 				destY = 0;
 				robotSquare = mapList[robotX][robotY]->getType();
 				robotDirection = (*oitr)->getDirection();
-				
 				// see if the robot is going to die by attempting to move out of this square in the
 				// direction if they're facing
 				// if not (no death from current square move attempt) ...
@@ -1132,13 +1131,8 @@ void gameBoard::processRobot()
 						}
 					}
 				}
-
-				// are we facing a switch in our own square?
-
-
 				break;
 			}
-			
 		}
 		(*oitr)->advanceCommand();
 	}
@@ -1151,4 +1145,31 @@ bool gameBoard::robotAtEndSquare()
 		return true;
 	else
 		return false;
+}
+void gameBoard::teleporterCheck()
+{
+	vector<Oteleport*>::iterator titr = teleportList.begin();
+	// see if we're standing in a teleporter square
+	if(mapList[robotX][robotY]->getType() == TTeleport)
+	{
+		// if we are, lets find the teleporter in the list
+		for(;titr < teleportList.end(); titr++)
+		{
+			if((((*titr)->getXPos()) == robotX) && (((*titr)->getYPos()) == robotY))
+			{
+				// now lets teleport!
+				robotX = (*titr)->getTargetX();
+				robotY = (*titr)->getTargetY();
+				keepRobotOnTheBoard();
+			}
+		}
+	}
+}
+
+void gameBoard::keepRobotOnTheBoard()
+{
+	if(robotX < 0)			robotX = 0;
+	if(robotX >= Width)		robotX = Width-1;
+	if(robotY < 0)			robotY = 0;
+	if(robotY >= Height)	robotY = Height-1;
 }
