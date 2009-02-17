@@ -2,8 +2,15 @@
 #define __alu_h_
 
 #ifdef _WIN32
+
+#ifndef ALAPI
 #define ALAPI       __declspec(dllexport)
+#endif
+
+#ifndef ALAPIENTRY
 #define ALAPIENTRY  __cdecl
+#endif
+
 #else  /* _WIN32 */
 
 #ifdef TARGET_OS_MAC

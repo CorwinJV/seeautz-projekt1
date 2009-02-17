@@ -61,35 +61,51 @@ typedef void ALvoid;
 typedef int ALenum; 
  
 /* Bad value. */ 
+#ifndef AL_INVALID
 #define AL_INVALID                               (-1) 
+#endif
  
 /* Disable value. */ 
+#ifndef AL_NONE
 #define AL_NONE  0 
+#endif
  
 /* Boolean False. */ 
+#ifndef AL_FALSE
 #define AL_FALSE                                 0 
+#endif
  
 /* Boolean True. */ 
+#ifndef AL_TRUE
 #define AL_TRUE                                  1 
+#endif
  
 /** 
   * Indicate the type of AL_SOURCE. 
   * Sources can be spatialized  
   */ 
-#define AL_SOURCE_TYPE                           0x200 
+#ifndef AL_SOURCE_TYPE
+#define AL_SOURCE_TYPE                           0x200
+#endif
  
 /** Indicate source has absolute coordinates. */ 
+#ifndef AL_SOURCE_ABSOLUTE
 #define AL_SOURCE_ABSOLUTE                       0x201 
+#endif
  
 /** Indicate Source has listener relative coordinates. */ 
+#ifndef AL_SOURCE_RELATIVE
 #define AL_SOURCE_RELATIVE                       0x202 
+#endif
  
 /** 
  * Directional source, inner cone angle, in degrees. 
  * Range:    [0-360]  
  * Default:  360 
- */ 
+ */
+#ifndef AL_CONE_INNER_ANGLE
 #define AL_CONE_INNER_ANGLE                      0x1001 
+#endif
  
 /** 
  * Directional source, outer cone angle, in degrees. 

@@ -94,7 +94,7 @@ bool DevLogoState::Update()
 		opacity = 1 - (clock() - (logo3fadeoutstart*1000)) * fadeoutamt;
 	}
 
-	if(timer > logo3fadeoutend*1000)
+	if((timer > logo3fadeoutend*1000) || theyWantOut)
 	{
 		GSM->addGameState<MainMenuState>();
 		this->setStatus(DeleteMe);
@@ -116,4 +116,14 @@ bool DevLogoState::Draw()
 DevLogoState::~DevLogoState()
 {
 	delete logo;
+}
+
+void DevLogoState::keyboardInput(unsigned char c, int x, int y)
+{
+	switch(c)
+	{
+	case 27:
+		theyWantOut = true;
+		break;
+	}
 }

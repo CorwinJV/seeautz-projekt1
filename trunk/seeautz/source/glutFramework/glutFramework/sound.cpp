@@ -38,6 +38,7 @@ int soundEffect::LoadAndAssignWAV(char* _fileName, ALuint _buffer)
 	if ((error = alGetError()) != AL_NO_ERROR) 
 	{ 
 		std::cout << "Error Copying Wav File into Buffer" << std::endl;
+		std::cout << "Attempted to load file: " << _fileName << std::endl;
 		return 0; 
 	}
 
@@ -74,14 +75,15 @@ int soundEffect::Init(void)
 	}
 	
 	// Load in the WAV and store it in a buffer
-	if (!LoadAndAssignWAV("test.wav", buffers[0]))
+	if (!LoadAndAssignWAV("sound\\click.wav", buffers[0]))
 	{
 		// Error loading in the WAV so quit
 		alDeleteBuffers(NUM_BUFFERS, buffers); 
 		return 0;
 	}
+
 	// Load in the WAV and store it in a buffer
-	if (!LoadAndAssignWAV("test2.wav", buffers[1]))
+	if (!LoadAndAssignWAV("sound\\click.wav", buffers[1]))
 	{
 		// Error loading in the WAV so quit
 		alDeleteBuffers(NUM_BUFFERS, buffers); 
