@@ -375,6 +375,8 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 				robotY = y;
 				robotStartX = x;
 				robotStartY = y;
+				currentX = robotX;
+				currentY = robotY;
 			}
 		}
 	}
@@ -435,7 +437,6 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 			std::cout << "teleport about to be added at " << myX << ", " << myY << " which teleports to " << tempX << ", " << tempY << endl;
 			teleportList.push_back(tempObjT);
 		}
-
 	}
 
 	mapfile.close();
@@ -459,6 +460,9 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 	overallHeight = (Height + Width) * hh;
 
 	recalcPositions();
+
+	currentX = robotX;
+	currentY = robotY;
 
 	return true;
 
