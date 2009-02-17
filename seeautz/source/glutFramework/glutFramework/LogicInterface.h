@@ -18,7 +18,7 @@ class LogicInterface
 {
 public:
 	LogicInterface();
-	~LogicInterface();
+	~LogicInterface() {}
 	void Draw();
 	void processMouse(int x, int y);
 	void processMouseClick(int button, int state, int x, int y);
@@ -29,7 +29,7 @@ public:
 	bool RightArrowButtonClick();
 	bool ExecuteButtonClick();
 
-	void SetExecuteHandler(CFunctionPointer0R<bool> clickHandler);
+	void SetExecuteHandler(CFunctionPointer1R<bool, std::vector<logicBlock*>> clickHandler);
 
 private:
 	MenuSys* myMenu;
@@ -40,7 +40,7 @@ private:
 	int sideBarYOffset;
 	bool isMouseDragging;
 	logicBlock* draggedBlock;
-	CFunctionPointer0R<bool>	mClickHandler;	// Matches 'bool foo()'
+	CFunctionPointer1R<bool, std::vector<logicBlock*>> mClickHandler;
 
 	std::vector<logicBlock*>* logicBank;		// The usable logic blocks
 	std::vector<logicBlock*> executionList;	// The command to give the robot

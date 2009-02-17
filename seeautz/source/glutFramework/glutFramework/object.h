@@ -49,6 +49,7 @@ public:
 	virtual objectEnum		getType();
 	virtual void	addCommand(logicBlock *newCommand);
 	virtual void	removeLastCommand();
+	virtual void	clearInstructions();
 	virtual void	coreDump();
 };
 

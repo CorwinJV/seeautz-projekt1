@@ -22,6 +22,7 @@ bool tutorialMap1::Update()
 bool tutorialMap1::Draw()
 {
 	tutorialmap1->draw();
+	mInterface.Draw();
 	return false;
 }
 
@@ -30,17 +31,24 @@ bool tutorialMap1::initialize()
 	tutorialmap1 = new gameBoard();
 	//tutorialmap1->LoadGameMapFromFile("maps\\tutorialMap1.txt");
 	tutorialmap1->LoadGameMapFromFile("maps\\Map11.txt");
+
+	//=====================================================
+	// Register the gameBoard callback with the interface!
+	mInterface.SetExecuteHandler(BE::CreateFunctionPointer1R(tutorialmap1, &gameBoard::interfaceHasFiredExecuteOrder));
+
 	return true;
 }
 
 void tutorialMap1::processMouse(int x, int y)
 {
 	tutorialmap1->processMouse(x, y);
+	mInterface.processMouse(x, y);
 }
 
 void tutorialMap1::processMouseClick(int button, int state, int x, int y)
 {
 	tutorialmap1->processMouseClick(button, state, x, y);
+	mInterface.processMouseClick(button, state, x, y);
 }
 
 void tutorialMap1::keyboardInput(unsigned char c, int x, int y)

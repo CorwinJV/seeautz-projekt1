@@ -3,19 +3,21 @@
 
 #include "oglUtility.h"
 #include "pixmap.h"
-#include <cstring>
-#include <iostream>
 #include "mapTile.h"
-#include <vector>
 #include "tileEnums.h"
 #include "oglTexture2D.h"
-#include <string>
 #include "objectManager.h"
 #include "robot.h"
 #include "oglGameVars.h"
 #include "Oswitch.h"
 #include "Oteleport.h"
 #include "sound.h"
+
+#include <cstring>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <ctime>
 
 class gameBoard
 {
@@ -63,6 +65,8 @@ protected:
 	double screenEdge;
 	double moveSpeed;
 	soundEffect *ourSound;
+	clock_t timer;
+	clock_t startTime;
 
 public:
 	gameBoard();
@@ -95,6 +99,11 @@ public:
 	void teleporterCheck();
 	void keepRobotOnTheBoard();
 	void playSound();
+	bool interfaceHasFiredExecuteOrder(std::vector<logicBlock*> executionList);
+
+
+
+
 
 	bool canRobotMoveForwardOutOfSquare();
 	bool willRobotDieMovingForwardOutOfSquare();

@@ -176,7 +176,7 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 	isButtonBeingClicked = false;
 }
 
-void LogicInterface::SetExecuteHandler(CFunctionPointer0R<bool> clickHandler)
+void LogicInterface::SetExecuteHandler(CFunctionPointer1R<bool, std::vector<logicBlock*>> clickHandler)
 {
 	mClickHandler = clickHandler;
 }
@@ -246,10 +246,8 @@ bool LogicInterface::ExecuteButtonClick()
 {
 	if(mClickHandler)
 	{
-		return mClickHandler();
+		return mClickHandler(executionList);
 	}
-	else
-	{
-		return false;
-	}
+	return false;
 }
+
