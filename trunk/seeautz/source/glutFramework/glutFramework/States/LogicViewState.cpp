@@ -6,8 +6,6 @@ bool LogicViewState::Update()
 	if(myMenu != NULL)
 		myMenu->Update();
 
-	
-
 	return true;
 }
 

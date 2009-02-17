@@ -131,6 +131,11 @@ void object::removeLastCommand()
 	instructionList.pop_back();
 }
 
+void object::clearInstructions()
+{
+	instructionList.clear();
+}
+
 void object::coreDump()
 {
 	vector <logicBlock*>::iterator itr = instructionList.begin();

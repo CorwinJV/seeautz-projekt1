@@ -5,6 +5,7 @@
 #include "oglUtility.h"
 #include "pixmap.h"
 #include "gameBoard.h"
+#include "LogicInterface.h"
 
 
 class tutorialMap1 : public GameState
@@ -26,6 +27,7 @@ public:
 	void processMouse(int x, int y);
 	void processMouseClick(int button, int state, int x, int y);
 	void keyboardInput(unsigned char c, int x, int y);
+	LogicInterface mInterface;
 };
 
 

@@ -980,21 +980,25 @@ void gameBoard::processRobot()
 				// if so, set the following dest values
 				// otherwise, just advance the command and don't move the robot
 				
+				destX = robotX;
+				destY = robotY;
 				switch(robotDirection)
 				{
 				case 0:// facing up/right (up on map)					
-					destY = -1;					
+					destY = robotY - 1;					
 					break;
 				case 1:// facing down/right (right on map)
-					destX = 1;
+					destX = robotX + 1;
 					break;
 				case 2:// facing down/left (down on map)
-					destY = 1;
+					destY = robotY + 1;
 					break;
 				case 3:// facing up/left (left on map)
-					destX = -1;
+					destX = robotX - 1;
 					break;
 				}
+				robotX = destX;
+				robotY = destY;
 
 				// now lets check if the destination is valid safe square
 				if((destX >= 0) && (destX < Width) && (destY >= 0) && (destY < Height))
@@ -1184,6 +1188,39 @@ void gameBoard::keepRobotOnTheBoard()
 	if(robotY < 0)			robotY = 0;
 	if(robotY >= Height)	robotY = Height-1;
 }
+
+bool gameBoard::interfaceHasFiredExecuteOrder(std::vector<logicBlock*> executionList)
+{
+	// Find the robot
+	std::vector<object*>::iterator oitr = objectList.begin();
+
+	for(;oitr != objectList.end(); oitr++)
+	{
+		if((*oitr)->getType() == ORobot)
+		{
+			// Add every element of executionList from the interface to
+			// the robot's instruction list.
+			std::vector<logicBlock*>::iterator exeItr = executionList.begin();
+			(*oitr)->clearInstructions();
+			for(; exeItr < executionList.end()-1; exeItr++)
+			{
+				(*oitr)->addCommand(*exeItr);
+				(*oitr)->coreDump();
+			}
+		}
+	}
+	startTime = clock();
+	// Execute the instructions
+	for(int x = 0; x < executionList.size() - 1; x++)
+	{
+		//while( timer = clock() - startTime < startTime + 1 )
+		//{
+		//}
+		processRobot();
+	}
+	return true;
+}
+
 //===================CHECKING FUNCTIONS==============================
 
 bool gameBoard::canRobotMoveForwardOutOfSquare()
