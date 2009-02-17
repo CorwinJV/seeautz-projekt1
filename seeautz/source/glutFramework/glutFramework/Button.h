@@ -42,6 +42,8 @@ public:
 	virtual void	setButtonXPos(int position);
 	virtual void	setButtonYPos(int position);
 	virtual void	setButtonXYPos(int xPos, int yPos);
+	virtual void	setPosition(int x, int y);
+	virtual void	setDimensions(int width, int height);
 	virtual int		getXPos();
 	virtual int		getYPos();
 	virtual bool	Initialize();
