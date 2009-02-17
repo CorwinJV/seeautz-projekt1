@@ -95,6 +95,11 @@ public:
 	void teleporterCheck();
 	void keepRobotOnTheBoard();
 	void playSound();
+
+	bool canRobotMoveForwardOutOfSquare();
+	bool willRobotDieMovingForwardOutOfSquare();
+	bool canRobotMoveForward();
+	bool willRobotDieStayingHere();
 };
 
 #endif
