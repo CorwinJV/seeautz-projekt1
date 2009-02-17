@@ -14,7 +14,7 @@
 #include "robot.h"
 #include "oglGameVars.h"
 #include "Oswitch.h"
-#include "sound.h"
+#include "Oteleport.h"
 
 class gameBoard
 {
@@ -24,6 +24,7 @@ protected:
 	// 1 dimensional array of ai entities
 	std::vector<object*> objectList;
 	std::vector<Oswitch*> switchList;
+	std::vector<Oteleport*> teleportList;
 	objectManager *OM;
 	oglTexture2D*	robotImage;
 	std::vector<logicBlock*>* logicBank;		// The usable logic blocks
@@ -42,7 +43,7 @@ protected:
 	double scale;
 	double maxscale;
 	double minscale;
-	int mapOffsetX, mapOffsetY;
+	int    mapOffsetX, mapOffsetY;
 	double centerX, centerY;
 	double currentX, currentY;
 
@@ -89,7 +90,8 @@ public:
 	bool resetMap();
 	void processRobot();
 	bool robotAtEndSquare();
-	void playSound();
+	void teleporterCheck();
+	void keepRobotOnTheBoard();
 };
 
 #endif

@@ -407,6 +407,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Oteleport.h"
+				>
+			</File>
+			<File
 				RelativePath=".\pixmap.h"
 				>
 			</File>
