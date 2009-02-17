@@ -29,6 +29,8 @@ Button::Button(int buttonXPos, int buttonYPos, string normalImage, string clicke
 
 	buttonStatus = Normal;
 
+	ourSound = new soundEffect;
+
 	Initialize();
 }
 
@@ -215,7 +217,10 @@ bool Button::checkInBounds(int x, int y)
 	// dX and dY should be width and height
 	if (((x > normal->mX) && (x < (normal->mX + normal->dX))) &&
 		(y > normal->mY) && (y < (normal->mY + normal->dY)))
+	{
+		//ourSound->playSound("sound\\hover.wav");
 		return true;
+	}
 	else 
 		return false;
 }

@@ -2,6 +2,7 @@
 #include <iostream>
 #include "GameStateManager.h"
 #include <cstring>
+#include "sound.h"
 
 //constructor
 MenuSys::MenuSys(int xpos, int ypos, string imgname, Justification nbuttonJust)
@@ -16,6 +17,7 @@ MenuSys::MenuSys(int xpos, int ypos, string imgname, Justification nbuttonJust)
 	menuImage->mY = ypos;
 	numButtons = 0;
 	buttonJust = nbuttonJust;
+	ourSound = new soundEffect;
 }
 
 MenuSys::MenuSys()
@@ -25,6 +27,7 @@ MenuSys::MenuSys()
 	menuImage = NULL;
 	numButtons = 0;
 	buttonJust = None;
+	ourSound = new soundEffect;
 }
 
 //destructor
@@ -39,6 +42,7 @@ MenuSys::~MenuSys()
     }
 	buttonList.clear();
 	delete menuImage;
+	delete ourSound;
 }
 
 //functions that dont do anything, yey!

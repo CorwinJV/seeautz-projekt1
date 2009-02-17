@@ -17,6 +17,7 @@
 #include <iostream>
 #include "consoleDefines.h"
 #include "oglTexture2D.h"
+#include "sound.h"
 
 
 using namespace std;
@@ -43,6 +44,7 @@ protected:
 
 	oglTexture2D* menuImage;
 	vector<Button*> buttonList;
+	soundEffect *ourSound;
 
 public:
 	MenuSys(int xpos, int ypos, string imgname, Justification nbuttonJust = Auto);

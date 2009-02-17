@@ -64,6 +64,7 @@ gameBoard::gameBoard()
 	OM = new objectManager();
 	objectList.clear();
 	logicBank = GameVars->Instance()->getAllLogicBlocks();
+	ourSound = new soundEffect;
 }
 
 gameBoard::gameBoard(int nWidth, int nHeight)
@@ -129,6 +130,7 @@ gameBoard::gameBoard(int nWidth, int nHeight)
 
 	logicBank = GameVars->Instance()->getAllLogicBlocks();
 	objectList.clear();
+	ourSound = new soundEffect;
 }
 
 gameBoard::~gameBoard()
@@ -298,6 +300,7 @@ void gameBoard::cleanup()
 		delete (*itr);
 	}
 	tileImages.clear();
+	delete ourSound;
 
 
 	//while(tileImages.begin() != tileImages.end())
@@ -819,8 +822,7 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 
 void gameBoard::playSound()
 {
-	soundEffect ourSound;
-	ourSound.playSound();
+	ourSound->playSound("sound\\click.wav");
 }
 
 void gameBoard::verifyMapPosition()

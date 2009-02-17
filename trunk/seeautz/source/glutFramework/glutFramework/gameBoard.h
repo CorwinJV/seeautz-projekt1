@@ -62,6 +62,7 @@ protected:
 	int screenHeight;
 	double screenEdge;
 	double moveSpeed;
+	soundEffect *ourSound;
 
 public:
 	gameBoard();

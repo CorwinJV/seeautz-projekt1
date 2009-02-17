@@ -7,6 +7,7 @@
 #include <cstring>
 #include <iostream>
 #include "oglTexture2D.h"
+#include "sound.h"
 
 using namespace BE;
 //class Button; 
@@ -29,6 +30,7 @@ protected:
 	oglTexture2D* clicked;
 	oglTexture2D* hover;
 	CFunctionPointer0R<bool>	mClickHandler;	// Matches 'bool foo()'
+	soundEffect *ourSound;
 
 public:
 	Button();
