@@ -84,6 +84,8 @@ public:
 	virtual void recalcButtonPositions();
 	virtual void setMenuXPos(int position);
 	virtual void setMenuYPos(int position);
+	virtual void setLastButtonPosition(int x, int y);
+	virtual void setLastButtonDimensions(int width, int height);
 	virtual int getXPos();
 	virtual int getYPos();
 	virtual int getMouseXPos();

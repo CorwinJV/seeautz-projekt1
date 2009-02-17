@@ -174,6 +174,32 @@ void Button::setButtonXYPos(int positionX, int positionY)
 
 }
 
+
+void Button::setPosition(int x, int y)
+{
+	normal->mX = x;
+	normal->mY = y;
+
+	hover->mX = x;
+	hover->mY = y;
+
+	clicked->mX = x;
+	clicked->mY = y;
+}
+
+void Button::setDimensions(int width, int height)
+{
+	normal->dX = width;
+	normal->dY = height;
+
+	hover->dX = width;
+	hover->dY = height;
+
+	clicked->dX = width;
+	clicked->dY = height;
+}
+
+
 int Button::getHeight()
 {
 	return normal->dY;

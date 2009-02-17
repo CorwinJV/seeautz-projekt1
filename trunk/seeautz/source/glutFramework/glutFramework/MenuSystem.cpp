@@ -111,6 +111,28 @@ void MenuSys::setMenuYPos(int position)
 	menuYPos = position;
 }
 
+void MenuSys::setLastButtonPosition(int x, int y)
+{
+	vector<Button*>::iterator itr = buttonList.end();
+	itr--;
+
+	if((*itr) != NULL)
+	{
+		(*itr)->setPosition(x, y);
+	}
+}
+
+void MenuSys::setLastButtonDimensions(int width, int height)
+{
+	vector<Button*>::iterator itr = buttonList.end();
+	itr--;
+
+	if((*itr) != NULL)
+	{
+		(*itr)->setDimensions(width, height);
+	}
+}
+
 void MenuSys::keyboardInput(unsigned char c, int x, int y)
 {
 	if (c == 27) 
