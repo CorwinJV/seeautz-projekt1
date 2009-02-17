@@ -434,17 +434,11 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 			mapfile >> tempY;
 			tempObjT = new Oteleport(myX, myY, 0, OTeleport);
 			tempObjT->setTarget(tempX, tempY);
-			std::cout << "teleport about to be added at " << myX << ", " << myY << " which teleports to " << tempX << ", " << tempY << endl;
 			teleportList.push_back(tempObjT);
 		}
 	}
 
 	mapfile.close();
-
-	// find the start spot on the map and place the robot there
-
-	// to add - reading t
-
 
 	centerX = (int)((Width+1)/2);
 	centerY = (int)((Height+1)/2);
@@ -1245,53 +1239,52 @@ bool gameBoard::canRobotMoveForwardOutOfSquare()
 				robotDirection = (*oitr)->getDirection();
 				
 	
-	if((destX >= 0) && (destX < Width) && (destY >= 0) && (destY < Height))
-	{
+				if((destX >= 0) && (destX < Width) && (destY >= 0) && (destY < Height))
+				{
 					destType = (mapList[destX][destY]->getType()) ;
 					destActive = (mapList[destX][destY]->getIsActive());
 
-					
-				if	( (destType == TDefault) || 
-					  (destType == TGap) || 
-					 ((destType == TRaised1) && ((robotSquare == TRaised1) || (robotSquare == TRaised2) || (robotSquare == TRaised3) || (robotSquare == TRaised4))) ||
-					 ((destType == TRaised2) && ((robotSquare == TRaised2) || (robotSquare == TRaised3) || (robotSquare == TRaised4))) ||
-					 ((destType == TRaised3) && ((robotSquare == TRaised3) || (robotSquare == TRaised4)))||
-					 ((destType == TRaised4) && ((robotSquare == TRaised4))) ||
-					 (destType == TElectric) ||
-					 (destType == TElectricTL) || 
-					 (destType == TElectricTR) ||
-					 (destType == TElectricBL) ||
-					 (destType == TElectricBR) ||
-					 (destType == TIce) ||
-					 (destType == TWater) ||
-					 (destType == TSwitchTL) ||
-					 (destType == TSwitchTR) ||
-					 (destType == TSwitchBL) ||
-					 (destType == TSwitchBR) ||
-					 (destType == TSwitch) ||
-					 (destType == TProgramTL) ||
-					 (destType == TProgramTR) ||
-					 (destType == TProgramBL) ||
-					 (destType == TProgramBR) ||
-					 (destType == TProgram) ||
-					 (destType == TStart) ||
-					 (destType == TEnd) ||
-					 ((destType == TDoorTL)&& !(mapList[destX][destY]->getIsActive())) ||
-					 ((destType == TDoorTR)&& !(mapList[destX][destY]->getIsActive())) ||
-					 ((destType == TDoorBL)&& !(mapList[destX][destY]->getIsActive())) ||
-					 ((destType == TDoorBR)&& !(mapList[destX][destY]->getIsActive())) ||
-					 ((destType == TDoorTL)&& !(mapList[destX][destY]->getIsActive())) ||
-					 (destType == TTeleport))
-				{
-					return true; 
+					if	( (destType == TDefault) || 
+						  (destType == TGap) || 
+						 ((destType == TRaised1) && ((robotSquare == TRaised1) || (robotSquare == TRaised2) || (robotSquare == TRaised3) || (robotSquare == TRaised4))) ||
+						 ((destType == TRaised2) && ((robotSquare == TRaised2) || (robotSquare == TRaised3) || (robotSquare == TRaised4))) ||
+						 ((destType == TRaised3) && ((robotSquare == TRaised3) || (robotSquare == TRaised4)))||
+						 ((destType == TRaised4) && ((robotSquare == TRaised4))) ||
+						 (destType == TElectric) ||
+						 (destType == TElectricTL) || 
+						 (destType == TElectricTR) ||
+						 (destType == TElectricBL) ||
+						 (destType == TElectricBR) ||
+						 (destType == TIce) ||
+						 (destType == TWater) ||
+						 (destType == TSwitchTL) ||
+						 (destType == TSwitchTR) ||
+						 (destType == TSwitchBL) ||
+						 (destType == TSwitchBR) ||
+						 (destType == TSwitch) ||
+						 (destType == TProgramTL) ||
+						 (destType == TProgramTR) ||
+						 (destType == TProgramBL) ||
+						 (destType == TProgramBR) ||
+						 (destType == TProgram) ||
+						 (destType == TStart) ||
+						 (destType == TEnd) ||
+						 ((destType == TDoorTL)&& !(mapList[destX][destY]->getIsActive())) ||
+						 ((destType == TDoorTR)&& !(mapList[destX][destY]->getIsActive())) ||
+						 ((destType == TDoorBL)&& !(mapList[destX][destY]->getIsActive())) ||
+						 ((destType == TDoorBR)&& !(mapList[destX][destY]->getIsActive())) ||
+						 ((destType == TDoorTL)&& !(mapList[destX][destY]->getIsActive())) ||
+						 (destType == TTeleport))
+					{
+						return true; 
+					}
 				}
-
-
+			}
+		}
 	}
-
-
-	return true;
+	return false;
 }
+
 bool gameBoard::willRobotDieMovingForwardOutOfSquare()
 {
 	// find the robot
@@ -1345,7 +1338,6 @@ bool gameBoard::willRobotDieMovingForwardOutOfSquare()
 				robotSquare = mapList[robotX][robotY]->getType();
 				robotDirection = (*oitr)->getDirection();
 		
-
 				if((destX >= 0) && (destX < Width) && (destY >= 0) && (destY < Height))
 				{
 					destType = (mapList[destX][destY]->getType()) ;
@@ -1361,11 +1353,12 @@ bool gameBoard::willRobotDieMovingForwardOutOfSquare()
 						return true;
 					}
 				}
-
-			
-
+			}
+		}
+	}			
 	return true;
 }
+
 bool gameBoard::canRobotMoveForward()
 {
 	// find the robot
@@ -1420,8 +1413,6 @@ bool gameBoard::canRobotMoveForward()
 				robotDirection = (*oitr)->getDirection();
 			}
 				
-	
-	
 			if((destX >= 0) && (destX < Width) && (destY >= 0) && (destY < Height))
 			{
 					destType = (mapList[destX][destY]->getType()) ;
@@ -1462,9 +1453,9 @@ bool gameBoard::canRobotMoveForward()
 				{
 					return true; 
 				}
-
+			}
+		}
 	}
-
 	return true;
 }
 bool gameBoard::willRobotDieStayingHere()
@@ -1521,7 +1512,7 @@ bool gameBoard::willRobotDieStayingHere()
 				robotDirection = (*oitr)->getDirection();
 	
 				if((destX >= 0) && (destX < Width) && (destY >= 0) && (destY < Height))
-			{
+				{
 					destType = (mapList[destX][destY]->getType()) ;
 					destActive = (mapList[destX][destY]->getIsActive());
 
@@ -1535,6 +1526,9 @@ bool gameBoard::willRobotDieStayingHere()
 						return true;
 					}
 				}
+			}
+		}
+	}
 	
 	return true;
 }
