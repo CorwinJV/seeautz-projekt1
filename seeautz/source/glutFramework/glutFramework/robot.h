@@ -11,11 +11,14 @@ using namespace std;
 
 class robot : public object
 {
-	
 public:
 	robot();
 	robot(int x, int y, int newDirection = 0, objectEnum newType = ORobot) 
-		: object(x, y, newDirection, newType){}
+		: object(x, y, newDirection, newType)
+	{
+		alive = true;
+	}
+	
 
 };
 
