@@ -11,6 +11,7 @@ object::object()
 	startDirection = 0;
 	startActive = true;
 	currentInstruction = instructionList.begin();
+	alive = true;
 }
 
 object::object(int x, int y, int newDirection, objectEnum newType)
@@ -25,6 +26,7 @@ object::object(int x, int y, int newDirection, objectEnum newType)
 	startDirection = newDirection;
 	startActive = true;
 	currentInstruction = instructionList.begin();
+	alive = true;
 }
 
 object::~object()
@@ -146,4 +148,20 @@ void object::coreDump()
 		std::cout << (*itr)->enumInstruction << " ";
 	}
 	std::cout << endl;
+}
+
+void object::setAlive(bool status)
+{
+	alive = status;
+}
+bool object::getAlive()
+{
+	return alive;
+}
+
+void object::reset()
+{
+	xPos = startXPos;
+	yPos = startYPos;
+	direction = startDirection;
 }

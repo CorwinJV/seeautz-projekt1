@@ -101,14 +101,15 @@ public:
 	void playSound();
 	bool interfaceHasFiredExecuteOrder(std::vector<logicBlock*> executionList);
 
-
-
-
-
-	bool canRobotMoveForwardOutOfSquare();
-	bool willRobotDieMovingForwardOutOfSquare();
-	bool canRobotMoveForward();
-	bool willRobotDieStayingHere();
+	bool RCcanRobotLeaveSquare(int direction);		        // can the robot leave this square in the direction it is facing
+	bool RCwillRobotDieTryingToLeaveSquare(int direction);  // will the robot die trying to leave this square in the direction it is facing (regardless of if it can actually leave)
+	bool RCwillRobotDieStayingHere();						// will the robot die by standing in this square
+	bool RCcanRobotMoveForward(int direction, int destNum);	// can the robot move forward from our square to destNum squares (regardless of the consequences)
+	void RCmoveRobotForward();								// move the robot forward x squares
+	void RCjumpRobotForward();								// jump the robot forward 2 squares	
+	void RCcrouch();
+	void RCclimb();
+	void RCpunch();
 };
 
 #endif

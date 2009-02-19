@@ -49,7 +49,7 @@ gameBoard::gameBoard()
 	screenWidth = 1024;
 	screenHeight = 768;
 
-	screenEdge = 0.1;
+	screenEdge = 0.01;
 	moveSpeed = scale * 0.1;
 	maxscale = 2.0;
 	minscale = 0.2;
@@ -112,7 +112,7 @@ gameBoard::gameBoard(int nWidth, int nHeight)
 	screenWidth = 1024;
 	screenHeight = 768;
 
-	screenEdge = 0.1;
+	screenEdge = 0.01;
 	moveSpeed = scale * 0.1;
 	maxscale = 2.0;
 	minscale = 0.2;
@@ -955,8 +955,6 @@ void gameBoard::processRobot()
 	vector<object*>::iterator oitr = objectList.begin();
 	vector<Oswitch*>::iterator sitr = switchList.begin();
 	//Oswitch* tempSwitch;
-	int destX;
-	int destY;
 	tileTypeEnum robotSquare;
 	int			 robotDirection;
 	tileTypeEnum destType;
@@ -969,53 +967,8 @@ void gameBoard::processRobot()
 			switch((*oitr)->getNextCommand())
 			{
 			case MOVE_FORWARD1:
-				destX = 0;
-				destY = 0;
-				robotSquare = mapList[robotX][robotY]->getType();
-				robotDirection = (*oitr)->getDirection();
-				// see if the robot is going to die by attempting to move out of this square in the
-				// direction if they're facing
-				// if not (no death from current square move attempt) ...
-				//  we need to check if this square can be moved out of in the direction that the player is facing...
-				// if so, set the following dest values
-				// otherwise, just advance the command and don't move the robot
-				
-				destX = robotX;
-				destY = robotY;
-				switch(robotDirection)
-				{
-				case 0:// facing up/right (up on map)					
-					destY = robotY - 1;					
-					break;
-				case 1:// facing down/right (right on map)
-					destX = robotX + 1;
-					break;
-				case 2:// facing down/left (down on map)
-					destY = robotY + 1;
-					break;
-				case 3:// facing up/left (left on map)
-					destX = robotX - 1;
-					break;
-				}
-				robotX = destX;
-				robotY = destY;
-
-				// now lets check if the destination is valid safe square
-				if((destX >= 0) && (destX < Width) && (destY >= 0) && (destY < Height))
-				{
-					destType = (mapList[destX][destY]->getType()) ;
-					destActive = (mapList[destX][destY]->getIsActive());
-					
-					// valid squares that the player can move into		
-					// move player into destination square, advance commands
-					// special circumstance, ice, advance to destination square, do not advance command
-					
-
-
-					// if they are going to die at the destination square, advance to square and set dead					
-				}
+				this->RCmoveRobotForward();
 				break;
-
 			case TURN_LEFT1:
 				(*oitr)->rotate(-1);
 				break;
@@ -1027,8 +980,9 @@ void gameBoard::processRobot()
 			case CLIMB:	  // just like move forward above, only far less squares that can be moved into
 				break;
 			case JUMP:	  // just like move forward above, only far less squares that can be moved into
-				if(( !canRobotMoveForwardOutOfSquare() )&& !willRobotDieMovingForwardOutOfSquare()  
-					&& !canRobotMoveForward()  &&  !willRobotDieStayingHere() )
+				this->RCjumpRobotForward();
+				//if(( !canRobotMoveForwardOutOfSquare() )&& !willRobotDieMovingForwardOutOfSquare()  
+				//	&& !canRobotMoveForward()  &&  !willRobotDieStayingHere() )
 				break;
 			case PUNCH:	  // just like move forward above, only far less squares that can be moved into
 				break;
@@ -1150,6 +1104,8 @@ void gameBoard::processRobot()
 			}
 		}
 		(*oitr)->advanceCommand();
+		centerX = robotX;
+		centerY = robotY;
 	}
 }
 
@@ -1198,6 +1154,10 @@ bool gameBoard::interfaceHasFiredExecuteOrder(std::vector<logicBlock*> execution
 	{
 		if((*oitr)->getType() == ORobot)
 		{
+			(*oitr)->reset();
+			robotX = robotStartX;
+			robotY = robotStartY;
+			
 			// Add every element of executionList from the interface to
 			// the robot's instruction list.
 			std::vector<logicBlock*>::iterator exeItr = executionList.begin();
@@ -1209,363 +1169,376 @@ bool gameBoard::interfaceHasFiredExecuteOrder(std::vector<logicBlock*> execution
 			}
 		}
 	}
-	startTime = clock();
 	// Execute the instructions
-	for(int x = 0; x < executionList.size() - 1; x++)
+	for(int x = 0; x < (int)executionList.size() - 1; x++)
 	{
-		//while( timer = clock() - startTime < startTime + 1 )
-		//{
-		//}
+		startTime = clock();
+		timer = clock();
+		while(timer < (startTime + 1000) )
+		{		
+			timer = clock();
+			// do nothing pause
+		}
+		
+		//***********************************************************************
+		//***********************************************************************
+		//***********************************************************************
+		//*** this block of code here is just for the time being, it is
+		//*** implemented VERY VERY badly and should not be done here
+		//*** this should be done elsewhere via a timer
 		processRobot();
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		this->draw();
+		glutSwapBuffers();
+		//***********************************************************************
+		//***********************************************************************
+		//***********************************************************************
 	}
 	return true;
 }
 
-//===================CHECKING FUNCTIONS==============================
-
-bool gameBoard::canRobotMoveForwardOutOfSquare()
+bool gameBoard::RCcanRobotLeaveSquare(int direction)
 {
-	// find the robot
-	vector<object*>::iterator oitr = objectList.begin();
-	vector<Oswitch*>::iterator sitr = switchList.begin();
-	//Oswitch* tempSwitch;
+	// we just need to know information about our own square
+	tileTypeEnum robotSquare = mapList[robotX][robotY]->getType();
+	bool robotSquareActive = mapList[robotX][robotY]->getIsActive();
+
+	// squares that can be left
+	if( (robotSquare == TDefault) ||
+		(robotSquare == TRaised1) ||
+		(robotSquare == TRaised2) ||
+		(robotSquare == TRaised3) ||
+		(robotSquare == TRaised4) ||
+		(robotSquare == TElectric) ||
+		((robotSquare == TElectricTL) && (direction != 3)) ||
+		((robotSquare == TElectricTR) && (direction != 0)) || 
+		((robotSquare == TElectricBL) && (direction != 2)) ||
+		((robotSquare == TElectricBR) && (direction != 1)) ||
+		(robotSquare == TIce) ||
+		(robotSquare == TWater) ||
+		(robotSquare == TSwitchTL) ||
+		(robotSquare == TSwitchTR) ||
+		(robotSquare == TSwitchBL) ||
+		(robotSquare == TSwitchBR) ||
+		(robotSquare == TSwitch) ||
+		(robotSquare == TProgramTL) ||
+		(robotSquare == TProgramTR) ||
+		(robotSquare == TProgramBL) ||
+		(robotSquare == TProgramBR) ||
+		(robotSquare == TProgram) ||
+		((robotSquare == TBreakableTL) && (!robotSquareActive)) ||
+		((robotSquare == TBreakableTR) && (!robotSquareActive)) ||
+		((robotSquare == TBreakableBL) && (!robotSquareActive)) ||
+		((robotSquare == TBreakableBR) && (!robotSquareActive)) ||
+		(robotSquare == TSolid) ||
+		(robotSquare == TStart) ||
+		(robotSquare == TEnd) ||
+		( (robotSquare == TDoorTL) && (((direction == 3) && (!robotSquareActive)) || (direction != 3))) ||
+		( (robotSquare == TDoorTR) && (((direction == 0) && (!robotSquareActive)) || (direction != 0))) ||
+		( (robotSquare == TDoorBL) && (((direction == 2) && (!robotSquareActive)) || (direction != 2))) ||
+		( (robotSquare == TDoorBR) && (((direction == 1) && (!robotSquareActive)) || (direction != 1))))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool gameBoard::RCwillRobotDieTryingToLeaveSquare(int direction)
+{
+	tileTypeEnum robotSquare = mapList[robotX][robotY]->getType();
+	bool robotSquareActive = mapList[robotX][robotY]->getIsActive();
+	
+	if (((robotSquare == TElectricTL) || 
+		 (robotSquare == TElectricTR) ||
+		 (robotSquare == TElectricBL) ||
+		 (robotSquare == TElectricBR)) && robotSquareActive)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool gameBoard::RCcanRobotMoveForward(int direction, int destNum)
+{
 	int destX;
 	int destY;
 	tileTypeEnum robotSquare;
-	int robotDirection;
 	tileTypeEnum destType;
-	bool		 destActive;
-	for(;oitr != objectList.end(); oitr++)
+	bool destActive;
+
+	destX = robotX;
+	destY = robotY;
+
+	switch(direction)
 	{
-		if((*oitr)->getType() == ORobot)
+	case 0:// facing up/right (up on map)
+		destY = robotY -destNum;					
+		break;
+	case 1:// facing down/right (right on map)
+		destX = robotX +destNum;
+		break;
+	case 2:// facing down/left (down on map)
+		destY = robotY + destNum;
+		break;
+	case 3:// facing up/left (left on map)
+		destX = robotX -destNum;
+		break;
+	}
+
+	destType = mapList[destX][destY]->getType();
+	destActive = mapList[destX][destY]->getIsActive();
+
+	robotSquare = mapList[robotX][robotY]->getType();
+				
+	if((destX >= 0) && (destX < Width) && (destY >= 0) && (destY < Height))
+	{
+		destType = (mapList[destX][destY]->getType()) ;
+		destActive = (mapList[destX][destY]->getIsActive());
+					
+		if ( (destType == TDefault) || 
+			 ((destType == TRaised1) && ((robotSquare == TRaised1) || (robotSquare == TRaised2) || (robotSquare == TRaised3) || (robotSquare == TRaised4))) ||
+			 ((destType == TRaised2) && ((robotSquare == TRaised2) || (robotSquare == TRaised3) || (robotSquare == TRaised4))) ||
+			 ((destType == TRaised3) && ((robotSquare == TRaised3) || (robotSquare == TRaised4)))||
+			 ((destType == TRaised4) && ((robotSquare == TRaised4))) ||
+			 (destType == TGap) || 
+			 (destType == TElectric) ||
+			 ((destType == TElectricTL) && (direction != 1)) || 
+			 ((destType == TElectricTR) && (direction != 2)) ||
+			 ((destType == TElectricBL) && (direction != 0)) ||
+			 ((destType == TElectricBR) && (direction != 3)) ||
+			 (destType == TIce) ||
+			 (destType == TWater) ||
+			 (destType == TSwitchTL) ||
+			 (destType == TSwitchTR) ||
+			 (destType == TSwitchBL) ||
+			 (destType == TSwitchBR) ||
+			 (destType == TSwitch) ||
+			 (destType == TProgramTL) ||
+			 (destType == TProgramTR) ||
+			 (destType == TProgramBL) ||
+			 (destType == TProgramBR) ||
+			 (destType == TProgram) ||
+			 (destType == TBreakableTL) ||
+			 (destType == TBreakableTR) ||
+			 (destType == TBreakableBL) ||
+			 (destType == TBreakableBR) ||
+			 ((destType == TBreakable) && (!destActive)) ||
+			 ((destType == TSolid) && (!destActive)) ||
+			 (destType == TStart) ||
+			 (destType == TEnd) ||
+			 ( (destType == TDoorTL) && (((direction == 0) || (direction == 2) || (direction == 3)) || !destActive)) ||
+			 ( (destType == TDoorTR) && (((direction == 0) || (direction == 1) || (direction == 3)) || !destActive)) ||
+			 ( (destType == TDoorBL) && (((direction == 1) || (direction == 2) || (direction == 3)) || !destActive)) ||
+			 ( (destType == TDoorBR) && (((direction == 0) || (direction == 1) || (direction == 2)) || !destActive)) ||
+			 (destType == TTeleport))
 		{
-			switch((*oitr)->getNextCommand())
-			{
-			case MOVE_FORWARD1:
-				destX = 0;
-				destY = 0;
-				robotSquare = mapList[robotX][robotY]->getType();
-				robotDirection = (*oitr)->getDirection();
-				
-				// see if the robot is going to die by attempting to move out of this square in the
-				// direction if they're facing
-				// if not (no death from current square move attempt) ...
-				//  we need to check if this square can be moved out of in the direction that the player is facing...
-				// if so, set the following dest values
-				// otherwise, just advance the command and don't move the robot
-				
-				switch(robotDirection)
-				{
-				case 0:// facing up/right (up on map)					
-
-					destY = robotY -1;					
-					break;
-				case 1:// facing down/right (right on map)
-					destX = robotX +1;
-					break;
-				case 2:// facing down/left (down on map)
-					destY = robotY + 1;
-					break;
-				case 3:// facing up/left (left on map)
-					destX = robotX -1;
-					break;
-				}
-				destType = (tileTypeEnum)0;
-				destActive = true;
-				robotSquare = mapList[robotX][robotY]->getType();
-				robotDirection = (*oitr)->getDirection();
-				
-	
-				if((destX >= 0) && (destX < Width) && (destY >= 0) && (destY < Height))
-				{
-					destType = (mapList[destX][destY]->getType()) ;
-					destActive = (mapList[destX][destY]->getIsActive());
-
-					if	( (destType == TDefault) || 
-						  (destType == TGap) || 
-						 ((destType == TRaised1) && ((robotSquare == TRaised1) || (robotSquare == TRaised2) || (robotSquare == TRaised3) || (robotSquare == TRaised4))) ||
-						 ((destType == TRaised2) && ((robotSquare == TRaised2) || (robotSquare == TRaised3) || (robotSquare == TRaised4))) ||
-						 ((destType == TRaised3) && ((robotSquare == TRaised3) || (robotSquare == TRaised4)))||
-						 ((destType == TRaised4) && ((robotSquare == TRaised4))) ||
-						 (destType == TElectric) ||
-						 (destType == TElectricTL) || 
-						 (destType == TElectricTR) ||
-						 (destType == TElectricBL) ||
-						 (destType == TElectricBR) ||
-						 (destType == TIce) ||
-						 (destType == TWater) ||
-						 (destType == TSwitchTL) ||
-						 (destType == TSwitchTR) ||
-						 (destType == TSwitchBL) ||
-						 (destType == TSwitchBR) ||
-						 (destType == TSwitch) ||
-						 (destType == TProgramTL) ||
-						 (destType == TProgramTR) ||
-						 (destType == TProgramBL) ||
-						 (destType == TProgramBR) ||
-						 (destType == TProgram) ||
-						 (destType == TStart) ||
-						 (destType == TEnd) ||
-						 ((destType == TDoorTL)&& !(mapList[destX][destY]->getIsActive())) ||
-						 ((destType == TDoorTR)&& !(mapList[destX][destY]->getIsActive())) ||
-						 ((destType == TDoorBL)&& !(mapList[destX][destY]->getIsActive())) ||
-						 ((destType == TDoorBR)&& !(mapList[destX][destY]->getIsActive())) ||
-						 ((destType == TDoorTL)&& !(mapList[destX][destY]->getIsActive())) ||
-						 (destType == TTeleport))
-					{
-						return true; 
-					}
-				}
-			}
+			return true; 
 		}
 	}
 	return false;
 }
-
-bool gameBoard::willRobotDieMovingForwardOutOfSquare()
+bool gameBoard::RCwillRobotDieStayingHere()
 {
-	// find the robot
-	vector<object*>::iterator oitr = objectList.begin();
-	vector<Oswitch*>::iterator sitr = switchList.begin();
-	//Oswitch* tempSwitch;
-	int destX;
-	int destY;
+	// robot vars
 	tileTypeEnum robotSquare;
-	int robotDirection;
-	tileTypeEnum destType;
-	bool		 destActive;
-	
-	for(;oitr != objectList.end(); oitr++)
+
+	robotSquare = mapList[robotX][robotY]->getType();
+	bool robotSquareActive = mapList[robotX][robotY]->getIsActive();
+
+	// if robot square = a bad square, return true, otherwise return false
+	if(	(robotSquare == TGap) ||
+		(robotSquare == TWater) ||
+		((robotSquare == TElectric) && (robotSquareActive == true))
+		)
 	{
-		if((*oitr)->getType() == ORobot)
-		{
-			switch((*oitr)->getNextCommand())
-			{
-			case MOVE_FORWARD1:
-				destX = 0;
-				destY = 0;
-				robotSquare = mapList[robotX][robotY]->getType();
-				robotDirection = (*oitr)->getDirection();
-				
-				// see if the robot is going to die by attempting to move out of this square in the
-				// direction if they're facing
-				// if not (no death from current square move attempt) ...
-				//  we need to check if this square can be moved out of in the direction that the player is facing...
-				// if so, set the following dest values
-				// otherwise, just advance the command and don't move the robot
-				
-				switch(robotDirection)
-				{
-				case 0:// facing up/right (up on map)					
-
-					destY = robotY -1;					
-					break;
-				case 1:// facing down/right (right on map)
-					destX = robotX +1;
-					break;
-				case 2:// facing down/left (down on map)
-					destY = robotY + 1;
-					break;
-				case 3:// facing up/left (left on map)
-					destX = robotX -1;
-					break;
-				}
-				destType = (tileTypeEnum)0;
-				destActive = true;
-				robotSquare = mapList[robotX][robotY]->getType();
-				robotDirection = (*oitr)->getDirection();
-		
-				if((destX >= 0) && (destX < Width) && (destY >= 0) && (destY < Height))
-				{
-					destType = (mapList[destX][destY]->getType()) ;
-					destActive = (mapList[destX][destY]->getIsActive());
-
-					if((destType == TElectric) ||
-					 (destType == TElectricTL) || 
-					 (destType == TElectricTR) ||
-					 (destType == TElectricBL) ||
-					 (destType == TElectricBR) || 
-					 (destType == TWater) || (destType == TGap) )
-					{
-						return true;
-					}
-				}
-			}
-		}
-	}			
-	return true;
-}
-
-bool gameBoard::canRobotMoveForward()
-{
-	// find the robot
-	vector<object*>::iterator oitr = objectList.begin();
-	vector<Oswitch*>::iterator sitr = switchList.begin();
-	//Oswitch* tempSwitch;
-	int destX;
-	int destY;
-	tileTypeEnum robotSquare;
-	int robotDirection;
-	tileTypeEnum destType;
-	bool		 destActive;
-		
-	for(;oitr != objectList.end(); oitr++)
-	{
-		if((*oitr)->getType() == ORobot)
-		{
-			switch((*oitr)->getNextCommand())
-			{
-			case MOVE_FORWARD1:
-				destX = 0;
-				destY = 0;
-				robotSquare = mapList[robotX][robotY]->getType();
-				robotDirection = (*oitr)->getDirection();
-				
-				// see if the robot is going to die by attempting to move out of this square in the
-				// direction if they're facing
-				// if not (no death from current square move attempt) ...
-				//  we need to check if this square can be moved out of in the direction that the player is facing...
-				// if so, set the following dest values
-				// otherwise, just advance the command and don't move the robot
-				
-				switch(robotDirection)
-				{
-				case 0:// facing up/right (up on map)					
-
-					destY = robotY -1;					
-					break;
-				case 1:// facing down/right (right on map)
-					destX = robotX +1;
-					break;
-				case 2:// facing down/left (down on map)
-					destY = robotY + 1;
-					break;
-				case 3:// facing up/left (left on map)
-					destX = robotX -1;
-					break;
-				}
-				destType = (tileTypeEnum)0;
-				destActive = true;
-				robotSquare = mapList[robotX][robotY]->getType();
-				robotDirection = (*oitr)->getDirection();
-			}
-				
-			if((destX >= 0) && (destX < Width) && (destY >= 0) && (destY < Height))
-			{
-					destType = (mapList[destX][destY]->getType()) ;
-					destActive = (mapList[destX][destY]->getIsActive());
-
-					
-				if	( (destType == TDefault) || 
-					  (destType == TGap) || 
-					 ((destType == TRaised1) && ((robotSquare == TRaised1) || (robotSquare == TRaised2) || (robotSquare == TRaised3) || (robotSquare == TRaised4))) ||
-					 ((destType == TRaised2) && ((robotSquare == TRaised2) || (robotSquare == TRaised3) || (robotSquare == TRaised4))) ||
-					 ((destType == TRaised3) && ((robotSquare == TRaised3) || (robotSquare == TRaised4)))||
-					 ((destType == TRaised4) && ((robotSquare == TRaised4))) ||
-					 (destType == TElectric) ||
-					 (destType == TElectricTL) || 
-					 (destType == TElectricTR) ||
-					 (destType == TElectricBL) ||
-					 (destType == TElectricBR) ||
-					 (destType == TIce) ||
-					 (destType == TWater) ||
-					 (destType == TSwitchTL) ||
-					 (destType == TSwitchTR) ||
-					 (destType == TSwitchBL) ||
-					 (destType == TSwitchBR) ||
-					 (destType == TSwitch) ||
-					 (destType == TProgramTL) ||
-					 (destType == TProgramTR) ||
-					 (destType == TProgramBL) ||
-					 (destType == TProgramBR) ||
-					 (destType == TProgram) ||
-					 (destType == TStart) ||
-					 (destType == TEnd) ||
-					 ((destType == TDoorTL)&& !(mapList[destX][destY]->getIsActive())) ||
-					 ((destType == TDoorTR)&& !(mapList[destX][destY]->getIsActive())) ||
-					 ((destType == TDoorBL)&& !(mapList[destX][destY]->getIsActive())) ||
-					 ((destType == TDoorBR)&& !(mapList[destX][destY]->getIsActive())) ||
-					 ((destType == TDoorTL)&& !(mapList[destX][destY]->getIsActive())) ||
-					 (destType == TTeleport))
-				{
-					return true; 
-				}
-			}
-		}
+		return true;
 	}
-	return true;
-}
-bool gameBoard::willRobotDieStayingHere()
-{
-	// find the robot
-	vector<object*>::iterator oitr = objectList.begin();
-	vector<Oswitch*>::iterator sitr = switchList.begin();
-	//Oswitch* tempSwitch;
-	int destX;
-	int destY;
-	tileTypeEnum robotSquare;
-	int robotDirection;
-	tileTypeEnum destType;
-	bool		 destActive;
-	
-	for(;oitr != objectList.end(); oitr++)
+	else
 	{
-		if((*oitr)->getType() == ORobot)
-		{
-			switch((*oitr)->getNextCommand())
-			{
-			case MOVE_FORWARD1:
-				destX = 0;
-				destY = 0;
-				robotSquare = mapList[robotX][robotY]->getType();
-				robotDirection = (*oitr)->getDirection();
-				
-				// see if the robot is going to die by attempting to move out of this square in the
-				// direction if they're facing
-				// if not (no death from current square move attempt) ...
-				//  we need to check if this square can be moved out of in the direction that the player is facing...
-				// if so, set the following dest values
-				// otherwise, just advance the command and don't move the robot
-				
-				switch(robotDirection)
-				{
-				case 0:// facing up/right (up on map)					
-
-					destY = robotY -1;					
-					break;
-				case 1:// facing down/right (right on map)
-					destX = robotX +1;
-					break;
-				case 2:// facing down/left (down on map)
-					destY = robotY + 1;
-					break;
-				case 3:// facing up/left (left on map)
-					destX = robotX -1;
-					break;
-				}
-				destType = (tileTypeEnum)0;
-				destActive = true;
-				robotSquare = mapList[robotX][robotY]->getType();
-				robotDirection = (*oitr)->getDirection();
-	
-				if((destX >= 0) && (destX < Width) && (destY >= 0) && (destY < Height))
-				{
-					destType = (mapList[destX][destY]->getType()) ;
-					destActive = (mapList[destX][destY]->getIsActive());
-
-					if((destType == TElectric) ||
-					 (destType == TElectricTL) || 
-					 (destType == TElectricTR) ||
-					 (destType == TElectricBL) ||
-					 (destType == TElectricBR) || 
-					 (destType == TWater) || (destType == TGap) )
-					{
-						return true;
-					}
-				}
-			}
-		}
+		return false;
 	}
 	
-	return true;
+}
+
+void gameBoard::RCmoveRobotForward()
+{
+	// first thing's first, lets find the robot
+	std::vector<object*>::iterator oitr = objectList.begin();
+
+	for(;oitr != objectList.end(); oitr++)
+	{
+		if((*oitr)->getType() == ORobot)
+		{
+			int robotDirection = (*oitr)->getDirection();
+
+			// lets see if we are going to die attempting to leave this squiare
+			if(this->RCwillRobotDieTryingToLeaveSquare(robotDirection))
+			{
+				// yes we died
+				(*oitr)->setAlive(false);
+				return;
+			}
+
+			// at this point we're still alive, now lets see if we can leave this square
+			if(!this->RCcanRobotLeaveSquare(robotDirection))
+			{
+				// no we can't leave
+				return;
+			}
+
+			// now lets see if we can move forward a square
+			if(!this->RCcanRobotMoveForward(robotDirection, 1))
+			{
+				// no we can't move forward
+				return;
+			}
+
+			// ok at this point we're not dead, we can leave our square, and we can move forward into the next square
+			// lets move forward and see what happens!
+
+			int destX = robotX;
+			int destY = robotY;
+			switch(robotDirection)
+			{
+			case 0:// facing up/right (up on map)
+				destY = robotY -1;					
+				break;
+			case 1:// facing down/right (right on map)
+				destX = robotX +1;
+				break;
+			case 2:// facing down/left (down on map)
+				destY = robotY + 1;
+				break;
+			case 3:// facing up/left (left on map)
+				destX = robotX -1;
+				break;
+			}
+			if( (destX >=0) && (destX < Width) )
+				robotX = destX;
+			if( (destY >=0) && (destY < Height) )
+				robotY = destY;
+
+			(*oitr)->setXPos(robotX);
+			(*oitr)->setYPos(robotY);
+			
+			// now that we've moved forward
+			// lets see if we're about to die
+			if(this->RCwillRobotDieStayingHere())
+			{
+				// yes we died
+				(*oitr)->setAlive(true);
+			}
+		}				
+	}
+};
+
+void gameBoard::RCjumpRobotForward()
+{
+	// first thing's first, lets find the robot
+	std::vector<object*>::iterator oitr = objectList.begin();
+
+	int distanceToMove = 2;
+
+	for(;oitr != objectList.end(); oitr++)
+	{
+		if((*oitr)->getType() == ORobot)
+		{
+			int robotDirection = (*oitr)->getDirection();
+
+			// lets see if we are going to die attempting to leave this squiare
+			if(this->RCwillRobotDieTryingToLeaveSquare(robotDirection))
+			{
+				// yes we died
+				(*oitr)->setAlive(false);
+				return;
+			}
+
+			// at this point we're still alive, now lets see if we can leave this square
+			if(!this->RCcanRobotLeaveSquare(robotDirection))
+			{
+				// no we can't leave
+				return;
+			}
+
+			// now lets see if our jump can allow us to move forward from our square to the destination square
+			if(!this->RCcanRobotMoveForward(robotDirection, 2))
+			{
+				// no we can't actually land at the destination square
+				// lets check the one square infront of us and see if that can be landed on instead
+				if(!this->RCcanRobotMoveForward(robotDirection, 1))
+				{
+					// no we can't even move forward 1 square, you're screwed, stay put
+					return;
+				}
+				else
+				{
+					// at least we can move forward 1 square, lets set our distance to 1
+					distanceToMove = 1;
+				}
+			}
+			else
+			{
+				// wow we can jump two squares forward! amazing!
+				// lets see if we can also clear the square infront of us
+				if(!this->RCcanRobotMoveForward(robotDirection, 1))
+				{
+					// nope we cannot even move out of this square, we'll just have to stay put
+					return;
+				}
+			}
+
+			// ok at this point we're not dead, we can leave our square, and we can either jump 2 squares clearing the middle
+			// square, or can jump forward 1 square, at least we're not dead.. yet
+			// lets do the jump and see what happens!
+
+			int destX = robotX;
+			int destY = robotY;
+			switch(robotDirection)
+			{
+			case 0:// facing up/right (up on map)
+				destY = robotY - distanceToMove;					
+				break;
+			case 1:// facing down/right (right on map)
+				destX = robotX + distanceToMove;
+				break;
+			case 2:// facing down/left (down on map)
+				destY = robotY + distanceToMove;
+				break;
+			case 3:// facing up/left (left on map)
+				destX = robotX - distanceToMove;
+				break;
+			}
+			if( (destX >=0) && (destX < Width) )
+				robotX = destX;
+			if( (destY >=0) && (destY < Height) )
+				robotY = destY;
+
+			(*oitr)->setXPos(robotX);
+			(*oitr)->setYPos(robotY);
+			
+			// now that we've moved forward
+			// lets see if we're about to die
+			if(this->RCwillRobotDieStayingHere())
+			{
+				// yes we died
+				(*oitr)->setAlive(true);
+			}
+		}				
+	}	
+};
+
+void gameBoard::RCcrouch()
+{
+}
+void gameBoard::RCclimb()
+{
+}
+void gameBoard::RCpunch()
+{
 }

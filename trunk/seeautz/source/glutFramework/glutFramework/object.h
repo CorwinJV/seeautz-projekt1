@@ -24,6 +24,7 @@ protected:
 	oglTexture2D*	image;
 	vector<logicBlock*>	instructionList;
 	vector<logicBlock*>::iterator currentInstruction;
+	bool alive;
 
 
 public:
@@ -51,6 +52,9 @@ public:
 	virtual void	removeLastCommand();
 	virtual void	clearInstructions();
 	virtual void	coreDump();
+	virtual void	setAlive(bool status);
+	virtual bool	getAlive();
+	virtual void	reset();
 };
 
 #endif
