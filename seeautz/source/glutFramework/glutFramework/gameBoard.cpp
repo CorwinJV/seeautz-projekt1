@@ -49,8 +49,8 @@ gameBoard::gameBoard()
 	screenWidth = 1024;
 	screenHeight = 768;
 
-	screenEdge = 0.01;
-	moveSpeed = scale * 0.1;
+	screenEdge = 0.02;
+	moveSpeed = scale * 0.2;
 	maxscale = 2.0;
 	minscale = 0.2;
 	centerX = 0;
@@ -809,8 +809,8 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	default:
 		break;
 	}
+	std::cout << "RobotX,y = " << robotX << ", " << robotY << std::endl;
 
-	
 	if (scale > maxscale)	scale = maxscale;
 	if (scale < minscale)	scale = minscale;
 	keepRobotOnTheBoard();
@@ -976,8 +976,10 @@ void gameBoard::processRobot()
 				(*oitr)->rotate(1);
 				break;
 			case CROUCH:  // just like move forward above, only far less squares that can be moved into
+				this->RCcrouch();
 				break;
 			case CLIMB:	  // just like move forward above, only far less squares that can be moved into
+				this->RCclimb();
 				break;
 			case JUMP:	  // just like move forward above, only far less squares that can be moved into
 				this->RCjumpRobotForward();
@@ -985,6 +987,7 @@ void gameBoard::processRobot()
 				//	&& !canRobotMoveForward()  &&  !willRobotDieStayingHere() )
 				break;
 			case PUNCH:	  // just like move forward above, only far less squares that can be moved into
+				this->RCpunch();
 				break;
 			case MOVE_FORWARD_UNTIL_UNABLE: // just like move forward above, only no advancement of command until destination square is invalid and won't cause death
 				break;
@@ -1154,9 +1157,9 @@ bool gameBoard::interfaceHasFiredExecuteOrder(std::vector<logicBlock*> execution
 	{
 		if((*oitr)->getType() == ORobot)
 		{
-			(*oitr)->reset();
-			robotX = robotStartX;
-			robotY = robotStartY;
+			//(*oitr)->reset();
+			//robotX = robotStartX;
+			///robotY = robotStartY;
 			
 			// Add every element of executionList from the interface to
 			// the robot's instruction list.
