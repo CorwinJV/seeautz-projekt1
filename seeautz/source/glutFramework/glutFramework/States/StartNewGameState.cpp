@@ -44,7 +44,7 @@ bool StartNewGameState::PreGameCallback()
 
 bool StartNewGameState::tutorialCallback()
 {
-	GSM->addGameState<tutorialMap1>();
+	GSM->addGameState<playGame>();
 	this->setStatus(DeleteMe);
 	glClearColor(255, 0, 255, 0);
 

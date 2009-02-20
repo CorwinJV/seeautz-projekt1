@@ -284,6 +284,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\playGame.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\States\PostGameState.cpp"
 					>
 				</File>
@@ -311,10 +315,6 @@
 			<Filter
 				Name="Maps"
 				>
-				<File
-					RelativePath=".\tutorialMap1.cpp"
-					>
-				</File>
 				<File
 					RelativePath=".\tutorialMap2.cpp"
 					>
@@ -474,6 +474,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\playGame.h"
+					>
+				</File>
+				<File
 					RelativePath=".\States\PostGameState.h"
 					>
 				</File>
@@ -507,14 +511,6 @@
 			<Filter
 				Name="Maps"
 				>
-				<File
-					RelativePath=".\tutorialMap1.h"
-					>
-				</File>
-				<File
-					RelativePath=".\tutorialMap2.h"
-					>
-				</File>
 			</Filter>
 		</Filter>
 	</Files>

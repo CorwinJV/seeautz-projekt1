@@ -1,7 +1,7 @@
 #include "projekt1App.h"
 #include "States\DevLogoState.h"
 #include "States\LogicViewState.h"
-#include "tutorialMap1.h"
+#include "playGame.h"
 #include "oglGameVars.h"
 
 #include <iostream>
@@ -14,7 +14,7 @@ projekt1App::projekt1App(std::string title, int sizeX, int sizeY, int argc, char
 
 	// Load our starting state into the GameStateManager
 	GameVars->Instance();
-	myStateManager.addGameState<tutorialMap1>();
+	myStateManager.addGameState<playGame>();
 	//myStateManager.addGameState<LogicViewState>();
 	//myStateManager.addGameState<DevLogoState>();		// 0
 

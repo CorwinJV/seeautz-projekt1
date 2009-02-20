@@ -1,10 +1,9 @@
-#include "tutorialMap1.h"
-#include "tutorialMap2.h"
+#include "playGame.h"
 #include "GameStateManager.h"
 
 
 
-bool tutorialMap1::Update()
+bool playGame::Update()
 {
 	tutorialmap1->mapScroll();
 	// see if the robot is at the end square
@@ -12,25 +11,25 @@ bool tutorialMap1::Update()
 	{
 		tutorialmap1->~gameBoard();
 		delete tutorialmap1;
-		GSM->addGameState<tutorialMap2>();
+		GSM->addGameState<playGame>();
 		this->setStatus(DeleteMe);
 	}
 
 	return true;
 }
 
-bool tutorialMap1::Draw()
+bool playGame::Draw()
 {
 	tutorialmap1->draw();
 	mInterface.Draw();
 	return false;
 }
 
-bool tutorialMap1::initialize()
+bool playGame::initialize()
 {
 	tutorialmap1 = new gameBoard();
 	//tutorialmap1->LoadGameMapFromFile("maps\\tutorialMap1.txt");
-	tutorialmap1->LoadGameMapFromFile("maps\\Map14.txt");
+	tutorialmap1->LoadGameMapFromFile("maps\\Map11.txt");
 
 	//=====================================================
 	// Register the gameBoard callback with the interface!
@@ -39,19 +38,19 @@ bool tutorialMap1::initialize()
 	return true;
 }
 
-void tutorialMap1::processMouse(int x, int y)
+void playGame::processMouse(int x, int y)
 {
 	tutorialmap1->processMouse(x, y);
 	mInterface.processMouse(x, y);
 }
 
-void tutorialMap1::processMouseClick(int button, int state, int x, int y)
+void playGame::processMouseClick(int button, int state, int x, int y)
 {
 	tutorialmap1->processMouseClick(button, state, x, y);
 	mInterface.processMouseClick(button, state, x, y);
 }
 
-void tutorialMap1::keyboardInput(unsigned char c, int x, int y)
+void playGame::keyboardInput(unsigned char c, int x, int y)
 {
 	tutorialmap1->keyboardInput(c, x, y);
 }
