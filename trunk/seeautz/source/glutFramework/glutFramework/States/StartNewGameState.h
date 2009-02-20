@@ -4,7 +4,7 @@
 #include ".\..\GameState.h" 
 #include ".\..\pixmap.h"
 #include "MainMenuState.h"
-#include "..\tutorialMap1.h"
+#include "..\playGame.h"
 #include ".\..\oglTexture2D.h"
 
 class StartNewGameState : public GameState

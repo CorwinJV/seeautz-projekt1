@@ -8,7 +8,7 @@
 #include "LogicInterface.h"
 
 
-class tutorialMap1 : public GameState
+class playGame : public GameState
 {
 private:
 	gameBoard *tutorialmap1;
@@ -16,14 +16,14 @@ private:
 
 public:
 
-	tutorialMap1();
-	tutorialMap1(GameStateManager &Parent, int newID) : GameState(Parent, newID)
+	playGame();
+	playGame(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
 		initialize();
 	}
 	bool initialize();
-	bool tutorialMap1::Update();
-	bool tutorialMap1::Draw();
+	bool playGame::Update();
+	bool playGame::Draw();
 	void processMouse(int x, int y);
 	void processMouseClick(int button, int state, int x, int y);
 	void keyboardInput(unsigned char c, int x, int y);

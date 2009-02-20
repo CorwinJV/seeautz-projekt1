@@ -30,7 +30,7 @@ bool LoadGameState::PreGameCallback()
 
 bool LoadGameState::tutorialCallback()
 {
-	GSM->addGameState<tutorialMap1>();
+	GSM->addGameState<playGame>();
 	this->setStatus(DeleteMe);
 	glClearColor(255, 0, 255, 0);
 

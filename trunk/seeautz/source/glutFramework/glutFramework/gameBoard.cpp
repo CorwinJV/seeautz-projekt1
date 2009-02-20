@@ -1435,7 +1435,7 @@ void gameBoard::RCmoveRobotForward()
 			if(this->RCwillRobotDieStayingHere())
 			{
 				// yes we died
-				(*oitr)->setAlive(true);
+				(*oitr)->setAlive(false);
 			}
 		}				
 	}
@@ -1530,7 +1530,7 @@ void gameBoard::RCjumpRobotForward()
 			if(this->RCwillRobotDieStayingHere())
 			{
 				// yes we died
-				(*oitr)->setAlive(true);
+				(*oitr)->setAlive(false);
 			}
 		}				
 	}	

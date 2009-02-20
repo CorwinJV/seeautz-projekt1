@@ -7,7 +7,7 @@
 #include "MainGameLoopState.h"
 #include "PreGameState.h"
 
-#include "..\tutorialMap1.h"
+#include "..\playGame.h"
 
 bool MainMenuState::Update()
 {
