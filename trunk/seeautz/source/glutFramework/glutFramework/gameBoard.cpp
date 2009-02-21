@@ -987,7 +987,7 @@ void gameBoard::processRobot()
 				//	&& !canRobotMoveForward()  &&  !willRobotDieStayingHere() )
 				break;
 			case PUNCH:	  // just like move forward above, only far less squares that can be moved into
-				this->RCpunch();
+				this->RCpunch((*oitr)->getDirection());
 				break;
 			case MOVE_FORWARD_UNTIL_UNABLE: // just like move forward above, only no advancement of command until destination square is invalid and won't cause death
 				break;
@@ -1542,6 +1542,47 @@ void gameBoard::RCcrouch()
 void gameBoard::RCclimb()
 {
 }
-void gameBoard::RCpunch()
+void gameBoard::RCpunch(int direction)
 {
+	// first thing's first, lets find the robot
+	std::vector<object*>::iterator oitr = objectList.begin();
+
+	for(;oitr != objectList.end(); oitr++)
+	{
+		if((*oitr)->getType() == ORobot)
+		{
+			int robotDirection = (*oitr)->getDirection();
+
+			int destX = robotX;
+			int destY = robotY;
+			switch(robotDirection)
+			{
+			case 0:// facing up/right (up on map)
+				destY = robotY -1;					
+				break;
+			case 1:// facing down/right (right on map)
+				destX = robotX +1;
+				break;
+			case 2:// facing down/left (down on map)
+				destY = robotY + 1;
+				break;
+			case 3:// facing up/left (left on map)
+				destX = robotX -1;
+				break;
+			}
+
+			if( (destX >=0) && (destX < Width) )
+				robotX = destX;
+			if( (destY >=0) && (destY < Height) )
+				robotY = destY;
+
+			(*oitr)->setXPos(robotX);
+			(*oitr)->setYPos(robotY);
+			if(mapList[destX][destY]->getType() == TBreakable)
+			{
+				mapList[destX][destY]->setActive(false);
+			}
+			
+		}				
+	}
 }
