@@ -1234,6 +1234,7 @@ bool gameBoard::RCcanRobotLeaveSquare(int direction)
 		((robotSquare == TBreakableBL) && (!robotSquareActive)) ||
 		((robotSquare == TBreakableBR) && (!robotSquareActive)) ||
 		(robotSquare == TSolid) ||
+		(robotSquare == TBreakable) ||
 		(robotSquare == TStart) ||
 		(robotSquare == TEnd) ||
 		( (robotSquare == TDoorTL) && (((direction == 3) && (!robotSquareActive)) || (direction != 3))) ||
@@ -1552,6 +1553,7 @@ void gameBoard::RCpunch(int direction)
 		if((*oitr)->getType() == ORobot)
 		{
 			int robotDirection = (*oitr)->getDirection();
+			//tileTypeEnum robotSquare = mapList[robotX][robotY]
 
 			int destX = robotX;
 			int destY = robotY;
@@ -1578,10 +1580,17 @@ void gameBoard::RCpunch(int direction)
 
 			(*oitr)->setXPos(robotX);
 			(*oitr)->setYPos(robotY);
+			// first lets check for the standard breakable square 1 square away from us...
 			if(mapList[destX][destY]->getType() == TBreakable)
 			{
 				mapList[destX][destY]->setActive(false);
 			}
+			else if(1)
+			{
+
+				// if not, lets see if we're standing on a directional breakable square...
+			}
+
 			
 		}				
 	}
