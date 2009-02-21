@@ -315,10 +315,6 @@
 			<Filter
 				Name="Maps"
 				>
-				<File
-					RelativePath=".\tutorialMap2.cpp"
-					>
-				</File>
 			</Filter>
 		</Filter>
 		<Filter
