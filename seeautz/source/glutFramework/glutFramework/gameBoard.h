@@ -109,7 +109,7 @@ public:
 	void RCjumpRobotForward();								// jump the robot forward 2 squares	
 	void RCcrouch();
 	void RCclimb();
-	void RCpunch();
+	void RCpunch(int direction);
 };
 
 #endif
