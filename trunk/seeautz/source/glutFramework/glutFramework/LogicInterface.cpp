@@ -37,6 +37,11 @@ LogicInterface::LogicInterface()
 	myMenu->setLastButtonDimensions(100, 50);
 	myMenu->setLastButtonPosition(sideBarX-100, bottomBarY-50);
 
+	myMenu->addButton("buttons\\abort.png", "buttons\\abort.png", "buttons\\abort.png", BE::CreateFunctionPointer0R(this, &LogicInterface::AbortButtonClick));
+	myMenu->setLastButtonDimensions(100, 50);
+	myMenu->setLastButtonPosition(sideBarX-205, bottomBarY-50);
+
+
 	//=============================================
 	// All other initialization
 	menuBar = new oglTexture2D();
@@ -178,7 +183,12 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 
 void LogicInterface::SetExecuteHandler(CFunctionPointer1R<bool, std::vector<logicBlock*>> clickHandler)
 {
-	mClickHandler = clickHandler;
+	mExecuteHandler = clickHandler;
+}
+
+void LogicInterface::SetAbortHandler(CFunctionPointer0R<bool> clickHandler)
+{
+	mAbortHandler = clickHandler;
 }
 
 //============================================
@@ -244,10 +254,23 @@ bool LogicInterface::RightArrowButtonClick()
 // Execute Button Callback
 bool LogicInterface::ExecuteButtonClick()
 {
-	if(mClickHandler)
+	if(mExecuteHandler)
 	{
-		return mClickHandler(executionList);
+		return mExecuteHandler(executionList);
 	}
 	return false;
 }
+
+//============================================
+// Abort Button Callback
+bool LogicInterface::AbortButtonClick()
+{
+	if(mAbortHandler)
+	{
+		return mAbortHandler();
+	}
+	return false;
+}
+
+
 

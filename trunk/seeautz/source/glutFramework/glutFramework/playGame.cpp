@@ -34,7 +34,7 @@ bool playGame::initialize()
 	//=====================================================
 	// Register the gameBoard callback with the interface!
 	mInterface.SetExecuteHandler(BE::CreateFunctionPointer1R(tutorialmap1, &gameBoard::interfaceHasFiredExecuteOrder));
-
+	mInterface.SetAbortHandler(BE::CreateFunctionPointer0R(tutorialmap1, &gameBoard::interfaceHasFiredAbortOrder));
 	return true;
 }
 

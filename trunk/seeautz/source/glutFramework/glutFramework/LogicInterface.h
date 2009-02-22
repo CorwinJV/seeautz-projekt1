@@ -28,9 +28,10 @@ public:
 	bool LeftArrowButtonClick();
 	bool RightArrowButtonClick();
 	bool ExecuteButtonClick();
+	bool AbortButtonClick();
 
 	void SetExecuteHandler(CFunctionPointer1R<bool, std::vector<logicBlock*>> clickHandler);
-
+	void SetAbortHandler(CFunctionPointer0R<bool> clickHandler);
 private:
 	MenuSys* myMenu;
 	bool isButtonBeingClicked;
@@ -40,7 +41,8 @@ private:
 	int sideBarYOffset;
 	bool isMouseDragging;
 	logicBlock* draggedBlock;
-	CFunctionPointer1R<bool, std::vector<logicBlock*>> mClickHandler;
+	CFunctionPointer1R<bool, std::vector<logicBlock*>> mExecuteHandler;
+	CFunctionPointer0R<bool> mAbortHandler;
 
 	std::vector<logicBlock*>* logicBank;		// The usable logic blocks
 	std::vector<logicBlock*> executionList;	// The command to give the robot
