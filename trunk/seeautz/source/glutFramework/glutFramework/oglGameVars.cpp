@@ -99,9 +99,9 @@ void oglGameVars::loadAllLogicBlocks()
 	tmpBlock->addInstruction(JUMP);
 	allLogicBlocks.push_back(tmpBlock);
 
-	tmpBlock = new logicBlock("instructions/loop.png", 130, 130, "Use this instruction to loop.", 2, LOOP);
-	tmpBlock->addInstruction(LOOP);
-	allLogicBlocks.push_back(tmpBlock);
+	//tmpBlock = new logicBlock("instructions/loop.png", 130, 130, "Use this instruction to loop.", 2, LOOP);
+	//tmpBlock->addInstruction(LOOP);
+	//allLogicBlocks.push_back(tmpBlock);
 
 	tmpBlock = new logicBlock("instructions/activate.png", 130, 130, "Use this instruction to activate whatever is infront of you.", 2, ACTIVATE);
 	tmpBlock->addInstruction(ACTIVATE);

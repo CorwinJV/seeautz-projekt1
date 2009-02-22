@@ -11,4 +11,18 @@ enum State {
 				DeleteMe,	// flagged for removal
 };
 
+struct screenBox
+{
+	int x;
+	int y;
+	int width;
+	int height;
+
+	screenBox()
+		: x(0), y(0), 
+		width(0), height(0)
+	{
+	}
+};
+
 #endif
