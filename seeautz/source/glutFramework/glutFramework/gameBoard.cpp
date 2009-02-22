@@ -1200,6 +1200,13 @@ bool gameBoard::interfaceHasFiredExecuteOrder(std::vector<logicBlock*> execution
 	return true;
 }
 
+bool gameBoard::interfaceHasFiredAbortOrder()
+{
+	cout << "OMG YOU ABORTED LOLZ";
+	return false;
+}
+
+
 bool gameBoard::RCcanRobotLeaveSquare(int direction)
 {
 	// we just need to know information about our own square

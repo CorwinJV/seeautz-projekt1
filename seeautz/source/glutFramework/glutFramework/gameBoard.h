@@ -100,6 +100,7 @@ public:
 	void keepRobotOnTheBoard();
 	void playSound();
 	bool interfaceHasFiredExecuteOrder(std::vector<logicBlock*> executionList);
+	bool interfaceHasFiredAbortOrder();
 
 	bool RCcanRobotLeaveSquare(int direction);		        // can the robot leave this square in the direction it is facing
 	bool RCwillRobotDieTryingToLeaveSquare(int direction);  // will the robot die trying to leave this square in the direction it is facing (regardless of if it can actually leave)
