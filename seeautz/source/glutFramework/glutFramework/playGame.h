@@ -11,7 +11,7 @@
 class playGame : public GameState
 {
 private:
-	gameBoard *tutorialmap1;
+	gameBoard *gamePlay;
 	int timer;
 
 public:

@@ -22,6 +22,15 @@
 class gameBoard
 {
 protected:
+
+	enum GameBoardState
+	{
+		GB_VIEW,
+		GB_LOGICVIEW, 
+		GB_EXECUTION,
+		GB_FINISHED
+	};
+
 	std::vector<std::vector<mapTile*>> mapList;
 	std::vector<oglTexture2D*> tileImages;
 	// 1 dimensional array of ai entities
@@ -67,6 +76,9 @@ protected:
 	soundEffect *ourSound;
 	clock_t timer;
 	clock_t startTime;
+
+private:
+	GameBoardState curState;
 
 public:
 	gameBoard();

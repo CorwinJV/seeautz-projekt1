@@ -10,8 +10,9 @@
 
 using namespace std;
 
-gameBoard::gameBoard()
+gameBoard::gameBoard() : curState(GB_VIEW)
 {
+	
 	// make it all empty
 	mapList.resize(1);
 	for(int x = 0; x < 1; x++)
@@ -145,15 +146,26 @@ gameBoard::~gameBoard()
 
 bool gameBoard::update()
 {
-	for(int x = 0; x < Height; x++)
+	//for(int x = 0; x < Height; x++)
+	//{
+	//	vector<mapTile*>::iterator itr = mapList[x].begin();
+	//	
+	//	for (; itr != mapList[x].end(); itr++)
+	//	{
+	//		(*itr)->update();
+	//	}
+	//}
+
+	if(curState == GB_EXECUTION)
 	{
-		vector<mapTile*>::iterator itr = mapList[x].begin();
-		
-		for (; itr != mapList[x].end(); itr++)
+		timer = clock();
+		if(timer >= startTime + 500)
 		{
-			(*itr)->update();
+			processRobot();
+			startTime = clock();
 		}
 	}
+
 	return true;
 }
 
@@ -892,6 +904,30 @@ void gameBoard::recalcPositions()
 bool gameBoard::resetMap()
 {
 	OM->startOver();
+
+	std::vector<object*>::iterator oitr = objectList.begin();
+
+	for(;oitr != objectList.end(); oitr++)
+	{
+		if((*oitr)->getType() == ORobot)
+		{
+			robotX = robotStartX;
+			robotY = robotStartY;
+			(*oitr)->setXPos(robotX);
+			(*oitr)->setYPos(robotY);
+			(*oitr)->reset();
+		}
+	}
+
+	for(int x = 0; x < Width; x++)
+	{
+		for(int y = 0; y < Height; y++)
+		{
+			mapList[x][y]->setActive(true);
+		}
+	}
+	
+
 	return true;
 }
 
@@ -1120,6 +1156,7 @@ bool gameBoard::robotAtEndSquare()
 	else
 		return false;
 }
+
 void gameBoard::teleporterCheck()
 {
 	vector<Oteleport*>::iterator titr = teleportList.begin();
@@ -1172,37 +1209,19 @@ bool gameBoard::interfaceHasFiredExecuteOrder(std::vector<logicBlock*> execution
 			}
 		}
 	}
-	// Execute the instructions
-	for(int x = 0; x < (int)executionList.size() - 1; x++)
-	{
-		startTime = clock();
-		timer = clock();
-		while(timer < (startTime + 1000) )
-		{		
-			timer = clock();
-			// do nothing pause
-		}
-		
-		//***********************************************************************
-		//***********************************************************************
-		//***********************************************************************
-		//*** this block of code here is just for the time being, it is
-		//*** implemented VERY VERY badly and should not be done here
-		//*** this should be done elsewhere via a timer
-		processRobot();
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		this->draw();
-		glutSwapBuffers();
-		//***********************************************************************
-		//***********************************************************************
-		//***********************************************************************
-	}
+	
+	curState = GB_EXECUTION;
+	startTime = clock();
 	return true;
 }
 
 bool gameBoard::interfaceHasFiredAbortOrder()
 {
-	cout << "OMG YOU ABORTED LOLZ";
+	if(curState == GB_EXECUTION)
+	{
+		curState = GB_VIEW;
+		resetMap();
+	}
 	return false;
 }
 
