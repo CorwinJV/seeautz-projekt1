@@ -12,12 +12,11 @@ projekt1App::projekt1App(std::string title, int sizeX, int sizeY, int argc, char
 {
 	initOpenGL();
 
-	// Load our starting state into the GameStateManager
+	//Load our starting state into the GameStateManager
 	GameVars->Instance();
 	myStateManager.addGameState<playGame>();
 	//myStateManager.addGameState<LogicViewState>();
 	//myStateManager.addGameState<DevLogoState>();		// 0
-
 }
 
 void projekt1App::initOpenGL()

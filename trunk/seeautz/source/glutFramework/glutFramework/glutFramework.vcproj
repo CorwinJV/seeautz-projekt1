@@ -229,6 +229,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\playGame.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\program.cpp"
 				>
 			</File>
@@ -281,10 +285,6 @@
 				</File>
 				<File
 					RelativePath=".\States\OptionsState.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\playGame.cpp"
 					>
 				</File>
 				<File
