@@ -66,6 +66,7 @@ gameBoard::gameBoard() : curState(GB_VIEW)
 	objectList.clear();
 	logicBank = GameVars->Instance()->getAllLogicBlocks();
 	ourSound = new soundEffect;
+	drawText = false;
 }
 
 gameBoard::gameBoard(int nWidth, int nHeight)
@@ -208,6 +209,7 @@ bool gameBoard::draw()
 	drawAtY = mapOffsetY + (robotY * imageHeight - (robotY * hh) + (robotX * hh));
 
 	drawObject(0, drawAtX, drawAtY, scale);
+
 	return true;
 }
 
@@ -839,6 +841,13 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 				(*oitr)->rotate(1);				
 			}
 		}	
+		break;
+	case '3':
+		// toggle drawtext
+		if(drawText == false)
+			drawText = true;
+		else
+			drawText = false;
 		break;
 	default:
 		break;

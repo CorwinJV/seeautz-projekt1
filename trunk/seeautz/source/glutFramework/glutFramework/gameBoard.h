@@ -77,6 +77,9 @@ protected:
 	clock_t timer;
 	clock_t startTime;
 
+	// temp for font testing
+	bool drawText;
+
 private:
 	GameBoardState curState;
 
