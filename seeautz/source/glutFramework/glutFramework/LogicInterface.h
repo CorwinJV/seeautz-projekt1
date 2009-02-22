@@ -37,12 +37,32 @@ private:
 	bool isButtonBeingClicked;
 
 	oglTexture2D* menuBar;
-	int bottomBarXOffset;
-	int sideBarYOffset;
 	bool isMouseDragging;
 	logicBlock* draggedBlock;
 	CFunctionPointer1R<bool, std::vector<logicBlock*>> mExecuteHandler;
 	CFunctionPointer0R<bool> mAbortHandler;
+
+	//======================
+	// Size and Positional Variables
+	screenBox sideBarBox;
+	int sideBarYOffset;
+	int sideBarColumnCount;
+	
+	screenBox bottomBarBox;
+	int bottomBarXOffset;
+
+	int instructionBlockW;
+	int instructionBlockH;
+	int instructionSpacing;
+
+	int logicBankNumColumns;
+	int logicBankNumRowsOnScreen;
+
+	int instructionListNumColumns;
+	int instructionListNumRowsOnScreen;
+	
+	screenBox logicBankBox;
+	screenBox instructionListBox;
 
 	std::vector<logicBlock*>* logicBank;		// The usable logic blocks
 	std::vector<logicBlock*> executionList;	// The command to give the robot

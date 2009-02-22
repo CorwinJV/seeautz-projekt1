@@ -1,45 +1,60 @@
 #include "LogicInterface.h"
-#define sideBarW 150
-#define sideBarH 618
-#define sideBarX 874
-#define sideBarY 0
 
-#define bottomBarW 1024 + 13
-#define bottomBarH 150
-#define bottomBarX -10
-#define bottomBarY 618
-
-#define instructionSpacing 30
 
 LogicInterface::LogicInterface()
-:myMenu(NULL), isButtonBeingClicked(false)
+	: myMenu(NULL), isButtonBeingClicked(false),
+		sideBarBox(), bottomBarBox(), sideBarColumnCount(3),
+		instructionBlockW(140 / 3), instructionBlockH(140 / 3),
+		instructionSpacing(3), logicBankBox(), instructionListBox(),
+		logicBankNumColumns(4), logicBankNumRowsOnScreen(3), 
+		instructionListNumColumns(6), instructionListNumRowsOnScreen(3)
 {
+	sideBarBox.width = 150;
+	sideBarBox.height = 618;
+	sideBarBox.x = 874;
+	sideBarBox.y = 0;
+
+	bottomBarBox.width = 1024 + 13;
+	bottomBarBox.height = 150 + 40;
+	bottomBarBox.x = -10;
+	bottomBarBox.y = 618 - 40;
+
+	logicBankBox.width = instructionSpacing  + ((instructionSpacing  + instructionBlockW)* logicBankNumColumns);
+	logicBankBox.height = bottomBarBox.height - 20;
+	logicBankBox.x = bottomBarBox.x + 40;
+	logicBankBox.y = bottomBarBox.y + 25;
+
+	instructionListBox.width = instructionSpacing + ((instructionSpacing + instructionBlockW) * instructionListNumColumns);
+	instructionListBox.height = logicBankBox.height;
+	instructionListBox.x = logicBankBox.x + logicBankBox.width + 25;
+	instructionListBox.y = logicBankBox.y;
+
 	//=============================================
 	// Menu buttons (scrolling the instruction lists)
-	myMenu = new MenuSys(0, 0, "", None);
+	myMenu = new MenuSys(0, 0, "blank.png", None);
 	myMenu->addButton("arrow_up.png", "arrow_up.png", "arrow_up.png", BE::CreateFunctionPointer0R(this, &LogicInterface::UpArrowButtonClick));
-	myMenu->setLastButtonDimensions(sideBarW, 25);
-	myMenu->setLastButtonPosition(sideBarX, 0);
+	myMenu->setLastButtonDimensions(sideBarBox.width, 25);
+	myMenu->setLastButtonPosition(sideBarBox.x, 0);
 
 	myMenu->addButton("arrow_down.png", "arrow_down.png", "arrow_down.png", BE::CreateFunctionPointer0R(this, &LogicInterface::DownArrowButtonClick));
-	myMenu->setLastButtonDimensions(sideBarW, 25);
-	myMenu->setLastButtonPosition(sideBarX, bottomBarY-25);
+	myMenu->setLastButtonDimensions(sideBarBox.width, 25);
+	myMenu->setLastButtonPosition(sideBarBox.x, bottomBarBox.y -25);
 
 	myMenu->addButton("arrow_left.png", "arrow_left.png", "arrow_left.png", BE::CreateFunctionPointer0R(this, &LogicInterface::LeftArrowButtonClick));
-	myMenu->setLastButtonDimensions(25, bottomBarH);
-	myMenu->setLastButtonPosition(0, bottomBarY);
+	myMenu->setLastButtonDimensions(25, bottomBarBox.height);
+	myMenu->setLastButtonPosition(0, bottomBarBox.y);
 
 	myMenu->addButton("arrow_right.png", "arrow_right.png", "arrow_right.png", BE::CreateFunctionPointer0R(this, &LogicInterface::RightArrowButtonClick));
-	myMenu->setLastButtonDimensions(25, bottomBarH);
-	myMenu->setLastButtonPosition(bottomBarW-40, bottomBarY);
+	myMenu->setLastButtonDimensions(25, bottomBarBox.height);
+	myMenu->setLastButtonPosition(bottomBarBox.width - 40, bottomBarBox.y);
 
 	myMenu->addButton("buttons\\execute.png", "buttons\\execute.png", "buttons\\execute.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ExecuteButtonClick));
 	myMenu->setLastButtonDimensions(100, 50);
-	myMenu->setLastButtonPosition(sideBarX-100, bottomBarY-50);
+	myMenu->setLastButtonPosition(sideBarBox.x - 100, bottomBarBox.y - 50);
 
 	myMenu->addButton("buttons\\abort.png", "buttons\\abort.png", "buttons\\abort.png", BE::CreateFunctionPointer0R(this, &LogicInterface::AbortButtonClick));
 	myMenu->setLastButtonDimensions(100, 50);
-	myMenu->setLastButtonPosition(sideBarX-205, bottomBarY-50);
+	myMenu->setLastButtonPosition(sideBarBox.x - 205, bottomBarBox.y - 50);
 
 
 	//=============================================
@@ -63,43 +78,63 @@ void LogicInterface::Draw()
 
 	//=============================================
 	// Menu Bars
-	menuBar->mX = sideBarX;
-	menuBar->mY = sideBarY;
-	menuBar->drawImage(sideBarW, sideBarH);
+	menuBar->mX = bottomBarBox.x;
+	menuBar->mY = bottomBarBox.y;
+	menuBar->drawImage(bottomBarBox.width, bottomBarBox.height);
 
 	//=============================================
 	// Robot Instructios (sidebar)
+	int rowCount = 0;
+	int columnIndex = 0;
 	itr = executionList.begin();
 	for(; itr != executionList.end(); itr++)
 	{
 		int i = std::distance(executionList.begin(), itr);
-		(*itr)->blockTexture->mX = sideBarX + 5;
-		(*itr)->blockTexture->mY = sideBarYOffset + ((sideBarY + 30) + (i * 140) + (i * instructionSpacing));
-		(*itr)->blockTexture->drawImage(140, 140);
+
+		if(((i % instructionListNumColumns) == 0)
+			&& (i > 0))
+		{
+			rowCount++;
+		}
+
+		(*itr)->blockTexture->mX = instructionListBox.x + (instructionSpacing * columnIndex) + (instructionBlockW * columnIndex);
+		(*itr)->blockTexture->mY = sideBarYOffset + ((instructionListBox.y + instructionSpacing) + (rowCount * instructionBlockH) + (rowCount * instructionSpacing));
+		(*itr)->blockTexture->drawImage(instructionBlockW, instructionBlockH);
+
+		columnIndex++;
+		if(columnIndex >= instructionListNumColumns)
+			columnIndex = 0;
 	}
 
 	//=============================================
-	// Menu Bars
-	menuBar->mX = bottomBarX;
-	menuBar->mY = bottomBarY;
-	menuBar->drawImage(bottomBarW, bottomBarH);
-
-	//=============================================
 	// LogicBank Instructions (bottom bar)
+	rowCount = 0;
+	columnIndex = 0;
 	itr = logicBank->begin();
 	for(; itr != logicBank->end(); itr++)
 	{
 		int i = std::distance(logicBank->begin(), itr);
-		(*itr)->blockTexture->mY = bottomBarY + 5;
-		(*itr)->blockTexture->mX = bottomBarXOffset + ((bottomBarX + 30) + (i * 140) + (i * instructionSpacing));
-		(*itr)->blockTexture->drawImage(140, 140);
+
+		if(((i % logicBankNumColumns) == 0)
+			&& (i > 0))
+		{
+			rowCount++;
+		}
+
+		(*itr)->blockTexture->mX = logicBankBox.x + + (instructionSpacing * columnIndex) + (instructionBlockW * columnIndex);
+		(*itr)->blockTexture->mY = bottomBarXOffset + ((logicBankBox.y + instructionSpacing) + (rowCount * instructionBlockH) + (rowCount * instructionSpacing));
+		(*itr)->blockTexture->drawImage(instructionBlockW, instructionBlockH);
+
+		columnIndex++;
+		if(columnIndex >= logicBankNumColumns)
+			columnIndex = 0;
 	}
 
 	//=============================================
 	// Dragged Block
 	if(draggedBlock != NULL)
 	{
-		draggedBlock->blockTexture->drawImage(140, 140);
+		draggedBlock->blockTexture->drawImage(instructionBlockW, instructionBlockH);
 	}
 
 	//=============================================
@@ -115,8 +150,8 @@ void LogicInterface::processMouse(int x, int y)
 	if(isMouseDragging == true
 		&& draggedBlock != NULL)
 	{
-		draggedBlock->blockTexture->mX = x - 70;
-		draggedBlock->blockTexture->mY = y - 70;
+		draggedBlock->blockTexture->mX = x - (instructionBlockW / 2);
+		draggedBlock->blockTexture->mY = y - (instructionBlockH / 2);
 	}
 }
 
@@ -138,7 +173,7 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 			std::vector<logicBlock*>::iterator itr = logicBank->begin();
 			for(; itr != logicBank->end(); itr++)
 			{
-				if((*itr)->checkInBounds(x, y, 140, 140))
+				if((*itr)->checkInBounds(x, y, instructionBlockW, instructionBlockH))
 				{
 					draggedBlock = new logicBlock(*(*itr));
 					isMouseDragging = true;
@@ -153,7 +188,7 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 		if(isMouseDragging == true
 			&& draggedBlock != NULL)
 		{
-			if(GameVars->getPlaceInstructionBlock()->checkInBounds(x, y, 140, 140))
+			if(GameVars->getPlaceInstructionBlock()->checkInBounds(x, y, instructionBlockW, instructionBlockH))
 			{
 				executionList.pop_back();
 				executionList.push_back(new logicBlock(*(draggedBlock)));
@@ -172,8 +207,8 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 			int i = executionList.size();
 			if(i > 3)
 			{
-				int overallHeight = (sideBarY + 30) + (i * 140) + (i * instructionSpacing);
-				sideBarYOffset = 768 - 150 - overallHeight;
+				int overallHeight = (instructionListBox.y + instructionSpacing) + (i * instructionBlockH) + (i * instructionSpacing);
+				//sideBarYOffset = 768 - 150 - overallHeight;
 			}
 		}
 	}
@@ -195,10 +230,10 @@ void LogicInterface::SetAbortHandler(CFunctionPointer0R<bool> clickHandler)
 // Up Arrow Callback
 bool LogicInterface::UpArrowButtonClick()
 {
-	isButtonBeingClicked = true;
-	sideBarYOffset += 50;
-	if(sideBarYOffset > 0)
-		sideBarYOffset = 0;
+	//isButtonBeingClicked = true;
+	//sideBarYOffset += 50;
+	//if(sideBarYOffset > 0)
+	//	sideBarYOffset = 0;
 
 	return true;
 }
@@ -207,18 +242,18 @@ bool LogicInterface::UpArrowButtonClick()
 // Down Arrow Callback
 bool LogicInterface::DownArrowButtonClick()
 {
-	int i = executionList.size();
-	int overallHeight = (sideBarY + 30) + (i * 140) + (i * instructionSpacing);
-	isButtonBeingClicked = true;
+	//int i = executionList.size();
+	//int overallHeight = (instructionListBox.y + instructionSpacing) + (i * instructionBlockH) + (i * instructionSpacing);
+	//isButtonBeingClicked = true;
 
-	if(executionList.size() > 3)
-	{
-		sideBarYOffset -= 50;
-		if(sideBarYOffset + overallHeight < 768 - 130)
-		{
-			sideBarYOffset = 768 - 150 - overallHeight;
-		}
-	}
+	//if(executionList.size() > 3)
+	//{
+	//	sideBarYOffset -= 50;
+	//	if(sideBarYOffset + overallHeight < 768 - 130)
+	//	{
+	//		sideBarYOffset = 768 - 150 - overallHeight;
+	//	}
+	//}
 	return true;
 }
 
@@ -226,15 +261,11 @@ bool LogicInterface::DownArrowButtonClick()
 // Left Arrow Callback
 bool LogicInterface::LeftArrowButtonClick()
 {
-	int i = logicBank->size();
-	int overallWidth = (bottomBarX + 30) + (i * 140) + (i * instructionSpacing);
-	isButtonBeingClicked = true;
+	//isButtonBeingClicked = true;
+	//bottomBarXOffset += 50;
+	//if(bottomBarXOffset > 0)
+	//	bottomBarXOffset = 0;
 
-	bottomBarXOffset -= 50;
-	if(bottomBarXOffset + overallWidth < 1024 - 70)
-	{
-		bottomBarXOffset = 1024 - 70 - overallWidth;
-	}
 	return true;
 }
 
@@ -242,11 +273,15 @@ bool LogicInterface::LeftArrowButtonClick()
 // Right Arrow Callback
 bool LogicInterface::RightArrowButtonClick()
 {
-	isButtonBeingClicked = true;
-	bottomBarXOffset += 50;
-	if(bottomBarXOffset > 0)
-		bottomBarXOffset = 0;
+	//int i = logicBank->size();
+	//int overallWidth = (logicBankBox.x + instructionSpacing) + (i * instructionBlockW) + (i * instructionSpacing);
+	//isButtonBeingClicked = true;
 
+	//bottomBarXOffset -= 50;
+	//if(bottomBarXOffset + overallWidth < 1024 - 70)
+	//{
+	//	bottomBarXOffset = 1024 - 70 - overallWidth;
+	//}
 	return true;
 }
 
