@@ -818,6 +818,28 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	case '9':
 		playSound();
 		break;
+	case '1':
+		// find the robot
+		oitr = objectList.begin();
+		for(;oitr != objectList.end(); oitr++)
+		{
+			if((*oitr)->getType() == ORobot)
+			{
+				(*oitr)->rotate(-1);				
+			}
+		}	
+		break;
+	case '2':
+		// find the robot
+		oitr = objectList.begin();
+		for(;oitr != objectList.end(); oitr++)
+		{
+			if((*oitr)->getType() == ORobot)
+			{
+				(*oitr)->rotate(1);				
+			}
+		}	
+		break;
 	default:
 		break;
 	}
@@ -1320,17 +1342,14 @@ bool gameBoard::RCcanRobotMoveForward(int direction, int destNum)
 		destX = robotX -destNum;
 		break;
 	}
-
-	destType = mapList[destX][destY]->getType();
-	destActive = mapList[destX][destY]->getIsActive();
-
-	robotSquare = mapList[robotX][robotY]->getType();
 				
 	if((destX >= 0) && (destX < Width) && (destY >= 0) && (destY < Height))
 	{
-		destType = (mapList[destX][destY]->getType()) ;
-		destActive = (mapList[destX][destY]->getIsActive());
-					
+		destType = mapList[destX][destY]->getType();
+		destActive = mapList[destX][destY]->getIsActive();
+
+		robotSquare = mapList[robotX][robotY]->getType();
+
 		if ( (destType == TDefault) || 
 			 ((destType == TRaised1) && ((robotSquare == TRaised1) || (robotSquare == TRaised2) || (robotSquare == TRaised3) || (robotSquare == TRaised4))) ||
 			 ((destType == TRaised2) && ((robotSquare == TRaised2) || (robotSquare == TRaised3) || (robotSquare == TRaised4))) ||
@@ -1565,10 +1584,149 @@ void gameBoard::RCjumpRobotForward()
 
 void gameBoard::RCcrouch()
 {
+	// first thing's first, lets find the robot
+	std::vector<object*>::iterator oitr = objectList.begin();
+
+	for(;oitr != objectList.end(); oitr++)
+	{
+		if((*oitr)->getType() == ORobot)
+		{
+			int robotDirection = (*oitr)->getDirection();
+			tileTypeEnum robotSquare = mapList[robotX][robotY]->getType();
+			tileTypeEnum destSquare;
+
+			int destX = robotX;
+			int destY = robotY;
+			int landingX = robotX;
+			int landingY = robotY;
+			switch(robotDirection)
+			{
+			case 0:// facing up/right (up on map)
+				destY = robotY -1;
+				landingY = robotY - 2;
+				break;
+			case 1:// facing down/right (right on map)
+				destX = robotX +1;
+				landingX = robotX +2;
+				break;
+			case 2:// facing down/left (down on map)
+				destY = robotY + 1;
+				landingY = robotY +2;
+				break;
+			case 3:// facing up/left (left on map)
+				destX = robotX -1;
+				landingX = robotX -2;
+				break;
+			}
+			
+			if (((destX >=0) && (destX < Width)) && ((landingX >=0) && (landingX < Width)))
+			{}
+			else
+				return;
+			if (((destY >=0) && (destY < Height)) && ((landingY >=0) && (landingY < Height)))
+			{}
+			else
+				return;
+
+			destSquare = mapList[destX][destY]->getType();
+
+			if( ((destSquare == THalfTopR) && ((robotDirection == 0) || (robotDirection == 2))) ||
+				((destSquare == THalfTopL) && ((robotDirection == 1) || (robotDirection == 3))) )				
+			{
+				robotX = landingX;
+				robotY = landingY;
+				(*oitr)->setXPos(robotX);
+				(*oitr)->setYPos(robotY);
+				this->RCwillRobotDieStayingHere();
+			}
+		}				
+	}
 }
+
 void gameBoard::RCclimb()
 {
+	// first thing's first, lets find the robot
+	std::vector<object*>::iterator oitr = objectList.begin();
+
+	for(;oitr != objectList.end(); oitr++)
+	{
+		if((*oitr)->getType() == ORobot)
+		{
+			int robotDirection = (*oitr)->getDirection();
+			tileTypeEnum robotSquare = mapList[robotX][robotY]->getType();
+			tileTypeEnum destSquare;
+
+			int destX = robotX;
+			int destY = robotY;
+			int landingX = robotX;
+			int landingY = robotY;
+			switch(robotDirection)
+			{
+			case 0:// facing up/right (up on map)
+				destY = robotY -1;
+				landingY = robotY - 2;
+				break;
+			case 1:// facing down/right (right on map)
+				destX = robotX +1;
+				landingX = robotX +2;
+				break;
+			case 2:// facing down/left (down on map)
+				destY = robotY + 1;
+				landingY = robotY +2;
+				break;
+			case 3:// facing up/left (left on map)
+				destX = robotX -1;
+				landingX = robotX -2;
+				break;
+			}
+			if((destX >= 0) && (destX < Width) && (destY >= 0) && (destY < Height))
+			{
+				destSquare = mapList[destX][destY]->getType();
+			}
+			else
+				return;
+
+			// first lets see if we're climbing up to a new level
+			if(((destSquare == TRaised4) && (robotSquare == TRaised3)) ||
+			   ((destSquare == TRaised3) && (robotSquare == TRaised2)) ||
+			   ((destSquare == TRaised2) && (robotSquare == TRaised1)) ||
+			   ((destSquare == TRaised1) && ( (robotSquare != TRaised1) && (robotSquare != TRaised2) && 
+			                                  (robotSquare != TRaised3) && (robotSquare != TRaised4))))
+			{
+				robotX = destX;
+				robotY = destY;
+				(*oitr)->setXPos(robotX);
+				(*oitr)->setYPos(robotY);
+				this->RCwillRobotDieStayingHere();
+				return;
+			}
+
+			// if we're not climbing up to a new level, lets see if its even possible to climb over the square into a new square
+			if (((destX >=0) && (destX < Width)) && ((landingX >=0) && (landingX < Width)))
+			{}
+			else
+				return;
+			if (((destY >=0) && (destY < Height)) && ((landingY >=0) && (landingY < Height)))
+			{}
+			else
+				return;
+
+			// now that we can climb over two squares, lets see if what's infront of us can be climbed over
+
+			// halfwalls
+			if( ((destSquare == THalfBottomL) && ((robotDirection == 0) || (robotDirection == 2))) ||
+				((destSquare == THalfBottomR) && ((robotDirection == 1) || (robotDirection == 3))) )				
+			{
+				robotX = landingX;
+				robotY = landingY;
+				(*oitr)->setXPos(robotX);
+				(*oitr)->setYPos(robotY);
+				this->RCwillRobotDieStayingHere();
+			}
+		}				
+	}
 }
+
 void gameBoard::RCpunch(int direction)
 {
 	// first thing's first, lets find the robot
@@ -1579,7 +1737,8 @@ void gameBoard::RCpunch(int direction)
 		if((*oitr)->getType() == ORobot)
 		{
 			int robotDirection = (*oitr)->getDirection();
-			//tileTypeEnum robotSquare = mapList[robotX][robotY]
+			tileTypeEnum robotSquare = mapList[robotX][robotY]->getType();
+			tileTypeEnum destSquare;
 
 			int destX = robotX;
 			int destY = robotY;
@@ -1599,25 +1758,41 @@ void gameBoard::RCpunch(int direction)
 				break;
 			}
 
-			if( (destX >=0) && (destX < Width) )
-				robotX = destX;
-			if( (destY >=0) && (destY < Height) )
-				robotY = destY;
+			if( (destX >=0) && (destX < Width))	{}
+			else
+				return;
+			if((destY >=0) && (destY < Height))	{}
+			else
+				return;
 
-			(*oitr)->setXPos(robotX);
-			(*oitr)->setYPos(robotY);
-			// first lets check for the standard breakable square 1 square away from us...
-			if(mapList[destX][destY]->getType() == TBreakable)
-			{
-				mapList[destX][destY]->setActive(false);
-			}
-			else if(1)
-			{
+			// at this point the dest square is in the map so we can just go ahead and work with stuff
 
-				// if not, lets see if we're standing on a directional breakable square...
-			}
-
+			destSquare = mapList[destX][destY]->getType();
 			
+			// first lets check for the standard breakable square 1 square away from us...
+			if(destSquare == TBreakable)
+			{
+				// its breakable!
+				// lets break it
+				mapList[destX][destY]->setActive(false);
+
+				// and move the robot to this new square
+				robotX = destX;
+				robotY = destY;
+				(*oitr)->setXPos(robotX);
+				(*oitr)->setYPos(robotY);
+			}
+			// or lets also check to see if the square we're standing in is a breakable directional square
+			// since our dest's are set, we don't need to set anything additional
+			else if (((robotSquare == TBreakableTR) && (robotDirection == 0)) ||
+					 ((robotSquare == TBreakableBR) && (robotDirection == 1)) ||
+					 ((robotSquare == TBreakableBL) && (robotDirection == 2)) ||
+				     ((robotSquare == TBreakableTL) && (robotDirection == 3)))
+			{
+
+				mapList[destX][destY]->setActive(false);
+				mapList[robotX][robotY]->setActive(false);
+			}
 		}				
 	}
 }
