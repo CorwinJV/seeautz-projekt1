@@ -23,7 +23,7 @@ bool oglTexture2D::loadImage(std::string filename, int dWidth, int dHeight)
 	// Load in the image
 	if(!ilLoadImage(filename.c_str()))
 	{
-		std::cout << "oglTexture2D::loadImage failed to load" 
+		std::cout << "oglTexture2D::loadImage failed to load " 
 			<< filename << std::endl;
 		return false;
 	}

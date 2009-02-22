@@ -9,10 +9,10 @@ bool playGame::Update()
 	// see if the robot is at the end square
 	if(gamePlay->robotAtEndSquare())
 	{
-		gamePlay->~gameBoard();
-		delete gamePlay;
-		GSM->addGameState<playGame>();
-		this->setStatus(DeleteMe);
+		//gamePlay->~gameBoard();
+		//delete gamePlay;
+		//GSM->addGameState<playGame>();
+		//this->setStatus(DeleteMe);
 	}
 
 	return true;
@@ -29,7 +29,7 @@ bool playGame::initialize()
 {
 	gamePlay = new gameBoard();
 	//gamePlay->LoadGameMapFromFile("maps\\tutorialMap1.txt");
-	gamePlay->LoadGameMapFromFile("maps\\Map11.txt");
+	gamePlay->LoadGameMapFromFile("maps\\testMap1.txt");
 
 	//=====================================================
 	// Register the gameBoard callback with the interface!
