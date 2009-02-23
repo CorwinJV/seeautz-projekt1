@@ -1083,6 +1083,14 @@ void gameBoard::processRobot()
 			{
 			case MOVE_FORWARD1:
 				this->RCmoveRobotForward();
+				// special case for ice squares
+				if(mapList[robotX][robotY]->getType() == TIce)
+				{
+					if(this->RCcanRobotMoveForward((*oitr)->getDirection(), 1))
+					{
+						delayAdvance = true;
+					}
+				}
 				break;
 			case TURN_LEFT1:
 				(*oitr)->rotate(-1);
