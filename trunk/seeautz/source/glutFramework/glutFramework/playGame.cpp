@@ -4,7 +4,6 @@
 
 bool playGame::Update()
 {
-	GameBoardState curState;
 	curState = gamePlay->getCurState();
 	int levelCounter;
 	
@@ -18,29 +17,32 @@ bool playGame::Update()
 	switch(curState)
 	{
 	case GB_LOGICVIEW:
+		gameSaved = false;
 		gamePlay->update();
 		gamePlay->mapScroll();
 		break;
 	case GB_EXECUTION:
+		gameSaved = false;
 		gamePlay->update();
 		gamePlay->mapScroll();
 		break;
 	case GB_PREGAME:
-		
+		gameSaved = false;
 		break;
 	case GB_VIEWSCORE:
-		//save the game for the player, whether they like it or not!
-		GameVars->SavePlayerGame(GameVars->getPlayerName());
+		//save the game for the player, if it hasn't been saved yet
+		if(!gameSaved)
+		{
+			GameVars->SavePlayerGame(GameVars->getPlayerName());
+			gameSaved = true;
+		}
 
 		//this will eventually be displayed on the menu, until now deal with it
-		std::cout << GameVars->getPlayerName() << std::endl;
+		/*std::cout << GameVars->getPlayerName() << std::endl;
 		std::cout << GameVars->getLevelScore() << std::endl;
-		std::cout << GameVars->getTotalScore() << std::endl;
-		//display a menu that shows info and contains advance and exit buttons
-		//once advance button is clicked set curState to GB_FINISHED
-		curState = GB_FINISHED;
-		gamePlay->setState(curState);
-		//if exit it clicked quit game
+		std::cout << GameVars->getTotalScore() << std::endl;*/
+
+		myMenu->Update();
 		break;
 	case GB_FINISHED:
 		//gamePlay->~gameBoard();
@@ -105,6 +107,8 @@ bool playGame::Draw()
 		break;
 	case GB_VIEWSCORE:
 		gamePlay->draw();
+		if(myMenu != NULL)
+			myMenu->Draw();
 		//mInterface.Draw();
 		break;
 	case GB_FINISHED:
@@ -155,7 +159,20 @@ bool playGame::initialize()
 	mInterface.SetExecuteHandler(BE::CreateFunctionPointer1R(gamePlay, &gameBoard::interfaceHasFiredExecuteOrder));
 	mInterface.SetAbortHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredAbortOrder));
 
-	gamePlay->setState(GB_PREGAME);
+	gamePlay->setState(GB_LOGICVIEW);
+	gameSaved = false;
+
+	//display a menu that shows info and contains advance and exit buttons
+	img = new oglTexture2D();
+	if(img != NULL)
+		img->loadImage("..\\Content\\statescreens\\mainmenu.png", 1024, 120);
+	img->mY = 618;
+
+	myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
+	myMenu->addButton("..\\Content\\buttons\\advance.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &playGame::advance));
+	myMenu->addButton("..\\Content\\buttons\\exit.png",	 "button2down.png", "button2over.png", CreateFunctionPointer0R(this, &playGame::exitGame));
+	Update();
+
 	return true;
 }
 
@@ -163,12 +180,20 @@ void playGame::processMouse(int x, int y)
 {
 	gamePlay->processMouse(x, y);
 	mInterface.processMouse(x, y);
+	if(myMenu != NULL)
+		myMenu->processMouse(x, y);
 }
 
 void playGame::processMouseClick(int button, int state, int x, int y)
 {
 	gamePlay->processMouseClick(button, state, x, y);
 	mInterface.processMouseClick(button, state, x, y);
+	if(curState == GB_VIEWSCORE)
+	{
+		if(myMenu != NULL)
+			myMenu->processMouseClick(button, state, x, y);
+	}
+
 }
 
 void playGame::keyboardInput(unsigned char c, int x, int y)
@@ -187,3 +212,15 @@ playGame::~playGame()
 		levelList.erase(itr);
 	}
 }
+
+void playGame::advance()
+{
+	curState = GB_FINISHED;
+	gamePlay->setState(curState);
+}
+
+void playGame::exitGame()
+{
+	exit(0);
+}
+
