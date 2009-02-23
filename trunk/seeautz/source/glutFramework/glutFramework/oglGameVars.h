@@ -7,8 +7,7 @@
 #include <vector>
 #include "logicBlock.h"
 #include "aiInstructionEnums.h"
-
-
+#include "GLFT_Font.h"
 
 #define GameVars oglGameVars::Instance()
 
@@ -47,7 +46,12 @@ public:
 	int							getLevelScore();
 	int							getCurrentLevel();
 	void						setLevel(int);
-private:
+	GLFT_Font					fontTimes;
+	GLFT_Font					fontArial;
+	GLFT_Font					fontDigital;
+	GLFT_Font					fontOurs;
+
+private:				
 	std::string mPlayerName;
 	int mTotalScore;
 	int currentLevel;
