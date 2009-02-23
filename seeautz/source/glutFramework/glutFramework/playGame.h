@@ -6,6 +6,7 @@
 //#include "pixmap.h"
 #include "gameBoard.h"
 #include "LogicInterface.h"
+#include "oglGameVars.h"
 
 
 class playGame : public GameState
@@ -13,14 +14,16 @@ class playGame : public GameState
 private:
 	gameBoard *gamePlay;
 	int timer;
+	vector<levelData*> levelList;
 
 public:
-
 	playGame();
 	playGame(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
 		initialize();
 	}
+	~playGame();
+
 	bool initialize();
 	bool playGame::Update();
 	bool playGame::Draw();

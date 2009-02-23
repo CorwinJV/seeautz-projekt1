@@ -44,11 +44,9 @@ bool oglGameVars::SavePlayerGame(std::string name) // AC
 	PlayerInfo.open(name.c_str());
 	PlayerInfo.close();
 	
-	
 	return true;
-	
-
 }
+
 bool oglGameVars::LoadPlayerGame(std::string name) // AC
 {
 	
@@ -63,6 +61,7 @@ bool oglGameVars::LoadPlayerGame(std::string name) // AC
 	
 	return true;
 }
+
 void oglGameVars::loadAllLogicBlocks()
 {
 	logicBlock* tmpBlock;
@@ -118,4 +117,23 @@ std::vector<logicBlock*>* oglGameVars::getAllLogicBlocks()
 logicBlock*	oglGameVars::getPlaceInstructionBlock()
 {
 	return placeInstructionBlock;
+}
+
+int oglGameVars::getTotalScore()
+{
+	return mTotalScore;
+}
+int	oglGameVars::getLevelScore()
+{
+	return levelScore;
+}
+
+int	oglGameVars::getCurrentLevel()
+{
+	return currentLevel;
+}
+
+void oglGameVars::setLevel(int level)
+{
+	currentLevel = level;
 }

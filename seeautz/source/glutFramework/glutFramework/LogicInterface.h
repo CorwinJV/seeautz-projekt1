@@ -29,6 +29,7 @@ public:
 	bool RightArrowButtonClick();
 	bool ExecuteButtonClick();
 	bool AbortButtonClick();
+	void ClearExecutionList();
 
 	void SetExecuteHandler(CFunctionPointer1R<bool, std::vector<logicBlock*>> clickHandler);
 	void SetAbortHandler(CFunctionPointer0R<bool> clickHandler);

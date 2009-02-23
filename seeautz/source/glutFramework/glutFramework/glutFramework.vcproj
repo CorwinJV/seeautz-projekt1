@@ -411,6 +411,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\playGame.h"
+				>
+			</File>
+			<File
 				RelativePath=".\projekt1App.h"
 				>
 			</File>
@@ -467,10 +471,6 @@
 				</File>
 				<File
 					RelativePath=".\States\OptionsState.h"
-					>
-				</File>
-				<File
-					RelativePath=".\playGame.h"
 					>
 				</File>
 				<File

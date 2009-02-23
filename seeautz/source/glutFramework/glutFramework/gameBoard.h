@@ -19,18 +19,18 @@
 #include <string>
 #include <ctime>
 
+
+enum GameBoardState
+{
+	GB_VIEWSCORE,		// used for viewing score stats after completion of level
+	GB_LOGICVIEW,		// used to view screen where you are adding logic blocks
+	GB_EXECUTION,		// used when robot is executing logic blocks
+	GB_FINISHED			// used to load next level after score is displayed
+};
+
 class gameBoard
 {
 protected:
-
-	enum GameBoardState
-	{
-		GB_VIEW,
-		GB_LOGICVIEW, 
-		GB_EXECUTION,
-		GB_FINISHED
-	};
-
 	std::vector<std::vector<mapTile*>> mapList;
 	std::vector<oglTexture2D*> tileImages;
 	// 1 dimensional array of ai entities
@@ -100,6 +100,7 @@ public:
 	bool LoadGameMapFromFile(std::string filename);
 	bool setOffsets(int x, int y);
 	bool setScale(double newScale);
+	void setState(GameBoardState state);
 	double getScale();
 	// bool addentity
 	void processMouse(int x, int y);
@@ -117,6 +118,8 @@ public:
 	bool interfaceHasFiredExecuteOrder(std::vector<logicBlock*> executionList);
 	bool interfaceHasFiredAbortOrder();
 
+	GameBoardState getCurState();							// returns the current state of the gameBoard
+	
 	bool RCcanRobotLeaveSquare(int direction);		        // can the robot leave this square in the direction it is facing
 	bool RCwillRobotDieTryingToLeaveSquare(int direction);  // will the robot die trying to leave this square in the direction it is facing (regardless of if it can actually leave)
 	bool RCwillRobotDieStayingHere();						// will the robot die by standing in this square
@@ -127,6 +130,7 @@ public:
 	void RCclimb();											// climb up a level or climb over a halfwall
 	void RCpunch();							
 	void RCactivate();
+	
 };
 
 #endif

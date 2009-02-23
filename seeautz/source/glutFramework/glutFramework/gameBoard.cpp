@@ -16,7 +16,7 @@
 
 using namespace std;
 
-gameBoard::gameBoard() : curState(GB_VIEW)
+gameBoard::gameBoard() : curState(GB_LOGICVIEW)
 {
 	
 	// make it all empty
@@ -171,6 +171,24 @@ bool gameBoard::update()
 			processRobot();
 			startTime = clock();
 		}
+	}
+
+	if(curState == GB_VIEWSCORE)
+	{
+		//this will display users score for newly completed level
+		//then display animation of numbers being added to total score
+		//then the total score is displayed 
+		//save game progress
+		
+		//upon user clicking advance button, set curState to GB_FINISHED
+	}
+	
+	if(curState == GB_FINISHED)
+	{
+		//load next level
+		//move to next level
+
+		//upon clicking advance button, set curState to GB_LOGICVIEW
 	}
 
 	return true;
@@ -498,7 +516,6 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 	currentY = robotY;
 
 	return true;
-
 }
 
 
@@ -518,7 +535,6 @@ void gameBoard::processMouse(int x, int y)
 	mouseX = x;
 	mouseY = y;
 	mapScroll();
-
 }
 
 void gameBoard::processMouseClick(int button, int state, int x, int y)
@@ -1112,6 +1128,11 @@ bool gameBoard::robotAtEndSquare()
 		return false;
 }
 
+GameBoardState gameBoard::getCurState()
+{
+	return curState;
+}
+
 void gameBoard::teleporterCheck()
 {
 	vector<Oteleport*>::iterator titr = teleportList.begin();
@@ -1176,7 +1197,7 @@ bool gameBoard::interfaceHasFiredAbortOrder()
 {
 	if(curState == GB_EXECUTION)
 	{
-		curState = GB_VIEW;
+		curState = GB_LOGICVIEW;
 		resetMap();
 	}
 	return false;
@@ -1856,4 +1877,9 @@ bool gameBoard::RCmoveRobotForward()
 		}	
 	}
 	return true;
+}
+
+void gameBoard::setState(GameBoardState state)
+{
+	curState = state;
 }
