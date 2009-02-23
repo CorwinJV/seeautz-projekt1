@@ -296,6 +296,12 @@ bool LogicInterface::ExecuteButtonClick()
 	return false;
 }
 
+void LogicInterface::ClearExecutionList()
+{
+	executionList.clear();
+	executionList.push_back(GameVars->getPlaceInstructionBlock());
+}
+
 //============================================
 // Abort Button Callback
 bool LogicInterface::AbortButtonClick()
