@@ -58,6 +58,7 @@ private:
 	int levelScore;
 	std::vector<logicBlock*>	allLogicBlocks;
 	logicBlock*					placeInstructionBlock;
+	
 };
 
 struct levelData
