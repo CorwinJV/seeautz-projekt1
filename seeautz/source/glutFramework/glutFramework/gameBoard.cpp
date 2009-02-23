@@ -389,9 +389,13 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 	int nWidth;
 	int nHeight;
 	int startDirection;
+	int bytesAvail;
 	mapfile >> nWidth;
 	mapfile >> nHeight;
 	mapfile >> startDirection;
+	mapfile >> bytesAvail;
+	
+	GameVars->setCurrentLevelBytes(bytesAvail);
 
 	// make it all empty
 	mapList.resize(nWidth);
