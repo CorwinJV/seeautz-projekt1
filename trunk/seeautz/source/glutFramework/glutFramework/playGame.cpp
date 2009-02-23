@@ -78,6 +78,10 @@ bool playGame::Draw()
 	GameBoardState curState;
 	curState = gamePlay->getCurState();
 	string tempString;
+	int offsetAmt = 0;
+	std::stringstream painInTheAss;
+	clock_t startTime;
+	int tempInt;
 
 	switch(curState)
 	{
@@ -91,20 +95,48 @@ bool playGame::Draw()
 		break;
 	case GB_PREGAME:
 		// gl shit that may or may not be needed for font stuff, we shall find out shortly
+		glClearColor(0, 0, 0, 0);
+		glutSwapBuffers();
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);
 
-		glColor3ub(255, 255, 255);
+		glColor3ub(255, 0, 0);
 
 		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
-		tempString = "Player Name: " + GameVars->getPlayerName();
-		GameVars->fontArial.drawText(150, 50, tempString);
-		tempString = "Level #" + GameVars->getCurrentLevel();
-		GameVars->fontArial.drawText(150, 75, tempString);
-		GameVars->fontArial.drawText(150, 100, levelList[GameVars->getCurrentLevel()]->getName());
-		GameVars->fontArial.drawText(150, 125, levelList[GameVars->getCurrentLevel()]->getDesc());
-		
+
+		// player name
+		tempString = "Player Name: ";
+		tempString += GameVars->getPlayerName();
+		GameVars->fontArial.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
+		offsetAmt++;
+
+		// level title
+		GameVars->fontArial.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, levelList[GameVars->getCurrentLevel()]->getName());
+		offsetAmt++;
+
+		// description
+		GameVars->fontArial.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, levelList[GameVars->getCurrentLevel()]->getDesc());
+		offsetAmt++;
+
+		// bytes available
+		tempString = "Bytes Available: ";
+		painInTheAss.clear();
+		tempInt = GameVars->getCurrentLevelBytes();
+		painInTheAss << tempInt;
+		tempString += painInTheAss.str();
+		GameVars->fontArial.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
+		offsetAmt++;
+
+		// temp shit until buttons can be added
+		startTime = clock();
+		timer = clock();
+		glutSwapBuffers();
+		while(timer < startTime + 3000)
+		{
+			timer = clock();
+		}
+		gamePlay->setState(GB_LOGICVIEW);		
 		break;
 	case GB_VIEWSCORE:
 		gamePlay->draw();
@@ -125,8 +157,6 @@ bool playGame::Draw()
 
 bool playGame::initialize()
 {
-	GameVars->setLevel(0);
-
 	levelData* tempLevel;
 
 	tempLevel = new levelData("DEBUG MAP", "THIS IS FOR DAVE TO DEBUG MAP TILES", "maps\\testMap1.txt");
@@ -177,7 +207,8 @@ bool playGame::initialize()
 	mInterface.SetExecuteHandler(BE::CreateFunctionPointer1R(gamePlay, &gameBoard::interfaceHasFiredExecuteOrder));
 	mInterface.SetAbortHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredAbortOrder));
 
-	gamePlay->setState(GB_LOGICVIEW);
+	GameVars->setLevel(1);
+	gamePlay->setState(GB_PREGAME);
 	gameSaved = false;
 
 	//display a menu that shows info and contains advance and exit buttons
