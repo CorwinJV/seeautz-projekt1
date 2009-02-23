@@ -38,8 +38,8 @@ public:
 	bool initialize();
 	bool playGame::Update();
 	bool playGame::Draw();
-	void exitGame();
-	void advance();
+	bool exitGame();
+	bool advance();
 	void processMouse(int x, int y);
 	void processMouseClick(int button, int state, int x, int y);
 	void keyboardInput(unsigned char c, int x, int y);
