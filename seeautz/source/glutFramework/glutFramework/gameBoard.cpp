@@ -388,8 +388,10 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 	
 	int nWidth;
 	int nHeight;
+	int startDirection;
 	mapfile >> nWidth;
 	mapfile >> nHeight;
+	mapfile >> startDirection;
 
 	// make it all empty
 	mapList.resize(nWidth);
@@ -426,7 +428,7 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 			{
 				//OM->addNewObject<robot>(x, y, 1, ORobot);
 				robot* tempObj;
-				tempObj = new robot(x, y, 0, ORobot);
+				tempObj = new robot(x, y, startDirection, ORobot);
 				objectList.push_back(tempObj);
 				robotX = x;
 				robotY = y;
