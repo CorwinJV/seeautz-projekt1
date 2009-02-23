@@ -5,7 +5,6 @@
 
 bool playGame::Update()
 {
-	GameBoardState curState;
 	curState = gamePlay->getCurState();
 	int levelCounter;
 	
@@ -19,29 +18,32 @@ bool playGame::Update()
 	switch(curState)
 	{
 	case GB_LOGICVIEW:
+		gameSaved = false;
 		gamePlay->update();
 		gamePlay->mapScroll();
 		break;
 	case GB_EXECUTION:
+		gameSaved = false;
 		gamePlay->update();
 		gamePlay->mapScroll();
 		break;
 	case GB_PREGAME:
-		
+		gameSaved = false;
 		break;
 	case GB_VIEWSCORE:
-		//save the game for the player, whether they like it or not!
-		GameVars->SavePlayerGame(GameVars->getPlayerName());
+		//save the game for the player, if it hasn't been saved yet
+		if(!gameSaved)
+		{
+			GameVars->SavePlayerGame(GameVars->getPlayerName());
+			gameSaved = true;
+		}
 
 		//this will eventually be displayed on the menu, until now deal with it
-		std::cout << GameVars->getPlayerName() << std::endl;
+		/*std::cout << GameVars->getPlayerName() << std::endl;
 		std::cout << GameVars->getLevelScore() << std::endl;
-		std::cout << GameVars->getTotalScore() << std::endl;
-		//display a menu that shows info and contains advance and exit buttons
-		//once advance button is clicked set curState to GB_FINISHED
-		curState = GB_FINISHED;
-		gamePlay->setState(curState);
-		//if exit it clicked quit game
+		std::cout << GameVars->getTotalScore() << std::endl;*/
+		
+		myMenu->Update();
 		break;
 	case GB_FINISHED:
 		//gamePlay->~gameBoard();
@@ -61,7 +63,7 @@ bool playGame::Update()
 		// Register the gameBoard callback with the interface!
 		mInterface.SetExecuteHandler(BE::CreateFunctionPointer1R(gamePlay, &gameBoard::interfaceHasFiredExecuteOrder));
 		mInterface.SetAbortHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredAbortOrder));
-		curState = GB_PREGAME;
+		curState = GB_LOGICVIEW;
 		gamePlay->setState(curState);
 		break;
 	default:
@@ -76,10 +78,6 @@ bool playGame::Draw()
 	GameBoardState curState;
 	curState = gamePlay->getCurState();
 	string tempString;
-	int tempInt;
-	int offsetAmt = 0;
-	std::stringstream painInTheAss;
-	clock_t startTime;
 
 	switch(curState)
 	{
@@ -93,59 +91,31 @@ bool playGame::Draw()
 		break;
 	case GB_PREGAME:
 		// gl shit that may or may not be needed for font stuff, we shall find out shortly
-		glClearColor(0, 0, 0, 0);
-		glutSwapBuffers();
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);
 
-		glColor3ub(255, 0, 0);
+		glColor3ub(255, 255, 255);
 
 		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
-
-		// player name
-		tempString = "Player Name: ";
-		tempString += GameVars->getPlayerName();
-		GameVars->fontArial.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
-		offsetAmt++;
-
-		// level title
-		GameVars->fontArial.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, levelList[GameVars->getCurrentLevel()]->getName());
-		offsetAmt++;
-
-		// description
-		GameVars->fontArial.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, levelList[GameVars->getCurrentLevel()]->getDesc());
-		offsetAmt++;
-
-		// bytes available
-		tempString = "Bytes Available: ";
-		painInTheAss.clear();
-		tempInt = GameVars->getCurrentLevelBytes();
-		painInTheAss << tempInt;
-		tempString += painInTheAss.str();
-		GameVars->fontArial.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
-		offsetAmt++;
-
-		// temp shit until buttons can be added
-		startTime = clock();
-		timer = clock();
-		glutSwapBuffers();
-		while(timer < startTime + 3000)
-		{
-			timer = clock();
-		}
-		gamePlay->setState(GB_LOGICVIEW);
+		tempString = "Player Name: " + GameVars->getPlayerName();
+		GameVars->fontArial.drawText(150, 50, tempString);
+		tempString = "Level #" + GameVars->getCurrentLevel();
+		GameVars->fontArial.drawText(150, 75, tempString);
+		GameVars->fontArial.drawText(150, 100, levelList[GameVars->getCurrentLevel()]->getName());
+		GameVars->fontArial.drawText(150, 125, levelList[GameVars->getCurrentLevel()]->getDesc());
 		
-
-
 		break;
 	case GB_VIEWSCORE:
 		gamePlay->draw();
+		if(myMenu != NULL)
+			myMenu->Draw();
 		//mInterface.Draw();
 		break;
 	case GB_FINISHED:
 		//gamePlay->draw();
 		//mInterface.Draw();
+
 		break;
 	default:
 		break;
@@ -155,6 +125,8 @@ bool playGame::Draw()
 
 bool playGame::initialize()
 {
+	GameVars->setLevel(0);
+
 	levelData* tempLevel;
 
 	tempLevel = new levelData("DEBUG MAP", "THIS IS FOR DAVE TO DEBUG MAP TILES", "maps\\testMap1.txt");
@@ -205,8 +177,19 @@ bool playGame::initialize()
 	mInterface.SetExecuteHandler(BE::CreateFunctionPointer1R(gamePlay, &gameBoard::interfaceHasFiredExecuteOrder));
 	mInterface.SetAbortHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredAbortOrder));
 
-	//gamePlay->setState(GB_LOGICVIEW);
-	gamePlay->setState(GB_PREGAME);
+	gamePlay->setState(GB_LOGICVIEW);
+	gameSaved = false;
+
+	//display a menu that shows info and contains advance and exit buttons
+	img = new oglTexture2D();
+	if(img != NULL)
+		img->loadImage("..\\Content\\statescreens\\mainmenu.png", 1024, 120);
+	img->mY = 618;
+
+	myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
+	myMenu->addButton("..\\Content\\buttons\\advance.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &playGame::advance));
+	myMenu->addButton("..\\Content\\buttons\\exit.png",	 "button2down.png", "button2over.png", CreateFunctionPointer0R(this, &playGame::exitGame));
+	Update();
 
 	// pregame textinfo
 	preGameTextOffsetX = 100;
@@ -219,12 +202,20 @@ void playGame::processMouse(int x, int y)
 {
 	gamePlay->processMouse(x, y);
 	mInterface.processMouse(x, y);
+	if(myMenu != NULL)
+		myMenu->processMouse(x, y);
 }
 
 void playGame::processMouseClick(int button, int state, int x, int y)
 {
 	gamePlay->processMouseClick(button, state, x, y);
 	mInterface.processMouseClick(button, state, x, y);
+	if(curState == GB_VIEWSCORE)
+	{
+		if(myMenu != NULL)
+			myMenu->processMouseClick(button, state, x, y);
+	}
+
 }
 
 void playGame::keyboardInput(unsigned char c, int x, int y)
@@ -243,3 +234,21 @@ playGame::~playGame()
 		levelList.erase(itr);
 	}
 }
+
+bool playGame::advance()
+{
+	curState = GB_FINISHED;
+	gamePlay->setState(curState);
+
+	return true;
+}
+
+bool playGame::exitGame()
+{
+	exit(0);
+
+	return true;
+}
+
+
+
