@@ -10,7 +10,7 @@
 /// will work for everything we need it to. -Corwin
 
 #include "oglUtility.h"
-#include "pixmap.h"
+//#include "pixmap.h"
 #include "Button.h"
 #include <cstring>
 #include <vector>

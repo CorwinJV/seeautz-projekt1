@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="DevIL.lib openal32.lib alut.lib odbc32.lib odbccp32.lib opengl32.lib glu32.lib "
+				AdditionalDependencies="DevIL.lib openal32.lib alut.lib odbc32.lib odbccp32.lib opengl32.lib glu32.lib  freetype.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -189,6 +189,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\GLFT_Font.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\LogicInterface.cpp"
 				>
 			</File>
@@ -222,10 +226,6 @@
 			</File>
 			<File
 				RelativePath=".\Oswitch.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\pixmap.cpp"
 				>
 			</File>
 			<File
@@ -355,6 +355,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\GLFT_Font.h"
+				>
+			</File>
+			<File
 				RelativePath=".\logicBlock.h"
 				>
 			</File>
@@ -404,10 +408,6 @@
 			</File>
 			<File
 				RelativePath=".\Oteleport.h"
-				>
-			</File>
-			<File
-				RelativePath=".\pixmap.h"
 				>
 			</File>
 			<File

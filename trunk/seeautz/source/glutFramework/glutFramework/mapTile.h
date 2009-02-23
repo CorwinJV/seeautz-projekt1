@@ -2,7 +2,7 @@
 #define MAPTILE_H
 
 #include "oglUtility.h"
-#include "pixmap.h"
+//#include "pixmap.h"
 #include <cstring>
 #include <iostream>
 #include "tileEnums.h"

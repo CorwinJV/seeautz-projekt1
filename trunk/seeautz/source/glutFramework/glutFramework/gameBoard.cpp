@@ -7,6 +7,12 @@
 #include "oglGameVars.h"
 #include "Oswitch.h"
 #include "Oteleport.h"
+#include <cmath>
+#include "GLFT_Font.h"
+#include <ctime>
+
+// font crap
+
 
 using namespace std;
 
@@ -209,6 +215,25 @@ bool gameBoard::draw()
 	drawAtY = mapOffsetY + (robotY * imageHeight - (robotY * hh) + (robotX * hh));
 
 	drawObject(0, drawAtX, drawAtY, scale);
+
+	// temp text crap
+	if(drawText)
+	{
+		glEnable(GL_TEXTURE_2D);
+
+		glEnable(GL_BLEND);
+
+		// Red Text
+		glColor3ub(rand()%255,rand()%255,rand()%255);
+
+		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+
+		GLFT_Font fnt("fonts\\Schwaben_Alt_Bold.ttf", 128);
+
+		fnt.drawText(rand()%500, rand()%500, "SEEAUTS");
+		fnt.endDraw();
+		fnt.release();
+	}
 
 	return true;
 }
@@ -1124,9 +1149,11 @@ bool gameBoard::interfaceHasFiredExecuteOrder(std::vector<logicBlock*> execution
 	{
 		if((*oitr)->getType() == ORobot)
 		{
-			//(*oitr)->reset();
-			//robotX = robotStartX;
-			///robotY = robotStartY;
+			(*oitr)->reset();
+			robotX = robotStartX;
+			robotY = robotStartY;
+			currentX = robotX;
+			currentY = robotY;
 			
 			// Add every element of executionList from the interface to
 			// the robot's instruction list.

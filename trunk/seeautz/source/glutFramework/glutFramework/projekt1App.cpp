@@ -3,7 +3,6 @@
 #include "States\LogicViewState.h"
 #include "playGame.h"
 #include "oglGameVars.h"
-
 #include <iostream>
 using namespace std;
 
@@ -44,6 +43,7 @@ void projekt1App::updateScene(void)
 void projekt1App::drawScene(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	myStateManager.Draw();
 
 	// Not sure why, bottom left of the screen is 0,0

@@ -2,7 +2,7 @@
 #define BUTTONS_H
 
 #include "oglUtility.h"
-#include "pixmap.h"
+//#include "pixmap.h"
 #include "FunctionPointer.h"
 #include <cstring>
 #include <iostream>

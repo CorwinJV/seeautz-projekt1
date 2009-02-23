@@ -1,5 +1,5 @@
 #include "oglUtility.h"
-#include "pixmap.h"
+//#include "pixmap.h"
 #include <cstring>
 #include <iostream>
 #include "mapTile.h"

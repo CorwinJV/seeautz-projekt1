@@ -3,7 +3,7 @@
 
 #include ".\..\GameState.h" 
 #include ".\..\oglUtility.h"
-#include ".\..\pixmap.h"
+//#include ".\..\pixmap.h"
 #include ".\..\oglTexture2D.h"
 #include <ctime>
 
