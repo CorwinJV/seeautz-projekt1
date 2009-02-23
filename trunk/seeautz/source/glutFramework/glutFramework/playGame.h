@@ -22,6 +22,11 @@ private:
 	vector<Button*> buttonList;
 	bool gameSaved;
 
+	// pregame text locations
+	int preGameTextOffsetX;
+	int preGameTextOffsetY;
+	int preGameTextSpacing;
+
 public:
 	playGame();
 	playGame(GameStateManager &Parent, int newID) : GameState(Parent, newID)

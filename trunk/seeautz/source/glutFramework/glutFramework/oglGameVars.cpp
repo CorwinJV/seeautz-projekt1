@@ -137,3 +137,13 @@ void oglGameVars::setLevel(int level)
 {
 	currentLevel = level;
 }
+
+int oglGameVars::getCurrentLevelBytes()
+{
+	return currentLevelBytes;
+}
+
+void oglGameVars::setCurrentLevelBytes(int newBytes)
+{
+	currentLevelBytes = newBytes;
+}

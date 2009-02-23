@@ -45,7 +45,9 @@ public:
 	int							getTotalScore();
 	int							getLevelScore();
 	int							getCurrentLevel();
+	int							getCurrentLevelBytes();
 	void						setLevel(int);
+	void						setCurrentLevelBytes(int newBytes);
 	GLFT_Font					fontTimes;
 	GLFT_Font					fontArial;
 	GLFT_Font					fontDigital;
@@ -56,6 +58,7 @@ private:
 	int mTotalScore;
 	int currentLevel;
 	int levelScore;
+	int currentLevelBytes;
 	std::vector<logicBlock*>	allLogicBlocks;
 	logicBlock*					placeInstructionBlock;
 	
@@ -65,15 +68,13 @@ struct levelData
 {
 private:
 	std::string		levelName;
-	int				availableBytes;
 	std::string		description;
 	std::string		fileName;
 
 public:
-	levelData(std::string lvlName, int numBytes, std::string desc, std::string file)
+	levelData(std::string lvlName, std::string desc, std::string file)
 	{
 		levelName = lvlName;
-		availableBytes = numBytes;
 		description = desc;
 		fileName = file;
 	}
@@ -86,11 +87,6 @@ public:
 	std::string getName()
 	{
 		return levelName;
-	};
-
-	int getBytes()
-	{
-		return availableBytes;
 	};
 
 	std::string getDesc()
