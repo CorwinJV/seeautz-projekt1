@@ -2,7 +2,7 @@
 #define STARTNEWGAMESTATE_H
 
 #include ".\..\GameState.h" 
-#include ".\..\pixmap.h"
+//#include ".\..\pixmap.h"
 #include "MainMenuState.h"
 #include "..\playGame.h"
 #include ".\..\oglTexture2D.h"

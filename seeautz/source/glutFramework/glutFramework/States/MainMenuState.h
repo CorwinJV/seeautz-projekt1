@@ -3,7 +3,7 @@
 
 #include ".\..\GameState.h"
 #include ".\..\FunctionPointer.h"
-#include ".\..\pixmap.h"
+//#include ".\..\pixmap.h"
 #include <iostream>
 #include ".\..\oglTexture2D.h"
 

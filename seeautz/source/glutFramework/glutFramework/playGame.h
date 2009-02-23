@@ -3,7 +3,7 @@
 
 #include "GameState.h" 
 #include "oglUtility.h"
-#include "pixmap.h"
+//#include "pixmap.h"
 #include "gameBoard.h"
 #include "LogicInterface.h"
 
