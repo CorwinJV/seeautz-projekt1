@@ -22,6 +22,7 @@
 
 enum GameBoardState
 {
+	GB_PREGAME,			// for the very start of the map, to show the level name, a brief description and points available
 	GB_VIEWSCORE,		// used for viewing score stats after completion of level
 	GB_LOGICVIEW,		// used to view screen where you are adding logic blocks
 	GB_EXECUTION,		// used when robot is executing logic blocks

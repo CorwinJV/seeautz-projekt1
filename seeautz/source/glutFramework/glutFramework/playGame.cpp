@@ -7,9 +7,6 @@ bool playGame::Update()
 	GameBoardState curState;
 	curState = gamePlay->getCurState();
 	int levelCounter;
-
-	gamePlay->update();
-	gamePlay->mapScroll();
 	
 	// see if the robot is at the end square
 	if((gamePlay->robotAtEndSquare())&& (curState == GB_EXECUTION))
@@ -20,6 +17,17 @@ bool playGame::Update()
 
 	switch(curState)
 	{
+	case GB_LOGICVIEW:
+		gamePlay->update();
+		gamePlay->mapScroll();
+		break;
+	case GB_EXECUTION:
+		gamePlay->update();
+		gamePlay->mapScroll();
+		break;
+	case GB_PREGAME:
+		
+		break;
 	case GB_VIEWSCORE:
 		//save the game for the player, whether they like it or not!
 		GameVars->SavePlayerGame(GameVars->getPlayerName());
@@ -64,8 +72,49 @@ bool playGame::Update()
 
 bool playGame::Draw()
 {
-	gamePlay->draw();
-	mInterface.Draw();
+	GameBoardState curState;
+	curState = gamePlay->getCurState();
+	string tempString;
+
+	switch(curState)
+	{
+	case GB_LOGICVIEW:
+		gamePlay->draw();
+		mInterface.Draw();
+		break;
+	case GB_EXECUTION:
+		gamePlay->draw();
+		mInterface.Draw();
+		break;
+	case GB_PREGAME:
+		// gl shit that may or may not be needed for font stuff, we shall find out shortly
+		glEnable(GL_TEXTURE_2D);
+		glEnable(GL_BLEND);
+
+		glColor3ub(255, 255, 255);
+
+		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+
+		tempString = "Player Name: " + GameVars->getPlayerName();
+		GameVars->fontArial.drawText(150, 50, tempString);
+		tempString = "Level #" + GameVars->getCurrentLevel();
+		GameVars->fontArial.drawText(150, 75, tempString);
+		GameVars->fontArial.drawText(150, 100, levelList[GameVars->getCurrentLevel()]->getName());
+		GameVars->fontArial.drawText(150, 125, levelList[GameVars->getCurrentLevel()]->getDesc());
+		
+		break;
+	case GB_VIEWSCORE:
+		gamePlay->draw();
+		//mInterface.Draw();
+		break;
+	case GB_FINISHED:
+		//gamePlay->draw();
+		//mInterface.Draw();
+
+		break;
+	default:
+		break;
+	}
 	return false;
 }
 
@@ -105,6 +154,8 @@ bool playGame::initialize()
 	// Register the gameBoard callback with the interface!
 	mInterface.SetExecuteHandler(BE::CreateFunctionPointer1R(gamePlay, &gameBoard::interfaceHasFiredExecuteOrder));
 	mInterface.SetAbortHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredAbortOrder));
+
+	gamePlay->setState(GB_PREGAME);
 	return true;
 }
 

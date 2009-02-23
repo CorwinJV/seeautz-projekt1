@@ -53,7 +53,7 @@ gameBoard::gameBoard() : curState(GB_LOGICVIEW)
 	imageWidth = imageBaseWidth *scale;
 	imageHeight = imageBaseHeight *scale;
 
-	screenWidth = 900;
+	screenWidth = 1024;
 	screenHeight = 600;
 
 	screenEdge = 0.03;
@@ -117,7 +117,7 @@ gameBoard::gameBoard(int nWidth, int nHeight)
 	imageWidth *= scale;
 	imageHeight *= scale;
 
-	screenWidth = 900;
+	screenWidth = 1024;
 	screenHeight = 600;
 
 	screenEdge = 0.03;
@@ -937,17 +937,17 @@ void gameBoard::verifyMapPosition()
 	}
 
 	// now lets see if this board should be centered or not
-	//if(overallWidth < screenWidth)
-	//{
-	//	// center horizontally
-	//	mapOffsetX = ((int)((Height - Width)/2) * hw) + (int)(screenWidth/2) - (int)(overallWidth/2);
-	//}
-	//
-	//if(overallHeight < screenHeight)
-	//{
-	//	// center vertically
-	//	mapOffsetY = ((int)((Width - Height)/2) * hh) + (int)(screenHeight/2) - (int)(overallHeight/2);
-	//}
+	if(overallWidth < screenWidth)
+	{
+		// center horizontally
+		mapOffsetX = ((int)((Height - Width)/2) * hw) + (int)(screenWidth/2) - (int)(overallWidth/2);
+	}
+	
+	if(overallHeight < screenHeight)
+	{
+		// center vertically
+		mapOffsetY = ((int)((Width - Height)/2) * hh) + (int)(screenHeight/2) - (int)(overallHeight/2);
+	}
 }
 
 void gameBoard::recalcPositions()

@@ -7,7 +7,7 @@
 #include "gameBoard.h"
 #include "LogicInterface.h"
 #include "oglGameVars.h"
-
+#include "GLFT_Font.h"
 
 class playGame : public GameState
 {
@@ -20,7 +20,7 @@ public:
 	playGame();
 	playGame(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
-		initialize();
+		initialize();		
 	}
 	~playGame();
 
