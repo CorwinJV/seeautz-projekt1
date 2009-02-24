@@ -23,10 +23,11 @@ public:
 	void processMouse(int x, int y);
 	void processMouseClick(int button, int state, int x, int y);
 
-	bool UpArrowButtonClick();
-	bool DownArrowButtonClick();
-	bool LeftArrowButtonClick();
-	bool RightArrowButtonClick();
+	bool LogicBankUpArrowButtonClick();
+	bool LogicBankDownArrowButtonClick();
+	bool ExecutionListUpArrowButtonClick();
+	bool ExecutionListDownArrowButtonClick();
+
 	bool ExecuteButtonClick();
 	bool AbortButtonClick();
 	void ClearExecutionList();
@@ -46,11 +47,11 @@ private:
 	//======================
 	// Size and Positional Variables
 	screenBox sideBarBox;
-	int sideBarYOffset;
+	int executionListYOffset;
 	int sideBarColumnCount;
 	
 	screenBox bottomBarBox;
-	int bottomBarXOffset;
+	int logicBankYOffset;
 
 	int instructionBlockW;
 	int instructionBlockH;
