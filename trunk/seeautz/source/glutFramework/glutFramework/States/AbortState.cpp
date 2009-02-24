@@ -22,7 +22,7 @@ bool AbortState::StopLoopCallback()
 {
 	GSM->addGameState<StopLoopState>();
 	this->setStatus(DeleteMe);
-	glClearColor(255, 0, 255, 0);
+	glClearColor(0, 0, 0, 0);
 
 	return true;
 }

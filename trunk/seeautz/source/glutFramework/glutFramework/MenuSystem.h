@@ -88,6 +88,7 @@ public:
 	virtual void setMenuYPos(int position);
 	virtual void setLastButtonPosition(int x, int y);
 	virtual void setLastButtonDimensions(int width, int height);
+	virtual void setLastButtonHoverHandler(CFunctionPointer0R<bool> clickHoverHandler);
 	virtual int getXPos();
 	virtual int getYPos();
 	virtual int getMouseXPos();

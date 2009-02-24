@@ -7,15 +7,15 @@ LogicInterface::LogicInterface()
 		instructionBlockW(140 / 3), instructionBlockH(140 / 3),
 		instructionSpacing(3), logicBankBox(), instructionListBox(),
 		logicBankNumColumns(4), logicBankNumRowsOnScreen(3), 
-		instructionListNumColumns(6), instructionListNumRowsOnScreen(3)
+		instructionListNumColumns(8), instructionListNumRowsOnScreen(3)
 {
-	sideBarBox.width = 150;
-	sideBarBox.height = 618;
-	sideBarBox.x = 874;
-	sideBarBox.y = 0;
+	//sideBarBox.width = 150;
+	//sideBarBox.height = 618;
+	//sideBarBox.x = 874;
+	//sideBarBox.y = 0;
 
 	bottomBarBox.width = 1024 + 13;
-	bottomBarBox.height = 150 + 40;
+	bottomBarBox.height = 190;
 	bottomBarBox.x = -10;
 	bottomBarBox.y = 618 - 40;
 
@@ -50,12 +50,11 @@ LogicInterface::LogicInterface()
 
 	myMenu->addButton("buttons\\execute.png", "buttons\\execute.png", "buttons\\execute.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ExecuteButtonClick));
 	myMenu->setLastButtonDimensions(100, 50);
-	myMenu->setLastButtonPosition(sideBarBox.x - 205, logicBankBox.y);
+	myMenu->setLastButtonPosition(instructionListBox.x + instructionListBox.width +  100, logicBankBox.y);
 
 	myMenu->addButton("buttons\\abort.png", "buttons\\abort.png", "buttons\\abort.png", BE::CreateFunctionPointer0R(this, &LogicInterface::AbortButtonClick));
 	myMenu->setLastButtonDimensions(100, 50);
-	myMenu->setLastButtonPosition(sideBarBox.x - 205, bottomBarBox.y + 100);
-
+	myMenu->setLastButtonPosition(instructionListBox.x + instructionListBox.width +  100, bottomBarBox.y + 100);
 
 	//=============================================
 	// All other initialization
@@ -70,6 +69,11 @@ LogicInterface::LogicInterface()
 	executionListYOffset = 0;
 
 	isMouseDragging = false;
+}
+
+void LogicInterface::Update()
+{
+	myMenu->Update();
 }
 
 void LogicInterface::Draw()
@@ -157,6 +161,10 @@ void LogicInterface::Draw()
 	//=============================================
 	// Menu Buttons (For scrolling and shizz)
 	myMenu->Draw();
+
+	//=============================================
+	// Hover-Over Screen Tipz0rz
+	//GameVars->fontArial12.drawText(
 }
 
 void LogicInterface::processMouse(int x, int y)

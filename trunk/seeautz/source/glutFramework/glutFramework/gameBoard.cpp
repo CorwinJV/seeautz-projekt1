@@ -242,14 +242,10 @@ bool gameBoard::draw()
 	// temp text crap
 	if(drawText)
 	{
-		glEnable(GL_TEXTURE_2D);
-
-		glEnable(GL_BLEND);
-
 		// Red Text
 		glColor3ub(rand()%255,rand()%255,rand()%255);
 
-		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+		//glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
 		GLFT_Font fnt("fonts\\Schwaben_Alt_Bold.ttf", 128);
 
@@ -281,7 +277,7 @@ tileTypeEnum gameBoard::getTileType(int x, int y)
 
 bool gameBoard::drawTile(tileTypeEnum nType, int txPos, int tyPos, double scale, bool isActive)
 {
-	glClearColor(128, 255, 128, 0);
+	glClearColor(0, 0, 0, 0);
 	oglTexture2D* toDraw;
 
 	toDraw = tileImages[nType];
@@ -1020,7 +1016,7 @@ bool gameBoard::drawObject(int objectType, int txPos, int tyPos, double scale)
 	// for now, lets just draw the robot, additional code to come
 	txPos += (hh*0.7)+5*scale;
 	tyPos += (hh*0.2)+5*scale;
-	glClearColor(128, 255, 128, 0);
+	glClearColor(0, 0, 0, 0);
 	oglTexture2D* toDraw;
 
 	toDraw = robotImage;

@@ -122,7 +122,8 @@ void MenuSys::setLastButtonPosition(int x, int y)
 
 	if((*itr) != NULL)
 	{
-		(*itr)->setPosition(x, y);
+		//(*itr)->setPosition(x, y);
+		(*itr)->setButtonXYPos(x, y);
 	}
 }
 
@@ -134,6 +135,20 @@ void MenuSys::setLastButtonDimensions(int width, int height)
 	if((*itr) != NULL)
 	{
 		(*itr)->setDimensions(width, height);
+	}
+}
+
+void MenuSys::setLastButtonHoverHandler(CFunctionPointer0R<bool> clickHoverHandler)
+{
+	if(clickHoverHandler)
+	{
+		vector<Button*>::iterator itr = buttonList.end();
+		itr--;
+
+		if((*itr) != NULL)
+		{
+			(*itr)->setHoverHandler(clickHoverHandler);
+		}
 	}
 }
 

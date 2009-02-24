@@ -19,6 +19,13 @@ oglGameVars::oglGameVars()
 : mTotalScore(0), mPlayerName("")
 { 
 	loadAllLogicBlocks();
+	
+	// font loading
+	fontArial.open		("fonts\\arial.ttf", 32);
+	fontArial12.open	("fonts\\arial.ttf", 12);
+	fontDigital.open	("fonts\\DIGIRU__.ttf", 32);
+	fontOurs.open		("fonts\\Schwaben_Alt_Bold.ttf", 32);
+	fontTimes.open		("fonts\\times.ttf", 32);
 }
 
 //========================================

@@ -15,6 +15,9 @@ bool playGame::Update()
 		gamePlay->setState(curState);
 	}
 
+	// Update mInterface all the time
+	mInterface.Update();
+
 	switch(curState)
 	{
 	case GB_LOGICVIEW:
