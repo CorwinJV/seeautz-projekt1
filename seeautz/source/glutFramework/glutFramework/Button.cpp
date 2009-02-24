@@ -108,6 +108,17 @@ bool Button::Update()
 	if(clicked != NULL)
 		clicked->mX = buttonXPos;
 
+	switch(buttonStatus)
+	{
+	case Normal:
+		break;
+	case Clicked:
+		break;
+	case Hover:
+		callHoverHandler();
+		break;
+	}
+
 
 	//check for mouse position
 	//update button images
@@ -117,6 +128,11 @@ bool Button::Update()
 void Button::setClickHandler(CFunctionPointer0R<bool> clickHandler)
 {
 	mClickHandler = clickHandler;
+}
+
+void Button::setHoverHandler(CFunctionPointer0R<bool> hoverHandler)
+{
+	mHoverHandler = hoverHandler;
 }
 
 bool Button::callClickHandler()
@@ -130,6 +146,19 @@ bool Button::callClickHandler()
 		return false;
 	}
 }
+
+bool Button::callHoverHandler()
+{
+	if(mHoverHandler)
+	{
+		return mHoverHandler();
+	}
+	else
+	{
+		return false;
+	}
+}
+
 
 void Button::setButtonXPos(int position)
 {
@@ -173,7 +202,6 @@ void Button::setButtonXYPos(int positionX, int positionY)
 {
 	buttonXPos = positionX;
 	buttonYPos = positionY;
-
 }
 
 

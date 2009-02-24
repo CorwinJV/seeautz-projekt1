@@ -30,6 +30,7 @@ protected:
 	oglTexture2D* clicked;
 	oglTexture2D* hover;
 	CFunctionPointer0R<bool>	mClickHandler;	// Matches 'bool foo()'
+	CFunctionPointer0R<bool>	mHoverHandler; 
 	soundEffect *ourSound;
 
 public:
@@ -53,7 +54,9 @@ public:
     virtual bool	Draw();
 	virtual bool	Remove();
 	virtual void	setClickHandler(CFunctionPointer0R<bool> clickHandler);
+	virtual void	setHoverHandler(CFunctionPointer0R<bool> hoverHandler);
 	virtual bool	callClickHandler();
+	virtual bool	callHoverHandler();
 	virtual bool	checkInBounds(int x, int y);
 };
 

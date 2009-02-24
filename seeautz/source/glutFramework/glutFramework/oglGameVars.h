@@ -50,6 +50,7 @@ public:
 	void						setCurrentLevelBytes(int newBytes);
 	GLFT_Font					fontTimes;
 	GLFT_Font					fontArial;
+	GLFT_Font					fontArial12;
 	GLFT_Font					fontDigital;
 	GLFT_Font					fontOurs;
 
