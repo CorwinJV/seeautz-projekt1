@@ -63,7 +63,7 @@ bool playGame::Update()
 		// Register the gameBoard callback with the interface!
 		mInterface.SetExecuteHandler(BE::CreateFunctionPointer1R(gamePlay, &gameBoard::interfaceHasFiredExecuteOrder));
 		mInterface.SetAbortHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredAbortOrder));
-		curState = GB_LOGICVIEW;
+		curState = GB_PREGAME;
 		gamePlay->setState(curState);
 		break;
 	default:
@@ -198,6 +198,7 @@ bool playGame::initialize()
 	tempLevel = new levelData("Map 15", "Insanity #5", "maps\\Map15.txt");
 	levelList.push_back(tempLevel);
 
+	
 	gamePlay = new gameBoard();
 	GameVars->setLevel(1);
 	gamePlay->LoadGameMapFromFile(levelList[GameVars->getCurrentLevel()]->getFile());
@@ -207,7 +208,7 @@ bool playGame::initialize()
 	mInterface.SetExecuteHandler(BE::CreateFunctionPointer1R(gamePlay, &gameBoard::interfaceHasFiredExecuteOrder));
 	mInterface.SetAbortHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredAbortOrder));
 
-	GameVars->setLevel(1);
+	
 	gamePlay->setState(GB_PREGAME);
 	gameSaved = false;
 
