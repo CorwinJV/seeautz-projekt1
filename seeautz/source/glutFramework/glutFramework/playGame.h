@@ -21,6 +21,7 @@ private:
 	GameBoardState curState;
 	vector<Button*> buttonList;
 	bool gameSaved;
+	bool pregameRunning;
 
 	// pregame text locations
 	int preGameTextOffsetX;
