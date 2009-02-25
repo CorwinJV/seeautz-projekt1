@@ -30,9 +30,27 @@ bool playGame::Update()
 		gamePlay->update();
 		gamePlay->mapScroll();
 		break;
+
 	case GB_PREGAME:
 		gameSaved = false;
+
+		if(pregameRunning)
+		{
+			timer = clock();
+			if(timer > (startTime + 5000))
+			{
+				pregameRunning = false;
+				gamePlay->setState(GB_LOGICVIEW);
+			}
+		}
+		else
+		{
+			startTime = clock();
+			timer = clock();
+			pregameRunning = true;
+		}
 		break;
+
 	case GB_VIEWSCORE:
 		//save the game for the player, if it hasn't been saved yet
 		if(!gameSaved)
@@ -68,6 +86,7 @@ bool playGame::Update()
 		mInterface.SetAbortHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredAbortOrder));
 		curState = GB_PREGAME;
 		gamePlay->setState(curState);
+		pregameRunning = false;
 		break;
 	default:
 		break;
@@ -83,7 +102,7 @@ bool playGame::Draw()
 	string tempString;
 	int offsetAmt = 0;
 	std::stringstream painInTheAss;
-	clock_t startTime;
+	//clock_t startTime;
 	int tempInt;
 
 	switch(curState)
@@ -99,9 +118,9 @@ bool playGame::Draw()
 	case GB_PREGAME:
 		// gl shit that may or may not be needed for font stuff, we shall find out shortly
 		glClearColor(0, 0, 0, 0);
-		glutSwapBuffers();
-		glEnable(GL_TEXTURE_2D);
-		glEnable(GL_BLEND);
+		//glutSwapBuffers();
+		//glEnable(GL_TEXTURE_2D);
+		//glEnable(GL_BLEND);
 
 		glColor3ub(255, 0, 0);
 
@@ -130,16 +149,7 @@ bool playGame::Draw()
 		tempString += painInTheAss.str();
 		GameVars->fontArial.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
 		offsetAmt++;
-
-		// temp shit until buttons can be added
-		startTime = clock();
-		timer = clock();
-		glutSwapBuffers();
-		while(timer < startTime + 3000)
-		{
-			timer = clock();
-		}
-		gamePlay->setState(GB_LOGICVIEW);		
+			
 		break;
 	case GB_VIEWSCORE:
 		gamePlay->draw();
@@ -213,6 +223,7 @@ bool playGame::initialize()
 
 	
 	gamePlay->setState(GB_PREGAME);
+	pregameRunning = false;
 	gameSaved = false;
 
 	//display a menu that shows info and contains advance and exit buttons
@@ -255,7 +266,21 @@ void playGame::processMouseClick(int button, int state, int x, int y)
 
 void playGame::keyboardInput(unsigned char c, int x, int y)
 {
-	gamePlay->keyboardInput(c, x, y);
+	switch(curState)
+	{
+	case GB_LOGICVIEW:
+	case GB_EXECUTION:
+		gamePlay->keyboardInput(c, x, y);
+	case GB_PREGAME:
+		switch(c)
+		{
+		case 27:
+			gamePlay->setState(GB_LOGICVIEW);
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 playGame::~playGame()
