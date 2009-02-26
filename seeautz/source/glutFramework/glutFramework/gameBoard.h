@@ -12,6 +12,7 @@
 #include "Oswitch.h"
 #include "Oteleport.h"
 #include "sound.h"
+#include "subroutine.h"
 
 #include <cstring>
 #include <iostream>
@@ -42,6 +43,8 @@ protected:
 	objectManager *OM;
 	oglTexture2D*	robotImage;
 	std::vector<logicBlock*>* logicBank;		// The usable logic blocks
+	subroutine*	  SUB1;
+	subroutine*   SUB2;
 
 	int robotX;
 	int robotY;
@@ -82,6 +85,8 @@ protected:
 
 	// temp for font testing
 	bool drawText;
+	bool processSub(int whichSub);
+	bool delayAdvance;
 
 private:
 	GameBoardState curState;

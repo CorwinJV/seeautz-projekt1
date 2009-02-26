@@ -14,6 +14,8 @@ enum AiInstructions
 	SUB,
 	LOOP,
 	ACTIVATE,
+	SUBR1,
+	SUBR2,
 	DO_NOT_PROCESS
 };
 

@@ -114,6 +114,14 @@ void oglGameVars::loadAllLogicBlocks()
 	tmpBlock->addInstruction(ACTIVATE);
 	allLogicBlocks.push_back(tmpBlock);
 
+	tmpBlock = new logicBlock("instructions/sub1.png", 130, 130, "Use this instruction to call Subroutine 1.", 2, SUBR1);
+	tmpBlock->addInstruction(SUBR1);
+	allLogicBlocks.push_back(tmpBlock);
+
+	tmpBlock = new logicBlock("instructions/sub2.png", 130, 130, "Use this instruction to call Subroutine 2.", 2, SUBR2);
+	tmpBlock->addInstruction(SUBR2);
+	allLogicBlocks.push_back(tmpBlock);
+
 	placeInstructionBlock = new logicBlock("instructions/place_new_instruction.png", 130, 130, "Place a new instruction here.", 2, DO_NOT_PROCESS);
 }
 
