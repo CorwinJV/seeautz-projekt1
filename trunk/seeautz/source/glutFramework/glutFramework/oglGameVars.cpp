@@ -163,3 +163,13 @@ void oglGameVars::setCurrentLevelBytes(int newBytes)
 {
 	currentLevelBytes = newBytes;
 }
+
+void oglGameVars::setMaxLevel(int newMax)
+{
+	maxLevel = newMax;
+}
+
+int oglGameVars::getMaxLevel()
+{
+	return maxLevel;
+}

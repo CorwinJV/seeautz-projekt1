@@ -1,6 +1,7 @@
 #include "playGame.h"
 #include "GameStateManager.h"
 #include <sstream>
+#include <string>
 
 
 bool playGame::Update()
@@ -18,6 +19,7 @@ bool playGame::Update()
 	// Update mInterface all the time
 	mInterface.Update();
 
+	int maxLevel;
 	switch(curState)
 	{
 	case GB_LOGICVIEW:
@@ -89,25 +91,38 @@ bool playGame::Update()
 
 	case GB_FINISHED:
 		//gamePlay->~gameBoard();
-		delete gamePlay;
-		
-		mInterface.ClearExecutionList();
-		
-		// in with the new
-		gamePlay = new gameBoard();
 
+		mInterface.ClearExecutionList();
 		levelCounter = GameVars->getCurrentLevel();
 		levelCounter++;
+		maxLevel = GameVars->getMaxLevel();
+
+		if(levelCounter < (GameVars->getMaxLevel()-1))
+		{
+			delete gamePlay;			
+			// in with the new
+			gamePlay = new gameBoard();			
+			gamePlay->LoadGameMapFromFile(levelList[levelCounter]->getFile());
+			curState = GB_PREGAME;
+		}
+		else
+		{
+			curState = GB_YOUWIN;
+			levelCounter;
+			//gamePlay = NULL;
+			//gamePlay->LoadGameMapFromFile(levelList[levelCounter]->getFile());			
+		}
 		GameVars->setLevel(levelCounter);
-		gamePlay->LoadGameMapFromFile(levelList[levelCounter]->getFile());
 	
 		//=====================================================
 		// Register the gameBoard callback with the interface!
 		mInterface.SetExecuteHandler(BE::CreateFunctionPointer1R(gamePlay, &gameBoard::interfaceHasFiredExecuteOrder));
 		mInterface.SetAbortHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredAbortOrder));
-		curState = GB_PREGAME;
 		gamePlay->setState(curState);
 		pregameRunning = false;
+		break;
+	case GB_YOUWIN:
+		
 		break;
 
 	default:
@@ -202,6 +217,10 @@ bool playGame::Draw()
 		//mInterface.Draw();
 		break;
 
+	case GB_YOUWIN:
+		doEndGameDraw();
+		break;
+
 	default:
 		break;
 	}
@@ -251,9 +270,10 @@ bool playGame::initialize()
 	tempLevel = new levelData("Map 15", "Insanity #5", "maps\\Map15.txt");
 	levelList.push_back(tempLevel);
 
-	
+	GameVars->setMaxLevel(levelList.size());
+
 	gamePlay = new gameBoard();
-	GameVars->setLevel(0);
+	GameVars->setLevel(1);
 	gamePlay->LoadGameMapFromFile(levelList[GameVars->getCurrentLevel()]->getFile());
 
 	//=====================================================
@@ -346,6 +366,15 @@ void playGame::keyboardInput(unsigned char c, int x, int y)
 		default:
 			break;
 		}
+	case GB_YOUWIN:
+		switch(c)
+		{
+		case 27:
+			exit(0);
+			break;
+		default:
+			break;
+		}
 	}
 }
 
@@ -376,5 +405,43 @@ bool playGame::exitGame()
 	return true;
 }
 
+void playGame::doEndGameDraw()
+{
+	if(endGamePics.size() == 0)
+	{
+		// load in alot of pictures
+		int numPics = 45;
+		oglTexture2D* tempPic;
+		for(int x = 0; x < numPics; x++)
+		{
+			string filename;
+			stringstream filenumber;
+			// build a variable filename
+			filenumber.clear();
+			filenumber << x;
+			filename = "..\\Content\\ending\\frames\\ending00";
+			filename += filenumber.str();
+			filename += ".png";
+			tempPic = new oglTexture2D;
+			tempPic->loadImage(filename, 1024, 768);
+			endGamePics.push_back(tempPic);
+		}
+		endGameAnimation = endGamePics.begin();
+	}
+	else
+	{
+		// iterate through the pictures drawing them
+		(*endGameAnimation)->drawImage(0, 0);
+		endGameAnimation++;
+		if(endGameAnimation == endGamePics.end())
+			endGameAnimation = endGamePics.begin();
+		timer = clock();
+		startTime = clock();
+		while(timer < startTime + 50)
+		{
+			timer = clock();
+		}		
+	}
 
 
+}

@@ -44,6 +44,8 @@ public:
 	bool						SavePlayerGame(std::string name);
 	int							getTotalScore();
 	int							getLevelScore();
+	void						setMaxLevel(int newMax);
+	int							getMaxLevel();
 	int							getCurrentLevel();
 	int							getCurrentLevelBytes();
 	void						setLevel(int);
@@ -59,6 +61,7 @@ private:
 	std::string mPlayerName;
 	int mTotalScore;
 	int currentLevel;
+	int maxLevel;
 	int levelScore;
 	int currentLevelBytes;
 	std::vector<logicBlock*>	allLogicBlocks;
@@ -100,6 +103,7 @@ public:
 	{
 		return fileName;
 	};
+
 };
 
 #endif // OGLGAMEVARS_H
