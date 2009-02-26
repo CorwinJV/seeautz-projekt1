@@ -40,8 +40,14 @@ private:
 	bool isButtonBeingClicked;
 
 	oglTexture2D* menuBar;
+
+	int mouseX;
+	int mouseY;
 	bool isMouseDragging;
 	logicBlock* draggedBlock;
+
+	int currentHoverBlockIndex;
+
 	CFunctionPointer1R<bool, std::vector<logicBlock*>> mExecuteHandler;
 	CFunctionPointer0R<bool> mAbortHandler;
 
