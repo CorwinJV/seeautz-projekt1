@@ -40,40 +40,6 @@ gameBoard::gameBoard() : curState(GB_LOGICVIEW)
 		}
 	}
 	initialize();
-	mapOffsetX = 0;
-	mapOffsetY = 0;
-	scale = 1;
-
-	imageBaseWidth = 144;
-	imageBaseHeight = 72;
-
-	hw = (imageWidth/2);	// half width
-	hh = (imageHeight/2);	// half height
-
-	imageWidth = imageBaseWidth *scale;
-	imageHeight = imageBaseHeight *scale;
-
-	screenWidth = 1024;
-	screenHeight = 600;
-
-	screenEdge = 0.03;
-	moveSpeed = scale * 0.2;
-	maxscale = 2.0;
-	minscale = 0.2;
-	centerX = 0;
-	centerY = 0;
-	Height = 0;
-	Width = 0;
-	overallWidth = (Height + Width) * hw;
-	overallHeight = (Height + Width) * hh;
-
-	// and lets make an object manager
-	OM = new objectManager();
-	objectList.clear();
-	logicBank = GameVars->Instance()->getAllLogicBlocks();
-	ourSound = new soundEffect;
-	drawText = false;
-	robotAlive = true;
 }
 
 gameBoard::gameBoard(int nWidth, int nHeight)
@@ -101,46 +67,6 @@ gameBoard::gameBoard(int nWidth, int nHeight)
 		}
 	}
 	initialize();
-	mapOffsetX = 0;
-	mapOffsetY = 0;
-	scale = 1;
-
-	imageBaseWidth = 144;
-	imageBaseHeight = 72;
-
-	hw = (imageWidth/2);	// half width
-	hh = (imageHeight/2);	// half height
-
-	imageWidth = imageBaseWidth *scale;
-	imageHeight = imageBaseHeight *scale;
-
-
-	imageWidth *= scale;
-	imageHeight *= scale;
-
-	screenWidth = 1024;
-	screenHeight = 600;
-
-	screenEdge = 0.03;
-	moveSpeed = scale * 0.1;
-	maxscale = 2.0;
-	minscale = 0.2;
-
-	overallWidth = (Height + Width) * hw;
-	overallHeight = (Height + Width) * hh;
-
-
-	centerX = (int)((Width+1)/2);
-	centerY = (int)((Height+1)/2);
-	currentX = centerX;
-	currentY = centerY;
-
-	// time to setup offsets based on centers
-
-	logicBank = GameVars->Instance()->getAllLogicBlocks();
-	objectList.clear();
-	ourSound = new soundEffect;
-	robotAlive = true;
 }
 
 gameBoard::~gameBoard()
@@ -233,9 +159,26 @@ bool gameBoard::draw()
 				// for the time being, the only "object" that requires being drawn is the robot
 				drawAtX = mapOffsetX + (robotX * hw - (robotY * hw) + (hw));
 				drawAtY = mapOffsetY + (robotY * imageHeight - (robotY * hh) + (robotX * hh) + hh/2);
+				
+				// conditional drawing based on height
+				if(mapList[robotX][robotY]->getType() == TRaised1)
+				{
+					drawAtY -= (hh*0.45);
+				}
+				else if(mapList[robotX][robotY]->getType() == TRaised2)
+				{
+					drawAtY -= (hh*0.9);
+				}
+				else if(mapList[robotX][robotY]->getType() == TRaised3)
+				{
+					drawAtY -= (hh*1.35);
+				}
+				else if(mapList[robotX][robotY]->getType() == TRaised4)
+				{
+					drawAtY -= (hh*1.8);
+				}
 
 				drawObject(0, drawAtX, drawAtY, scale);
-
 			}
 		}
 	}
@@ -350,6 +293,50 @@ void gameBoard::initialize()
 	tempTile = new oglTexture2D(); tempTile->loadImage("tiles/TTeleport.png",	 144, 144); tileImages.push_back(tempTile);			
 	robotImage = new oglTexture2D(); robotImage->loadImage("object/robotDefault.png", 195*0.45, 110*2*0.45);
 
+	// variables and whatnot
+	mapOffsetX = 0;
+	mapOffsetY = 0;
+	scale = 1;
+
+	imageBaseWidth = 144;
+	imageBaseHeight = 72;
+
+	hw = (imageWidth/2);	// half width
+	hh = (imageHeight/2);	// half height
+
+	imageWidth = imageBaseWidth *scale;
+	imageHeight = imageBaseHeight *scale;
+
+
+	imageWidth *= scale;
+	imageHeight *= scale;
+
+	screenWidth = 1024;
+	screenHeight = 600;
+
+	screenEdge = 0.03;
+	moveSpeed = scale * 0.1;
+	maxscale = 2.0;
+	minscale = 0.2;
+
+	overallWidth = (Height + Width) * hw;
+	overallHeight = (Height + Width) * hh;
+
+
+	centerX = (int)((Width+1)/2);
+	centerY = (int)((Height+1)/2);
+	currentX = centerX;
+	currentY = centerY;
+
+	// time to setup offsets based on centers
+	logicBank = GameVars->Instance()->getAllLogicBlocks();
+	objectList.clear();
+	ourSound = new soundEffect;
+	robotAlive = true;
+	drawText = false;
+
+	SUB1 = new subroutine();
+	SUB2 = new subroutine();
 }
 
 void gameBoard::cleanup()
@@ -361,7 +348,8 @@ void gameBoard::cleanup()
 	}
 	tileImages.clear();
 	delete ourSound;
-
+	delete SUB1;
+	delete SUB2;
 
 	//while(tileImages.begin() != tileImages.end())
 	//{
@@ -898,6 +886,9 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 		else
 			drawText = false;
 		break;
+	case '5':
+		curState = GB_FINISHED;
+		break;
 	default:
 		break;
 	}
@@ -1075,7 +1066,7 @@ void gameBoard::processRobot()
 	//int			 robotDirection;
 	//tileTypeEnum destType;
 	//bool		 destActive;
-	bool delayAdvance = false;
+	delayAdvance = false;
 
 	for(;oitr != objectList.end(); oitr++)
 	{
@@ -1089,6 +1080,12 @@ void gameBoard::processRobot()
 			}
 			switch((*oitr)->getNextCommand())
 			{
+			case SUBR1:
+				delayAdvance = processSub(1);
+				break;
+			case SUBR2:
+				delayAdvance = processSub(2);
+				break;
 			case MOVE_FORWARD1:
 				this->RCmoveRobotForward();
 				// special case for ice squares
@@ -1910,4 +1907,81 @@ bool gameBoard::RCmoveRobotForward()
 void gameBoard::setState(GameBoardState state)
 {
 	curState = state;
+}
+
+bool gameBoard::processSub(int whichSub)
+{
+	AiInstructions nextCommand;
+
+	if(whichSub == 1)
+		if(SUB1->isEmpty())
+			return false;
+		else
+			nextCommand = SUB1->getNextCommand();
+	if(whichSub == 2)
+		if(SUB2->isEmpty())
+			return false;
+		else
+			nextCommand = SUB2->getNextCommand();
+
+	std::vector<object*>::iterator oitr = objectList.begin();
+
+	for(;oitr != objectList.end(); oitr++)
+	{
+		if((*oitr)->getType() == ORobot)
+		{
+
+			switch(nextCommand)
+			{
+			case MOVE_FORWARD1:
+				this->RCmoveRobotForward();
+				// special case for ice squares
+				if(mapList[robotX][robotY]->getType() == TIce)
+				{
+					if(this->RCcanRobotMoveForward((*oitr)->getDirection(), 1))
+					{
+						delayAdvance = true;
+					}
+				}
+				break;
+			case TURN_LEFT1:
+				(*oitr)->rotate(-1);
+				break;
+			case TURN_RIGHT1:
+				(*oitr)->rotate(1);
+				break;
+			case CROUCH:  // just like move forward above, only far less squares that can be moved into
+				this->RCcrouch();
+				break;
+			case CLIMB:	  // just like move forward above, only far less squares that can be moved into
+				this->RCclimb();
+				break;
+			case JUMP:	  // just like move forward above, only far less squares that can be moved into
+				this->RCjumpRobotForward();
+				break;
+			case PUNCH:	  // just like move forward above, only far less squares that can be moved into
+				this->RCpunch();
+				break;
+			case MOVE_FORWARD_UNTIL_UNABLE: // just like move forward above, only no advancement of command until destination square is invalid
+				delayAdvance = this->RCmoveRobotForward();
+				break;
+			case SUB:	// special case
+				break;
+			case LOOP:	// since this should always be displayed as the last command automatically, this isn't really needed
+						// the object's ai list automagically loops when it gets to its end
+				break;
+			case ACTIVATE:	// for now lets just check for a door so we can see it working in testmap1
+				this->RCactivate();
+				break;
+			}
+		}
+	}
+	bool done;
+
+	if(whichSub == 1)
+		done = SUB1->advanceCommand();
+	if(whichSub == 2)
+		done = SUB1->advanceCommand();
+
+	return !done;
 }

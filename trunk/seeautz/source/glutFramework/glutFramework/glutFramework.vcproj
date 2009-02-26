@@ -244,6 +244,10 @@
 				RelativePath=".\sound.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\subroutine.cpp"
+				>
+			</File>
 			<Filter
 				Name="States"
 				>
@@ -424,6 +428,10 @@
 			</File>
 			<File
 				RelativePath=".\sound.h"
+				>
+			</File>
+			<File
+				RelativePath=".\subroutine.h"
 				>
 			</File>
 			<File

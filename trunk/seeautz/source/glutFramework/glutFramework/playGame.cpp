@@ -253,7 +253,7 @@ bool playGame::initialize()
 
 	
 	gamePlay = new gameBoard();
-	GameVars->setLevel(1);
+	GameVars->setLevel(0);
 	gamePlay->LoadGameMapFromFile(levelList[GameVars->getCurrentLevel()]->getFile());
 
 	//=====================================================

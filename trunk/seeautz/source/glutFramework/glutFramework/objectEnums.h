@@ -6,5 +6,6 @@ enum objectEnum{
 	ORobot,		// 1
 	OSwitch,	// 2
 	OTeleport,	// 3
+	OSubroutine,// 4
 };
 #endif
