@@ -22,9 +22,11 @@ bool playGame::Update()
 	{
 	case GB_LOGICVIEW:
 		gameSaved = false;
+		pregameRunning = false;
 		gamePlay->update();
 		gamePlay->mapScroll();
 		break;
+
 	case GB_EXECUTION:
 		gameSaved = false;
 		gamePlay->update();
@@ -33,7 +35,25 @@ bool playGame::Update()
 
 	case GB_PREGAME:
 		gameSaved = false;
+		if(pregameRunning)
+		{
+			timer = clock();
+			if(timer > (startTime + 5000))
+			{
+				pregameRunning = false;
+				gamePlay->setState(GB_LOGICVIEW);
+			}
+		}
+		else
+		{
+			startTime = clock();
+			timer = clock();
+			pregameRunning = true;
+		}
+		break;
 
+	case GB_ROBOTDIED:
+		gameSaved = false;
 		if(pregameRunning)
 		{
 			timer = clock();
@@ -66,6 +86,7 @@ bool playGame::Update()
 		
 		myMenu->Update();
 		break;
+
 	case GB_FINISHED:
 		//gamePlay->~gameBoard();
 		delete gamePlay;
@@ -88,6 +109,7 @@ bool playGame::Update()
 		gamePlay->setState(curState);
 		pregameRunning = false;
 		break;
+
 	default:
 		break;
 	}
@@ -111,10 +133,12 @@ bool playGame::Draw()
 		gamePlay->draw();
 		mInterface.Draw();
 		break;
+
 	case GB_EXECUTION:
 		gamePlay->draw();
 		mInterface.Draw();
 		break;
+
 	case GB_PREGAME:
 		// gl shit that may or may not be needed for font stuff, we shall find out shortly
 		glClearColor(0, 0, 0, 0);
@@ -148,20 +172,36 @@ bool playGame::Draw()
 		painInTheAss << tempInt;
 		tempString += painInTheAss.str();
 		GameVars->fontArial.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
-		offsetAmt++;
-			
+		offsetAmt++;			
 		break;
+
+	case GB_ROBOTDIED:
+		// gl shit that may or may not be needed for font stuff, we shall find out shortly
+		glClearColor(0, 0, 0, 0);
+		//glutSwapBuffers();
+		//glEnable(GL_TEXTURE_2D);
+		//glEnable(GL_BLEND);
+
+		glColor3ub(255, 0, 0);
+
+		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+
+		// player name
+		GameVars->fontDigital200.drawText(150 + rand()%15, 250 + rand()%15, "YOU DIED");
+		break;
+
 	case GB_VIEWSCORE:
 		gamePlay->draw();
 		if(myMenu != NULL)
 			myMenu->Draw();
 		//mInterface.Draw();
 		break;
+
 	case GB_FINISHED:
 		//gamePlay->draw();
 		//mInterface.Draw();
-
 		break;
+
 	default:
 		break;
 	}
@@ -246,22 +286,47 @@ bool playGame::initialize()
 
 void playGame::processMouse(int x, int y)
 {
-	gamePlay->processMouse(x, y);
-	mInterface.processMouse(x, y);
-	if(myMenu != NULL)
-		myMenu->processMouse(x, y);
+	switch(curState)
+	{
+	case GB_LOGICVIEW:
+	case GB_EXECUTION:
+	case GB_FINISHED:
+	case GB_VIEWSCORE:
+		gamePlay->processMouse(x, y);
+		mInterface.processMouse(x, y);
+		if(myMenu != NULL)
+			myMenu->processMouse(x, y);
+		break;
+	case GB_PREGAME:
+	case GB_ROBOTDIED:
+		break;
+	default:
+		break;
+	}
 }
 
 void playGame::processMouseClick(int button, int state, int x, int y)
 {
-	gamePlay->processMouseClick(button, state, x, y);
-	mInterface.processMouseClick(button, state, x, y);
-	if(curState == GB_VIEWSCORE)
+	switch(curState)
 	{
-		if(myMenu != NULL)
-			myMenu->processMouseClick(button, state, x, y);
+	case GB_LOGICVIEW:
+	case GB_EXECUTION:
+	case GB_FINISHED:
+	case GB_VIEWSCORE:
+		gamePlay->processMouseClick(button, state, x, y);
+		mInterface.processMouseClick(button, state, x, y);
+		if(curState == GB_VIEWSCORE)
+		{
+			if(myMenu != NULL)
+				myMenu->processMouseClick(button, state, x, y);
+		}
+		break;
+	case GB_PREGAME:
+	case GB_ROBOTDIED:
+		break;
+	default:
+		break;
 	}
-
 }
 
 void playGame::keyboardInput(unsigned char c, int x, int y)
@@ -272,6 +337,7 @@ void playGame::keyboardInput(unsigned char c, int x, int y)
 	case GB_EXECUTION:
 		gamePlay->keyboardInput(c, x, y);
 	case GB_PREGAME:
+	case GB_ROBOTDIED:
 		switch(c)
 		{
 		case 27:
