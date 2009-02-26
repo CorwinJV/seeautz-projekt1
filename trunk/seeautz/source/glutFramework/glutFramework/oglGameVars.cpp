@@ -74,7 +74,7 @@ void oglGameVars::loadAllLogicBlocks()
 {
 	logicBlock* tmpBlock;
 
-	tmpBlock = new logicBlock("instructions/moveforward.png", 130, 130, "Use this instruction to moveforward one tile.", 2, MOVE_FORWARD1);
+	tmpBlock = new logicBlock("instructions/moveforward.png", 130, 130, "Use this instruction to moveforward one   tile.", 2, MOVE_FORWARD1);
 	tmpBlock->addInstruction(MOVE_FORWARD1);
 	allLogicBlocks.push_back(tmpBlock);
 
@@ -90,15 +90,15 @@ void oglGameVars::loadAllLogicBlocks()
 	tmpBlock->addInstruction(TURN_RIGHT1);
 	allLogicBlocks.push_back(tmpBlock);
 
-	tmpBlock = new logicBlock("instructions/punch.png", 130, 130, "Use this instruction to break breakable walls.", 2, PUNCH);
+	tmpBlock = new logicBlock("instructions/punch.png", 130, 130, "Use this instruction to break breakable   walls.", 2, PUNCH);
 	tmpBlock->addInstruction(PUNCH);
 	allLogicBlocks.push_back(tmpBlock);
 
-	tmpBlock = new logicBlock("instructions/climb.png", 130, 130, "Use this instruction to climb over small inclines.", 2, CLIMB);
+	tmpBlock = new logicBlock("instructions/climb.png", 130, 130, "Use this instruction to climb over small  inclines.", 2, CLIMB);
 	tmpBlock->addInstruction(CLIMB);
 	allLogicBlocks.push_back(tmpBlock);
 
-	tmpBlock = new logicBlock("instructions/crouch.png", 130, 130, "Use this instruction to crouch in order to crawl through small spaces.", 2, CROUCH);
+	tmpBlock = new logicBlock("instructions/crouch.png", 130, 130, "Use this instruction to crouch in order tocrawl through small  spaces.", 2, CROUCH);
 	tmpBlock->addInstruction(CROUCH);
 	allLogicBlocks.push_back(tmpBlock);
 
