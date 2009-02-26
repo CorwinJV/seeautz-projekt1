@@ -24,10 +24,15 @@ public:
 	void processMouse(int x, int y);
 	void processMouseClick(int button, int state, int x, int y);
 
+	//=====================
+	// Button Callbacks
 	bool LogicBankUpArrowButtonClick();
 	bool LogicBankDownArrowButtonClick();
 	bool ExecutionListUpArrowButtonClick();
 	bool ExecutionListDownArrowButtonClick();
+	bool MainTabButtonClick();
+	bool Sub1TabButtonClick();
+	bool Sub2TabButtonClick();
 
 	bool ExecuteButtonClick();
 	bool AbortButtonClick();
@@ -48,6 +53,8 @@ private:
 
 	int currentHoverBlockIndex;
 
+	//=====================
+	// Button Callbacks
 	CFunctionPointer1R<bool, std::vector<logicBlock*>> mExecuteHandler;
 	CFunctionPointer0R<bool> mAbortHandler;
 
@@ -75,6 +82,18 @@ private:
 
 	std::vector<logicBlock*>* logicBank;		// The usable logic blocks
 	std::vector<logicBlock*> executionList;	// The command to give the robot
+	std::vector<logicBlock*> executionListSub1;
+	std::vector<logicBlock*> executionListSub2;
+
+	//======================
+	// Instruction List Tabs
+	enum instructionTab
+	{
+		TAB_MAIN,
+		TAB_SUB1,
+		TAB_SUB2
+	};
+	instructionTab curInstrTab;
 };
 
 #endif // LOGICINTERFACE_H

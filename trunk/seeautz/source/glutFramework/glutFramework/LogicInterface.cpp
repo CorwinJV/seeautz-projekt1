@@ -8,7 +8,8 @@ LogicInterface::LogicInterface()
 		instructionSpacing(3), logicBankBox(), instructionListBox(),
 		logicBankNumColumns(4), logicBankNumRowsOnScreen(3), 
 		instructionListNumColumns(8), instructionListNumRowsOnScreen(3),
-		mouseX(0), mouseY(0), currentHoverBlockIndex(-1)
+		mouseX(0), mouseY(0), currentHoverBlockIndex(-1),
+		curInstrTab(TAB_MAIN)
 {
 	//sideBarBox.width = 150;
 	//sideBarBox.height = 618;
@@ -56,6 +57,19 @@ LogicInterface::LogicInterface()
 	myMenu->addButton("buttons\\abort.png", "buttons\\abort.png", "buttons\\abort.png", BE::CreateFunctionPointer0R(this, &LogicInterface::AbortButtonClick));
 	myMenu->setLastButtonDimensions(100, 50);
 	myMenu->setLastButtonPosition(instructionListBox.x + instructionListBox.width +  100, bottomBarBox.y + 100);
+
+	myMenu->addButton("buttons\\tabmain.png", "buttons\\tabmain.png", "buttons\\tabmain.png", BE::CreateFunctionPointer0R(this, &LogicInterface::MainTabButtonClick));
+	myMenu->setLastButtonDimensions(100, 25);
+	myMenu->setLastButtonPosition(instructionListBox.x, instructionListBox.y - 25);
+
+	myMenu->addButton("buttons\\tabsub1.png", "buttons\\tabsub1.png", "buttons\\tabsub1.png", BE::CreateFunctionPointer0R(this, &LogicInterface::Sub1TabButtonClick));
+	myMenu->setLastButtonDimensions(100, 25);
+	myMenu->setLastButtonPosition(instructionListBox.x + 100, instructionListBox.y - 25);
+
+	myMenu->addButton("buttons\\tabsub2.png", "buttons\\tabsub2.png", "buttons\\tabsub2.png", BE::CreateFunctionPointer0R(this, &LogicInterface::Sub2TabButtonClick));
+	myMenu->setLastButtonDimensions(100, 25);
+	myMenu->setLastButtonPosition(instructionListBox.x + 200, instructionListBox.y - 25);
+
 
 	//=============================================
 	// All other initialization
@@ -112,26 +126,28 @@ void LogicInterface::Draw()
 	// Robot Instructios (sidebar)
 	int rowCount = 0;
 	int columnIndex = 0;
-	itr = executionList.begin();
-	for(; itr != executionList.end(); itr++)
+	if(this->curInstrTab == TAB_MAIN)
 	{
-		int i = std::distance(executionList.begin(), itr);
-
-		if(((i % instructionListNumColumns) == 0)
-			&& (i > 0))
+		itr = executionList.begin();
+		for(; itr != executionList.end(); itr++)
 		{
-			rowCount++;
+			int i = std::distance(executionList.begin(), itr);
+
+			if(((i % instructionListNumColumns) == 0)
+				&& (i > 0))
+			{
+				rowCount++;
+			}
+
+			(*itr)->blockTexture->mX = instructionListBox.x + (instructionSpacing * columnIndex) + (instructionBlockW * columnIndex);
+			(*itr)->blockTexture->mY = executionListYOffset + ((instructionListBox.y + instructionSpacing) + (rowCount * instructionBlockH) + (rowCount * instructionSpacing));
+			(*itr)->blockTexture->drawImage(instructionBlockW, instructionBlockH);
+
+			columnIndex++;
+			if(columnIndex >= instructionListNumColumns)
+				columnIndex = 0;
 		}
-
-		(*itr)->blockTexture->mX = instructionListBox.x + (instructionSpacing * columnIndex) + (instructionBlockW * columnIndex);
-		(*itr)->blockTexture->mY = executionListYOffset + ((instructionListBox.y + instructionSpacing) + (rowCount * instructionBlockH) + (rowCount * instructionSpacing));
-		(*itr)->blockTexture->drawImage(instructionBlockW, instructionBlockH);
-
-		columnIndex++;
-		if(columnIndex >= instructionListNumColumns)
-			columnIndex = 0;
 	}
-
 	//=============================================
 	// LogicBank Instructions (bottom bar)
 	rowCount = 0;
@@ -197,7 +213,7 @@ void LogicInterface::Draw()
 		glColor3ub(255, 255, 255);
 		while(!endOfText)
 		{
-			if(tmpBlock->blockDescription.length() > currentLine * MAX_CHARS_PER_LINE)
+			if((int)(tmpBlock->blockDescription.length()) > currentLine * MAX_CHARS_PER_LINE)
 			{
 				GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12), tmpBlock->blockDescription.substr((currentLine - 1) * MAX_CHARS_PER_LINE, MAX_CHARS_PER_LINE));
 				currentLine++;
@@ -375,6 +391,25 @@ bool LogicInterface::ExecuteButtonClick()
 	}
 	return false;
 }
+
+bool LogicInterface::MainTabButtonClick()
+{
+	curInstrTab = TAB_MAIN;
+	return false;
+}
+
+bool LogicInterface::Sub1TabButtonClick()
+{
+	curInstrTab = TAB_SUB1;
+	return false;
+}
+
+bool LogicInterface::Sub2TabButtonClick()
+{
+	curInstrTab = TAB_SUB2;
+	return false;
+}
+
 
 void LogicInterface::ClearExecutionList()
 {
