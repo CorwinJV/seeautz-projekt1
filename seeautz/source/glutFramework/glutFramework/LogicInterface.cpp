@@ -176,8 +176,9 @@ void LogicInterface::Draw()
 	// Menu Buttons (For scrolling and shizz)
 	myMenu->Draw();
 
+
 	//=============================================
-	// Hover-Over Screen Tipz0rz
+	// Hover Over Screen Tipz0rz
 		// If the currentHoverBlockIndex is -1 that 
 		// means no block is being hovered over
 	if(currentHoverBlockIndex != -1)
@@ -187,30 +188,30 @@ void LogicInterface::Draw()
 		// Draw the background
 		menuBar->mX = tmpBlock->blockTexture->mX + 20;
 		menuBar->mY = tmpBlock->blockTexture->mY - 170;
-		menuBar->drawImageFaded(0.8, 200, 150);
+		menuBar->drawImageFaded(.5, 200, 100);
 
-		int MAX_CHARS_PER_LINE = 20;
+		int MAX_CHARS_PER_LINE = 21;
 		int currentLine = 1;
-		for(int i = 0; i < tmpBlock->blockDescription.length(); i++)
+		bool endOfText = false;
+		
+		glColor3ub(255, 255, 255);
+		while(!endOfText)
 		{
-			if(i >= (currentLine * MAX_CHARS_PER_LINE)) // if i > 20/40/60/80/etc
+			if(tmpBlock->blockDescription.length() > currentLine * MAX_CHARS_PER_LINE)
 			{
-				GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12), tmpBlock->blockDescription.substr(i - (MAX_CHARS_PER_LINE * currentLine), MAX_CHARS_PER_LINE * currentLine));					
+				GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12), tmpBlock->blockDescription.substr((currentLine - 1) * MAX_CHARS_PER_LINE, MAX_CHARS_PER_LINE));
 				currentLine++;
 			}
-
-			else if(tmpBlock->blockDescription.length() - i <= MAX_CHARS_PER_LINE)
+			else
 			{
-				// If this is a shorter string we have to print the first half here
-				//if(currentLine * i < MAX_CHARS_PER_LINE * currentLine)
-				//{
-				//	GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12), tmpBlock->blockDescription.substr(0, i));
-				//}
-
-				// Display the rest of the line
-				GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12), tmpBlock->blockDescription.substr(i, tmpBlock->blockDescription.length() - i));
-				currentLine++;
-				break;
+				GameVars->fontArial12.drawText(
+					menuBar->mX + 10,
+					menuBar->mY + (currentLine * 12),
+					tmpBlock->blockDescription.substr(
+										(currentLine - 1) * MAX_CHARS_PER_LINE,
+										tmpBlock->blockDescription.length() % (currentLine -1 * MAX_CHARS_PER_LINE))
+										);
+				endOfText = true;
 			}
 		}
 	}
