@@ -7,7 +7,8 @@ LogicInterface::LogicInterface()
 		instructionBlockW(140 / 3), instructionBlockH(140 / 3),
 		instructionSpacing(3), logicBankBox(), instructionListBox(),
 		logicBankNumColumns(4), logicBankNumRowsOnScreen(3), 
-		instructionListNumColumns(8), instructionListNumRowsOnScreen(3)
+		instructionListNumColumns(8), instructionListNumRowsOnScreen(3),
+		mouseX(0), mouseY(0), currentHoverBlockIndex(-1)
 {
 	//sideBarBox.width = 150;
 	//sideBarBox.height = 618;
@@ -74,6 +75,19 @@ LogicInterface::LogicInterface()
 void LogicInterface::Update()
 {
 	myMenu->Update();
+
+	// Hover Over Stuff
+	currentHoverBlockIndex = -1;
+	std::vector<logicBlock*>::iterator itr = logicBank->begin();
+	for(; itr != logicBank->end(); itr++)
+	{
+		if((*itr)->checkInBounds(mouseX, mouseY, instructionBlockW, instructionBlockH))
+		{
+			// You're hovering over, YAY! LOLZ
+			currentHoverBlockIndex = std::distance(logicBank->begin(), itr);
+		}
+	}
+
 }
 
 void LogicInterface::Draw()
@@ -164,14 +178,54 @@ void LogicInterface::Draw()
 
 	//=============================================
 	// Hover-Over Screen Tipz0rz
-	//GameVars->fontArial12.drawText(
+		// If the currentHoverBlockIndex is -1 that 
+		// means no block is being hovered over
+	if(currentHoverBlockIndex != -1)
+	{
+		logicBlock* tmpBlock = (*logicBank)[currentHoverBlockIndex];
+
+		// Draw the background
+		menuBar->mX = tmpBlock->blockTexture->mX + 20;
+		menuBar->mY = tmpBlock->blockTexture->mY - 170;
+		menuBar->drawImageFaded(0.8, 200, 150);
+
+		int MAX_CHARS_PER_LINE = 20;
+		int currentLine = 1;
+		for(int i = 0; i < tmpBlock->blockDescription.length(); i++)
+		{
+			if(i >= (currentLine * MAX_CHARS_PER_LINE)) // if i > 20/40/60/80/etc
+			{
+				GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12), tmpBlock->blockDescription.substr(i - (MAX_CHARS_PER_LINE * currentLine), MAX_CHARS_PER_LINE * currentLine));					
+				currentLine++;
+			}
+
+			else if(tmpBlock->blockDescription.length() - i <= MAX_CHARS_PER_LINE)
+			{
+				// If this is a shorter string we have to print the first half here
+				//if(currentLine * i < MAX_CHARS_PER_LINE * currentLine)
+				//{
+				//	GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12), tmpBlock->blockDescription.substr(0, i));
+				//}
+
+				// Display the rest of the line
+				GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12), tmpBlock->blockDescription.substr(i, tmpBlock->blockDescription.length() - i));
+				currentLine++;
+				break;
+			}
+		}
+	}
 }
 
 void LogicInterface::processMouse(int x, int y)
 {
+	// Internal mouse position for hover over stuff
+	mouseX = x;
+	mouseY = y;
+
 	// Menu buttons
 	myMenu->processMouse(x, y);
 
+	// Dragging the block
 	if(isMouseDragging == true
 		&& draggedBlock != NULL)
 	{
