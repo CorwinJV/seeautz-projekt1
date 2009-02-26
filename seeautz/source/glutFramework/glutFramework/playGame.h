@@ -16,6 +16,8 @@ private:
 	gameBoard *gamePlay;
 	int timer;
 	vector<levelData*> levelList;
+	vector<oglTexture2D*> endGamePics;
+	vector<oglTexture2D*>::iterator endGameAnimation;
 	MenuSys* myMenu;
 	oglTexture2D* img;
 	GameBoardState curState;
@@ -44,6 +46,7 @@ public:
 	void processMouse(int x, int y);
 	void processMouseClick(int button, int state, int x, int y);
 	void keyboardInput(unsigned char c, int x, int y);
+	void doEndGameDraw();
 	LogicInterface mInterface;
 
 };
