@@ -26,7 +26,8 @@ enum GameBoardState
 	GB_VIEWSCORE,		// used for viewing score stats after completion of level
 	GB_LOGICVIEW,		// used to view screen where you are adding logic blocks
 	GB_EXECUTION,		// used when robot is executing logic blocks
-	GB_FINISHED			// used to load next level after score is displayed
+	GB_FINISHED,			// used to load next level after score is displayed
+	GB_ROBOTDIED		// take a wild guess what this state is for
 };
 
 class gameBoard
@@ -46,6 +47,7 @@ protected:
 	int robotY;
 	int robotStartX;
 	int robotStartY;
+	bool robotAlive;
 
 	int Width;
 	int Height;

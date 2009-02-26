@@ -53,6 +53,7 @@ public:
 	GLFT_Font					fontArial12;
 	GLFT_Font					fontDigital;
 	GLFT_Font					fontOurs;
+	GLFT_Font					fontDigital200;
 
 private:				
 	std::string mPlayerName;

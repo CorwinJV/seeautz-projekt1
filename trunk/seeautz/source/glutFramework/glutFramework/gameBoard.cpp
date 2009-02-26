@@ -73,6 +73,7 @@ gameBoard::gameBoard() : curState(GB_LOGICVIEW)
 	logicBank = GameVars->Instance()->getAllLogicBlocks();
 	ourSound = new soundEffect;
 	drawText = false;
+	robotAlive = true;
 }
 
 gameBoard::gameBoard(int nWidth, int nHeight)
@@ -139,6 +140,7 @@ gameBoard::gameBoard(int nWidth, int nHeight)
 	logicBank = GameVars->Instance()->getAllLogicBlocks();
 	objectList.clear();
 	ourSound = new soundEffect;
+	robotAlive = true;
 }
 
 gameBoard::~gameBoard()
@@ -636,7 +638,6 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	case 'c': // down-right
 		currentX += kbmovespeed;
 		break;
-
 	case 'w': // up
 		currentY -= kbmovespeed;
 		currentX -= kbmovespeed;
@@ -1080,6 +1081,12 @@ void gameBoard::processRobot()
 	{
 		if((*oitr)->getType() == ORobot)
 		{
+			if((*oitr)->getAlive() == false)
+			{
+				// tempabc
+				curState = GB_ROBOTDIED;
+				return;
+			}
 			switch((*oitr)->getNextCommand())
 			{
 			case MOVE_FORWARD1:
@@ -1154,6 +1161,7 @@ void gameBoard::teleporterCheck()
 	// see if we're standing in a teleporter square
 	if(mapList[robotX][robotY]->getType() == TTeleport)
 	{
+		std::cout << "robot has found a teleporter at " << robotX << ", " << robotY << std::endl;
 		// if we are, lets find the teleporter in the list
 		for(;titr < teleportList.end(); titr++)
 		{
@@ -1186,6 +1194,8 @@ bool gameBoard::interfaceHasFiredExecuteOrder(std::vector<logicBlock*> execution
 		if((*oitr)->getType() == ORobot)
 		{
 			(*oitr)->reset();
+			(*oitr)->setAlive(true);
+			robotAlive = true;
 			robotX = robotStartX;
 			robotY = robotStartY;
 			currentX = robotX;
@@ -1406,6 +1416,7 @@ void gameBoard::RCjumpRobotForward()
 			{
 				// yes we died
 				(*oitr)->setAlive(false);
+				robotAlive = false;
 				return;
 			}
 
@@ -1478,6 +1489,7 @@ void gameBoard::RCjumpRobotForward()
 			{
 				// yes we died
 				(*oitr)->setAlive(false);
+				robotAlive = false;
 			}
 		}				
 	}	
@@ -1786,7 +1798,6 @@ void gameBoard::RCactivate()
 		}
 	}
 
-	// switches are crashing... will fix later
 	// are we standing on a switch square?
 	sitr = switchList.begin();
 
@@ -1836,6 +1847,7 @@ bool gameBoard::RCmoveRobotForward()
 			{
 				// yes we died
 				(*oitr)->setAlive(false);
+				robotAlive = false;
 				return false;
 			}
 
@@ -1887,6 +1899,7 @@ bool gameBoard::RCmoveRobotForward()
 			{
 				// yes we died
 				(*oitr)->setAlive(false);
+				robotAlive = false;
 				 return false;
 			}
 		}	
