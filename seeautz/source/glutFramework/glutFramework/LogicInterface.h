@@ -68,7 +68,10 @@ private:
 	//======================
 	// Size and Positional Variables
 	screenBox sideBarBox;
+	int* curExecutionListYOffset;
 	int executionListYOffset;
+	int executionListSub1YOffset;
+	int executionListSub2YOffset;
 	int sideBarColumnCount;
 	
 	screenBox bottomBarBox;
