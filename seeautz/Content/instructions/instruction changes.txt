@@ -1,0 +1,10 @@
+changes to cameron's default colors for highlighted and base
+
+base no changes
+
+current
+hue		-163
+saturation	+18
+
+toolbar version
+saturation	-61
