@@ -36,13 +36,18 @@ public:
 
 	bool ExecuteButtonClick();
 	bool AbortButtonClick();
+	bool ResetButtonClick();
 	void ClearExecutionList();
 
 	void SetExecuteHandler(CFunctionPointer3R<bool, std::vector<logicBlock*>, std::vector<logicBlock*>, std::vector<logicBlock*>> clickHandler);
 	void SetAbortHandler(CFunctionPointer0R<bool> clickHandler);
+	void SetResetHandler(CFunctionPointer0R<bool> resetHandler);
 private:
 	MenuSys* myMenu;
+	MenuSys* executingMenu;
+	MenuSys* resetMenu;
 	bool isButtonBeingClicked;
+	bool isExecuting;
 
 	oglTexture2D* menuBar;
 
@@ -58,6 +63,7 @@ private:
 	//CFunctionPointer1R<bool, std::vector<logicBlock*>> mExecuteHandler;
 	CFunctionPointer3R<bool, std::vector<logicBlock*>, std::vector<logicBlock*>, std::vector<logicBlock*>> mExecuteHandler;
 	CFunctionPointer0R<bool> mAbortHandler;
+	CFunctionPointer0R<bool> mResetHandler;
 
 	//======================
 	// Size and Positional Variables

@@ -129,6 +129,7 @@ public:
 	void playSound();
 	bool interfaceHasFiredExecuteOrder(std::vector<logicBlock*> executionList, std::vector<logicBlock*> executionListSub1, std::vector<logicBlock*> executionListSub2);
 	bool interfaceHasFiredAbortOrder();
+	bool interfaceHasFiredResetOrder();
 
 	GameBoardState getCurState();							// returns the current state of the gameBoard
 	
