@@ -37,7 +37,9 @@ public:
 	bool ExecuteButtonClick();
 	bool AbortButtonClick();
 	bool ResetButtonClick();
+
 	void ClearExecutionList();
+	void ResetExecutionMode();
 
 	void SetExecuteHandler(CFunctionPointer3R<bool, std::vector<logicBlock*>, std::vector<logicBlock*>, std::vector<logicBlock*>> clickHandler);
 	void SetAbortHandler(CFunctionPointer0R<bool> clickHandler);

@@ -714,6 +714,12 @@ void LogicInterface::ClearExecutionList()
 	executionListSub2.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
 }
 
+void LogicInterface::ResetExecutionMode()
+{
+	isExecuting = false;
+}
+
+
 //============================================
 // Abort Button Callback
 bool LogicInterface::AbortButtonClick()

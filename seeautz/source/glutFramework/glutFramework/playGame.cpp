@@ -94,6 +94,7 @@ bool playGame::Update()
 		//gamePlay->~gameBoard();
 
 		mInterface.ClearExecutionList();
+		mInterface.ResetExecutionMode();
 		levelCounter = GameVars->getCurrentLevel();
 		levelCounter++;
 		maxLevel = GameVars->getMaxLevel();

@@ -221,6 +221,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\oglSoundSingleton.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\oglTexture2D.cpp"
 				>
 			</File>
@@ -396,6 +400,10 @@
 			</File>
 			<File
 				RelativePath=".\oglGameVars.h"
+				>
+			</File>
+			<File
+				RelativePath=".\oglSoundSingleton.h"
 				>
 			</File>
 			<File
