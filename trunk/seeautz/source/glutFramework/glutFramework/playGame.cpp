@@ -77,14 +77,15 @@ bool playGame::Update()
 		//save the game for the player, if it hasn't been saved yet
 		if(!gameSaved)
 		{
-			GameVars->SavePlayerGame(GameVars->getPlayerName());
+			GameVars->SavePlayerGame(GameVars->getPlayerName()+".txt");
 			gameSaved = true;
 		}
 
-		//this will eventually be displayed on the menu, until now deal with it
-		/*std::cout << GameVars->getPlayerName() << std::endl;
-		std::cout << GameVars->getLevelScore() << std::endl;
-		std::cout << GameVars->getTotalScore() << std::endl;*/
+		//Get the number of bytes user started the level off with and subtract number remaining
+		playerScore = GameVars->getTotalScore();
+
+		// eventually we will implement an equation here to calculate the score based off percentage 
+		// of points used for the level score
 		
 		myMenu->Update();
 		break;
@@ -119,13 +120,12 @@ bool playGame::Update()
 		// Register the gameBoard callback with the interface!
 		mInterface.SetExecuteHandler(BE::CreateFunctionPointer3R(gamePlay, &gameBoard::interfaceHasFiredExecuteOrder));
 		mInterface.SetAbortHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredAbortOrder));
-		mInterface.SetResetHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredResetOrder));
-		
 		gamePlay->setState(curState);
 		pregameRunning = false;
 		break;
 	case GB_YOUWIN:
-		
+		// upload score onto server (when it gets implemented)
+
 		break;
 
 	default:
@@ -144,6 +144,7 @@ bool playGame::Draw()
 	std::stringstream painInTheAss;
 	//clock_t startTime;
 	int tempInt;
+	oglTexture2D fadeToBlack;
 
 	switch(curState)
 	{
@@ -209,7 +210,32 @@ bool playGame::Draw()
 		break;
 
 	case GB_VIEWSCORE:
-		gamePlay->draw();
+		if(myMenu != NULL)
+			myMenu->Draw();
+
+		// clear the temp string
+		tempString = "";
+
+		// display the level score
+		tempString = "YOUR LEVEL SCORE: ";
+		painInTheAss.clear();
+		tempInt = GameVars->getLevelScore();
+		painInTheAss << tempInt;
+		tempString += painInTheAss.str();
+		GameVars->fontArial.drawText(225, 200, tempString);
+
+		// clear the temp string
+		tempString = "";
+
+		// display the total score
+		tempString = "YOUR TOTAL SCORE: ";
+		painInTheAss.clear();
+		tempInt = GameVars->getTotalScore();
+		painInTheAss << tempInt;
+		tempString += painInTheAss.str();
+		GameVars->fontArial.drawText(225, 300, tempString);
+
+		
 		if(myMenu != NULL)
 			myMenu->Draw();
 		//mInterface.Draw();
@@ -283,7 +309,7 @@ bool playGame::initialize()
 	// Register the gameBoard callback with the interface!
 	mInterface.SetExecuteHandler(BE::CreateFunctionPointer3R(gamePlay, &gameBoard::interfaceHasFiredExecuteOrder));
 	mInterface.SetAbortHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredAbortOrder));
-	mInterface.SetResetHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredResetOrder));
+
 	
 	gamePlay->setState(GB_PREGAME);
 	pregameRunning = false;
@@ -294,10 +320,15 @@ bool playGame::initialize()
 	if(img != NULL)
 		img->loadImage("..\\Content\\statescreens\\mainmenu.png", 1024, 120);
 	img->mY = 618;
+	
 
-	myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
+	myMenu = new MenuSys(250, 50, "blank.png", None);
 	myMenu->addButton("..\\Content\\buttons\\advance.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &playGame::advance));
+	myMenu->setLastButtonDimensions(100, 100);
+	myMenu->setLastButtonPosition(600, 400);
 	myMenu->addButton("..\\Content\\buttons\\exit.png",	 "button2down.png", "button2over.png", CreateFunctionPointer0R(this, &playGame::exitGame));
+	myMenu->setLastButtonDimensions(100, 100);
+	myMenu->setLastButtonPosition(350, 400);
 	Update();
 
 	// pregame textinfo
@@ -411,6 +442,11 @@ bool playGame::exitGame()
 	exit(0);
 
 	return true;
+}
+
+void playGame::levelSelect()
+{
+
 }
 
 void playGame::doEndGameDraw()

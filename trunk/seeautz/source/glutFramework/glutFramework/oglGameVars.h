@@ -11,6 +11,8 @@
 
 #define GameVars oglGameVars::Instance()
 
+using namespace std;
+
 
 //===========================
 // oglGameVars
@@ -40,11 +42,14 @@ public:
 	void						loadAllLogicBlocks();
 	std::vector<logicBlock*>*	oglGameVars::getAllLogicBlocks();
 	logicBlock*					getPlaceInstructionBlock();
-	bool						LoadPlayerGame(std::string name);
-	bool						SavePlayerGame(std::string name);
+	bool						LoadPlayerGame(string name);
+	bool						SavePlayerGame(string name);
 	int							getTotalScore();
 	int							getLevelScore();
+	void						setLevelScore(int score);
+	void						setTotalScore(int score);
 	void						setMaxLevel(int newMax);
+	void						setPlayerMaxLevel(int level);
 	int							getMaxLevel();
 	int							getCurrentLevel();
 	int							getCurrentLevelBytes();
@@ -62,6 +67,7 @@ private:
 	int mTotalScore;
 	int currentLevel;
 	int maxLevel;
+	int playerMaxLevel;
 	int levelScore;
 	int currentLevelBytes;
 	std::vector<logicBlock*>	allLogicBlocks;

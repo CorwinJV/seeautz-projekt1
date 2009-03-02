@@ -2,7 +2,8 @@
 #include<fstream>
 #include<iostream>
 //#include<cstring>
-
+#include <string>
+using namespace std;
 
 oglGameVars* oglGameVars::pinstance = 0;// initialize pointer
 
@@ -31,40 +32,71 @@ oglGameVars::oglGameVars()
 
 //========================================
 // Non singleton functions here wee.
-std::string oglGameVars::getPlayerName()
+string oglGameVars::getPlayerName()
 {
 	return mPlayerName;
 }
 
-void oglGameVars::setPlayerName(std::string name)
+void oglGameVars::setPlayerName(string sname)
 {
-	mPlayerName = name;
+	mPlayerName = sname;
 }
 
-bool oglGameVars::SavePlayerGame(std::string name) // AC
+bool oglGameVars::SavePlayerGame(string playerGame) 
 {
-	std::cout << "Saving Game..." << name << std::endl;
+	if (playerGame == ".txt")
+	{
+		playerGame = "defaultgame.txt";
+	}
+
+	cout << "Saving Game...  " << playerGame << endl;
 	
-	std::ofstream PlayerInfo;
+	ofstream PlayerInfo;
+	string tempString;
+	int level;
+	int score;
+
+	tempString = "savedGames\\";
+	tempString += playerGame.c_str();
+
+	PlayerInfo.open(tempString.c_str());
+
 	if(!PlayerInfo)
 		return false;
 
-	PlayerInfo.open(name.c_str());
+	level = GameVars->currentLevel;
+	if(level > playerMaxLevel)
+		playerMaxLevel = level;
+
+	//GameVars->setPlayerMaxLevel(level);
+
+	score = GameVars->getTotalScore();
+
+	// code for saving stats here
+	PlayerInfo << level << endl;
+	PlayerInfo << score << endl;
+
 	PlayerInfo.close();
-	
+
 	return true;
 }
 
-bool oglGameVars::LoadPlayerGame(std::string name) // AC
-{
-	
-	std::cout << "Loading Game...: " << name <<std::endl;
-	std::ifstream PlayerInfo;
+bool oglGameVars::LoadPlayerGame(string playerGame) 
+{	
+	cout << "Loading Game...: " << playerGame <<std::endl;
+	ifstream PlayerInfo;
+	string tempString;
+
+	tempString = "savedGames\\";
+	tempString += playerGame.c_str();
 	
 	if(!PlayerInfo)
 		return false;
 
-	PlayerInfo.open(name.c_str());
+	PlayerInfo.open(tempString.c_str());
+
+	// code for loading player stats here
+
 	PlayerInfo.close();
 	
 	return true;
@@ -169,7 +201,22 @@ void oglGameVars::setMaxLevel(int newMax)
 	maxLevel = newMax;
 }
 
+void oglGameVars::setPlayerMaxLevel(int level)
+{
+	playerMaxLevel = level;
+}
+
 int oglGameVars::getMaxLevel()
 {
 	return maxLevel;
+}
+
+void oglGameVars::setLevelScore(int score)
+{
+	mTotalScore = score;
+}
+	
+void oglGameVars::setTotalScore(int score)
+{
+	levelScore = score;
 }
