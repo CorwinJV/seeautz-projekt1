@@ -18,7 +18,6 @@ using namespace std;
 
 gameBoard::gameBoard() : curState(GB_LOGICVIEW)
 {
-	
 	// make it all empty
 	mapList.resize(1);
 	for(int x = 0; x < 1; x++)
@@ -974,7 +973,7 @@ void gameBoard::recalcPositions()
 
 bool gameBoard::resetMap()
 {
-	OM->startOver();
+	//OM->startOver();
 
 	std::vector<object*>::iterator oitr = objectList.begin();
 
@@ -1183,6 +1182,16 @@ void gameBoard::keepRobotOnTheBoard()
 
 bool gameBoard::interfaceHasFiredExecuteOrder(std::vector<logicBlock*> executionList)
 {
+	// reset the map
+	/*for(int x = 0; x < Width; x++)
+	{
+		for(int y = 0; y < Height; y++)
+		{
+			mapList[x][y]->setActive(true);
+		}
+	}*/
+	resetMap();
+
 	// Find the robot
 	std::vector<object*>::iterator oitr = objectList.begin();
 
@@ -1220,7 +1229,6 @@ bool gameBoard::interfaceHasFiredAbortOrder()
 	if(curState == GB_EXECUTION)
 	{
 		curState = GB_LOGICVIEW;
-		resetMap();
 	}
 	return false;
 }

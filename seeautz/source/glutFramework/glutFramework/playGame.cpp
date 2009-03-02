@@ -356,6 +356,7 @@ void playGame::keyboardInput(unsigned char c, int x, int y)
 	case GB_LOGICVIEW:
 	case GB_EXECUTION:
 		gamePlay->keyboardInput(c, x, y);
+		break;
 	case GB_PREGAME:
 	case GB_ROBOTDIED:
 		switch(c)
@@ -366,6 +367,7 @@ void playGame::keyboardInput(unsigned char c, int x, int y)
 		default:
 			break;
 		}
+		break;
 	case GB_YOUWIN:
 		switch(c)
 		{
@@ -375,6 +377,9 @@ void playGame::keyboardInput(unsigned char c, int x, int y)
 		default:
 			break;
 		}
+		break;
+	default:
+		break;
 	}
 }
 
