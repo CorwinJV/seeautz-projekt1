@@ -78,6 +78,8 @@ LogicInterface::LogicInterface()
 
 	logicBank = GameVars->getAllLogicBlocks();
 	executionList.push_back(GameVars->getPlaceInstructionBlock());
+	executionListSub1.push_back(GameVars->getPlaceInstructionBlock());
+	executionListSub2.push_back(GameVars->getPlaceInstructionBlock());
 	draggedBlock = NULL;
 
 	logicBankYOffset = 0;
@@ -148,6 +150,57 @@ void LogicInterface::Draw()
 				columnIndex = 0;
 		}
 	}
+
+	//=============================================
+	// Robot Instructios (Sub1)
+	if(this->curInstrTab == TAB_SUB1)
+	{
+		itr = executionListSub1.begin();
+		for(; itr != executionListSub1.end(); itr++)
+		{
+			int i = std::distance(executionListSub1.begin(), itr);
+
+			if(((i % instructionListNumColumns) == 0)
+				&& (i > 0))
+			{
+				rowCount++;
+			}
+
+			(*itr)->blockTexture->mX = instructionListBox.x + (instructionSpacing * columnIndex) + (instructionBlockW * columnIndex);
+			(*itr)->blockTexture->mY = executionListYOffset + ((instructionListBox.y + instructionSpacing) + (rowCount * instructionBlockH) + (rowCount * instructionSpacing));
+			(*itr)->blockTexture->drawImage(instructionBlockW, instructionBlockH);
+
+			columnIndex++;
+			if(columnIndex >= instructionListNumColumns)
+				columnIndex = 0;
+		}
+	}
+
+	//=============================================
+	// Robot Instructios (Sub2)
+	if(this->curInstrTab == TAB_SUB2)
+	{
+		itr = executionListSub2.begin();
+		for(; itr != executionListSub2.end(); itr++)
+		{
+			int i = std::distance(executionListSub2.begin(), itr);
+
+			if(((i % instructionListNumColumns) == 0)
+				&& (i > 0))
+			{
+				rowCount++;
+			}
+
+			(*itr)->blockTexture->mX = instructionListBox.x + (instructionSpacing * columnIndex) + (instructionBlockW * columnIndex);
+			(*itr)->blockTexture->mY = executionListYOffset + ((instructionListBox.y + instructionSpacing) + (rowCount * instructionBlockH) + (rowCount * instructionSpacing));
+			(*itr)->blockTexture->drawImage(instructionBlockW, instructionBlockH);
+
+			columnIndex++;
+			if(columnIndex >= instructionListNumColumns)
+				columnIndex = 0;
+		}
+	}
+
 	//=============================================
 	// LogicBank Instructions (bottom bar)
 	rowCount = 0;
@@ -284,27 +337,50 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 		if(isMouseDragging == true
 			&& draggedBlock != NULL)
 		{
-			if(GameVars->getPlaceInstructionBlock()->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+			if(curInstrTab == TAB_MAIN)
 			{
-				executionList.pop_back();
-				executionList.push_back(new logicBlock(*(draggedBlock)));
-				executionList.push_back(GameVars->getPlaceInstructionBlock());
+				if(GameVars->getPlaceInstructionBlock()->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+				{
+					executionList.pop_back();
+					executionList.push_back(new logicBlock(*(draggedBlock)));
+					executionList.push_back(GameVars->getPlaceInstructionBlock());
+					delete draggedBlock;
+					draggedBlock = NULL;
+				}
+
 				delete draggedBlock;
 				draggedBlock = NULL;
+				isMouseDragging = false;
 			}
-
-			delete draggedBlock;
-			draggedBlock = NULL;
-			isMouseDragging = false;
-
-			// You just dropped a new element into the list,
-			// if the list has more than what can be displayed
-			// then scroll down to the bottom of the list
-			int i = executionList.size();
-			if(i > 3)
+			else if(curInstrTab == TAB_SUB1)
 			{
-				int overallHeight = (instructionListBox.y + instructionSpacing) + (i * instructionBlockH) + (i * instructionSpacing);
-				//executionListYOffset = 768 - 150 - overallHeight;
+				if(GameVars->getPlaceInstructionBlock()->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+				{
+					executionListSub1.pop_back();
+					executionListSub1.push_back(new logicBlock(*(draggedBlock)));
+					executionListSub1.push_back(GameVars->getPlaceInstructionBlock());
+					delete draggedBlock;
+					draggedBlock = NULL;
+				}
+
+				delete draggedBlock;
+				draggedBlock = NULL;
+				isMouseDragging = false;
+			}
+			else if(curInstrTab == TAB_SUB2)
+			{
+				if(GameVars->getPlaceInstructionBlock()->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+				{
+					executionListSub2.pop_back();
+					executionListSub2.push_back(new logicBlock(*(draggedBlock)));
+					executionListSub2.push_back(GameVars->getPlaceInstructionBlock());
+					delete draggedBlock;
+					draggedBlock = NULL;
+				}
+
+				delete draggedBlock;
+				draggedBlock = NULL;
+				isMouseDragging = false;
 			}
 		}
 	}
@@ -312,7 +388,7 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 	isButtonBeingClicked = false;
 }
 
-void LogicInterface::SetExecuteHandler(CFunctionPointer1R<bool, std::vector<logicBlock*>> clickHandler)
+void LogicInterface::SetExecuteHandler(CFunctionPointer3R<bool, std::vector<logicBlock*>, std::vector<logicBlock*>, std::vector<logicBlock*>> clickHandler)
 {
 	mExecuteHandler = clickHandler;
 }
@@ -387,7 +463,7 @@ bool LogicInterface::ExecuteButtonClick()
 {
 	if(mExecuteHandler)
 	{
-		return mExecuteHandler(executionList);
+		return mExecuteHandler(executionList, executionListSub1, executionListSub2);
 	}
 	return false;
 }
@@ -415,6 +491,10 @@ void LogicInterface::ClearExecutionList()
 {
 	executionList.clear();
 	executionList.push_back(GameVars->getPlaceInstructionBlock());
+	executionListSub1.clear();
+	executionListSub1.push_back(GameVars->getPlaceInstructionBlock());
+	executionListSub2.clear();
+	executionListSub2.push_back(GameVars->getPlaceInstructionBlock());
 }
 
 //============================================

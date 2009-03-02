@@ -1180,7 +1180,7 @@ void gameBoard::keepRobotOnTheBoard()
 	if(robotY >= Height)	robotY = Height-1;
 }
 
-bool gameBoard::interfaceHasFiredExecuteOrder(std::vector<logicBlock*> executionList)
+bool gameBoard::interfaceHasFiredExecuteOrder(std::vector<logicBlock*> executionList, std::vector<logicBlock*> executionListSub1, std::vector<logicBlock*> executionListSub2)
 {
 	// reset the map
 	/*for(int x = 0; x < Width; x++)
@@ -1191,6 +1191,20 @@ bool gameBoard::interfaceHasFiredExecuteOrder(std::vector<logicBlock*> execution
 		}
 	}*/
 	resetMap();
+
+	SUB1->clearInstructions();
+	std::vector<logicBlock*>::iterator sItr = executionListSub1.begin();
+	for(; sItr != executionListSub1.end(); sItr++)
+	{
+		SUB1->addCommand(*sItr);
+	}
+
+	SUB2->clearInstructions();
+	sItr = executionListSub2.begin();
+	for(; sItr != executionListSub2.end(); sItr++)
+	{
+		SUB2->addCommand(*sItr);
+	}
 
 	// Find the robot
 	std::vector<object*>::iterator oitr = objectList.begin();

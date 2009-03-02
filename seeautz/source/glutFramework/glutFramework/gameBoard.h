@@ -127,7 +127,7 @@ public:
 	void teleporterCheck();
 	void keepRobotOnTheBoard();
 	void playSound();
-	bool interfaceHasFiredExecuteOrder(std::vector<logicBlock*> executionList);
+	bool interfaceHasFiredExecuteOrder(std::vector<logicBlock*> executionList, std::vector<logicBlock*> executionListSub1, std::vector<logicBlock*> executionListSub2);
 	bool interfaceHasFiredAbortOrder();
 
 	GameBoardState getCurState();							// returns the current state of the gameBoard
