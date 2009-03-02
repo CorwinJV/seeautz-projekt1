@@ -303,12 +303,11 @@ void gameBoard::initialize()
 	imageWidth = imageBaseWidth *scale;
 	imageHeight = imageBaseHeight *scale;
 
-
 	imageWidth *= scale;
 	imageHeight *= scale;
 
 	screenWidth = 1024;
-	screenHeight = 600;
+	screenHeight = 550;
 
 	screenEdge = 0.03;
 	moveSpeed = scale * 0.1;
@@ -317,7 +316,6 @@ void gameBoard::initialize()
 
 	overallWidth = (Height + Width) * hw;
 	overallHeight = (Height + Width) * hh;
-
 
 	centerX = (int)((Width+1)/2);
 	centerY = (int)((Height+1)/2);
