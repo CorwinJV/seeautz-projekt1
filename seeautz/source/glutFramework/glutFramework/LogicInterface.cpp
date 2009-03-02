@@ -9,7 +9,7 @@ LogicInterface::LogicInterface()
 		logicBankNumColumns(4), logicBankNumRowsOnScreen(3), 
 		instructionListNumColumns(8), instructionListNumRowsOnScreen(3),
 		mouseX(0), mouseY(0), currentHoverBlockIndex(-1),
-		curInstrTab(TAB_MAIN)
+		curInstrTab(TAB_MAIN), isExecuting(false), resetMenu(NULL)
 {
 	//sideBarBox.width = 150;
 	//sideBarBox.height = 618;
@@ -54,10 +54,6 @@ LogicInterface::LogicInterface()
 	myMenu->setLastButtonDimensions(100, 50);
 	myMenu->setLastButtonPosition(instructionListBox.x + instructionListBox.width +  100, logicBankBox.y);
 
-	myMenu->addButton("buttons\\abort.png", "buttons\\abort.png", "buttons\\abort.png", BE::CreateFunctionPointer0R(this, &LogicInterface::AbortButtonClick));
-	myMenu->setLastButtonDimensions(100, 50);
-	myMenu->setLastButtonPosition(instructionListBox.x + instructionListBox.width +  100, bottomBarBox.y + 100);
-
 	myMenu->addButton("buttons\\tabmain.png", "buttons\\tabmain.png", "buttons\\tabmain.png", BE::CreateFunctionPointer0R(this, &LogicInterface::MainTabButtonClick));
 	myMenu->setLastButtonDimensions(100, 25);
 	myMenu->setLastButtonPosition(instructionListBox.x, instructionListBox.y - 25);
@@ -69,6 +65,16 @@ LogicInterface::LogicInterface()
 	myMenu->addButton("buttons\\tabsub2.png", "buttons\\tabsub2.png", "buttons\\tabsub2.png", BE::CreateFunctionPointer0R(this, &LogicInterface::Sub2TabButtonClick));
 	myMenu->setLastButtonDimensions(100, 25);
 	myMenu->setLastButtonPosition(instructionListBox.x + 200, instructionListBox.y - 25);
+
+	resetMenu = new MenuSys(0, 0, "blank.png", None);
+	resetMenu->addButton("buttons\\reset.png", "buttons\\reset.png", "buttons\\reset.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ResetButtonClick));
+	resetMenu->setLastButtonDimensions(100, 50);
+	resetMenu->setLastButtonPosition(instructionListBox.x + instructionListBox.width +  100, logicBankBox.y + 70);
+
+	executingMenu = new MenuSys(0, 0, "blank.png", None);
+	executingMenu->addButton("buttons\\abort.png", "buttons\\abort.png", "buttons\\abort.png", BE::CreateFunctionPointer0R(this, &LogicInterface::AbortButtonClick));
+	executingMenu->setLastButtonDimensions(100, 50);
+	executingMenu->setLastButtonPosition(instructionListBox.x + instructionListBox.width +  100, logicBankBox.y);
 
 
 	//=============================================
@@ -90,7 +96,9 @@ LogicInterface::LogicInterface()
 
 void LogicInterface::Update()
 {
+	resetMenu->Update();
 	myMenu->Update();
+	executingMenu->Update();
 
 	// Hover Over Stuff
 	currentHoverBlockIndex = -1;
@@ -237,8 +245,10 @@ void LogicInterface::Draw()
 
 	//=============================================
 	// Menu Buttons (For scrolling and shizz)
+	resetMenu->Draw();
 	myMenu->Draw();
-
+	if(isExecuting == true)
+		executingMenu->Draw();
 
 	//=============================================
 	// Dragged Block
@@ -294,8 +304,11 @@ void LogicInterface::processMouse(int x, int y)
 	mouseY = y;
 
 	// Menu buttons
+	resetMenu->processMouse(x, y);
 	myMenu->processMouse(x, y);
-
+	if(isExecuting == true)
+		executingMenu->processMouse(x, y);
+	
 	// Dragging the block
 	if(isMouseDragging == true
 		&& draggedBlock != NULL)
@@ -308,7 +321,12 @@ void LogicInterface::processMouse(int x, int y)
 void LogicInterface::processMouseClick(int button, int state, int x, int y)
 {
 	// Menu buttons
-	myMenu->processMouseClick(button, state, x, y);
+	resetMenu->processMouseClick(button, state, x, y);
+
+	if(isExecuting == true)
+		executingMenu->processMouseClick(button, state, x, y);
+	else if(isExecuting == false)
+		myMenu->processMouseClick(button, state, x, y);
 
 	// Click & Drag
 	// When the user clicks, we want them to be able to select an
@@ -481,6 +499,11 @@ void LogicInterface::SetAbortHandler(CFunctionPointer0R<bool> clickHandler)
 	mAbortHandler = clickHandler;
 }
 
+void LogicInterface::SetResetHandler(CFunctionPointer0R<bool> resetHandler)
+{
+	mResetHandler = resetHandler;
+}
+
 //============================================
 // LogicBank Arrow Callback
 bool LogicInterface::LogicBankUpArrowButtonClick()
@@ -544,9 +567,13 @@ bool LogicInterface::ExecutionListDownArrowButtonClick()
 // Execute Button Callback
 bool LogicInterface::ExecuteButtonClick()
 {
-	if(mExecuteHandler)
-	{
-		return mExecuteHandler(executionList, executionListSub1, executionListSub2);
+	if(executionList.size() > 1)
+	{		
+		if(mExecuteHandler)
+		{
+			isExecuting = true;
+			return mExecuteHandler(executionList, executionListSub1, executionListSub2);
+		}
 	}
 	return false;
 }
@@ -586,6 +613,7 @@ void LogicInterface::ClearExecutionList()
 // Abort Button Callback
 bool LogicInterface::AbortButtonClick()
 {
+	isExecuting = false;
 	if(mAbortHandler)
 	{
 		return mAbortHandler();
@@ -593,5 +621,17 @@ bool LogicInterface::AbortButtonClick()
 	return false;
 }
 
+//============================================
+// Reset Button Callback
+bool LogicInterface::ResetButtonClick()
+{
+	ClearExecutionList();
+	isExecuting = false;
+	if(mResetHandler)
+	{
+		return mResetHandler();
+	}
+	return false;
+}
 
 

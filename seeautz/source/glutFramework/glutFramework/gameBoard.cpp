@@ -1247,6 +1247,36 @@ bool gameBoard::interfaceHasFiredAbortOrder()
 	return false;
 }
 
+bool gameBoard::interfaceHasFiredResetOrder()
+{
+	curState = GB_LOGICVIEW;
+	
+	resetMap();
+
+	SUB1->clearInstructions();
+	SUB2->clearInstructions();
+
+	// Find the robot
+	std::vector<object*>::iterator oitr = objectList.begin();
+
+	for(;oitr != objectList.end(); oitr++)
+	{
+		if((*oitr)->getType() == ORobot)
+		{
+			(*oitr)->reset();
+			(*oitr)->setAlive(true);
+			robotAlive = true;
+			robotX = robotStartX;
+			robotY = robotStartY;
+			currentX = robotX;
+			currentY = robotY;
+			
+			(*oitr)->clearInstructions();			
+		}
+	}
+	return false;
+}
+
 
 bool gameBoard::RCcanRobotLeaveSquare(int direction)
 {
