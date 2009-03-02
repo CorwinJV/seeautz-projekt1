@@ -77,9 +77,9 @@ LogicInterface::LogicInterface()
 	menuBar->loadImage("blankmenu.png", 1024, 768);
 
 	logicBank = GameVars->getAllLogicBlocks();
-	executionList.push_back(GameVars->getPlaceInstructionBlock());
-	executionListSub1.push_back(GameVars->getPlaceInstructionBlock());
-	executionListSub2.push_back(GameVars->getPlaceInstructionBlock());
+	executionList.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
+	executionListSub1.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
+	executionListSub2.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
 	draggedBlock = NULL;
 
 	logicBankYOffset = 0;
@@ -226,12 +226,6 @@ void LogicInterface::Draw()
 	}
 
 	//=============================================
-	// Dragged Block
-	if(draggedBlock != NULL)
-	{
-		draggedBlock->blockTexture->drawImage(instructionBlockW, instructionBlockH);
-	}
-	//=============================================
 	// Menu Bars (Behind Scroll Buttons)
 	menuBar->mX = logicBankBox.x + logicBankBox.width;
 	menuBar->mY = logicBankBox.y;
@@ -245,6 +239,13 @@ void LogicInterface::Draw()
 	// Menu Buttons (For scrolling and shizz)
 	myMenu->Draw();
 
+
+	//=============================================
+	// Dragged Block
+	if(draggedBlock != NULL)
+	{
+		draggedBlock->blockTexture->drawImage(instructionBlockW, instructionBlockH);
+	}
 
 	//=============================================
 	// Hover Over Screen Tipz0rz
@@ -331,6 +332,10 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 		}
 	}
 
+
+	//=====================================
+	// Dropping the instruction block into 
+	// the correct tabbed execution list
 	if(button == GLUT_LEFT
 		&& state == GLUT_UP)
 	{
@@ -339,11 +344,11 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 		{
 			if(curInstrTab == TAB_MAIN)
 			{
-				if(GameVars->getPlaceInstructionBlock()->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+				if(executionList.back()->checkInBounds(x, y, instructionBlockW, instructionBlockH))
 				{
 					executionList.pop_back();
 					executionList.push_back(new logicBlock(*(draggedBlock)));
-					executionList.push_back(GameVars->getPlaceInstructionBlock());
+					executionList.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
 					delete draggedBlock;
 					draggedBlock = NULL;
 				}
@@ -354,11 +359,11 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 			}
 			else if(curInstrTab == TAB_SUB1)
 			{
-				if(GameVars->getPlaceInstructionBlock()->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+				if(executionListSub1.back()->checkInBounds(x, y, instructionBlockW, instructionBlockH))
 				{
 					executionListSub1.pop_back();
 					executionListSub1.push_back(new logicBlock(*(draggedBlock)));
-					executionListSub1.push_back(GameVars->getPlaceInstructionBlock());
+					executionListSub1.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
 					delete draggedBlock;
 					draggedBlock = NULL;
 				}
@@ -369,11 +374,11 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 			}
 			else if(curInstrTab == TAB_SUB2)
 			{
-				if(GameVars->getPlaceInstructionBlock()->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+				if(executionListSub2.back()->checkInBounds(x, y, instructionBlockW, instructionBlockH))
 				{
 					executionListSub2.pop_back();
 					executionListSub2.push_back(new logicBlock(*(draggedBlock)));
-					executionListSub2.push_back(GameVars->getPlaceInstructionBlock());
+					executionListSub2.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
 					delete draggedBlock;
 					draggedBlock = NULL;
 				}
@@ -381,6 +386,84 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 				delete draggedBlock;
 				draggedBlock = NULL;
 				isMouseDragging = false;
+			}
+		}
+	}
+
+	//===============================
+	// Pulling an instruction block 
+	// out of one of the execution 
+	// lists.
+	if(button == GLUT_LEFT
+		&& state == GLUT_DOWN)
+	{
+		if(curInstrTab == TAB_MAIN)
+		{
+			if(isButtonBeingClicked == false)
+			{
+				// If the left mouse button is down
+				std::vector<logicBlock*>::reverse_iterator itr = executionList.rbegin();
+				for(; itr != executionList.rend(); itr++)
+				{
+					if((*itr)->enumInstruction != DO_NOT_PROCESS)
+					{
+						if((*itr)->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+						{
+							draggedBlock = new logicBlock(*(*itr));
+							isMouseDragging = true;
+
+							delete (*itr);
+							executionList.erase(itr.base() - 1);
+							break;
+						}
+					}
+				}
+			}
+		}
+		else if(curInstrTab == TAB_SUB1)
+		{
+			if(isButtonBeingClicked == false)
+			{
+				// If the left mouse button is down
+				std::vector<logicBlock*>::reverse_iterator itr = executionListSub1.rbegin();
+				for(; itr != executionListSub1.rend(); itr++)
+				{
+					if((*itr)->enumInstruction != DO_NOT_PROCESS)
+					{
+						if((*itr)->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+						{
+							draggedBlock = new logicBlock(*(*itr));
+							isMouseDragging = true;
+
+							delete (*itr);
+							executionListSub1.erase(itr.base() - 1);
+							break;
+						}
+					}
+				}
+			}
+		}
+		else if(curInstrTab == TAB_SUB2)
+		{
+			if(isButtonBeingClicked == false)
+			{
+				// If the left mouse button is down
+				std::vector<logicBlock*>::reverse_iterator itr = executionListSub2.rbegin();
+				for(; itr != executionListSub2.rend(); itr++)
+				{
+					if((*itr)->enumInstruction != DO_NOT_PROCESS)
+					{
+						if((*itr)->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+						{
+							draggedBlock = new logicBlock(*(*itr));
+							isMouseDragging = true;
+
+							delete (*itr);
+							executionListSub2.erase(itr.base() - 1);
+							break;
+						}
+					}
+				}
 			}
 		}
 	}
@@ -490,11 +573,13 @@ bool LogicInterface::Sub2TabButtonClick()
 void LogicInterface::ClearExecutionList()
 {
 	executionList.clear();
-	executionList.push_back(GameVars->getPlaceInstructionBlock());
+	executionList.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
+	
 	executionListSub1.clear();
-	executionListSub1.push_back(GameVars->getPlaceInstructionBlock());
+	executionListSub1.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
+
 	executionListSub2.clear();
-	executionListSub2.push_back(GameVars->getPlaceInstructionBlock());
+	executionListSub2.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
 }
 
 //============================================
