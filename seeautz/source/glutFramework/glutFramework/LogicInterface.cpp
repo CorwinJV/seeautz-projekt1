@@ -312,7 +312,8 @@ void LogicInterface::Draw()
 	// Dragged Block
 	if(draggedBlock != NULL)
 	{
-		draggedBlock->blockTexture->drawImage(instructionBlockW, instructionBlockH);
+		//draggedBlock->blockTexture->drawImage(instructionBlockW, instructionBlockH);
+		draggedBlock->blockTexture->drawImageSegment((double)0/3, 0, (double)1/3, 0, (double)0/3, 1, (double)1/3, 1, 1, instructionBlockW, instructionBlockH);
 	}
 
 	//=============================================
@@ -423,7 +424,7 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 				if(executionList.back()->checkInBounds(x, y, instructionBlockW, instructionBlockH))
 				{
 					executionList.pop_back();
-					executionList.push_back(new logicBlock(*(draggedBlock)));
+					executionList.push_back(new logicBlock(*(draggedBlock)));					
 					executionList.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
 					delete draggedBlock;
 					draggedBlock = NULL;

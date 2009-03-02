@@ -53,7 +53,8 @@ struct logicBlock
 		instructionList = p.instructionList;
 		byteCost = p.byteCost;
 		enumInstruction = p.enumInstruction;
-		curButtonState = BS_INACTIVE;
+		//curButtonState = BS_INACTIVE;
+		curButtonState = BS_ACTIVE;
 	}
 
 	void addInstruction(AiInstructions instr)
