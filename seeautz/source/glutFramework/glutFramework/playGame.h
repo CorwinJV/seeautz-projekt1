@@ -29,6 +29,7 @@ private:
 	int preGameTextOffsetX;
 	int preGameTextOffsetY;
 	int preGameTextSpacing;
+	int playerScore;
 
 public:
 	playGame();
@@ -47,6 +48,7 @@ public:
 	void processMouseClick(int button, int state, int x, int y);
 	void keyboardInput(unsigned char c, int x, int y);
 	void doEndGameDraw();
+	void levelSelect();
 	LogicInterface mInterface;
 
 };
