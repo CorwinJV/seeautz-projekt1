@@ -68,7 +68,7 @@ bool oglGameVars::SavePlayerGame(string playerGame)
 	if(level > playerMaxLevel)
 		playerMaxLevel = level;
 
-	//GameVars->setPlayerMaxLevel(level);
+	GameVars->setPlayerMaxLevel(level);
 
 	score = GameVars->getTotalScore();
 
@@ -86,6 +86,8 @@ bool oglGameVars::LoadPlayerGame(string playerGame)
 	cout << "Loading Game...: " << playerGame <<std::endl;
 	ifstream PlayerInfo;
 	string tempString;
+	int score;
+	int level;
 
 	tempString = "savedGames\\";
 	tempString += playerGame.c_str();
@@ -96,6 +98,11 @@ bool oglGameVars::LoadPlayerGame(string playerGame)
 	PlayerInfo.open(tempString.c_str());
 
 	// code for loading player stats here
+	PlayerInfo >> level;
+	GameVars->setPlayerMaxLevel(level);
+
+	PlayerInfo >> score;
+	GameVars->setTotalScore(score);
 
 	PlayerInfo.close();
 	
