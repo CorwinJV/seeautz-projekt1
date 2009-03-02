@@ -25,13 +25,17 @@ LogicInterface::LogicInterface()
 
 	logicBankBox.width = instructionSpacing  + ((instructionSpacing  + instructionBlockW)* logicBankNumColumns);
 	logicBankBox.height = bottomBarBox.height - 20;
-	logicBankBox.x = bottomBarBox.x + 40;
-	logicBankBox.y = bottomBarBox.y + 25;
+	//logicBankBox.x = bottomBarBox.x + 40;
+	//logicBankBox.y = bottomBarBox.y + 25;
+	logicBankBox.x = 67;
+	logicBankBox.y = 584;
 
 	instructionListBox.width = instructionSpacing + ((instructionSpacing + instructionBlockW) * instructionListNumColumns);
 	instructionListBox.height = logicBankBox.height;
-	instructionListBox.x = logicBankBox.x + logicBankBox.width + 50;
-	instructionListBox.y = logicBankBox.y;
+	//instructionListBox.x = logicBankBox.x + logicBankBox.width + 50;
+	//instructionListBox.y = logicBankBox.y;
+	instructionListBox.x = 340;
+	instructionListBox.y = 586;
 
 	//=============================================
 	// Menu buttons (scrolling the instruction lists)
@@ -54,7 +58,7 @@ LogicInterface::LogicInterface()
 
 	myMenu->addButton("buttons\\execute.png", "buttons\\execute.png", "buttons\\execute.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ExecuteButtonClick));
 	myMenu->setLastButtonDimensions(100, 50);
-	myMenu->setLastButtonPosition(instructionListBox.x + instructionListBox.width +  100, logicBankBox.y);
+	myMenu->setLastButtonPosition(instructionListBox.x+45 + instructionListBox.width +  100, logicBankBox.y+25);
 
 	myMenu->addButton("buttons\\tabmain.png", "buttons\\tabmain.png", "buttons\\tabmain.png", BE::CreateFunctionPointer0R(this, &LogicInterface::MainTabButtonClick));
 	myMenu->setLastButtonDimensions(100, 25);
@@ -71,18 +75,23 @@ LogicInterface::LogicInterface()
 	resetMenu = new MenuSys(0, 0, "blank.png", None);
 	resetMenu->addButton("buttons\\reset.png", "buttons\\reset.png", "buttons\\reset.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ResetButtonClick));
 	resetMenu->setLastButtonDimensions(100, 50);
-	resetMenu->setLastButtonPosition(instructionListBox.x + instructionListBox.width +  100, logicBankBox.y + 70);
+	resetMenu->setLastButtonPosition(instructionListBox.x +45+ instructionListBox.width +  100, logicBankBox.y + 70 +15);
 
 	executingMenu = new MenuSys(0, 0, "blank.png", None);
 	executingMenu->addButton("buttons\\abort.png", "buttons\\abort.png", "buttons\\abort.png", BE::CreateFunctionPointer0R(this, &LogicInterface::AbortButtonClick));
 	executingMenu->setLastButtonDimensions(100, 50);
-	executingMenu->setLastButtonPosition(instructionListBox.x + instructionListBox.width +  100, logicBankBox.y);
+	executingMenu->setLastButtonPosition(instructionListBox.x +45 + instructionListBox.width +  100, logicBankBox.y+25);
 
+	newToolBar = new oglTexture2D();
+	newToolBar->loadImage("newToolBar.png", 1024, 768);
+	newToolBar->mX = 0;
+	newToolBar->mY = 0;
 
 	//=============================================
 	// All other initialization
 	menuBar = new oglTexture2D();
-	menuBar->loadImage("blankmenu.png", 1024, 768);
+	//menuBar->loadImage("blankmenu.png", 1024, 768);
+	menuBar->loadImage("blank.png", 1024, 768);
 
 	logicBank = GameVars->getAllLogicBlocks();
 	executionList.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
@@ -118,6 +127,7 @@ void LogicInterface::Update()
 
 void LogicInterface::Draw()
 {
+	newToolBar->drawImage();
 	std::vector<logicBlock*>::iterator itr = executionList.begin();
 
 	//=============================================

@@ -50,6 +50,7 @@ private:
 	bool isExecuting;
 
 	oglTexture2D* menuBar;
+	oglTexture2D* newToolBar;
 
 	int mouseX;
 	int mouseY;
