@@ -285,6 +285,9 @@ bool playGame::initialize()
 	tempLevel = new levelData("Tutorial 7", "Complete Tutorial", "maps\\tutorialMap7.txt");
 	levelList.push_back(tempLevel);
 
+	tempLevel = new levelData("Map 1", "Map #1", "maps\\Map1.txt");
+	levelList.push_back(tempLevel);
+
 	tempLevel = new levelData("Map 2", "Map #2", "maps\\Map2.txt");
 	levelList.push_back(tempLevel);
 
@@ -325,11 +328,9 @@ bool playGame::initialize()
 	GameVars->setMaxLevel(levelList.size());
 
 	gamePlay = new gameBoard();
-<<<<<<< .mine
-	GameVars->setLevel(9);
-=======
-	GameVars->setLevel(6);
->>>>>>> .r242
+
+	GameVars->setLevel(8);
+
 	gamePlay->LoadGameMapFromFile(levelList[GameVars->getCurrentLevel()]->getFile());
 
 	//=====================================================
