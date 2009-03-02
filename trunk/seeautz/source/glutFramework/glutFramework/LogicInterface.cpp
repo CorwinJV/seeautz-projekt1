@@ -9,7 +9,9 @@ LogicInterface::LogicInterface()
 		logicBankNumColumns(4), logicBankNumRowsOnScreen(3), 
 		instructionListNumColumns(8), instructionListNumRowsOnScreen(3),
 		mouseX(0), mouseY(0), currentHoverBlockIndex(-1),
-		curInstrTab(TAB_MAIN), isExecuting(false), resetMenu(NULL)
+		curInstrTab(TAB_MAIN), isExecuting(false), resetMenu(NULL),
+		curExecutionListYOffset(NULL), executionListYOffset(0), 
+		executionListSub1YOffset(0), executionListSub2YOffset(0)
 {
 	//sideBarBox.width = 150;
 	//sideBarBox.height = 618;
@@ -151,7 +153,9 @@ void LogicInterface::Draw()
 
 			(*itr)->blockTexture->mX = instructionListBox.x + (instructionSpacing * columnIndex) + (instructionBlockW * columnIndex);
 			(*itr)->blockTexture->mY = executionListYOffset + ((instructionListBox.y + instructionSpacing) + (rowCount * instructionBlockH) + (rowCount * instructionSpacing));
-			(*itr)->blockTexture->drawImage(instructionBlockW, instructionBlockH);
+			if((*itr)->blockTexture->mY >= instructionListBox.y
+				&& (*itr)->blockTexture->mY <= instructionListBox.y + instructionListBox.height - (instructionSpacing + instructionBlockH))
+				(*itr)->blockTexture->drawImage(instructionBlockW, instructionBlockH);
 
 			columnIndex++;
 			if(columnIndex >= instructionListNumColumns)
@@ -175,9 +179,11 @@ void LogicInterface::Draw()
 			}
 
 			(*itr)->blockTexture->mX = instructionListBox.x + (instructionSpacing * columnIndex) + (instructionBlockW * columnIndex);
-			(*itr)->blockTexture->mY = executionListYOffset + ((instructionListBox.y + instructionSpacing) + (rowCount * instructionBlockH) + (rowCount * instructionSpacing));
-			(*itr)->blockTexture->drawImage(instructionBlockW, instructionBlockH);
-
+			(*itr)->blockTexture->mY = executionListSub1YOffset + ((instructionListBox.y + instructionSpacing) + (rowCount * instructionBlockH) + (rowCount * instructionSpacing));
+			if((*itr)->blockTexture->mY >= instructionListBox.y
+				&& (*itr)->blockTexture->mY <= instructionListBox.y + instructionListBox.height - (instructionSpacing + instructionBlockH))
+				(*itr)->blockTexture->drawImage(instructionBlockW, instructionBlockH);
+						
 			columnIndex++;
 			if(columnIndex >= instructionListNumColumns)
 				columnIndex = 0;
@@ -200,8 +206,10 @@ void LogicInterface::Draw()
 			}
 
 			(*itr)->blockTexture->mX = instructionListBox.x + (instructionSpacing * columnIndex) + (instructionBlockW * columnIndex);
-			(*itr)->blockTexture->mY = executionListYOffset + ((instructionListBox.y + instructionSpacing) + (rowCount * instructionBlockH) + (rowCount * instructionSpacing));
-			(*itr)->blockTexture->drawImage(instructionBlockW, instructionBlockH);
+			(*itr)->blockTexture->mY = executionListSub2YOffset + ((instructionListBox.y + instructionSpacing) + (rowCount * instructionBlockH) + (rowCount * instructionSpacing));
+			if((*itr)->blockTexture->mY >= instructionListBox.y
+				&& (*itr)->blockTexture->mY <= instructionListBox.y + instructionListBox.height - (instructionSpacing + instructionBlockH))
+				(*itr)->blockTexture->drawImage(instructionBlockW, instructionBlockH);
 
 			columnIndex++;
 			if(columnIndex >= instructionListNumColumns)
@@ -539,10 +547,23 @@ bool LogicInterface::LogicBankDownArrowButtonClick()
 // ExecutionList Up Arrow Callback
 bool LogicInterface::ExecutionListUpArrowButtonClick()
 {
+	if(curInstrTab == TAB_MAIN)
+	{
+		curExecutionListYOffset = &executionListYOffset;
+	}
+	else if(curInstrTab == TAB_SUB1)
+	{
+		curExecutionListYOffset = &executionListSub1YOffset;
+	}
+	else if(curInstrTab == TAB_SUB2)
+	{
+		curExecutionListYOffset = &executionListSub2YOffset;
+	}
+
 	isButtonBeingClicked = true;
-	executionListYOffset += 50;
-	if(executionListYOffset > 0)
-		executionListYOffset = 0;
+	(*curExecutionListYOffset) += (instructionSpacing + instructionBlockH);
+	if((*curExecutionListYOffset) > 0)
+		(*curExecutionListYOffset) = 0;
 
 	return true;
 }
@@ -551,14 +572,37 @@ bool LogicInterface::ExecutionListUpArrowButtonClick()
 // ExecutionList Down Arrow Callback
 bool LogicInterface::ExecutionListDownArrowButtonClick()
 {
-	int i = executionList.size();
-	int overallHeight = (instructionListBox.y + instructionSpacing) + ((i / instructionListNumRowsOnScreen) * instructionBlockH) + ((i / instructionListNumRowsOnScreen) * instructionSpacing);
+	std::vector<logicBlock*>* curExecutionList = NULL;
+	if(curInstrTab == TAB_MAIN)
+	{
+		curExecutionListYOffset = &executionListYOffset;
+		curExecutionList = &executionList;
+	}
+	else if(curInstrTab == TAB_SUB1)
+	{
+		curExecutionListYOffset = &executionListSub1YOffset;
+		curExecutionList = &executionListSub1;
+	}
+	else if(curInstrTab == TAB_SUB2)
+	{
+		curExecutionListYOffset = &executionListSub2YOffset;
+		curExecutionList = &executionListSub2;
+	}
+
+	int i = (*curExecutionList).size();
+	int numRows = i / instructionListNumColumns;
+	if((i % instructionListNumColumns) > 0)
+		numRows++;
+	//int overallHeight = (instructionSpacing) + ((i / instructionListNumRowsOnScreen) * instructionBlockH) + ((i / instructionListNumRowsOnScreen) * instructionSpacing);
+	int overallHeight = instructionSpacing + (numRows *  instructionBlockH) + (numRows * instructionSpacing);
 	isButtonBeingClicked = true;
 
-	executionListYOffset -= 50;
-	if(executionListYOffset + overallHeight < instructionListBox.y + instructionListBox.height)
+	(*curExecutionListYOffset) -= (instructionSpacing + instructionBlockH);
+	int cmp1 = (*curExecutionListYOffset) + overallHeight;
+	int cmp2 = instructionListBox.height;
+	if((*curExecutionListYOffset) + overallHeight < instructionListBox.height - 50)
 	{
-		executionListYOffset += 50;
+		(*curExecutionListYOffset) += (instructionSpacing + instructionBlockH);
 	}
 	return true;
 }
