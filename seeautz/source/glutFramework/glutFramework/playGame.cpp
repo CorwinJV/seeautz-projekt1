@@ -120,6 +120,7 @@ bool playGame::Update()
 		// Register the gameBoard callback with the interface!
 		mInterface.SetExecuteHandler(BE::CreateFunctionPointer3R(gamePlay, &gameBoard::interfaceHasFiredExecuteOrder));
 		mInterface.SetAbortHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredAbortOrder));
+		mInterface.SetResetHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredResetOrder));
 		gamePlay->setState(curState);
 		pregameRunning = false;
 		break;
@@ -309,6 +310,7 @@ bool playGame::initialize()
 	// Register the gameBoard callback with the interface!
 	mInterface.SetExecuteHandler(BE::CreateFunctionPointer3R(gamePlay, &gameBoard::interfaceHasFiredExecuteOrder));
 	mInterface.SetAbortHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredAbortOrder));
+	mInterface.SetResetHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredResetOrder));
 
 	
 	gamePlay->setState(GB_PREGAME);
