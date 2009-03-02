@@ -93,47 +93,23 @@ protected:
 	bool processSub(int whichSub);
 	bool delayAdvance;
 
-private:
-	GameBoardState curState;
-
-public:
-	gameBoard();
-	gameBoard(int nwidth, int nheight);
-	~gameBoard();
-	//bool resizeBoard(int x, int y);
 	bool moveTile(int sX, int sY, int dX, int dY);
-	bool update();
-	bool draw();
 	bool drawTile(tileTypeEnum ntype, int txPos, int tyPos, double scale, bool isActive);
 	bool drawObject(int objectType, int txPos, int tyPos, double scale);
 	bool setTileType(int x, int y, tileTypeEnum ntileType);
 	tileTypeEnum getTileType(int x, int y);	
 	void initialize();
 	void cleanup();
-	bool LoadGameMapFromFile(std::string filename);
 	bool setOffsets(int x, int y);
 	bool setScale(double newScale);
-	void setState(GameBoardState state);
 	double getScale();
-	// bool addentity
-	void processMouse(int x, int y);
-	void processMouseClick(int button, int state, int x, int y);
-	void mapScroll();
 	void verifyMapPosition();
 	void recalcPositions();
-	void keyboardInput(unsigned char c, int x, int y);
 	bool resetMap();
 	void processRobot();
-	bool robotAtEndSquare();
 	void teleporterCheck();
 	void keepRobotOnTheBoard();
 	void playSound();
-	bool interfaceHasFiredExecuteOrder(std::vector<logicBlock*> executionList, std::vector<logicBlock*> executionListSub1, std::vector<logicBlock*> executionListSub2);
-	bool interfaceHasFiredAbortOrder();
-	bool interfaceHasFiredResetOrder();
-
-	GameBoardState getCurState();							// returns the current state of the gameBoard
-	
 	bool RCcanRobotLeaveSquare(int direction);		        // can the robot leave this square in the direction it is facing
 	bool RCwillRobotDieTryingToLeaveSquare(int direction);  // will the robot die trying to leave this square in the direction it is facing (regardless of if it can actually leave)
 	bool RCwillRobotDieStayingHere();						// will the robot die by standing in this square
@@ -144,7 +120,32 @@ public:
 	void RCclimb();											// climb up a level or climb over a halfwall
 	void RCpunch();							
 	void RCactivate();
-	
+
+private:
+	GameBoardState curState;
+
+public:
+	gameBoard();
+	gameBoard(int nwidth, int nheight);
+	~gameBoard();
+	//bool resizeBoard(int x, int y);
+	bool update();
+	bool draw();
+	bool LoadGameMapFromFile(std::string filename);
+	void setState(GameBoardState state);
+
+	// bool addentity
+	void processMouse(int x, int y);
+	void processMouseClick(int button, int state, int x, int y);
+	void mapScroll();
+	void keyboardInput(unsigned char c, int x, int y);
+	bool robotAtEndSquare();
+		
+	bool interfaceHasFiredExecuteOrder(std::vector<logicBlock*> executionList, std::vector<logicBlock*> executionListSub1, std::vector<logicBlock*> executionListSub2);
+	bool interfaceHasFiredAbortOrder();
+	bool interfaceHasFiredResetOrder();
+
+	GameBoardState getCurState();							// returns the current state of the gameBoard	
 };
 
 #endif

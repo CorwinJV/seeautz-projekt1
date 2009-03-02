@@ -11,9 +11,6 @@
 #include "GLFT_Font.h"
 #include <ctime>
 
-// font crap
-
-
 using namespace std;
 
 gameBoard::gameBoard() : curState(GB_LOGICVIEW)
