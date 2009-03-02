@@ -53,6 +53,7 @@ protected:
 	int robotStartY;
 	int robotReprogramX;
 	int robotReprogramY;
+
 	bool didWeJustTeleport;
 	bool robotAlive;
 

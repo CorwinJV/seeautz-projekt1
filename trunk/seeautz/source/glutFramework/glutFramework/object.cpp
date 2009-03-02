@@ -165,3 +165,10 @@ void object::reset()
 	yPos = startYPos;
 	direction = startDirection;
 }
+
+void object::setDefaults(int direction, int x, int y)
+{
+	startXPos = x;
+	startYPos = y;
+	startDirection = direction;
+}

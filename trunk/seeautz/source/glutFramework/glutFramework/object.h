@@ -55,6 +55,7 @@ public:
 	virtual void	setAlive(bool status);
 	virtual bool	getAlive();
 	virtual void	reset();
+	virtual void	setDefaults(int direction, int x, int y);
 };
 
 #endif
