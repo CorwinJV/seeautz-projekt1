@@ -307,8 +307,8 @@ bool playGame::initialize()
 	tempLevel = new levelData("Map 7", "7 #7", "maps\\Map7.txt");
 	levelList.push_back(tempLevel);
 
-	//tempLevel = new levelData("Map 8", "H2O #8", "maps\\Map8.txt");
-	//levelList.push_back(tempLevel);
+	tempLevel = new levelData("Map 8", "H2O #8", "maps\\Map8.txt");
+	levelList.push_back(tempLevel);
 
 	//tempLevel = new levelData("Map 10", "Breakable #10", "maps\\Map10.txt");
 	//levelList.push_back(tempLevel);
@@ -333,7 +333,7 @@ bool playGame::initialize()
 
 	gamePlay = new gameBoard();
 
-	GameVars->setLevel(8);
+	GameVars->setLevel(15);
 
 	gamePlay->LoadGameMapFromFile(levelList[GameVars->getCurrentLevel()]->getFile());
 
