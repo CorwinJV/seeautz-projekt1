@@ -7,6 +7,13 @@
 #include <string>
 #include "aiInstructionEnums.h"
 
+enum logicBlockState
+{
+	BS_INACTIVE,
+	BS_ACTIVE,
+	BS_HIGHLIGHTED
+};
+
 	//===============================================
 	// logicBlock
 	// This struct defines a container for a texture
@@ -30,6 +37,7 @@ struct logicBlock
 		blockDescription = description;
 		logicBlock::byteCost = byteCost;
 		logicBlock::enumInstruction = enumInstruction;
+		curButtonState = BS_INACTIVE;
 	}
 	~logicBlock()
 	{
@@ -45,6 +53,7 @@ struct logicBlock
 		instructionList = p.instructionList;
 		byteCost = p.byteCost;
 		enumInstruction = p.enumInstruction;
+		curButtonState = BS_INACTIVE;
 	}
 
 	void addInstruction(AiInstructions instr)
@@ -67,6 +76,7 @@ struct logicBlock
 	std::vector<AiInstructions>			instructionList;
 	int									byteCost;
 	AiInstructions						enumInstruction;
+	logicBlockState						curButtonState;
 };
 
 #endif

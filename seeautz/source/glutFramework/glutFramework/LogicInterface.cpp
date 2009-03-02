@@ -155,7 +155,20 @@ void LogicInterface::Draw()
 			(*itr)->blockTexture->mY = executionListYOffset + ((instructionListBox.y + instructionSpacing) + (rowCount * instructionBlockH) + (rowCount * instructionSpacing));
 			if((*itr)->blockTexture->mY >= instructionListBox.y
 				&& (*itr)->blockTexture->mY <= instructionListBox.y + instructionListBox.height - (instructionSpacing + instructionBlockH))
-				(*itr)->blockTexture->drawImage(instructionBlockW, instructionBlockH);
+			{
+				if((*itr)->curButtonState == BS_ACTIVE)
+				{
+					(*itr)->blockTexture->drawImageSegment(0.0, 0.0, (double)1/3, 0.0, 0.0, 1.0, (double)1/3, 1.0, 1, instructionBlockW, instructionBlockH);
+				}
+				else if((*itr)->curButtonState == BS_HIGHLIGHTED)
+				{
+					(*itr)->blockTexture->drawImageSegment(0.0, 0.0, (double)2/3, 0.0, 0.0, 1.0, (double)2/3, 1.0, 1, instructionBlockW, instructionBlockH);
+				}
+				else if((*itr)->curButtonState == BS_INACTIVE)
+				{
+					(*itr)->blockTexture->drawImageSegment((double)2/3, 0.0, (double)3/3, 0.0, (double)2/3, 1.0, (double)3/3, 1.0, 1, instructionBlockW, instructionBlockH);
+				}
+			}
 
 			columnIndex++;
 			if(columnIndex >= instructionListNumColumns)
@@ -182,7 +195,20 @@ void LogicInterface::Draw()
 			(*itr)->blockTexture->mY = executionListSub1YOffset + ((instructionListBox.y + instructionSpacing) + (rowCount * instructionBlockH) + (rowCount * instructionSpacing));
 			if((*itr)->blockTexture->mY >= instructionListBox.y
 				&& (*itr)->blockTexture->mY <= instructionListBox.y + instructionListBox.height - (instructionSpacing + instructionBlockH))
-				(*itr)->blockTexture->drawImage(instructionBlockW, instructionBlockH);
+			{
+				if((*itr)->curButtonState == BS_ACTIVE)
+				{
+					(*itr)->blockTexture->drawImageSegment(0.0, 0.0, (double)1/3, 0.0, 0.0, 1.0, (double)1/3, 1.0, 1, instructionBlockW, instructionBlockH);
+				}
+				else if((*itr)->curButtonState == BS_HIGHLIGHTED)
+				{
+					(*itr)->blockTexture->drawImageSegment(0.0, 0.0, (double)2/3, 0.0, 0.0, 1.0, (double)2/3, 1.0, 1, instructionBlockW, instructionBlockH);
+				}
+				else if((*itr)->curButtonState == BS_INACTIVE)
+				{
+					(*itr)->blockTexture->drawImageSegment((double)2/3, 0.0, (double)3/3, 0.0, (double)2/3, 1.0, (double)3/3, 1.0, 1, instructionBlockW, instructionBlockH);
+				}
+			}
 						
 			columnIndex++;
 			if(columnIndex >= instructionListNumColumns)
@@ -209,7 +235,20 @@ void LogicInterface::Draw()
 			(*itr)->blockTexture->mY = executionListSub2YOffset + ((instructionListBox.y + instructionSpacing) + (rowCount * instructionBlockH) + (rowCount * instructionSpacing));
 			if((*itr)->blockTexture->mY >= instructionListBox.y
 				&& (*itr)->blockTexture->mY <= instructionListBox.y + instructionListBox.height - (instructionSpacing + instructionBlockH))
-				(*itr)->blockTexture->drawImage(instructionBlockW, instructionBlockH);
+			{
+				if((*itr)->curButtonState == BS_ACTIVE)
+				{
+					(*itr)->blockTexture->drawImageSegment(0.0, 0.0, (double)1/3, 0.0, 0.0, 1.0, (double)1/3, 1.0, 1, instructionBlockW, instructionBlockH);
+				}
+				else if((*itr)->curButtonState == BS_HIGHLIGHTED)
+				{
+					(*itr)->blockTexture->drawImageSegment(0.0, 0.0, (double)2/3, 0.0, 0.0, 1.0, (double)2/3, 1.0, 1, instructionBlockW, instructionBlockH);
+				}
+				else if((*itr)->curButtonState == BS_INACTIVE)
+				{
+					(*itr)->blockTexture->drawImageSegment((double)2/3, 0.0, (double)3/3, 0.0, (double)2/3, 1.0, (double)3/3, 1.0, 1, instructionBlockW, instructionBlockH);
+				}
+			}
 
 			columnIndex++;
 			if(columnIndex >= instructionListNumColumns)
@@ -234,7 +273,18 @@ void LogicInterface::Draw()
 
 		(*itr)->blockTexture->mX = logicBankBox.x + + (instructionSpacing * columnIndex) + (instructionBlockW * columnIndex);
 		(*itr)->blockTexture->mY = logicBankYOffset + ((logicBankBox.y + instructionSpacing) + (rowCount * instructionBlockH) + (rowCount * instructionSpacing));
-		(*itr)->blockTexture->drawImage(instructionBlockW, instructionBlockH);
+		if((*itr)->curButtonState == BS_ACTIVE)
+		{
+			(*itr)->blockTexture->drawImageSegment(0.0, 0.0, (double)1/3, 0.0, 0.0, 1.0, (double)1/3, 1.0, 1, instructionBlockW, instructionBlockH);
+		}
+		else if((*itr)->curButtonState == BS_HIGHLIGHTED)
+		{
+			(*itr)->blockTexture->drawImageSegment(0.0, 0.0, (double)2/3, 0.0, 0.0, 1.0, (double)2/3, 1.0, 1, instructionBlockW, instructionBlockH);
+		}
+		else if((*itr)->curButtonState == BS_INACTIVE)
+		{
+			(*itr)->blockTexture->drawImageSegment((double)2/3, 0.0, (double)3/3, 0.0, (double)2/3, 1.0, (double)3/3, 1.0, 1, instructionBlockW, instructionBlockH);
+		}
 
 		columnIndex++;
 		if(columnIndex >= logicBankNumColumns)
