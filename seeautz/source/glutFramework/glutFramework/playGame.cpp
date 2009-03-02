@@ -112,6 +112,7 @@ bool playGame::Update()
 			//gamePlay = NULL;
 			//gamePlay->LoadGameMapFromFile(levelList[levelCounter]->getFile());			
 		}
+
 		GameVars->setLevel(levelCounter);
 	
 		//=====================================================
