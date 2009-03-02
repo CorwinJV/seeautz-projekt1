@@ -557,7 +557,7 @@ void gameBoard::processMouseClick(int button, int state, int x, int y)
 		}
 	}
 
-	std::cout << "Button = " << button << " - State = " << state <<  endl;
+	std::cout << "Button = " << button << " - State = " << state << " X,Y " << x << ", " << y <<  endl;
 }
 
 void gameBoard::mapScroll()
