@@ -16,9 +16,9 @@ bool subroutine::advanceCommand()
 	if(currentInstruction == instructionList.end())
 	{
 		currentInstruction = instructionList.begin();
-		return true;
+		return false;
 	}
-	return false;
+	return true;
 }
 
 AiInstructions subroutine::getNextCommand()

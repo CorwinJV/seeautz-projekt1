@@ -1229,6 +1229,8 @@ bool gameBoard::interfaceHasFiredExecuteOrder(std::vector<logicBlock*> execution
 			{
 				(*oitr)->addCommand(*exeItr);
 				(*oitr)->coreDump();
+				SUB1->coreDump();
+				SUB2->coreDump();
 			}
 		}
 	}
@@ -1876,11 +1878,24 @@ void gameBoard::RCactivate()
 			}
 		}
 	}
+
+	// now lets see if we're on a reprogrammable square or facing a reprogram wall
+	if( (robotSquare == TProgram) ||
+		((robotSquare == TProgramTR) && (robotDirection == 0)) ||
+		((robotSquare == TProgramBR) && (robotDirection == 1)) ||
+		((robotSquare == TProgramBL) && (robotDirection == 2)) ||
+		((robotSquare == TProgramTL) && (robotDirection == 3)) )				
+	{
+		(*oitr)->setDefaults(robotDirection, robotX, robotY);
+		robotStartX = robotX;
+		robotStartY = robotY;
+		curState = GB_LOGICVIEW;
+	}
 }
 
 
 
-bool gameBoard::RCmoveRobotForward()
+bool gameBoard::RCmoveRobotForward()	// returns false when its over, true if its still activating
 {
 	// first thing's first, lets find the robot
 	std::vector<object*>::iterator oitr = objectList.begin();
@@ -1964,12 +1979,16 @@ void gameBoard::setState(GameBoardState state)
 bool gameBoard::processSub(int whichSub)
 {
 	AiInstructions nextCommand;
+	bool parentDelay = false;
+	bool moveForwardFiring = false;
+	
 
 	if(whichSub == 1)
 		if(SUB1->isEmpty())
 			return false;
 		else
 			nextCommand = SUB1->getNextCommand();
+
 	if(whichSub == 2)
 		if(SUB2->isEmpty())
 			return false;
@@ -1992,7 +2011,7 @@ bool gameBoard::processSub(int whichSub)
 				{
 					if(this->RCcanRobotMoveForward((*oitr)->getDirection(), 1))
 					{
-						delayAdvance = true;
+						parentDelay = true;
 					}
 				}
 				break;
@@ -2014,9 +2033,6 @@ bool gameBoard::processSub(int whichSub)
 			case PUNCH:	  // just like move forward above, only far less squares that can be moved into
 				this->RCpunch();
 				break;
-			case MOVE_FORWARD_UNTIL_UNABLE: // just like move forward above, only no advancement of command until destination square is invalid
-				delayAdvance = this->RCmoveRobotForward();
-				break;
 			case SUB:	// special case
 				break;
 			case LOOP:	// since this should always be displayed as the last command automatically, this isn't really needed
@@ -2025,15 +2041,31 @@ bool gameBoard::processSub(int whichSub)
 			case ACTIVATE:	// for now lets just check for a door so we can see it working in testmap1
 				this->RCactivate();
 				break;
+
+			case MOVE_FORWARD_UNTIL_UNABLE: // just like move forward above, only no advancement of command until destination square is invalid
+				moveForwardFiring = this->RCmoveRobotForward();	// false if over, true if activating
+				if(moveForwardFiring)
+					return true;
+				break;
+
+			case SUBR1:
+				parentDelay = processSub(1);
+				return parentDelay;
+				break;
+
+			case SUBR2:
+				parentDelay = processSub(2);
+				return parentDelay;
+				break;
 			}
 		}
 	}
-	bool done;
 
 	if(whichSub == 1)
-		done = SUB1->advanceCommand();
+		parentDelay = SUB1->advanceCommand();
+		
 	if(whichSub == 2)
-		done = SUB1->advanceCommand();
+		parentDelay = SUB2->advanceCommand();
 
-	return !done;
+	return parentDelay;
 }
