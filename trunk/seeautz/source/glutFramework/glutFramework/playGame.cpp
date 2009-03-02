@@ -116,7 +116,7 @@ bool playGame::Update()
 	
 		//=====================================================
 		// Register the gameBoard callback with the interface!
-		mInterface.SetExecuteHandler(BE::CreateFunctionPointer1R(gamePlay, &gameBoard::interfaceHasFiredExecuteOrder));
+		mInterface.SetExecuteHandler(BE::CreateFunctionPointer3R(gamePlay, &gameBoard::interfaceHasFiredExecuteOrder));
 		mInterface.SetAbortHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredAbortOrder));
 		gamePlay->setState(curState);
 		pregameRunning = false;
@@ -273,12 +273,12 @@ bool playGame::initialize()
 	GameVars->setMaxLevel(levelList.size());
 
 	gamePlay = new gameBoard();
-	GameVars->setLevel(1);
+	GameVars->setLevel(0);
 	gamePlay->LoadGameMapFromFile(levelList[GameVars->getCurrentLevel()]->getFile());
 
 	//=====================================================
 	// Register the gameBoard callback with the interface!
-	mInterface.SetExecuteHandler(BE::CreateFunctionPointer1R(gamePlay, &gameBoard::interfaceHasFiredExecuteOrder));
+	mInterface.SetExecuteHandler(BE::CreateFunctionPointer3R(gamePlay, &gameBoard::interfaceHasFiredExecuteOrder));
 	mInterface.SetAbortHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredAbortOrder));
 
 	

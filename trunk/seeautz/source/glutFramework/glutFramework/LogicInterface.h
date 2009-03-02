@@ -38,7 +38,7 @@ public:
 	bool AbortButtonClick();
 	void ClearExecutionList();
 
-	void SetExecuteHandler(CFunctionPointer1R<bool, std::vector<logicBlock*>> clickHandler);
+	void SetExecuteHandler(CFunctionPointer3R<bool, std::vector<logicBlock*>, std::vector<logicBlock*>, std::vector<logicBlock*>> clickHandler);
 	void SetAbortHandler(CFunctionPointer0R<bool> clickHandler);
 private:
 	MenuSys* myMenu;
@@ -55,7 +55,8 @@ private:
 
 	//=====================
 	// Button Callbacks
-	CFunctionPointer1R<bool, std::vector<logicBlock*>> mExecuteHandler;
+	//CFunctionPointer1R<bool, std::vector<logicBlock*>> mExecuteHandler;
+	CFunctionPointer3R<bool, std::vector<logicBlock*>, std::vector<logicBlock*>, std::vector<logicBlock*>> mExecuteHandler;
 	CFunctionPointer0R<bool> mAbortHandler;
 
 	//======================
