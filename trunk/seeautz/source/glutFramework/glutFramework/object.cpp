@@ -99,6 +99,11 @@ AiInstructions object::getNextCommand()
 	return (*currentInstruction)->enumInstruction;
 }
 
+logicBlock* object::getNextCommandBlock()
+{
+	return (*currentInstruction);
+}
+
 void object::draw()
 {
 	

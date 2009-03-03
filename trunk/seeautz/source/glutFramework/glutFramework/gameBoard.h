@@ -1,6 +1,7 @@
 #ifndef GAMEBOARD_H
 #define GAMEBOARD_H
 
+#include "FunctionPointer.h"
 #include "oglUtility.h"
 //#include "pixmap.h"
 #include "mapTile.h"
@@ -20,6 +21,7 @@
 #include <string>
 #include <ctime>
 
+using namespace BE;
 
 enum GameBoardState
 {
@@ -93,6 +95,10 @@ protected:
 	bool processSub(int whichSub);
 	bool delayAdvance;
 
+	// Delegates / Function Pointers
+	CFunctionPointer2R<bool, instructionTab, logicBlock*> mInterfaceAdvanceHandler;
+
+
 	bool moveTile(int sX, int sY, int dX, int dY);
 	bool drawTile(tileTypeEnum ntype, int txPos, int tyPos, double scale, bool isActive);
 	bool drawObject(int objectType, int txPos, int tyPos, double scale);
@@ -144,6 +150,10 @@ public:
 	bool interfaceHasFiredExecuteOrder(std::vector<logicBlock*> executionList, std::vector<logicBlock*> executionListSub1, std::vector<logicBlock*> executionListSub2);
 	bool interfaceHasFiredAbortOrder();
 	bool interfaceHasFiredResetOrder();
+
+	// Setting Function Pointers
+	void SetInterfaceAdvanceHandler(CFunctionPointer2R<bool, instructionTab, logicBlock*> interfaceAdvanceHandler);
+
 
 	GameBoardState getCurState();							// returns the current state of the gameBoard	
 };

@@ -25,4 +25,14 @@ struct screenBox
 	}
 };
 
+//======================
+// Instruction List Tabs
+enum instructionTab
+{
+	TAB_MAIN,
+	TAB_SUB1,
+	TAB_SUB2
+};
+
+
 #endif

@@ -1062,6 +1062,38 @@ void gameBoard::processRobot()
 	//bool		 destActive;
 	delayAdvance = false;
 
+	//===================================
+	//  Command Highlighting
+	oitr = objectList.begin();
+	for(;oitr != objectList.end(); oitr++)
+	{
+		if((*oitr)->getType() == ORobot)
+		{
+			switch((*oitr)->getNextCommand())
+			{
+			case SUBR1:
+				if(mInterfaceAdvanceHandler)
+				{
+					mInterfaceAdvanceHandler(TAB_SUB1, SUB1->getNextCommandBlock());
+				}
+				break;
+			case SUBR2:
+				if(mInterfaceAdvanceHandler)
+				{
+					mInterfaceAdvanceHandler(TAB_SUB2, SUB2->getNextCommandBlock());
+				}
+				break;
+			default:
+				if(mInterfaceAdvanceHandler)
+				{
+					mInterfaceAdvanceHandler(TAB_MAIN, (*oitr)->getNextCommandBlock());
+				}
+				break;
+			}
+		}
+	}
+
+	oitr = objectList.begin();
 	for(;oitr != objectList.end(); oitr++)
 	{
 		if((*oitr)->getType() == ORobot)
@@ -2063,4 +2095,9 @@ bool gameBoard::processSub(int whichSub)
 		parentDelay = SUB2->advanceCommand();
 
 	return parentDelay;
+}
+
+void gameBoard::SetInterfaceAdvanceHandler(CFunctionPointer2R<bool, instructionTab, logicBlock*> interfaceAdvanceHandler)
+{
+	mInterfaceAdvanceHandler = interfaceAdvanceHandler;
 }

@@ -16,6 +16,7 @@ using namespace BE;
 
 class LogicInterface
 {
+
 public:
 	LogicInterface();
 	~LogicInterface() {}
@@ -40,6 +41,7 @@ public:
 
 	void ClearExecutionList();
 	void ResetExecutionMode();
+	bool CommandAdvanced(instructionTab instrTab, logicBlock* curBlock);
 
 	void SetExecuteHandler(CFunctionPointer3R<bool, std::vector<logicBlock*>, std::vector<logicBlock*>, std::vector<logicBlock*>> clickHandler);
 	void SetAbortHandler(CFunctionPointer0R<bool> clickHandler);
@@ -98,14 +100,6 @@ private:
 	std::vector<logicBlock*> executionListSub1;
 	std::vector<logicBlock*> executionListSub2;
 
-	//======================
-	// Instruction List Tabs
-	enum instructionTab
-	{
-		TAB_MAIN,
-		TAB_SUB1,
-		TAB_SUB2
-	};
 	instructionTab curInstrTab;
 };
 

@@ -95,8 +95,14 @@ LogicInterface::LogicInterface()
 
 	logicBank = GameVars->getAllLogicBlocks();
 	executionList.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
+	executionList.back()->curButtonState = BS_ACTIVE;
+	
 	executionListSub1.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
+	executionListSub1.back()->curButtonState = BS_ACTIVE;
+
 	executionListSub2.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
+	executionListSub2.back()->curButtonState = BS_ACTIVE;
+
 	draggedBlock = NULL;
 
 	logicBankYOffset = 0;
@@ -172,7 +178,7 @@ void LogicInterface::Draw()
 				}
 				else if((*itr)->curButtonState == BS_HIGHLIGHTED)
 				{
-					(*itr)->blockTexture->drawImageSegment(0.0, 0.0, (double)2/3, 0.0, 0.0, 1.0, (double)2/3, 1.0, 1, instructionBlockW, instructionBlockH);
+					(*itr)->blockTexture->drawImageSegment((double)1/3, 0.0, (double)2/3, 0.0, (double)1/3, 1.0, (double)2/3, 1.0, 1, instructionBlockW, instructionBlockH);
 				}
 				else if((*itr)->curButtonState == BS_INACTIVE)
 				{
@@ -212,7 +218,7 @@ void LogicInterface::Draw()
 				}
 				else if((*itr)->curButtonState == BS_HIGHLIGHTED)
 				{
-					(*itr)->blockTexture->drawImageSegment(0.0, 0.0, (double)2/3, 0.0, 0.0, 1.0, (double)2/3, 1.0, 1, instructionBlockW, instructionBlockH);
+					(*itr)->blockTexture->drawImageSegment((double)1/3, 0.0, (double)2/3, 0.0, (double)1/3, 1.0, (double)2/3, 1.0, 1, instructionBlockW, instructionBlockH);
 				}
 				else if((*itr)->curButtonState == BS_INACTIVE)
 				{
@@ -252,7 +258,7 @@ void LogicInterface::Draw()
 				}
 				else if((*itr)->curButtonState == BS_HIGHLIGHTED)
 				{
-					(*itr)->blockTexture->drawImageSegment(0.0, 0.0, (double)2/3, 0.0, 0.0, 1.0, (double)2/3, 1.0, 1, instructionBlockW, instructionBlockH);
+					(*itr)->blockTexture->drawImageSegment((double)1/3, 0.0, (double)2/3, 0.0, (double)1/3, 1.0, (double)2/3, 1.0, 1, instructionBlockW, instructionBlockH);
 				}
 				else if((*itr)->curButtonState == BS_INACTIVE)
 				{
@@ -289,7 +295,7 @@ void LogicInterface::Draw()
 		}
 		else if((*itr)->curButtonState == BS_HIGHLIGHTED)
 		{
-			(*itr)->blockTexture->drawImageSegment(0.0, 0.0, (double)2/3, 0.0, 0.0, 1.0, (double)2/3, 1.0, 1, instructionBlockW, instructionBlockH);
+			(*itr)->blockTexture->drawImageSegment((double)1/3, 0.0, (double)2/3, 0.0, (double)1/3, 1.0, (double)2/3, 1.0, 1, instructionBlockW, instructionBlockH);
 		}
 		else if((*itr)->curButtonState == BS_INACTIVE)
 		{
@@ -413,6 +419,7 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 				if((*itr)->checkInBounds(x, y, instructionBlockW, instructionBlockH))
 				{
 					draggedBlock = new logicBlock(*(*itr));
+					draggedBlock->curButtonState = BS_ACTIVE;
 					isMouseDragging = true;
 				}
 			}
@@ -436,6 +443,7 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 					executionList.pop_back();
 					executionList.push_back(new logicBlock(*(draggedBlock)));					
 					executionList.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
+					executionList.back()->curButtonState = BS_ACTIVE;
 					delete draggedBlock;
 					draggedBlock = NULL;
 				}
@@ -451,6 +459,7 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 					executionListSub1.pop_back();
 					executionListSub1.push_back(new logicBlock(*(draggedBlock)));
 					executionListSub1.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
+					executionListSub1.back()->curButtonState = BS_ACTIVE;
 					delete draggedBlock;
 					draggedBlock = NULL;
 				}
@@ -466,6 +475,7 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 					executionListSub2.pop_back();
 					executionListSub2.push_back(new logicBlock(*(draggedBlock)));
 					executionListSub2.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
+					executionListSub2.back()->curButtonState = BS_ACTIVE;
 					delete draggedBlock;
 					draggedBlock = NULL;
 				}
@@ -706,17 +716,47 @@ void LogicInterface::ClearExecutionList()
 {
 	executionList.clear();
 	executionList.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
+	executionList.back()->curButtonState = BS_ACTIVE;
 	
 	executionListSub1.clear();
 	executionListSub1.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
+	executionListSub1.back()->curButtonState = BS_ACTIVE;
 
 	executionListSub2.clear();
 	executionListSub2.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
+	executionListSub2.back()->curButtonState = BS_ACTIVE;
 }
 
 void LogicInterface::ResetExecutionMode()
 {
 	isExecuting = false;
+}
+
+bool LogicInterface::CommandAdvanced(instructionTab instrTab, logicBlock* curBlock)
+{
+	curInstrTab = instrTab;
+	std::vector<logicBlock*>* curExecutionList = NULL;
+	if(curInstrTab == TAB_MAIN)
+	{
+		curExecutionList = &executionList;
+	}
+	else if(curInstrTab == TAB_SUB1)
+	{
+		curExecutionList = &executionListSub1;
+	}
+	else if(curInstrTab == TAB_SUB2)
+	{
+		curExecutionList = &executionListSub2;
+	}
+
+	std::vector<logicBlock*>::iterator itr = (*curExecutionList).begin();
+	for(; itr != (*curExecutionList).end(); itr++)
+	{
+		(*itr)->curButtonState = BS_INACTIVE;
+	}
+	curBlock->curButtonState = BS_HIGHLIGHTED;
+	
+	return true;
 }
 
 
@@ -744,5 +784,3 @@ bool LogicInterface::ResetButtonClick()
 	}
 	return false;
 }
-
-

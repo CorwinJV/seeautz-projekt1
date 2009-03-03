@@ -26,6 +26,11 @@ AiInstructions subroutine::getNextCommand()
 	return (*currentInstruction)->enumInstruction;
 }
 
+logicBlock* subroutine::getNextCommandBlock()
+{
+	return (*currentInstruction);
+}
+
 void subroutine::draw()
 {
 }
