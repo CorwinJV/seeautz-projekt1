@@ -379,6 +379,43 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 	mapfile >> nHeight;
 	mapfile >> startDirection;
 	mapfile >> bytesAvail;
+
+	bool moveForwardAvail;		//1
+	mapfile >> moveForwardAvail;
+
+	bool moveForwardUntilAvail;	//2
+	mapfile >> moveForwardUntilAvail;
+
+	bool turnLeftAvail;			//3
+	mapfile >> turnLeftAvail;
+
+	bool turnRightAvail;		//4
+	mapfile >> turnRightAvail;
+
+	bool punchAvail;			//5
+	mapfile >> punchAvail;
+
+	bool climbAvail;			//6
+	mapfile >> climbAvail;
+
+	bool crouchAvail;			//7
+	mapfile >> crouchAvail;
+
+	bool jumpAvail;				//8
+	mapfile >> jumpAvail;
+
+	bool activateAvail;			//9
+	mapfile >> activateAvail;
+
+	bool sub1Avail;				//10
+	mapfile >> sub1Avail;
+
+	bool sub2Avail;				//11
+	mapfile >> sub2Avail;
+
+	GameVars->setCurrentLogicBank(moveForwardAvail, moveForwardUntilAvail, turnLeftAvail, turnRightAvail,
+								  punchAvail, climbAvail, crouchAvail, jumpAvail, activateAvail, sub1Avail, sub2Avail);
+
 	
 	GameVars->setCurrentLevelBytes(bytesAvail);
 

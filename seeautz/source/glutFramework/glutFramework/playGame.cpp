@@ -99,7 +99,7 @@ bool playGame::Update()
 		levelCounter++;
 		maxLevel = GameVars->getMaxLevel();
 
-		if(levelCounter < (GameVars->getMaxLevel()-1))
+		if(levelCounter < (GameVars->getMaxLevel()))
 		{
 			delete gamePlay;			
 			// in with the new
@@ -335,7 +335,7 @@ bool playGame::initialize()
 
 	gamePlay = new gameBoard();
 
-	GameVars->setLevel(15);
+	GameVars->setLevel(1);
 
 	gamePlay->LoadGameMapFromFile(levelList[GameVars->getCurrentLevel()]->getFile());
 

@@ -28,6 +28,7 @@ oglGameVars::oglGameVars()
 	fontDigital200.open	("fonts\\DIGIRU__.ttf", 200);
 	fontOurs.open		("fonts\\Schwaben_Alt_Bold.ttf", 32);
 	fontTimes.open		("fonts\\times.ttf", 32);
+	currentLogicBank = NULL;
 }
 
 //========================================
@@ -226,4 +227,47 @@ void oglGameVars::setLevelScore(int score)
 void oglGameVars::setTotalScore(int score)
 {
 	levelScore = score;
+}
+
+void oglGameVars::setCurrentLogicBank(bool moveForwardAvail, bool moveForwardUntilAvail, bool turnLeftAvail, 
+									  bool turnRightAvail, bool punchAvail, bool climbAvail, bool crouchAvail, 
+									  bool jumpAvail, bool activateAvail, bool sub1Avail, bool sub2Avail)
+{
+	if(currentLogicBank != NULL)
+		delete currentLogicBank;
+	
+	currentLogicBank = new vector<logicBlock*>;
+
+	if(moveForwardAvail)
+		currentLogicBank->push_back(allLogicBlocks[0]);
+
+	if(moveForwardUntilAvail)
+		currentLogicBank->push_back(allLogicBlocks[1]);
+	
+	if(turnLeftAvail)
+		currentLogicBank->push_back(allLogicBlocks[2]);
+
+	if(turnRightAvail)
+		currentLogicBank->push_back(allLogicBlocks[3]);
+
+	if(punchAvail)
+		currentLogicBank->push_back(allLogicBlocks[4]);
+
+	if(climbAvail)
+		currentLogicBank->push_back(allLogicBlocks[5]);
+
+	if(crouchAvail)
+		currentLogicBank->push_back(allLogicBlocks[6]);
+
+	if(jumpAvail)
+		currentLogicBank->push_back(allLogicBlocks[7]);
+
+	if(activateAvail)
+		currentLogicBank->push_back(allLogicBlocks[8]);
+
+	if(sub1Avail)
+		currentLogicBank->push_back(allLogicBlocks[9]);
+
+	if(sub2Avail)
+		currentLogicBank->push_back(allLogicBlocks[10]);
 }
