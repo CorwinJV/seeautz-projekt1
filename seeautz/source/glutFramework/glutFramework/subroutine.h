@@ -23,6 +23,7 @@ public:
 	virtual void	update();
 	virtual bool	advanceCommand();
 	virtual AiInstructions	getNextCommand();
+	virtual logicBlock*		getNextCommandBlock();
 	virtual objectEnum		getType();
 	virtual void	addCommand(logicBlock *newCommand);
 	virtual void	removeLastCommand();

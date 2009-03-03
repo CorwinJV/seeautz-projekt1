@@ -46,6 +46,7 @@ public:
 	virtual void	toggleActive();
 	virtual bool	getActive();
 	virtual AiInstructions	getNextCommand();
+	virtual logicBlock*		getNextCommandBlock();
 	virtual void	startOver();
 	virtual objectEnum		getType();
 	virtual void	addCommand(logicBlock *newCommand);
