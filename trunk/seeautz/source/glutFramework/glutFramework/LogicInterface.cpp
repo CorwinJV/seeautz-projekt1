@@ -93,7 +93,7 @@ LogicInterface::LogicInterface()
 	//menuBar->loadImage("blankmenu.png", 1024, 768);
 	menuBar->loadImage("blank.png", 1024, 768);
 
-	logicBank = GameVars->getAllLogicBlocks();
+	logicBank = GameVars->GetCurrentMapLogicBank(); //GameVars->getAllLogicBlocks();
 	executionList.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
 	executionList.back()->curButtonState = BS_ACTIVE;
 	
@@ -119,16 +119,18 @@ void LogicInterface::Update()
 
 	// Hover Over Stuff
 	currentHoverBlockIndex = -1;
-	std::vector<logicBlock*>::iterator itr = logicBank->begin();
-	for(; itr != logicBank->end(); itr++)
+	if(logicBank != NULL)
 	{
-		if((*itr)->checkInBounds(mouseX, mouseY, instructionBlockW, instructionBlockH))
+		std::vector<logicBlock*>::iterator itr = logicBank->begin();
+		for(; itr != logicBank->end(); itr++)
 		{
-			// You're hovering over, YAY! LOLZ
-			currentHoverBlockIndex = std::distance(logicBank->begin(), itr);
+			if((*itr)->checkInBounds(mouseX, mouseY, instructionBlockW, instructionBlockH))
+			{
+				// You're hovering over, YAY! LOLZ
+				currentHoverBlockIndex = std::distance(logicBank->begin(), itr);
+			}
 		}
 	}
-
 }
 
 void LogicInterface::Draw()
@@ -276,37 +278,39 @@ void LogicInterface::Draw()
 	// LogicBank Instructions (bottom bar)
 	rowCount = 0;
 	columnIndex = 0;
-	itr = logicBank->begin();
-	for(; itr != logicBank->end(); itr++)
+	if(logicBank != NULL)
 	{
-		int i = std::distance(logicBank->begin(), itr);
+		itr = logicBank->begin();
+		for(; itr != logicBank->end(); itr++)
+		{
+			int i = std::distance(logicBank->begin(), itr);
 
-		if(((i % logicBankNumColumns) == 0)
-			&& (i > 0))
-		{
-			rowCount++;
-		}
+			if(((i % logicBankNumColumns) == 0)
+				&& (i > 0))
+			{
+				rowCount++;
+			}
 
-		(*itr)->blockTexture->mX = logicBankBox.x + + (instructionSpacing * columnIndex) + (instructionBlockW * columnIndex);
-		(*itr)->blockTexture->mY = logicBankYOffset + ((logicBankBox.y + instructionSpacing) + (rowCount * instructionBlockH) + (rowCount * instructionSpacing));
-		if((*itr)->curButtonState == BS_ACTIVE)
-		{
-			(*itr)->blockTexture->drawImageSegment(0.0, 0.0, (double)1/3, 0.0, 0.0, 1.0, (double)1/3, 1.0, 1, instructionBlockW, instructionBlockH);
-		}
-		else if((*itr)->curButtonState == BS_HIGHLIGHTED)
-		{
-			(*itr)->blockTexture->drawImageSegment((double)1/3, 0.0, (double)2/3, 0.0, (double)1/3, 1.0, (double)2/3, 1.0, 1, instructionBlockW, instructionBlockH);
-		}
-		else if((*itr)->curButtonState == BS_INACTIVE)
-		{
-			(*itr)->blockTexture->drawImageSegment((double)2/3, 0.0, (double)3/3, 0.0, (double)2/3, 1.0, (double)3/3, 1.0, 1, instructionBlockW, instructionBlockH);
-		}
+			(*itr)->blockTexture->mX = logicBankBox.x + + (instructionSpacing * columnIndex) + (instructionBlockW * columnIndex);
+			(*itr)->blockTexture->mY = logicBankYOffset + ((logicBankBox.y + instructionSpacing) + (rowCount * instructionBlockH) + (rowCount * instructionSpacing));
+			if((*itr)->curButtonState == BS_ACTIVE)
+			{
+				(*itr)->blockTexture->drawImageSegment(0.0, 0.0, (double)1/3, 0.0, 0.0, 1.0, (double)1/3, 1.0, 1, instructionBlockW, instructionBlockH);
+			}
+			else if((*itr)->curButtonState == BS_HIGHLIGHTED)
+			{
+				(*itr)->blockTexture->drawImageSegment((double)1/3, 0.0, (double)2/3, 0.0, (double)1/3, 1.0, (double)2/3, 1.0, 1, instructionBlockW, instructionBlockH);
+			}
+			else if((*itr)->curButtonState == BS_INACTIVE)
+			{
+				(*itr)->blockTexture->drawImageSegment((double)2/3, 0.0, (double)3/3, 0.0, (double)2/3, 1.0, (double)3/3, 1.0, 1, instructionBlockW, instructionBlockH);
+			}
 
-		columnIndex++;
-		if(columnIndex >= logicBankNumColumns)
-			columnIndex = 0;
+			columnIndex++;
+			if(columnIndex >= logicBankNumColumns)
+				columnIndex = 0;
+		}
 	}
-
 	//=============================================
 	// Menu Bars (Behind Scroll Buttons)
 	menuBar->mX = logicBankBox.x + logicBankBox.width;
@@ -338,35 +342,38 @@ void LogicInterface::Draw()
 		// means no block is being hovered over
 	if(currentHoverBlockIndex != -1)
 	{
-		logicBlock* tmpBlock = (*logicBank)[currentHoverBlockIndex];
-
-		// Draw the background
-		menuBar->mX = tmpBlock->blockTexture->mX + 20;
-		menuBar->mY = tmpBlock->blockTexture->mY - 170;
-		menuBar->drawImageFaded(.5, 200, 100);
-
-		int MAX_CHARS_PER_LINE = 21;
-		int currentLine = 1;
-		bool endOfText = false;
-		
-		glColor3ub(255, 255, 255);
-		while(!endOfText)
+		if(logicBank != NULL)
 		{
-			if((int)(tmpBlock->blockDescription.length()) > currentLine * MAX_CHARS_PER_LINE)
+			logicBlock* tmpBlock = (*logicBank)[currentHoverBlockIndex];
+
+			// Draw the background
+			menuBar->mX = tmpBlock->blockTexture->mX + 20;
+			menuBar->mY = tmpBlock->blockTexture->mY - 170;
+			menuBar->drawImageFaded(.5, 200, 100);
+
+			int MAX_CHARS_PER_LINE = 21;
+			int currentLine = 1;
+			bool endOfText = false;
+			
+			glColor3ub(255, 255, 255);
+			while(!endOfText)
 			{
-				GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12), tmpBlock->blockDescription.substr((currentLine - 1) * MAX_CHARS_PER_LINE, MAX_CHARS_PER_LINE));
-				currentLine++;
-			}
-			else
-			{
-				GameVars->fontArial12.drawText(
-					menuBar->mX + 10,
-					menuBar->mY + (currentLine * 12),
-					tmpBlock->blockDescription.substr(
-										(currentLine - 1) * MAX_CHARS_PER_LINE,
-										tmpBlock->blockDescription.length() % (currentLine -1 * MAX_CHARS_PER_LINE))
-										);
-				endOfText = true;
+				if((int)(tmpBlock->blockDescription.length()) > currentLine * MAX_CHARS_PER_LINE)
+				{
+					GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12), tmpBlock->blockDescription.substr((currentLine - 1) * MAX_CHARS_PER_LINE, MAX_CHARS_PER_LINE));
+					currentLine++;
+				}
+				else
+				{
+					GameVars->fontArial12.drawText(
+						menuBar->mX + 10,
+						menuBar->mY + (currentLine * 12),
+						tmpBlock->blockDescription.substr(
+											(currentLine - 1) * MAX_CHARS_PER_LINE,
+											tmpBlock->blockDescription.length() % (currentLine -1 * MAX_CHARS_PER_LINE))
+											);
+					endOfText = true;
+				}
 			}
 		}
 	}
@@ -413,14 +420,17 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 		if(isButtonBeingClicked == false)
 		{
 			// If the left mouse button is down
-			std::vector<logicBlock*>::iterator itr = logicBank->begin();
-			for(; itr != logicBank->end(); itr++)
+			if(logicBank != NULL)
 			{
-				if((*itr)->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+				std::vector<logicBlock*>::iterator itr = logicBank->begin();
+				for(; itr != logicBank->end(); itr++)
 				{
-					draggedBlock = new logicBlock(*(*itr));
-					draggedBlock->curButtonState = BS_ACTIVE;
-					isMouseDragging = true;
+					if((*itr)->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+					{
+						draggedBlock = new logicBlock(*(*itr));
+						draggedBlock->curButtonState = BS_ACTIVE;
+						isMouseDragging = true;
+					}
 				}
 			}
 		}
@@ -582,6 +592,12 @@ void LogicInterface::SetResetHandler(CFunctionPointer0R<bool> resetHandler)
 {
 	mResetHandler = resetHandler;
 }
+
+void LogicInterface::GetCurrentMapLogicBank()
+{
+	logicBank = GameVars->GetCurrentMapLogicBank();
+}
+
 
 //============================================
 // LogicBank Arrow Callback
