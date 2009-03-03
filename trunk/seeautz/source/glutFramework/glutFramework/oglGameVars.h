@@ -55,6 +55,9 @@ public:
 	int							getCurrentLevelBytes();
 	void						setLevel(int);
 	void						setCurrentLevelBytes(int newBytes);
+	void						setCurrentLogicBank(bool moveForwardAvail, bool moveForwardUntilAvail, bool turnLeftAvail, bool turnRightAvail,
+													bool punchAvail, bool climbAvail, bool crouchAvail, bool jumpAvail, bool activateAvail, bool sub1Avail, bool sub2Avail);
+	vector<logicBlock*>			*currentLogicBank;
 	GLFT_Font					fontTimes;
 	GLFT_Font					fontArial;
 	GLFT_Font					fontArial12;
