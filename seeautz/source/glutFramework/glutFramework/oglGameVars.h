@@ -57,6 +57,7 @@ public:
 	void						setCurrentLevelBytes(int newBytes);
 	void						setCurrentLogicBank(bool moveForwardAvail, bool moveForwardUntilAvail, bool turnLeftAvail, bool turnRightAvail,
 													bool punchAvail, bool climbAvail, bool crouchAvail, bool jumpAvail, bool activateAvail, bool sub1Avail, bool sub2Avail);
+	std::vector<logicBlock*>*	GetCurrentMapLogicBank();
 	vector<logicBlock*>			*currentLogicBank;
 	GLFT_Font					fontTimes;
 	GLFT_Font					fontArial;

@@ -105,6 +105,7 @@ bool playGame::Update()
 			// in with the new
 			gamePlay = new gameBoard();			
 			gamePlay->LoadGameMapFromFile(levelList[levelCounter]->getFile());
+			mInterface.GetCurrentMapLogicBank();
 			curState = GB_PREGAME;
 		}
 		else
@@ -338,6 +339,7 @@ bool playGame::initialize()
 	GameVars->setLevel(1);
 
 	gamePlay->LoadGameMapFromFile(levelList[GameVars->getCurrentLevel()]->getFile());
+	mInterface.GetCurrentMapLogicBank();
 
 	//=====================================================
 	// Register the gameBoard callback with the interface!

@@ -175,6 +175,12 @@ logicBlock*	oglGameVars::getPlaceInstructionBlock()
 	return placeInstructionBlock;
 }
 
+std::vector<logicBlock*>*	oglGameVars::GetCurrentMapLogicBank()
+{
+	return currentLogicBank;
+}
+
+
 int oglGameVars::getTotalScore()
 {
 	return mTotalScore;

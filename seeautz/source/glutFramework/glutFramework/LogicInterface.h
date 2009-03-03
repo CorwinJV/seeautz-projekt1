@@ -3,6 +3,7 @@
 
 #include "oglUtility.h"
 #include "oglTexture2D.h"
+#include "oglGameVars.h"
 #include "aiInstructionEnums.h"
 #include "logicBlock.h"
 #include "oglGameVars.h"
@@ -46,6 +47,7 @@ public:
 	void SetExecuteHandler(CFunctionPointer3R<bool, std::vector<logicBlock*>, std::vector<logicBlock*>, std::vector<logicBlock*>> clickHandler);
 	void SetAbortHandler(CFunctionPointer0R<bool> clickHandler);
 	void SetResetHandler(CFunctionPointer0R<bool> resetHandler);
+	void GetCurrentMapLogicBank();
 private:
 	MenuSys* myMenu;
 	MenuSys* executingMenu;
