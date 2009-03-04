@@ -15,12 +15,14 @@
 mapTile::mapTile()
 {
 	isActive = false;
+	resetActiveStatus = isActive;
 	tileType = TEmpty;
 }
 mapTile::mapTile(tileTypeEnum nType = TEmpty, bool nisActive = false)
 {
 	tileType = nType;
 	isActive = nisActive;
+	resetActiveStatus = isActive;
 }
 mapTile::~mapTile() {}
 tileTypeEnum mapTile::getType()
@@ -59,4 +61,14 @@ bool mapTile::update()
 {
 
 	return true;
+}
+
+void mapTile::setResetActive(bool newActive)
+{
+	resetActiveStatus = newActive;
+}
+
+void mapTile::resetActive()
+{
+	isActive = resetActiveStatus;
 }

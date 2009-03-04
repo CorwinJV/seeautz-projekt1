@@ -84,8 +84,11 @@ protected:
 	double hh;
 	int screenWidth;
 	int screenHeight;
+	int screenEdgeHeight;
+	int screenEdgeWidth;
 	double screenEdge;
 	double moveSpeed;
+	double interfaceHeight;
 	soundEffect *ourSound;
 	clock_t timer;
 	clock_t startTime;

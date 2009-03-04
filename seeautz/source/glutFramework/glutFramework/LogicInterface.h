@@ -56,7 +56,8 @@ private:
 	bool isExecuting;
 
 	oglTexture2D* menuBar;
-	oglTexture2D* newToolBar;
+	oglTexture2D* panelArt;
+	oglTexture2D* commandBackdrop;
 
 	int mouseX;
 	int mouseY;
