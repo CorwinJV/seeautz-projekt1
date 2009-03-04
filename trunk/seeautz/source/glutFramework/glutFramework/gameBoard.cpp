@@ -297,17 +297,19 @@ void gameBoard::initialize()
 	imageBaseWidth = 144;
 	imageBaseHeight = 72;
 
-	hw = (imageWidth/2);	// half width
-	hh = (imageHeight/2);	// half height
-
 	imageWidth = imageBaseWidth *scale;
 	imageHeight = imageBaseHeight *scale;
 
 	imageWidth *= scale;
 	imageHeight *= scale;
 
+	hw = (int)(imageWidth/2);	// half width
+	hh = (int)(imageHeight/2);	// half height
+
 	screenWidth = 1024;
-	screenHeight = 550;
+	screenHeight = 768;
+	screenEdgeWidth = 1024;
+	screenEdgeHeight = 768;
 
 	screenEdge = 0.03;
 	moveSpeed = scale * 0.1;
@@ -331,6 +333,9 @@ void gameBoard::initialize()
 
 	SUB1 = new subroutine();
 	SUB2 = new subroutine();
+	interfaceHeight = 190;
+	screenHeight -= interfaceHeight;
+	screenHeight -= (int)hh;
 }
 
 void gameBoard::cleanup()
@@ -602,7 +607,7 @@ void gameBoard::mapScroll()
 	recalcPositions();
 
 	// see if mouse is at top of screen
-	if((mouseY > 0) && (mouseY < screenHeight*screenEdge))
+	if((mouseY > 0) && (mouseY < screenEdgeHeight*screenEdge))
 	{
 		//mapOffsetY+= moveSpeed;
 		currentX-=mMoveSpeed;
@@ -610,21 +615,21 @@ void gameBoard::mapScroll()
 	}
 
 	// see if mouse is at bottom of screen
-	if((mouseY < screenHeight) && (mouseY > (screenHeight - (screenHeight*screenEdge))))
+	if((mouseY < screenEdgeHeight) && (mouseY > (screenEdgeHeight - (screenEdgeHeight*screenEdge))))
 	{
 		//mapOffsetY-= moveSpeed;
 		currentX+= mMoveSpeed;
 		currentY+= mMoveSpeed;
 	}
 	// see if mouse is at left side of screen
-	if((mouseX > 0) && (mouseX < screenWidth * screenEdge))
+	if((mouseX > 0) && (mouseX < screenEdgeWidth * screenEdge))
 	{
 		//mapOffsetX+= moveSpeed;
 		currentX-=mMoveSpeed;
 		currentY+=mMoveSpeed;
 	}
 	// see if mouse is at right side of screen
-	if((mouseX < screenWidth) && (mouseX > (screenWidth - (screenWidth * screenEdge))))
+	if((mouseX < screenEdgeWidth) && (mouseX > (screenEdgeWidth - (screenEdgeWidth * screenEdge))))
 	{
 		//mapOffsetX-= moveSpeed;
 		currentX+=mMoveSpeed;
@@ -995,7 +1000,7 @@ void gameBoard::recalcPositions()
 	overallWidth = (((Height + Width) * hw) + hw);
 	overallHeight = (((Height + Width) * hh) + hh);
 
-	moveSpeed = scale * 0.1;	
+	//moveSpeed = scale * 0.1;	
 
 	// setting offsetx based on center spot
 	// start at the center of the screen
@@ -1025,7 +1030,7 @@ bool gameBoard::resetMap()
 	{
 		for(int y = 0; y < Height; y++)
 		{
-			mapList[x][y]->setActive(true);
+			mapList[x][y]->resetActive();
 		}
 	}
 	
@@ -1951,6 +1956,13 @@ void gameBoard::RCactivate()
 		((robotSquare == TProgramTL) && (robotDirection == 3)) )				
 	{
 		(*oitr)->setDefaults(robotDirection, robotX, robotY);
+
+		// store the map tiles actives
+		for(int x = 0; x < Width; x++)
+			for(int y = 0; y < Height; y++)
+			{
+				mapList[x][y]->setResetActive(mapList[x][y]->getIsActive());
+			}
 		robotStartX = robotX;
 		robotStartY = robotY;
 		curState = GB_LOGICVIEW;

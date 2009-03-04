@@ -27,15 +27,15 @@ LogicInterface::LogicInterface()
 	logicBankBox.height = bottomBarBox.height - 20;
 	//logicBankBox.x = bottomBarBox.x + 40;
 	//logicBankBox.y = bottomBarBox.y + 25;
-	logicBankBox.x = 67;
-	logicBankBox.y = 584;
+	logicBankBox.x = 34;
+	logicBankBox.y = 768-190+15;
 
 	instructionListBox.width = instructionSpacing + ((instructionSpacing + instructionBlockW) * instructionListNumColumns);
 	instructionListBox.height = logicBankBox.height;
 	//instructionListBox.x = logicBankBox.x + logicBankBox.width + 50;
 	//instructionListBox.y = logicBankBox.y;
 	instructionListBox.x = 340;
-	instructionListBox.y = 586;
+	instructionListBox.y = 590;
 
 	//=============================================
 	// Menu buttons (scrolling the instruction lists)
@@ -82,10 +82,13 @@ LogicInterface::LogicInterface()
 	executingMenu->setLastButtonDimensions(100, 50);
 	executingMenu->setLastButtonPosition(instructionListBox.x +45 + instructionListBox.width +  100, logicBankBox.y+25);
 
-	newToolBar = new oglTexture2D();
-	newToolBar->loadImage("newToolBar.png", 1024, 768);
-	newToolBar->mX = 0;
-	newToolBar->mY = 0;
+	panelArt = new oglTexture2D();
+	panelArt->loadImage("Panel.png", 1024, 190);
+	panelArt->mX = 0;
+	panelArt->mY = 768-190;
+
+	commandBackdrop = new oglTexture2D();
+	commandBackdrop->loadImage("CommandList.png", 228, 181);
 
 	//=============================================
 	// All other initialization
@@ -135,7 +138,24 @@ void LogicInterface::Update()
 
 void LogicInterface::Draw()
 {
-	newToolBar->drawImage();
+	// draw panel background
+	panelArt->drawImage();
+
+	// draw left commands background
+	commandBackdrop->dX = 200;
+	commandBackdrop->dY = 165;
+	commandBackdrop->mX = 30;
+	commandBackdrop->mY = 768-190+12;
+	commandBackdrop->drawImage();
+	
+	// draw center commands background
+	commandBackdrop->dX = 390;
+	commandBackdrop->dY = 171;
+	commandBackdrop->mX = 340;
+	commandBackdrop->mY = 768-190+12
+		;
+	commandBackdrop->drawImage();
+
 	std::vector<logicBlock*>::iterator itr = executionList.begin();
 
 	//=============================================

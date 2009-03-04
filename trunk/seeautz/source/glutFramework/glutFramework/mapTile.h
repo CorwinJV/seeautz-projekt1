@@ -12,6 +12,7 @@ class mapTile
 protected:
 	tileTypeEnum tileType;
 	bool isActive;
+	bool resetActiveStatus;
 	// pointer to whoever is standing on me
 
 public:
@@ -24,6 +25,8 @@ public:
 	bool setActive(bool nactive);
 	bool toggleActive();
 	bool update();
+	void resetActive();
+	void setResetActive(bool newActive);
 };
 
 #endif
