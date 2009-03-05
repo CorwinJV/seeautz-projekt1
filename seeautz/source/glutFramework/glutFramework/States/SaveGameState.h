@@ -1,15 +1,16 @@
-#ifndef SUCCEEDSTATE_H
-#define SUCCEEDSTATE_H
+#ifndef SAVEGAMESTATE_H
+#define SAVEGAMESTATE_H
 
 #include ".\..\GameState.h" 
 #include "..\GameStateManager.h"
 #include ".\..\oglTexture2D.h"
+#include ".\..\oglGameVars.h"
 
-class SucceedState : public GameState
+class SaveGameState : public GameState
 {
 public:
-	SucceedState() {};
-	SucceedState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
+	SaveGameState() {};
+	SaveGameState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
 		img = new oglTexture2D();
 		if(img != NULL)
@@ -17,15 +18,16 @@ public:
 		img->mY = 618;
 
 		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
-		myMenu->addButton("..\\Content\\buttons\\postgame.png", "succeed.png", "button1over.png", CreateFunctionPointer0R(this, &SucceedState::PostGameCallback));
+		myMenu->addButton("..\\Content\\buttons\\postgame.png", "succeed.png", "button1over.png", CreateFunctionPointer0R(this, &SaveGameState::PostGameCallback));
 		Update();
 	}
 
 	void processMouse(int x, int y);
 	void processMouseClick(int button, int state, int x, int y);
-	bool SucceedState::Update();
-	bool SucceedState::Draw();
+	bool SaveGameState::Update();
+	bool SaveGameState::Draw();
 	bool PostGameCallback();
+	bool SaveGameState::SavePlayerGame(string playerGame);
 
 private:
 	oglTexture2D* img;

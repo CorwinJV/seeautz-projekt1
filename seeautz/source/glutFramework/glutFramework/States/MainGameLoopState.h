@@ -18,7 +18,7 @@ public:
 
 	
 		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
-		myMenu->addButton("..\\Content\\buttons\\levelview.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &MainGameLoopState::LevelViewCallback));
+		myMenu->addButton("..\\Content\\buttons\\levelview.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &MainGameLoopState::LevelSelectCallback));
 		Update();
 	}
 
@@ -26,7 +26,7 @@ public:
 	void processMouseClick(int button, int state, int x, int y);
 	bool MainGameLoopState::Update();
 	bool MainGameLoopState::Draw();
-	bool LevelViewCallback();
+	bool LevelSelectCallback();
 
 private:
 	oglTexture2D* img;

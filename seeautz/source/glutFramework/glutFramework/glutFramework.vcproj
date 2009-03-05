@@ -268,7 +268,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\States\LevelViewState.cpp"
+					RelativePath=".\States\LevelSelectState.cpp"
 					>
 				</File>
 				<File
@@ -308,15 +308,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\States\SaveGameState.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\States\StartNewGameState.cpp"
 					>
 				</File>
 				<File
 					RelativePath=".\States\StopLoopState.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\States\SucceedState.cpp"
 					>
 				</File>
 			</Filter>
@@ -462,7 +462,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\States\LevelViewState.h"
+					RelativePath=".\States\LevelSelectState.h"
 					>
 				</File>
 				<File
@@ -502,15 +502,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\States\SaveGameState.h"
+					>
+				</File>
+				<File
 					RelativePath=".\States\StartNewGameState.h"
 					>
 				</File>
 				<File
 					RelativePath=".\States\StopLoopState.h"
-					>
-				</File>
-				<File
-					RelativePath=".\States\SucceedState.h"
 					>
 				</File>
 			</Filter>

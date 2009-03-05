@@ -1,5 +1,5 @@
 #include "MainGameLoopState.h"
-#include "LevelViewState.h"
+#include "LevelSelectState.h"
 
 
 bool MainGameLoopState::Update()
@@ -19,9 +19,9 @@ bool MainGameLoopState::Draw()
 	return false;
 }
 
-bool MainGameLoopState::LevelViewCallback()
+bool MainGameLoopState::LevelSelectCallback()
 {
-	GSM->addGameState<LevelViewState>();
+	GSM->addGameState<LevelSelectState>();
 	this->setStatus(DeleteMe);
 	glClearColor(255, 0, 255, 0);
 

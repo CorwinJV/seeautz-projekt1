@@ -8,6 +8,8 @@ bool playGame::Update()
 {
 	curState = gamePlay->getCurState();
 	int levelCounter;
+	string tempString;
+	int tempInt;
 	
 	// see if the robot is at the end square
 	if((gamePlay->robotAtEndSquare())&& (curState == GB_EXECUTION))
@@ -104,7 +106,9 @@ bool playGame::Update()
 			delete gamePlay;			
 			// in with the new
 			gamePlay = new gameBoard();			
-			gamePlay->LoadGameMapFromFile(levelList[levelCounter]->getFile());
+			tempString = GameVars->getFilename(levelCounter);
+			tempInt = GameVars->getCurrentLevel();
+			gamePlay->LoadGameMapFromFile(tempString);
 			mInterface.GetCurrentMapLogicBank();
 			curState = GB_PREGAME;
 		}
@@ -179,15 +183,19 @@ bool playGame::Draw()
 		// player name
 		tempString = "Player Name: ";
 		tempString += GameVars->getPlayerName();
-		GameVars->fontArial.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
+		GameVars->fontArial32.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
 		offsetAmt++;
 
 		// level title
-		GameVars->fontArial.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, levelList[GameVars->getCurrentLevel()]->getName());
+		tempInt = GameVars->getCurrentLevel();
+		tempString = GameVars->getFilename(tempInt);
+
+		GameVars->fontArial32.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
 		offsetAmt++;
 
+		tempString = GameVars->getDesc(tempInt);
 		// description
-		GameVars->fontArial.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, levelList[GameVars->getCurrentLevel()]->getDesc());
+		GameVars->fontArial32.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
 		offsetAmt++;
 
 		// bytes available
@@ -196,7 +204,7 @@ bool playGame::Draw()
 		tempInt = GameVars->getCurrentLevelBytes();
 		painInTheAss << tempInt;
 		tempString += painInTheAss.str();
-		GameVars->fontArial.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
+		GameVars->fontArial32.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
 		offsetAmt++;			
 		break;
 
@@ -228,7 +236,7 @@ bool playGame::Draw()
 		tempInt = GameVars->getLevelScore();
 		painInTheAss << tempInt;
 		tempString += painInTheAss.str();
-		GameVars->fontArial.drawText(225, 200, tempString);
+		GameVars->fontArial32.drawText(225, 200, tempString);
 
 		// clear the temp string
 		tempString = "";
@@ -239,7 +247,7 @@ bool playGame::Draw()
 		tempInt = GameVars->getTotalScore();
 		painInTheAss << tempInt;
 		tempString += painInTheAss.str();
-		GameVars->fontArial.drawText(225, 300, tempString);
+		GameVars->fontArial32.drawText(225, 300, tempString);
 
 		
 		if(myMenu != NULL)
@@ -264,85 +272,18 @@ bool playGame::Draw()
 
 bool playGame::initialize()
 {
-	levelData* tempLevel;
-
-	tempLevel = new levelData("DEBUG MAP", "THIS IS FOR DAVE TO DEBUG MAP TILES", "maps\\testMap1.txt");
-	levelList.push_back(tempLevel);
-
-	tempLevel = new levelData("Tutorial 1", "Opening Doors", "maps\\tutorialMap1.txt");
-	levelList.push_back(tempLevel);
-
-	tempLevel = new levelData("Tutorial 2", "Moving and Turning", "maps\\tutorialMap2.txt");
-	levelList.push_back(tempLevel);
-
-	tempLevel = new levelData("Tutorial 3", "Moving Forward Until Unable", "maps\\tutorialMap3.txt");
-	levelList.push_back(tempLevel);
-
-	tempLevel = new levelData("Tutorial 4", "Crouching", "maps\\tutorialMap4.txt");
-	levelList.push_back(tempLevel);
-
-	tempLevel = new levelData("Tutorial 5", "Climbing and Jumping", "maps\\tutorialMap5.txt");
-	levelList.push_back(tempLevel);
-
-	tempLevel = new levelData("Tutorial 6", "Punching", "maps\\tutorialMap6.txt");
-	levelList.push_back(tempLevel);
-
-	tempLevel = new levelData("Tutorial 7", "Complete Tutorial", "maps\\tutorialMap7.txt");
-	levelList.push_back(tempLevel);
-
-	tempLevel = new levelData("Map 1", "Map #1", "maps\\Map1.txt");
-	levelList.push_back(tempLevel);
-
-	tempLevel = new levelData("Map 2", "Map #2", "maps\\Map2.txt");
-	levelList.push_back(tempLevel);
-
-	tempLevel = new levelData("Map 3", "Map #3", "maps\\Map3.txt");
-	levelList.push_back(tempLevel);
-
-	tempLevel = new levelData("Map 4", "Map #4", "maps\\Map4.txt");
-	levelList.push_back(tempLevel);
-
-	tempLevel = new levelData("Map 5", "Map #5", "maps\\Map5.txt");
-	levelList.push_back(tempLevel);
-
-	tempLevel = new levelData("Map 6", "6 #6", "maps\\Map6.txt");
-	levelList.push_back(tempLevel);
-
-	tempLevel = new levelData("Map 7", "7 #7", "maps\\Map7.txt");
-	levelList.push_back(tempLevel);
-
-	tempLevel = new levelData("Map 8", "H2O #8", "maps\\Map8.txt");
-	levelList.push_back(tempLevel);
-
-	tempLevel = new levelData("Map 9", "9 #9", "maps\\Map9.txt");
-	levelList.push_back(tempLevel);
-
-	tempLevel = new levelData("Map 10", "10 #10", "maps\\Map10.txt");
-	levelList.push_back(tempLevel);
-
-	tempLevel = new levelData("Map 11", "Insanity #1", "maps\\Map11.txt");
-	levelList.push_back(tempLevel);
-
-	tempLevel = new levelData("Map 12", "Insanity #2", "maps\\Map12.txt");
-	levelList.push_back(tempLevel);
-
-	tempLevel = new levelData("Map 13", "Insanity #3", "maps\\Map13.txt");
-	levelList.push_back(tempLevel);
-
-	tempLevel = new levelData("Map 14", "Insanity #4", "maps\\Map14.txt");
-	levelList.push_back(tempLevel);
-
-	tempLevel = new levelData("Map 15", "Insanity #5", "maps\\Map15.txt");
-	levelList.push_back(tempLevel);
-
-
-	GameVars->setMaxLevel(levelList.size());
+	string tempString;
+	int playerCurrentLevel;
 
 	gamePlay = new gameBoard();
 
-	GameVars->setLevel(16);
+	//this wont work if we're coming in out of a level select
+	playerCurrentLevel = GameVars->getPlayerMaxLevel();
+	GameVars->setLevel(playerCurrentLevel);
 
-	gamePlay->LoadGameMapFromFile(levelList[GameVars->getCurrentLevel()]->getFile());
+	tempString = GameVars->getFilename(playerCurrentLevel);
+	gamePlay->LoadGameMapFromFile(tempString);
+	//gamePlay->LoadGameMapFromFile(levelList[GameVars->getCurrentLevel()]->getFile());
 	mInterface.GetCurrentMapLogicBank();
 
 	//=====================================================
@@ -488,7 +429,7 @@ bool playGame::exitGame()
 
 void playGame::levelSelect()
 {
-
+	//add level select state info here when it's setup
 }
 
 void playGame::doEndGameDraw()
@@ -532,19 +473,27 @@ void playGame::doEndGameDraw()
 
 void playGame::drawLevelInfo()
 {
+	string tempString;
+	int playerCurrentLevel;
+
 	int textOffsetX = 20;
 	int textOffsetY = 20;
 	int textSpacing = 20;
 	int offsetAmt = 0;
 	glColor3ub(255, 0, 0);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-	// draw level info at top left for now until we find a better place for it
-	// level title
+
+
+	//this wont work if we're coming in out of a level select
+	playerCurrentLevel = GameVars->getCurrentLevel();
+
+	tempString = GameVars->getFilename(playerCurrentLevel);
 		
-	GameVars->fontArial12.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, levelList[GameVars->getCurrentLevel()]->getName());
+	GameVars->fontArial12.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, tempString);
 	offsetAmt++;
 
 	// description
-	GameVars->fontArial12.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, levelList[GameVars->getCurrentLevel()]->getDesc());
+	tempString = GameVars->getDesc(playerCurrentLevel);
+	GameVars->fontArial12.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, tempString);
 	offsetAmt++;
 }

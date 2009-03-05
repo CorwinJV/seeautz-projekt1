@@ -37,3 +37,30 @@ bool ProfileMgrState::MainMenuStateCallback()
 
 	return true;
 }
+
+bool ProfileMgrState::LoadGameStateCallback()
+{
+	GSM->addGameState<LoadGameState>();
+	this->setStatus(DeleteMe);
+	glClearColor(0, 0, 0, 0);
+
+	return true;
+}
+
+bool ProfileMgrState::StartNewGameStateCallback()
+{
+	GSM->addGameState<StartNewGameState>();
+	this->setStatus(DeleteMe);
+	glClearColor(0, 0, 0, 0);
+
+	return true;
+}
+
+bool ProfileMgrState::SaveGameStateCallback()
+{
+	GSM->addGameState<playGame>();
+	this->setStatus(DeleteMe);
+	glClearColor(0, 0, 0, 0);
+
+	return true;
+}
