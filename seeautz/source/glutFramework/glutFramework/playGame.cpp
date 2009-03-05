@@ -156,11 +156,13 @@ bool playGame::Draw()
 	case GB_LOGICVIEW:
 		gamePlay->draw();
 		mInterface.Draw();
+		drawLevelInfo();
 		break;
 
 	case GB_EXECUTION:
 		gamePlay->draw();
 		mInterface.Draw();
+		drawLevelInfo();
 		break;
 
 	case GB_PREGAME:
@@ -173,7 +175,6 @@ bool playGame::Draw()
 		glColor3ub(255, 0, 0);
 
 		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-
 
 		// player name
 		tempString = "Player Name: ";
@@ -339,7 +340,7 @@ bool playGame::initialize()
 
 	gamePlay = new gameBoard();
 
-	GameVars->setLevel(0);
+	GameVars->setLevel(16);
 
 	gamePlay->LoadGameMapFromFile(levelList[GameVars->getCurrentLevel()]->getFile());
 	mInterface.GetCurrentMapLogicBank();
@@ -527,6 +528,23 @@ void playGame::doEndGameDraw()
 			timer = clock();
 		}		
 	}
+}
 
+void playGame::drawLevelInfo()
+{
+	int textOffsetX = 20;
+	int textOffsetY = 20;
+	int textSpacing = 20;
+	int offsetAmt = 0;
+	glColor3ub(255, 0, 0);
+	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+	// draw level info at top left for now until we find a better place for it
+	// level title
+		
+	GameVars->fontArial12.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, levelList[GameVars->getCurrentLevel()]->getName());
+	offsetAmt++;
 
+	// description
+	GameVars->fontArial12.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, levelList[GameVars->getCurrentLevel()]->getDesc());
+	offsetAmt++;
 }
