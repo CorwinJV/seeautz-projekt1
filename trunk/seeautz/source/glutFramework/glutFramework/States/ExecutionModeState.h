@@ -16,7 +16,7 @@ public:
 			img->loadImage("..\\Content\\statescreens\\executionmode.png", 1024, 120);
 		img->mY = 618;
 		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
-		myMenu->addButton("..\\Content\\buttons\\succeed.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &ExecutionModeState::SucceedCallback));
+		myMenu->addButton("..\\Content\\buttons\\succeed.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &ExecutionModeState::SaveGameCallback));
 		myMenu->addButton("..\\Content\\buttons\\abortfail.png", "button2down.png", "button2over.png", CreateFunctionPointer0R(this, &ExecutionModeState::AbortCallback));
 		Update();
 	}
@@ -25,7 +25,7 @@ public:
 	void processMouseClick(int button, int state, int x, int y);
 	bool ExecutionModeState::Update();
 	bool ExecutionModeState::Draw();
-	bool SucceedCallback();
+	bool SaveGameCallback();
 	bool AbortCallback();
 
 private:

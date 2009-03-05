@@ -1,5 +1,5 @@
 #include "ExecutionModeState.h"
-#include "SucceedState.h"
+#include "SaveGameState.h"
 #include "AbortState.h"
 
 bool ExecutionModeState::Update()
@@ -20,9 +20,9 @@ bool ExecutionModeState::Draw()
 	return false;
 }
 
-bool ExecutionModeState::SucceedCallback()
+bool ExecutionModeState::SaveGameCallback()
 {
-	GSM->addGameState<SucceedState>();
+	GSM->addGameState<SaveGameState>();
 	this->setStatus(DeleteMe);
 	glClearColor(0, 0, 0, 0);
 

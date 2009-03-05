@@ -1,7 +1,6 @@
 #include "oglGameVars.h"
 #include<fstream>
 #include<iostream>
-//#include<cstring>
 #include <string>
 using namespace std;
 
@@ -20,16 +19,93 @@ oglGameVars::oglGameVars()
 : mTotalScore(0), mPlayerName("")
 { 
 	loadAllLogicBlocks();
+
+	mTotalScore = 1;
+	currentLevel = 1;
+	maxLevel = 1;
+	playerMaxLevel = 1;
+	levelScore = 1;
+	currentLevelBytes = 1;
 	
 	// font loading
-	fontArial.open		("fonts\\arial.ttf", 32);
+	fontArial32.open	("fonts\\arial.ttf", 32);
 	fontArial12.open	("fonts\\arial.ttf", 12);
-	fontArial8.open		("fonts\\arial.ttf", 8);
-	fontDigital.open	("fonts\\DIGIRU__.ttf", 32);
+	fontDigital64.open	("fonts\\DIGIRU__.ttf", 32);
 	fontDigital200.open	("fonts\\DIGIRU__.ttf", 200);
+	fontDigital32.open  ("fonts\\DIGIRU__.ttf", 32);
 	fontOurs.open		("fonts\\Schwaben_Alt_Bold.ttf", 32);
 	fontTimes.open		("fonts\\times.ttf", 32);
 	currentLogicBank = NULL;
+
+	levelData* tempLevel;
+
+	tempLevel = new levelData("DEBUG MAP", "THIS IS FOR DAVE TO DEBUG MAP TILES", "maps\\testMap1.txt");
+	levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Tutorial 1", "Opening Doors", "maps\\tutorialMap1.txt");
+	levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Tutorial 2", "Moving and Turning", "maps\\tutorialMap2.txt");
+	levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Tutorial 3", "Moving Forward Until Unable", "maps\\tutorialMap3.txt");
+	levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Tutorial 4", "Crouching", "maps\\tutorialMap4.txt");
+	levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Tutorial 5", "Climbing and Jumping", "maps\\tutorialMap5.txt");
+	levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Tutorial 6", "Punching", "maps\\tutorialMap6.txt");
+	levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Tutorial 7", "Complete Tutorial", "maps\\tutorialMap7.txt");
+	levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Map 1", "Map #1", "maps\\Map1.txt");
+	levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Map 2", "Map #2", "maps\\Map2.txt");
+	levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Map 3", "Map #3", "maps\\Map3.txt");
+	levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Map 4", "Map #4", "maps\\Map4.txt");
+	levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Map 5", "Map #5", "maps\\Map5.txt");
+	levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Map 6", "6 #6", "maps\\Map6.txt");
+	levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Map 7", "7 #7", "maps\\Map7.txt");
+	levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Map 8", "H2O #8", "maps\\Map8.txt");
+	levelList.push_back(tempLevel);
+
+	//tempLevel = new levelData("Map 10", "Breakable #10", "maps\\Map10.txt");
+	//levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Map 11", "Insanity #1", "maps\\Map11.txt");
+	levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Map 12", "Insanity #2", "maps\\Map12.txt");
+	levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Map 13", "Insanity #3", "maps\\Map13.txt");
+	levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Map 14", "Insanity #4", "maps\\Map14.txt");
+	levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Map 15", "Insanity #5", "maps\\Map15.txt");
+	levelList.push_back(tempLevel);
+
+	maxLevel = levelList.size();
 }
 
 //========================================
@@ -44,9 +120,20 @@ void oglGameVars::setPlayerName(string sname)
 	mPlayerName = sname;
 }
 
+std::string oglGameVars::getFilename(int level)
+{
+
+	return levelList[level]->getFile();
+}
+
+std::string oglGameVars::getDesc(int level)
+{
+	return levelList[level]->getDesc();
+}
+
 bool oglGameVars::SavePlayerGame(string playerGame) 
 {
-	if (playerGame == ".txt")
+		if (playerGame == ".txt")
 	{
 		playerGame = "defaultgame.txt";
 	}
@@ -57,6 +144,18 @@ bool oglGameVars::SavePlayerGame(string playerGame)
 	string tempString;
 	int level;
 	int score;
+	string playerName;
+	
+	// below are varible that will need to functions implemented for them to work properly
+	// once we are able to save our position on the map
+	// also need functionality for what switches have been flipped if saved in midlevel
+	// and possibly number of reprogrammable squares used and bytes remaining
+	int xPos;
+	int yPos;
+	int switchesFlipped;
+	int remainingBytes;
+	int numOfRepos;
+	int playerMaxLevel;
 
 	tempString = "savedGames\\";
 	tempString += playerGame.c_str();
@@ -66,17 +165,21 @@ bool oglGameVars::SavePlayerGame(string playerGame)
 	if(!PlayerInfo)
 		return false;
 
-	level = GameVars->currentLevel;
+	playerMaxLevel = GameVars->getPlayerMaxLevel();
+	level = GameVars->getCurrentLevel();
+
 	if(level > playerMaxLevel)
 		playerMaxLevel = level;
 
 	GameVars->setPlayerMaxLevel(level);
 
 	score = GameVars->getTotalScore();
+	playerName = GameVars->getPlayerName();
 
 	// code for saving stats here
 	PlayerInfo << level << endl;
 	PlayerInfo << score << endl;
+	PlayerInfo << playerName << endl;
 
 	PlayerInfo.close();
 
@@ -90,6 +193,7 @@ bool oglGameVars::LoadPlayerGame(string playerGame)
 	string tempString;
 	int score;
 	int level;
+	string playerName;
 
 	tempString = "savedGames\\";
 	tempString += playerGame.c_str();
@@ -105,6 +209,9 @@ bool oglGameVars::LoadPlayerGame(string playerGame)
 
 	PlayerInfo >> score;
 	GameVars->setTotalScore(score);
+
+	PlayerInfo >> playerName;
+	GameVars->setPlayerName(playerName);
 
 	PlayerInfo.close();
 	
@@ -186,6 +293,12 @@ int oglGameVars::getTotalScore()
 {
 	return mTotalScore;
 }
+
+int oglGameVars::getPlayerMaxLevel()
+{
+	return playerMaxLevel;
+}
+
 int	oglGameVars::getLevelScore()
 {
 	return levelScore;

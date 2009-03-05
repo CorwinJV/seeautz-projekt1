@@ -1,9 +1,8 @@
-#ifndef TUTORIALMAP1_H
-#define TUTORIALMAP1_H
+#ifndef PLAYGAME_H
+#define PLAYGAME_H
 
 #include "GameState.h" 
 #include "oglUtility.h"
-//#include "pixmap.h"
 #include "gameBoard.h"
 #include "LogicInterface.h"
 #include "oglGameVars.h"

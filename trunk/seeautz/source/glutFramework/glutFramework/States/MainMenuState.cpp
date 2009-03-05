@@ -6,6 +6,7 @@
 #include "..\GameStateManager.h"
 #include "MainGameLoopState.h"
 #include "PreGameState.h"
+#include "LevelSelectState.h"
 
 #include "..\playGame.h"
 
@@ -72,7 +73,7 @@ bool MainMenuState::LoadGameCallback()
 
 bool MainMenuState::OptionsCallback()
 {
-	GSM->addGameState<OptionsState>();
+	GSM->addGameState<LevelSelectState>();
 	this->setStatus(DeleteMe);
 	glClearColor(255, 0, 255, 0);
 

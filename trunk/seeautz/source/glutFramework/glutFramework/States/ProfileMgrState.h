@@ -5,6 +5,9 @@
 #include ".\..\GameStateManager.h"
 #include ".\..\oglTexture2D.h"
 #include "MainMenuState.h"
+#include "StartNewGameState.h"
+#include "LoadGameState.h"
+#include ".\..\playGame.h"
 
 class ProfileMgrState : public GameState
 {
@@ -19,6 +22,9 @@ public:
 
 		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
 		myMenu->addButton("..\\Content\\buttons\\returntomainmenu.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &ProfileMgrState::MainMenuStateCallback));
+		myMenu->addButton("..\\Content\\buttons\\returntomainmenu.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &ProfileMgrState::StartNewGameStateCallback));
+		myMenu->addButton("..\\Content\\buttons\\returntomainmenu.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &ProfileMgrState::LoadGameStateCallback));
+		myMenu->addButton("..\\Content\\buttons\\returntomainmenu.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &ProfileMgrState::SaveGameStateCallback));
 		Update();
 	}
 
@@ -27,6 +33,9 @@ public:
 	bool ProfileMgrState::Update();
 	bool ProfileMgrState::Draw();
 	bool MainMenuStateCallback();
+	bool StartNewGameStateCallback();
+	bool LoadGameStateCallback();
+	bool SaveGameStateCallback();
 
 private:
 	oglTexture2D* img;

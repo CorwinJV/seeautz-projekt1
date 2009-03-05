@@ -13,73 +13,6 @@
 
 using namespace std;
 
-
-//===========================
-// oglGameVars
-//    This class is based on
-// the singleton design pattern
-// popularized in the GoF book:
-// "Design Patterns".
-// - CJV
-
-class oglGameVars 
-{
-public:
-    static oglGameVars* Instance();
-protected:
-    oglGameVars();
-    oglGameVars(const oglGameVars&);
-    oglGameVars& operator= (const oglGameVars&);
-private:
-    static oglGameVars* pinstance;
-
-	//===============================================
-	// Non singleton functions and data members here
-	//===============================================
-public:
-	std::string					getPlayerName();
-	void						setPlayerName(std::string name);
-	void						loadAllLogicBlocks();
-	std::vector<logicBlock*>*	oglGameVars::getAllLogicBlocks();
-	logicBlock*					getPlaceInstructionBlock();
-	bool						LoadPlayerGame(string name);
-	bool						SavePlayerGame(string name);
-	int							getTotalScore();
-	int							getLevelScore();
-	void						setLevelScore(int score);
-	void						setTotalScore(int score);
-	void						setMaxLevel(int newMax);
-	void						setPlayerMaxLevel(int level);
-	int							getMaxLevel();
-	int							getCurrentLevel();
-	int							getCurrentLevelBytes();
-	void						setLevel(int);
-	void						setCurrentLevelBytes(int newBytes);
-	void						setCurrentLogicBank(bool moveForwardAvail, bool moveForwardUntilAvail, bool turnLeftAvail, bool turnRightAvail,
-													bool punchAvail, bool climbAvail, bool crouchAvail, bool jumpAvail, bool activateAvail, bool sub1Avail, bool sub2Avail);
-	std::vector<logicBlock*>*	GetCurrentMapLogicBank();
-	vector<logicBlock*>			*currentLogicBank;
-	GLFT_Font					fontTimes;
-	GLFT_Font					fontArial;
-	GLFT_Font					fontArial12;
-	GLFT_Font					fontDigital;
-	GLFT_Font					fontOurs;
-	GLFT_Font					fontDigital200;
-	GLFT_Font					fontArial8;
-
-private:				
-	std::string mPlayerName;
-	int mTotalScore;
-	int currentLevel;
-	int maxLevel;
-	int playerMaxLevel;
-	int levelScore;
-	int currentLevelBytes;
-	std::vector<logicBlock*>	allLogicBlocks;
-	logicBlock*					placeInstructionBlock;
-	
-};
-
 struct levelData
 {
 private:
@@ -115,6 +48,76 @@ public:
 		return fileName;
 	};
 
+};
+
+//===========================
+// oglGameVars
+//    This class is based on
+// the singleton design pattern
+// popularized in the GoF book:
+// "Design Patterns".
+// - CJV
+
+class oglGameVars 
+{
+public:
+    static oglGameVars* Instance();
+protected:
+    oglGameVars();
+    oglGameVars(const oglGameVars&);
+    oglGameVars& operator= (const oglGameVars&);
+private:
+    static oglGameVars* pinstance;
+	vector<levelData*> levelList;
+
+	//===============================================
+	// Non singleton functions and data members here
+	//===============================================
+public:
+	std::string					getPlayerName();
+	void						setPlayerName(std::string name);
+	void						loadAllLogicBlocks();
+	std::vector<logicBlock*>*	oglGameVars::getAllLogicBlocks();
+	logicBlock*					getPlaceInstructionBlock();
+	bool						LoadPlayerGame(string name);
+	bool						SavePlayerGame(string name);
+	int							getTotalScore();
+	int							getLevelScore();
+	void						setLevelScore(int score);
+	void						setTotalScore(int score);
+	void						setMaxLevel(int newMax);
+	void						setPlayerMaxLevel(int level);
+	int							getMaxLevel();
+	int							getPlayerMaxLevel();
+	int							getCurrentLevel();
+	int							getCurrentLevelBytes();
+	void						setLevel(int);
+	std::string					getFilename(int);
+	std::string					getDesc(int);
+	void						setCurrentLevelBytes(int newBytes);
+	void						setCurrentLogicBank(bool moveForwardAvail, bool moveForwardUntilAvail, bool turnLeftAvail, bool turnRightAvail,
+													bool punchAvail, bool climbAvail, bool crouchAvail, bool jumpAvail, bool activateAvail, bool sub1Avail, bool sub2Avail);
+	std::vector<logicBlock*>*	GetCurrentMapLogicBank();
+	vector<logicBlock*>			*currentLogicBank;
+	GLFT_Font					fontTimes;
+	GLFT_Font					fontArial32;
+	GLFT_Font					fontArial12;
+	GLFT_Font					fontDigital64;
+	GLFT_Font					fontOurs;
+	GLFT_Font					fontDigital200;
+	GLFT_Font					fontDigital32;
+
+private:				
+	std::string mPlayerName;
+	int mTotalScore;
+	int currentLevel;
+	int maxLevel;
+	int playerMaxLevel;
+	int levelScore;
+	int currentLevelBytes;
+	std::vector<logicBlock*>	allLogicBlocks;
+	logicBlock*					placeInstructionBlock;
+	
 };
 
 #endif // OGLGAMEVARS_H
