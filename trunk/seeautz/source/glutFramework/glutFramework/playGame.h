@@ -30,6 +30,7 @@ private:
 	int preGameTextOffsetY;
 	int preGameTextSpacing;
 	int playerScore;
+	void drawLevelInfo();
 
 public:
 	playGame();

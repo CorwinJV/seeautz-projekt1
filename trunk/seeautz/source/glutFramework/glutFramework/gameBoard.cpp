@@ -1940,9 +1940,42 @@ void gameBoard::RCactivate()
 				//tempSwitch = (*sitr);
 				for(int xyx = 0; xyx < (*sitr)->getNumTargets(); xyx++)
 				{
+					//abcxyz
+					
 					sx = (*sitr)->getNextX();
 					sy = (*sitr)->getNextY();
+					currentX = sx;
+					currentY = sy;
+
+					this->recalcPositions();
+					
+					// draw before
+					glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+					this->draw();
+					glutSwapBuffers();
+
+					timer = clock();
+					startTime = clock();
+					while(timer < startTime + 500)
+					{
+						timer = clock();
+					}
+					
+
 					mapList[sx][sy]->toggleActive();
+					
+					
+					// draw after
+					glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+					this->draw();
+					glutSwapBuffers();
+
+					timer = clock();
+					startTime = clock();
+					while(timer < startTime + 500)
+					{
+						timer = clock();
+					}
 				}
 			}
 		}

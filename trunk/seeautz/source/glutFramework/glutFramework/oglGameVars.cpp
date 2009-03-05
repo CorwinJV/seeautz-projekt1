@@ -24,6 +24,7 @@ oglGameVars::oglGameVars()
 	// font loading
 	fontArial.open		("fonts\\arial.ttf", 32);
 	fontArial12.open	("fonts\\arial.ttf", 12);
+	fontArial8.open		("fonts\\arial.ttf", 8);
 	fontDigital.open	("fonts\\DIGIRU__.ttf", 32);
 	fontDigital200.open	("fonts\\DIGIRU__.ttf", 200);
 	fontOurs.open		("fonts\\Schwaben_Alt_Bold.ttf", 32);
