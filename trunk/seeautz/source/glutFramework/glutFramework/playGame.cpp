@@ -313,8 +313,11 @@ bool playGame::initialize()
 	tempLevel = new levelData("Map 8", "H2O #8", "maps\\Map8.txt");
 	levelList.push_back(tempLevel);
 
-	//tempLevel = new levelData("Map 10", "Breakable #10", "maps\\Map10.txt");
-	//levelList.push_back(tempLevel);
+	tempLevel = new levelData("Map 9", "9 #9", "maps\\Map9.txt");
+	levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Map 10", "10 #10", "maps\\Map10.txt");
+	levelList.push_back(tempLevel);
 
 	tempLevel = new levelData("Map 11", "Insanity #1", "maps\\Map11.txt");
 	levelList.push_back(tempLevel);
