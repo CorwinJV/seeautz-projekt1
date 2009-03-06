@@ -4,11 +4,9 @@
 
 bool StartNewGameState::Update()
 {
-	/*if(myMenu != NULL)
-		myMenu->Update();*/
 
-	// Once ENTER key is pressed, move into game
-	if(finished)
+	// Once ENTER key is pressed, and name has been checked move into game
+	if((finished)&&(checked))
 	{
 		GSM->addGameState<playGame>();
 		this->setStatus(DeleteMe);
@@ -23,20 +21,16 @@ bool StartNewGameState::Draw()
 	// Display onto the screen until user advances with ENTER key
 	if(!finished)
 	{
-		GameVars->fontArial32.drawText(225, 200, "Enter Your Name: ");
+		GameVars->fontArial32.drawText(125, 200, "Enter Your Name: ");
 		GameVars->fontArial32.drawText(535, 200, tempString);
-		GameVars->fontArial32.drawText(225, 250, "Press the ENTER key when finished");
-		GameVars->fontArial32.drawText(225, 300, "No numbers or special characters");
+		GameVars->fontArial32.drawText(125, 250, "Press the ENTER key when finished");
+		GameVars->fontArial32.drawText(125, 300, "No numbers or special characters");
+		GameVars->fontArial32.drawText(125, 350, "Or press the escape key to return to the main menu");
 	}
-	//else
-	//{
-	//	if(img != NULL)
-	//		//img->drawPixMap();
-	//		img->drawImage();
-
-	//	if(myMenu != NULL)
-	//		myMenu->Draw();
-	//}
+	if((finished)&&(!checked))
+	{
+		GameVars->fontArial32.drawText(125, 150, "Name already exists, please enter another name: ");
+	}
 
 	return false;
 }
@@ -53,26 +47,10 @@ void StartNewGameState::processMouseClick(int button, int state, int x, int y)
 		myMenu->processMouseClick(button, state, x, y);
 }
 
-//bool StartNewGameState::PreGameCallback()
-//{
-//	GSM->addGameState<PreGameState>();
-//	this->setStatus(DeleteMe);
-//	glClearColor(255, 255, 255, 0);
-//
-//	return true;
-//} 
-//
-//bool StartNewGameState::tutorialCallback()
-//{
-//	GSM->addGameState<playGame>();
-//	this->setStatus(DeleteMe);
-//	glClearColor(255, 0, 255, 0);
-//
-//	return true;
-//} 
-
 void StartNewGameState::keyboardInput(unsigned char c, int x, int y)
 {
+	bool profileCheck;
+
 	switch(c)
 	{
 	case 'a':
@@ -134,17 +112,48 @@ void StartNewGameState::keyboardInput(unsigned char c, int x, int y)
 		}
 		break;
 	case 13: // enter key
-		finished = true;
+		if((!finished)&&(checked))
+		{
+			finished = true;
+			checked = false;
+		}
+		else if((!finished)&&(!checked))
+		{
+			finished = true;
+		}
+		else if(tempString == "")
+		{
+			finished = false;
+		}
 		break;
 	case 8:	 // backspace
 		if(tempString.length() > 0)
 			tempString.erase(tempString.length() - 1, 1);
 		break;
+	case 27: // escape key
+		GSM->addGameState<MainMenuState>();
+		this->setStatus(DeleteMe);
+		break;
 	default:
 		break;
 	}
 
+	//once player is finished, check to see if profile under same name already exists
 	if(finished)
+	{
+		profileCheck = doesNameAlreadyExists(tempString);
+		if(!profileCheck)
+		{
+			checked = true;		// if profile doesn't already exist, proceed
+		}
+		else 
+		{
+			tempString = "";	// otherwise clear the string out and try again
+			//finished = false;
+		}
+	}
+
+	if(checked)
 	{
 		setPlayerName(tempString);
 	}
@@ -154,4 +163,24 @@ void StartNewGameState::keyboardInput(unsigned char c, int x, int y)
 void StartNewGameState::setPlayerName(string name)
 {
 	GameVars->setPlayerName(name);
+}
+
+bool StartNewGameState::doesNameAlreadyExists(string playerGame)
+{
+	ifstream PlayerInfo;
+	string playerName = playerGame;
+
+	tempString = "savedGames\\";
+	tempString += playerGame.c_str();
+	tempString += ".txt";
+	
+	PlayerInfo.open(tempString.c_str());
+
+	if(!PlayerInfo)
+	{
+		return false;
+		tempString = "";
+	}
+
+	return true;
 }

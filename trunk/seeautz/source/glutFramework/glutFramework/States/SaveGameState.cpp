@@ -8,9 +8,6 @@ using namespace std;
 
 bool SaveGameState::Update()
 {
-
-
-
 	if(myMenu != NULL)
 		myMenu->Update();
 	return true;
@@ -39,6 +36,7 @@ bool SaveGameState::SavePlayerGame(string playerGame)
 	string tempString;
 	int level;
 	int score;
+	bool inGame;
 	string playerName;
 	
 	// below are varible that will need to functions implemented for them to work properly
@@ -51,6 +49,8 @@ bool SaveGameState::SavePlayerGame(string playerGame)
 	int remainingBytes;
 	int numOfRepos;
 	int playerMaxLevel;
+
+	inGame = GameVars->getGameStatus();
 
 	tempString = "savedGames\\";
 	tempString += playerGame.c_str();
@@ -65,6 +65,10 @@ bool SaveGameState::SavePlayerGame(string playerGame)
 
 	if(level > playerMaxLevel)
 		playerMaxLevel = level;
+
+	// unless we are saving in the middle of a level, increment the level. 
+	if(!inGame)
+		level++;
 
 	GameVars->setPlayerMaxLevel(level);
 

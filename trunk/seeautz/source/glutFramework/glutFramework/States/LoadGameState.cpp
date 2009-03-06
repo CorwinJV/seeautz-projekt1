@@ -11,14 +11,15 @@ bool LoadGameState::Update()
 
 bool LoadGameState::Draw()
 {
-	if(!finished)
+	if(finished == 0)
 	{
 		GameVars->fontArial32.drawText(125, 200, "Enter the name of the profile you wish to load: ");
 		GameVars->fontArial32.drawText(535, 250, tempString);
 		GameVars->fontArial32.drawText(125, 300, "Press the ENTER key when finished");
 		GameVars->fontArial32.drawText(125, 350, "No numbers or special characters");
+		GameVars->fontArial32.drawText(125, 450, "Or press Escape to return to the main menu ");
 	}
-	else
+	if(finished == 1)
 	{
 		if(img != NULL)
 			img->drawImage();
@@ -26,6 +27,12 @@ bool LoadGameState::Draw()
 		if(myMenu != NULL)
 			myMenu->Draw();
 	}
+	if(finished == 2)
+	{
+		GameVars->fontArial32.drawText(105, 200, "No profile found, press Enter to retry: ");
+		GameVars->fontArial32.drawText(105, 250, "Or press Escape to return to the main menu ");
+	}
+
 	return false;
 }
 
@@ -57,10 +64,14 @@ bool LoadGameState::loadGame(string playerGame)
 	tempString += playerGame.c_str();
 	tempString += ".txt";
 	
-	if(!PlayerInfo)
-		return false;
-
 	PlayerInfo.open(tempString.c_str());
+
+	if(!PlayerInfo)
+	{
+		finished = 2;
+	}
+
+	
 
 	// code for loading player stats here
 	PlayerInfo >> level;
@@ -73,9 +84,11 @@ bool LoadGameState::loadGame(string playerGame)
 	GameVars->setPlayerName(playerName);
 
 	PlayerInfo.close();
+
+	return true;
 }
 
-bool LoadGameState::tutorialCallback()
+bool LoadGameState::playGameCallback()
 {
 	GSM->addGameState<playGame>();
 	this->setStatus(DeleteMe);
@@ -83,6 +96,15 @@ bool LoadGameState::tutorialCallback()
 
 	return true;
 } 
+
+bool LoadGameState::levelSelectCallback()
+{
+	GSM->addGameState<LevelSelectState>();
+	this->setStatus(DeleteMe);
+	glClearColor(255, 0, 255, 0);
+
+	return true;
+}
 
 void LoadGameState::processMouse(int x, int y)
 {
@@ -155,15 +177,25 @@ void LoadGameState::keyboardInput(unsigned char c, int x, int y)
 		if(tempString.length() <= 10)
 		{
 			tempString += c;
-			finished = false;
+			finished = 0;
 		}
 		break;
 	case 13: // enter key
-		finished = true;
+		if(finished == 2)
+		{
+			tempString = "";
+			finished = 0;
+		}
+		else
+			finished = 1;
 		break;
 	case 8:	 // backspace
 		if(tempString.length() > 0)
 			tempString.erase(tempString.length() - 1, 1);
+		break;
+	case 27: // escape key
+		GSM->addGameState<MainMenuState>();
+		this->setStatus(DeleteMe);
 		break;
 	default:
 		break;

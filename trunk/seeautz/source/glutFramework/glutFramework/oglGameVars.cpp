@@ -20,12 +20,14 @@ oglGameVars::oglGameVars()
 { 
 	loadAllLogicBlocks();
 
-	mTotalScore = 1;
+	mTotalScore = 0;
 	currentLevel = 1;
 	maxLevel = 1;
 	playerMaxLevel = 1;
-	levelScore = 1;
+	levelScore = 0;
 	currentLevelBytes = 1;
+	levelSpecified = -1;
+	inGame = false;
 	
 	// font loading
 	fontArial32.open	("fonts\\arial.ttf", 32);
@@ -129,6 +131,21 @@ void oglGameVars::setPlayerName(string sname)
 	mPlayerName = sname;
 }
 
+void oglGameVars::setLevelSpecified(int level)
+{
+	levelSpecified = level;
+}
+
+int oglGameVars::getLevelSpecified()
+{
+	return levelSpecified;
+}
+
+//int oglGameVars::getPlayerCurrentLevel()
+//{
+//	return playerCurrentLevel;
+//}
+
 std::string oglGameVars::getFilename(int level)
 {
 
@@ -230,6 +247,21 @@ bool oglGameVars::LoadPlayerGame(string playerGame)
 	PlayerInfo.close();
 	
 	return true;
+}
+
+void oglGameVars::setCurrentLevel(int level)
+{
+	currentLevel = level;
+}
+
+void oglGameVars::setGameStatus(bool status)
+{
+	inGame = status;
+}
+
+bool oglGameVars::getGameStatus()
+{
+	return inGame;
 }
 
 void oglGameVars::loadAllLogicBlocks()

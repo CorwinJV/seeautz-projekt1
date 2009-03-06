@@ -277,8 +277,14 @@ bool playGame::initialize()
 
 	gamePlay = new gameBoard();
 
-	//this wont work if we're coming in out of a level select
-	playerCurrentLevel = GameVars->getPlayerMaxLevel();
+	//check to see if a level has been specified (initialized to -1)
+	playerCurrentLevel = GameVars->getLevelSpecified();
+	if(playerCurrentLevel < 0)
+	{
+		//if a level has not been specified, set to max level
+		playerCurrentLevel = GameVars->getPlayerMaxLevel();
+	}
+
 	// debug brute force of level
 	//playerCurrentLevel = 1;
 	GameVars->setLevel(playerCurrentLevel);
