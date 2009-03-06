@@ -11,7 +11,8 @@ LogicInterface::LogicInterface()
 		mouseX(0), mouseY(0), currentHoverBlockIndex(-1),
 		curInstrTab(TAB_MAIN), isExecuting(false), resetMenu(NULL),
 		curExecutionListYOffset(NULL), executionListYOffset(0), 
-		executionListSub1YOffset(0), executionListSub2YOffset(0)
+		executionListSub1YOffset(0), executionListSub2YOffset(0),
+		scrollBar(NULL)
 {
 	//sideBarBox.width = 150;
 	//sideBarBox.height = 618;
@@ -40,19 +41,19 @@ LogicInterface::LogicInterface()
 	//=============================================
 	// Menu buttons (scrolling the instruction lists)
 	myMenu = new MenuSys(0, 0, "blank.png", None);
-	myMenu->addButton("arrow_up.png", "arrow_up.png", "arrow_up.png", BE::CreateFunctionPointer0R(this, &LogicInterface::LogicBankUpArrowButtonClick));
+	myMenu->addButton("scrollbarUp.png", "scrollbarUp.png", "scrollbarUp.png", BE::CreateFunctionPointer0R(this, &LogicInterface::LogicBankUpArrowButtonClick));
 	myMenu->setLastButtonDimensions(25, 25);
 	myMenu->setLastButtonPosition(logicBankBox.x + logicBankBox.width, logicBankBox.y);
 
-	myMenu->addButton("arrow_down.png", "arrow_down.png", "arrow_down.png", BE::CreateFunctionPointer0R(this, &LogicInterface::LogicBankDownArrowButtonClick));
+	myMenu->addButton("scrollbarDown.png", "scrollbarDown.png", "scrollbarDown.png", BE::CreateFunctionPointer0R(this, &LogicInterface::LogicBankDownArrowButtonClick));
 	myMenu->setLastButtonDimensions(25, 25);
 	myMenu->setLastButtonPosition(logicBankBox.x + logicBankBox.width, logicBankBox.y + logicBankBox.height - 45);
 
-	myMenu->addButton("arrow_up.png", "arrow_up.png", "arrow_up.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ExecutionListUpArrowButtonClick));
+	myMenu->addButton("scrollbarUp.png", "scrollbarUp.png", "scrollbarUp.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ExecutionListUpArrowButtonClick));
 	myMenu->setLastButtonDimensions(25, 25);
 	myMenu->setLastButtonPosition(instructionListBox.x + instructionListBox.width, instructionListBox.y);
 
-	myMenu->addButton("arrow_down.png", "arrow_down.png", "arrow_down.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ExecutionListDownArrowButtonClick));
+	myMenu->addButton("scrollbarDown.png", "scrollbarDown.png", "scrollbarDown.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ExecutionListDownArrowButtonClick));
 	myMenu->setLastButtonDimensions(25, 25);
 	myMenu->setLastButtonPosition(instructionListBox.x + instructionListBox.width, instructionListBox.y + instructionListBox.height - 45);
 
@@ -95,6 +96,8 @@ LogicInterface::LogicInterface()
 	menuBar = new oglTexture2D();
 	//menuBar->loadImage("blankmenu.png", 1024, 768);
 	menuBar->loadImage("blank.png", 1024, 768);
+	scrollBar = new oglTexture2D();
+	scrollBar->loadImage("scrollbarBG.png", 100, 100);
 
 	logicBank = GameVars->GetCurrentMapLogicBank(); //GameVars->getAllLogicBlocks();
 	executionList.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
@@ -333,13 +336,13 @@ void LogicInterface::Draw()
 	}
 	//=============================================
 	// Menu Bars (Behind Scroll Buttons)
-	menuBar->mX = logicBankBox.x + logicBankBox.width;
-	menuBar->mY = logicBankBox.y;
-	menuBar->drawImage(25, logicBankBox.height - 20);
+	scrollBar->mX = logicBankBox.x + logicBankBox.width;
+	scrollBar->mY = logicBankBox.y;
+	scrollBar->drawImage(25, logicBankBox.height - 20);
 
-	menuBar->mX = instructionListBox.x + instructionListBox.width;
-	menuBar->mY = instructionListBox.y;
-	menuBar->drawImage(25, instructionListBox.height - 20);
+	scrollBar->mX = instructionListBox.x + instructionListBox.width;
+	scrollBar->mY = instructionListBox.y;
+	scrollBar->drawImage(25, instructionListBox.height - 20);
 
 	//=============================================
 	// Menu Buttons (For scrolling and shizz)
@@ -434,22 +437,25 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 	// When the user clicks, we want them to be able to select an
 	// instruction to drag over into the robot's instruction list.
 	// Loop through the list of bank instructions and check x/y
-	if(button == GLUT_LEFT
-		&& state == GLUT_DOWN)
+	if(!isExecuting)
 	{
-		if(isButtonBeingClicked == false)
+		if(button == GLUT_LEFT
+			&& state == GLUT_DOWN)
 		{
-			// If the left mouse button is down
-			if(logicBank != NULL)
+			if(isButtonBeingClicked == false)
 			{
-				std::vector<logicBlock*>::iterator itr = logicBank->begin();
-				for(; itr != logicBank->end(); itr++)
+				// If the left mouse button is down
+				if(logicBank != NULL)
 				{
-					if((*itr)->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+					std::vector<logicBlock*>::iterator itr = logicBank->begin();
+					for(; itr != logicBank->end(); itr++)
 					{
-						draggedBlock = new logicBlock(*(*itr));
-						draggedBlock->curButtonState = BS_ACTIVE;
-						isMouseDragging = true;
+						if((*itr)->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+						{
+							draggedBlock = new logicBlock(*(*itr));
+							draggedBlock->curButtonState = BS_ACTIVE;
+							isMouseDragging = true;
+						}
 					}
 				}
 			}
@@ -460,59 +466,62 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 	//=====================================
 	// Dropping the instruction block into 
 	// the correct tabbed execution list
-	if(button == GLUT_LEFT
-		&& state == GLUT_UP)
+	if(!isExecuting)
 	{
-		if(isMouseDragging == true
-			&& draggedBlock != NULL)
+		if(button == GLUT_LEFT
+			&& state == GLUT_UP)
 		{
-			if(curInstrTab == TAB_MAIN)
+			if(isMouseDragging == true
+				&& draggedBlock != NULL)
 			{
-				if(executionList.back()->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+				if(curInstrTab == TAB_MAIN)
 				{
-					executionList.pop_back();
-					executionList.push_back(new logicBlock(*(draggedBlock)));					
-					executionList.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
-					executionList.back()->curButtonState = BS_ACTIVE;
+					if(executionList.back()->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+					{
+						executionList.pop_back();
+						executionList.push_back(new logicBlock(*(draggedBlock)));					
+						executionList.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
+						executionList.back()->curButtonState = BS_ACTIVE;
+						delete draggedBlock;
+						draggedBlock = NULL;
+					}
+
 					delete draggedBlock;
 					draggedBlock = NULL;
+					isMouseDragging = false;
 				}
-
-				delete draggedBlock;
-				draggedBlock = NULL;
-				isMouseDragging = false;
-			}
-			else if(curInstrTab == TAB_SUB1)
-			{
-				if(executionListSub1.back()->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+				else if(curInstrTab == TAB_SUB1)
 				{
-					executionListSub1.pop_back();
-					executionListSub1.push_back(new logicBlock(*(draggedBlock)));
-					executionListSub1.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
-					executionListSub1.back()->curButtonState = BS_ACTIVE;
+					if(executionListSub1.back()->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+					{
+						executionListSub1.pop_back();
+						executionListSub1.push_back(new logicBlock(*(draggedBlock)));
+						executionListSub1.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
+						executionListSub1.back()->curButtonState = BS_ACTIVE;
+						delete draggedBlock;
+						draggedBlock = NULL;
+					}
+
 					delete draggedBlock;
 					draggedBlock = NULL;
+					isMouseDragging = false;
 				}
-
-				delete draggedBlock;
-				draggedBlock = NULL;
-				isMouseDragging = false;
-			}
-			else if(curInstrTab == TAB_SUB2)
-			{
-				if(executionListSub2.back()->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+				else if(curInstrTab == TAB_SUB2)
 				{
-					executionListSub2.pop_back();
-					executionListSub2.push_back(new logicBlock(*(draggedBlock)));
-					executionListSub2.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
-					executionListSub2.back()->curButtonState = BS_ACTIVE;
+					if(executionListSub2.back()->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+					{
+						executionListSub2.pop_back();
+						executionListSub2.push_back(new logicBlock(*(draggedBlock)));
+						executionListSub2.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
+						executionListSub2.back()->curButtonState = BS_ACTIVE;
+						delete draggedBlock;
+						draggedBlock = NULL;
+					}
+
 					delete draggedBlock;
 					draggedBlock = NULL;
+					isMouseDragging = false;
 				}
-
-				delete draggedBlock;
-				draggedBlock = NULL;
-				isMouseDragging = false;
 			}
 		}
 	}
@@ -521,73 +530,76 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 	// Pulling an instruction block 
 	// out of one of the execution 
 	// lists.
-	if(button == GLUT_LEFT
-		&& state == GLUT_DOWN)
+	if(!isExecuting)
 	{
-		if(curInstrTab == TAB_MAIN)
+		if(button == GLUT_LEFT
+			&& state == GLUT_DOWN)
 		{
-			if(isButtonBeingClicked == false)
+			if(curInstrTab == TAB_MAIN)
 			{
-				// If the left mouse button is down
-				std::vector<logicBlock*>::reverse_iterator itr = executionList.rbegin();
-				for(; itr != executionList.rend(); itr++)
+				if(isButtonBeingClicked == false)
 				{
-					if((*itr)->enumInstruction != DO_NOT_PROCESS)
+					// If the left mouse button is down
+					std::vector<logicBlock*>::reverse_iterator itr = executionList.rbegin();
+					for(; itr != executionList.rend(); itr++)
 					{
-						if((*itr)->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+						if((*itr)->enumInstruction != DO_NOT_PROCESS)
 						{
-							draggedBlock = new logicBlock(*(*itr));
-							isMouseDragging = true;
+							if((*itr)->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+							{
+								draggedBlock = new logicBlock(*(*itr));
+								isMouseDragging = true;
 
-							delete (*itr);
-							executionList.erase(itr.base() - 1);
-							break;
+								delete (*itr);
+								executionList.erase(itr.base() - 1);
+								break;
+							}
 						}
 					}
 				}
 			}
-		}
-		else if(curInstrTab == TAB_SUB1)
-		{
-			if(isButtonBeingClicked == false)
+			else if(curInstrTab == TAB_SUB1)
 			{
-				// If the left mouse button is down
-				std::vector<logicBlock*>::reverse_iterator itr = executionListSub1.rbegin();
-				for(; itr != executionListSub1.rend(); itr++)
+				if(isButtonBeingClicked == false)
 				{
-					if((*itr)->enumInstruction != DO_NOT_PROCESS)
+					// If the left mouse button is down
+					std::vector<logicBlock*>::reverse_iterator itr = executionListSub1.rbegin();
+					for(; itr != executionListSub1.rend(); itr++)
 					{
-						if((*itr)->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+						if((*itr)->enumInstruction != DO_NOT_PROCESS)
 						{
-							draggedBlock = new logicBlock(*(*itr));
-							isMouseDragging = true;
+							if((*itr)->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+							{
+								draggedBlock = new logicBlock(*(*itr));
+								isMouseDragging = true;
 
-							delete (*itr);
-							executionListSub1.erase(itr.base() - 1);
-							break;
+								delete (*itr);
+								executionListSub1.erase(itr.base() - 1);
+								break;
+							}
 						}
 					}
 				}
 			}
-		}
-		else if(curInstrTab == TAB_SUB2)
-		{
-			if(isButtonBeingClicked == false)
+			else if(curInstrTab == TAB_SUB2)
 			{
-				// If the left mouse button is down
-				std::vector<logicBlock*>::reverse_iterator itr = executionListSub2.rbegin();
-				for(; itr != executionListSub2.rend(); itr++)
+				if(isButtonBeingClicked == false)
 				{
-					if((*itr)->enumInstruction != DO_NOT_PROCESS)
+					// If the left mouse button is down
+					std::vector<logicBlock*>::reverse_iterator itr = executionListSub2.rbegin();
+					for(; itr != executionListSub2.rend(); itr++)
 					{
-						if((*itr)->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+						if((*itr)->enumInstruction != DO_NOT_PROCESS)
 						{
-							draggedBlock = new logicBlock(*(*itr));
-							isMouseDragging = true;
+							if((*itr)->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+							{
+								draggedBlock = new logicBlock(*(*itr));
+								isMouseDragging = true;
 
-							delete (*itr);
-							executionListSub2.erase(itr.base() - 1);
-							break;
+								delete (*itr);
+								executionListSub2.erase(itr.base() - 1);
+								break;
+							}
 						}
 					}
 				}
