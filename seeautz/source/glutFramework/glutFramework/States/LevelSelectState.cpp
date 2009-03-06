@@ -17,20 +17,21 @@ bool LevelSelectState::selectLevel()
 	string tempString;
 
 	gamePlay = new gameBoard();
-	GameVars->setLevel(playerCurrentLevel);
+	GameVars->setLevelSpecified(playerCurrentLevel);
+	//GameVars->setLevel(playerCurrentLevel);
+	
 	
 	tempString = GameVars->getFilename(playerCurrentLevel);
 	gamePlay->LoadGameMapFromFile(tempString);
 
 	gamePlay->setState(GB_PREGAME);
+	GSM->addGameState<playGame>();
+	this->setStatus(DeleteMe);
 	return true;
 }
 
 
-int LevelSelectState::getPlayerCurrentLevel()
-{
-	return playerCurrentLevel;
-}
+
 
 bool LevelSelectState::Draw()
 {

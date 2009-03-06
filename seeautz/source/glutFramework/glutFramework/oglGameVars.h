@@ -87,14 +87,19 @@ public:
 	void						setTotalScore(int score);
 	void						setMaxLevel(int newMax);
 	void						setPlayerMaxLevel(int level);
+	void						setLevelSpecified(int level);
+	int							getLevelSpecified();
 	int							getMaxLevel();
 	int							getPlayerMaxLevel();
 	int							getCurrentLevel();
 	int							getCurrentLevelBytes();
+	bool						getGameStatus();
+	void						setGameStatus(bool);
 	void						setLevel(int);
 	std::string					getFilename(int);
 	std::string					getDesc(int);
 	std::string					getLevelName(int);
+	void						setCurrentLevel(int);
 	void						setCurrentLevelBytes(int newBytes);
 	void						setCurrentLogicBank(bool moveForwardAvail, bool moveForwardUntilAvail, bool turnLeftAvail, bool turnRightAvail,
 													bool punchAvail, bool climbAvail, bool crouchAvail, bool jumpAvail, bool activateAvail, bool sub1Avail, bool sub2Avail);
@@ -116,6 +121,8 @@ private:
 	int playerMaxLevel;
 	int levelScore;
 	int currentLevelBytes;
+	int levelSpecified;
+	bool inGame;
 	std::vector<logicBlock*>	allLogicBlocks;
 	logicBlock*					placeInstructionBlock;
 	

@@ -42,8 +42,8 @@ public:
 	bool LogicViewCallback();
 	bool increment();
 	bool decrement();
-	bool select();
 	int  getPlayerCurrentLevel();
+	
 
 private:
 	oglTexture2D* img;

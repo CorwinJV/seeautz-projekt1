@@ -6,6 +6,11 @@
 #include "MainMenuState.h"
 #include "..\playGame.h"
 #include ".\..\oglTexture2D.h"
+#include<fstream>
+#include<iostream>
+#include <string>
+
+using namespace std;
 
 class StartNewGameState : public GameState
 {
@@ -22,6 +27,7 @@ public:
 		myMenu->addButton("..\\Content\\buttons\\pregame.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &StartNewGameState::PreGameCallback));
 		myMenu->addButton("..\\Content\\buttons\\something.png", "button2down.png", "button2over.png", CreateFunctionPointer0R(this, &StartNewGameState::tutorialCallback));*/
 		finished = false;
+		checked = false;
 		Update();
 	}
 
@@ -34,11 +40,14 @@ public:
 	/*bool PreGameCallback();
 	bool tutorialCallback();*/
 	void setPlayerName(string);
-	bool finished;
+	bool doesNameAlreadyExists(string);
+	
 	string tempString;
 
 private:
 	oglTexture2D* img;
+	bool finished;
+	bool checked;
 	// add private stuff here
 };
 

@@ -3,6 +3,7 @@
 
 #include ".\..\GameState.h" 
 #include "MainMenuState.h"
+#include "LevelSelectState.h"
 #include "..\playGame.h"
 #include ".\..\oglTexture2D.h"
 #include<fstream>
@@ -23,10 +24,11 @@ public:
 		img->mY = 618;
 
 		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
-		myMenu->addButton("..\\Content\\buttons\\pregame.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &LoadGameState::MainMenuCallback));
-		myMenu->addButton("..\\Content\\buttons\\something.png", "button2down.png", "button2over.png", CreateFunctionPointer0R(this, &LoadGameState::tutorialCallback));
+		myMenu->addButton("..\\Content\\buttons\\returntomainmenu.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &LoadGameState::MainMenuCallback));
+		myMenu->addButton("..\\Content\\buttons\\maingameloop.png", "button2down.png", "button2over.png", CreateFunctionPointer0R(this, &LoadGameState::playGameCallback));
+		myMenu->addButton("..\\Content\\buttons\\something.png", "button2down.png", "button2over.png", CreateFunctionPointer0R(this, &LoadGameState::levelSelectCallback));
 
-		finished = false;
+		finished = 0;
 
 		Update();
 	}
@@ -37,13 +39,14 @@ public:
 	bool LoadGameState::Update();
 	bool LoadGameState::Draw();
 	bool MainMenuCallback();
-	bool tutorialCallback();
+	bool playGameCallback();
+	bool levelSelectCallback();
 	bool loadGame(string);
 
 private:
 	oglTexture2D* img;
 	std::string tempString;
-	bool finished;
+	int finished;
 	// add private stuff here
 
 };
