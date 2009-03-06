@@ -188,7 +188,7 @@ bool playGame::Draw()
 
 		// level title
 		tempInt = GameVars->getCurrentLevel();
-		tempString = GameVars->getFilename(tempInt);
+		tempString = GameVars->getLevelName(tempInt);
 
 		GameVars->fontArial32.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
 		offsetAmt++;
@@ -279,7 +279,10 @@ bool playGame::initialize()
 
 	//this wont work if we're coming in out of a level select
 	playerCurrentLevel = GameVars->getPlayerMaxLevel();
+	// debug brute force of level
+	//playerCurrentLevel = 1;
 	GameVars->setLevel(playerCurrentLevel);
+	
 
 	tempString = GameVars->getFilename(playerCurrentLevel);
 	gamePlay->LoadGameMapFromFile(tempString);
@@ -487,7 +490,7 @@ void playGame::drawLevelInfo()
 	//this wont work if we're coming in out of a level select
 	playerCurrentLevel = GameVars->getCurrentLevel();
 
-	tempString = GameVars->getFilename(playerCurrentLevel);
+	tempString = GameVars->getLevelName(playerCurrentLevel);
 		
 	GameVars->fontArial12.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, tempString);
 	offsetAmt++;
