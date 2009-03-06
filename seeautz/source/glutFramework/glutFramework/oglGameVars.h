@@ -94,6 +94,7 @@ public:
 	void						setLevel(int);
 	std::string					getFilename(int);
 	std::string					getDesc(int);
+	std::string					getLevelName(int);
 	void						setCurrentLevelBytes(int newBytes);
 	void						setCurrentLogicBank(bool moveForwardAvail, bool moveForwardUntilAvail, bool turnLeftAvail, bool turnRightAvail,
 													bool punchAvail, bool climbAvail, bool crouchAvail, bool jumpAvail, bool activateAvail, bool sub1Avail, bool sub2Avail);

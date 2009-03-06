@@ -63,6 +63,15 @@ oglGameVars::oglGameVars()
 	tempLevel = new levelData("Tutorial 7", "Complete Tutorial", "maps\\tutorialMap7.txt");
 	levelList.push_back(tempLevel);
 
+	tempLevel = new levelData("Tile Tutorial Map 1", "Climb up to higher levels", "maps\\tileTutorialMap1.txt");
+	levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Tile Tutorial Map 2", "Ice is slippery.", "maps\\tileTutorialMap2.txt");
+	levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Tile Tutorial Map 3", "Switches Control Things", "maps\\tileTutorialMap3.txt");
+	levelList.push_back(tempLevel);
+
 	tempLevel = new levelData("Map 1", "Map #1", "maps\\Map1.txt");
 	levelList.push_back(tempLevel);
 
@@ -129,6 +138,11 @@ std::string oglGameVars::getFilename(int level)
 std::string oglGameVars::getDesc(int level)
 {
 	return levelList[level]->getDesc();
+}
+
+std::string oglGameVars::getLevelName(int level)
+{
+	return levelList[level]->getName();
 }
 
 bool oglGameVars::SavePlayerGame(string playerGame) 
