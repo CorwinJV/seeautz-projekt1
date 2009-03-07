@@ -1232,10 +1232,41 @@ void gameBoard::teleporterCheck()
 		{
 			if((((*titr)->getXPos()) == robotX) && (((*titr)->getYPos()) == robotY))
 			{
+					
+				// draw before
+				currentX = (*titr)->getTargetX();
+				currentY = (*titr)->getTargetY();
+				this->recalcPositions();
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+				this->draw();
+				glutSwapBuffers();
+
+				timer = clock();
+				startTime = clock();
+				while(timer < startTime + 500)
+				{
+					timer = clock();
+				}
+				
+
 				// now lets teleport!
 				robotX = (*titr)->getTargetX();
 				robotY = (*titr)->getTargetY();
 				keepRobotOnTheBoard();
+				this->recalcPositions();
+				
+				
+				// draw after
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+				this->draw();
+				glutSwapBuffers();
+
+				timer = clock();
+				startTime = clock();
+				while(timer < startTime + 500)
+				{
+					timer = clock();
+				}
 			}
 		}
 	}
@@ -1939,9 +1970,7 @@ void gameBoard::RCactivate()
 				// process through its stuff
 				//tempSwitch = (*sitr);
 				for(int xyx = 0; xyx < (*sitr)->getNumTargets(); xyx++)
-				{
-					//abcxyz
-					
+				{	
 					sx = (*sitr)->getNextX();
 					sy = (*sitr)->getNextY();
 					currentX = sx;
