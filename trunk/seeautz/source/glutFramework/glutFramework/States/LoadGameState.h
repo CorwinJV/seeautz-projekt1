@@ -25,8 +25,8 @@ public:
 
 		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
 		myMenu->addButton("..\\Content\\buttons\\returntomainmenu.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &LoadGameState::MainMenuCallback));
-		myMenu->addButton("..\\Content\\buttons\\maingameloop.png", "button2down.png", "button2over.png", CreateFunctionPointer0R(this, &LoadGameState::playGameCallback));
-		myMenu->addButton("..\\Content\\buttons\\something.png", "button2down.png", "button2over.png", CreateFunctionPointer0R(this, &LoadGameState::levelSelectCallback));
+		myMenu->addButton("..\\Content\\buttons\\playgame.png", "button2down.png", "button2over.png", CreateFunctionPointer0R(this, &LoadGameState::playGameCallback));
+		myMenu->addButton("..\\Content\\buttons\\levelselect.png", "button2down.png", "button2over.png", CreateFunctionPointer0R(this, &LoadGameState::levelSelectCallback));
 
 		finished = 0;
 
