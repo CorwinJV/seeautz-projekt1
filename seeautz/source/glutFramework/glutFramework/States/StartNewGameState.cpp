@@ -32,7 +32,6 @@ bool StartNewGameState::Draw()
 		GameVars->fontArial32.drawText(125, 150, "Name already exists, please enter another name: ");
 		GameVars->fontArial32.drawText(125, 200, "Or press the escape key to return to the main menu");
 	}
-
 	return false;
 }
 
@@ -170,17 +169,18 @@ bool StartNewGameState::doesNameAlreadyExists(string playerGame)
 {
 	ifstream PlayerInfo;
 	string playerName = playerGame;
+	string newTempString = "";
 
-	tempString = "savedGames\\";
-	tempString += playerGame.c_str();
-	tempString += ".txt";
+	newTempString = "savedGames\\";
+	newTempString += playerGame.c_str();
+	newTempString += ".txt";
 	
 	PlayerInfo.open(tempString.c_str());
 
 	if(!PlayerInfo)
 	{
 		return false;
-		tempString = "";
+		newTempString = "";
 	}
 
 	return true;

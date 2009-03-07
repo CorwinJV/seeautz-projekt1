@@ -44,34 +44,37 @@ oglGameVars::oglGameVars()
 	tempLevel = new levelData("DEBUG MAP", "THIS IS FOR DAVE TO DEBUG MAP TILES", "maps\\testMap1.txt");
 	levelList.push_back(tempLevel);
 
-	tempLevel = new levelData("Tutorial 1", "Opening Doors", "maps\\tutorialMap1.txt");
+	tempLevel = new levelData("Instruction Tutorial 1", "Using Activate to Open a Door", "maps\\tutorialMap1.txt");
 	levelList.push_back(tempLevel);
 
-	tempLevel = new levelData("Tutorial 2", "Moving and Turning", "maps\\tutorialMap2.txt");
+	tempLevel = new levelData("Instruction Tutorial 2", "Moving and Turning", "maps\\tutorialMap2.txt");
 	levelList.push_back(tempLevel);
 
-	tempLevel = new levelData("Tutorial 3", "Moving Forward Until Unable", "maps\\tutorialMap3.txt");
+	tempLevel = new levelData("Instruction Tutorial 3", "Moving Forward Until Unable", "maps\\tutorialMap3.txt");
 	levelList.push_back(tempLevel);
 
-	tempLevel = new levelData("Tutorial 4", "Crouching", "maps\\tutorialMap4.txt");
+	tempLevel = new levelData("Instruction Tutorial 4", "Crouching", "maps\\tutorialMap4.txt");
 	levelList.push_back(tempLevel);
 
-	tempLevel = new levelData("Tutorial 5", "Climbing and Jumping", "maps\\tutorialMap5.txt");
+	tempLevel = new levelData("Instruction Tutorial 5", "Climbing and Jumping", "maps\\tutorialMap5.txt");
 	levelList.push_back(tempLevel);
 
-	tempLevel = new levelData("Tutorial 6", "Punching", "maps\\tutorialMap6.txt");
+	tempLevel = new levelData("Instruction Tutorial 6", "Punching", "maps\\tutorialMap6.txt");
 	levelList.push_back(tempLevel);
 
-	tempLevel = new levelData("Tutorial 7", "Complete Tutorial", "maps\\tutorialMap7.txt");
+	tempLevel = new levelData("Instruction Tutorial 7", "Complete Instructions Tutorial", "maps\\tutorialMap7.txt");
 	levelList.push_back(tempLevel);
 
-	tempLevel = new levelData("Tile Tutorial Map 1", "Climb up to higher levels", "maps\\tileTutorialMap1.txt");
+	tempLevel = new levelData("Tile Tutorial Map 1", "Climb Up to Higher Levels", "maps\\tileTutorialMap1.txt");
 	levelList.push_back(tempLevel);
 
-	tempLevel = new levelData("Tile Tutorial Map 2", "Ice is slippery.", "maps\\tileTutorialMap2.txt");
+	tempLevel = new levelData("Tile Tutorial Map 2", "Ice is Slippery.", "maps\\tileTutorialMap2.txt");
 	levelList.push_back(tempLevel);
 
-	tempLevel = new levelData("Tile Tutorial Map 3", "Switches Control Things", "maps\\tileTutorialMap3.txt");
+	tempLevel = new levelData("Tile Tutorial Map 3", "Switches Control Things and Electricity Hurts", "maps\\tileTutorialMap3.txt");
+	levelList.push_back(tempLevel);
+
+	tempLevel = new levelData("Tile Tutorial Map 4", "Teleporting", "maps\\tileTutorialMap4.txt");
 	levelList.push_back(tempLevel);
 
 	tempLevel = new levelData("Map 1", "Map #1", "maps\\Map1.txt");
