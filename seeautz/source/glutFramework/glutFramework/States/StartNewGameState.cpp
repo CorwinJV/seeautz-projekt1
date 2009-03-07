@@ -30,6 +30,7 @@ bool StartNewGameState::Draw()
 	if((finished)&&(!checked))
 	{
 		GameVars->fontArial32.drawText(125, 150, "Name already exists, please enter another name: ");
+		GameVars->fontArial32.drawText(125, 200, "Or press the escape key to return to the main menu");
 	}
 
 	return false;

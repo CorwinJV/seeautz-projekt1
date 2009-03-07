@@ -36,18 +36,8 @@ bool LoadGameState::Draw()
 	return false;
 }
 
-bool LoadGameState::MainMenuCallback()
-{
-	GSM->addGameState<MainMenuState>();
-	this->setStatus(DeleteMe);
-	glClearColor(0, 255, 255, 0);
-
-	return true;
-} 
-
 bool LoadGameState::loadGame(string playerGame)
 {
-	//possibly need to append with ".txt"
 	cout << "Loading Game...: " << playerGame <<std::endl;
 	ifstream PlayerInfo;
 	int score;
@@ -71,8 +61,6 @@ bool LoadGameState::loadGame(string playerGame)
 		finished = 2;
 	}
 
-	
-
 	// code for loading player stats here
 	PlayerInfo >> level;
 	GameVars->setPlayerMaxLevel(level);
@@ -87,6 +75,15 @@ bool LoadGameState::loadGame(string playerGame)
 
 	return true;
 }
+
+bool LoadGameState::MainMenuCallback()
+{
+	GSM->addGameState<MainMenuState>();
+	this->setStatus(DeleteMe);
+	glClearColor(0, 255, 255, 0);
+
+	return true;
+} 
 
 bool LoadGameState::playGameCallback()
 {

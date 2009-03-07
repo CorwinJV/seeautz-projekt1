@@ -45,8 +45,6 @@ bool MainMenuState::StartNewGameCallback()
 	GSM->addGameState<StartNewGameState>();
 	this->setStatus(DeleteMe);
 	glClearColor(255, 0, 0, 0);
-	
-	//myMenu->addButton("button2normal.bmp", "button2down.bmp", "button2over.bmp", CreateFunctionPointer0R(this, &MainMenuState::button6Callback));
 
 	return true;
 } 
@@ -71,12 +69,15 @@ bool MainMenuState::LoadGameCallback()
 	return true;
 } 
 
-bool MainMenuState::OptionsCallback()
+bool MainMenuState::Quit()
 {
-	GSM->addGameState<LevelSelectState>();
-	this->setStatus(DeleteMe);
-	glClearColor(255, 0, 255, 0);
+	exit(0);
 
 	return true;
 } 
 
+bool MainMenuState::Credits()
+{
+
+	return true;
+}
