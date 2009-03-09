@@ -39,6 +39,7 @@ public:
 	bool ExecuteButtonClick();
 	bool AbortButtonClick();
 	bool ResetButtonClick();
+	bool ClearButtonClick();
 
 	void ClearExecutionList();
 	void ResetExecutionMode();
@@ -73,6 +74,12 @@ private:
 	CFunctionPointer3R<bool, std::vector<logicBlock*>, std::vector<logicBlock*>, std::vector<logicBlock*>> mExecuteHandler;
 	CFunctionPointer0R<bool> mAbortHandler;
 	CFunctionPointer0R<bool> mResetHandler;
+
+	//======================
+	// Score Tracking
+	int mapByteLimit;
+	int usedBytes;
+	
 
 	//======================
 	// Size and Positional Variables

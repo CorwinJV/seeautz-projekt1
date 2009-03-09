@@ -36,24 +36,24 @@ LogicInterface::LogicInterface()
 	//instructionListBox.x = logicBankBox.x + logicBankBox.width + 50;
 	//instructionListBox.y = logicBankBox.y;
 	instructionListBox.x = 340;
-	instructionListBox.y = 590;
+	instructionListBox.y = 600;
 
 	//=============================================
 	// Menu buttons (scrolling the instruction lists)
 	myMenu = new MenuSys(0, 0, "blank.png", None);
-	myMenu->addButton("scrollbarUp.png", "scrollbarUp.png", "scrollbarUp.png", BE::CreateFunctionPointer0R(this, &LogicInterface::LogicBankUpArrowButtonClick));
+	myMenu->addButton("scrollbarUp.png", "scrollbarUp.png", "scrollbarUpLit.png", BE::CreateFunctionPointer0R(this, &LogicInterface::LogicBankUpArrowButtonClick));
 	myMenu->setLastButtonDimensions(25, 25);
 	myMenu->setLastButtonPosition(logicBankBox.x + logicBankBox.width, logicBankBox.y);
 
-	myMenu->addButton("scrollbarDown.png", "scrollbarDown.png", "scrollbarDown.png", BE::CreateFunctionPointer0R(this, &LogicInterface::LogicBankDownArrowButtonClick));
+	myMenu->addButton("scrollbarDown.png", "scrollbarDown.png", "scrollbarDownLit.png", BE::CreateFunctionPointer0R(this, &LogicInterface::LogicBankDownArrowButtonClick));
 	myMenu->setLastButtonDimensions(25, 25);
 	myMenu->setLastButtonPosition(logicBankBox.x + logicBankBox.width, logicBankBox.y + logicBankBox.height - 45);
 
-	myMenu->addButton("scrollbarUp.png", "scrollbarUp.png", "scrollbarUp.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ExecutionListUpArrowButtonClick));
+	myMenu->addButton("scrollbarUp.png", "scrollbarUp.png", "scrollbarUpLit.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ExecutionListUpArrowButtonClick));
 	myMenu->setLastButtonDimensions(25, 25);
 	myMenu->setLastButtonPosition(instructionListBox.x + instructionListBox.width, instructionListBox.y);
 
-	myMenu->addButton("scrollbarDown.png", "scrollbarDown.png", "scrollbarDown.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ExecutionListDownArrowButtonClick));
+	myMenu->addButton("scrollbarDown.png", "scrollbarDown.png", "scrollbarDownLit.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ExecutionListDownArrowButtonClick));
 	myMenu->setLastButtonDimensions(25, 25);
 	myMenu->setLastButtonPosition(instructionListBox.x + instructionListBox.width, instructionListBox.y + instructionListBox.height - 45);
 
@@ -94,8 +94,8 @@ LogicInterface::LogicInterface()
 	//=============================================
 	// All other initialization
 	menuBar = new oglTexture2D();
-	//menuBar->loadImage("blankmenu.png", 1024, 768);
-	menuBar->loadImage("blank.png", 1024, 768);
+	menuBar->loadImage("CommandList.png", 1024, 768);
+	//menuBar->loadImage("blank.png", 1024, 768);
 	scrollBar = new oglTexture2D();
 	scrollBar->loadImage("scrollbarBG.png", 100, 100);
 
@@ -153,17 +153,16 @@ void LogicInterface::Draw()
 	
 	// draw center commands background
 	commandBackdrop->dX = 390;
-	commandBackdrop->dY = 171;
+	commandBackdrop->dY = 161;
 	commandBackdrop->mX = 340;
-	commandBackdrop->mY = 768-190+12
-		;
+	commandBackdrop->mY = instructionListBox.y;
 	commandBackdrop->drawImage();
 
 	std::vector<logicBlock*>::iterator itr = executionList.begin();
 
 	//=============================================
 	// Menu Bars
-	menuBar->mX = bottomBarBox.x;
+	/*menuBar->mX = bottomBarBox.x;
 	menuBar->mY = bottomBarBox.y;
 	menuBar->drawImage(bottomBarBox.width, bottomBarBox.height);
 
@@ -173,7 +172,7 @@ void LogicInterface::Draw()
 
 	menuBar->mX = logicBankBox.x - 7;
 	menuBar->mY = logicBankBox.y;
-	menuBar->drawImage(logicBankBox.width + 7, logicBankBox.height - 18);
+	menuBar->drawImage(logicBankBox.width + 7, logicBankBox.height - 18);*/
 
 	//=============================================
 	// Robot Instructios (sidebar)
@@ -372,13 +371,13 @@ void LogicInterface::Draw()
 			// Draw the background
 			menuBar->mX = tmpBlock->blockTexture->mX + 20;
 			menuBar->mY = tmpBlock->blockTexture->mY - 170;
-			menuBar->drawImageFaded(.5, 200, 100);
+			menuBar->drawImageFaded(1.0, 200, 100);
 
 			int MAX_CHARS_PER_LINE = 21;
 			int currentLine = 1;
 			bool endOfText = false;
 			
-			glColor3ub(255, 255, 255);
+			glColor3ub(0, 0, 0);
 			while(!endOfText)
 			{
 				if((int)(tmpBlock->blockDescription.length()) > currentLine * MAX_CHARS_PER_LINE)
@@ -762,6 +761,11 @@ bool LogicInterface::Sub2TabButtonClick()
 
 void LogicInterface::ClearExecutionList()
 {
+	executionListYOffset = 0;
+	executionListSub1YOffset = 0;
+	executionListSub2YOffset = 0;
+	curInstrTab = TAB_MAIN;
+
 	executionList.clear();
 	executionList.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
 	executionList.back()->curButtonState = BS_ACTIVE;
@@ -787,20 +791,26 @@ bool LogicInterface::CommandAdvanced(instructionTab instrTab, logicBlock* curBlo
 	if(curInstrTab == TAB_MAIN)
 	{
 		curExecutionList = &executionList;
+		curExecutionListYOffset = &executionListYOffset;
 	}
 	else if(curInstrTab == TAB_SUB1)
 	{
 		curExecutionList = &executionListSub1;
+		curExecutionListYOffset = &executionListSub1YOffset;
+
 	}
 	else if(curInstrTab == TAB_SUB2)
 	{
 		curExecutionList = &executionListSub2;
+		curExecutionListYOffset = &executionListSub2YOffset;
 	}
 
 	std::vector<logicBlock*>::iterator itr = (*curExecutionList).begin();
 	for(; itr != (*curExecutionList).end(); itr++)
 	{
-		(*itr)->curButtonState = BS_INACTIVE;
+		(*itr)->curButtonState = BS_ACTIVE;
+		// TODO: When tracking execution, make the command list scrolling 
+			// stay with the current highlighted command
 	}
 	curBlock->curButtonState = BS_HIGHLIGHTED;
 	
@@ -824,11 +834,20 @@ bool LogicInterface::AbortButtonClick()
 // Reset Button Callback
 bool LogicInterface::ResetButtonClick()
 {
-	ClearExecutionList();
+	//ClearExecutionList();
 	isExecuting = false;
 	if(mResetHandler)
 	{
 		return mResetHandler();
 	}
 	return false;
+}
+
+
+//============================================
+// Clear Button Callback
+bool LogicInterface::ClearButtonClick()
+{
+	ClearExecutionList();
+	return true;
 }
