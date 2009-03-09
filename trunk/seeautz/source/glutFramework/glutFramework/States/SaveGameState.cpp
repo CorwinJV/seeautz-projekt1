@@ -43,12 +43,12 @@ bool SaveGameState::SavePlayerGame(string playerGame)
 	// once we are able to save our position on the map
 	// also need functionality for what switches have been flipped if saved in midlevel
 	// and possibly number of reprogrammable squares used and bytes remaining
-	int xPos;
-	int yPos;
-	int switchesFlipped;
-	int remainingBytes;
-	int numOfRepos;
-	int playerMaxLevel;
+	int xPos = 0;
+	int yPos = 0;
+	int remainingBytes = 0;
+	int playerMaxLevel = 0;
+	int isActive = -1;
+	
 
 	inGame = GameVars->getGameStatus();
 
@@ -69,6 +69,12 @@ bool SaveGameState::SavePlayerGame(string playerGame)
 	// unless we are saving in the middle of a level, increment the level. 
 	if(!inGame)
 		level++;
+	else
+	{
+		xPos = GameVars->getRobotX();
+		yPos = GameVars->getRobotY();
+		//also save remaining bytes here
+	}
 
 	GameVars->setPlayerMaxLevel(level);
 
@@ -79,6 +85,12 @@ bool SaveGameState::SavePlayerGame(string playerGame)
 	PlayerInfo << level << endl;
 	PlayerInfo << score << endl;
 	PlayerInfo << playerName << endl;
+
+	if(inGame)
+	{
+		PlayerInfo << xPos << " ";
+		PlayerInfo << yPos << " ";
+	}
 
 	PlayerInfo.close();
 
