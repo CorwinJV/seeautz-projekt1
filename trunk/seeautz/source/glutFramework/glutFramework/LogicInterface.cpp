@@ -12,7 +12,7 @@ LogicInterface::LogicInterface()
 		curInstrTab(TAB_MAIN), isExecuting(false), resetMenu(NULL),
 		curExecutionListYOffset(NULL), executionListYOffset(0), 
 		executionListSub1YOffset(0), executionListSub2YOffset(0),
-		scrollBar(NULL)
+		scrollBar(NULL), mapByteLimit(0), usedBytes(0)
 {
 	//sideBarBox.width = 150;
 	//sideBarBox.height = 618;
@@ -137,6 +137,21 @@ void LogicInterface::Update()
 			}
 		}
 	}
+
+	// Calculating the bytes left
+		//  I think there's a loop deficiency
+		//  Nothin' sexier than algorithmic efficiency
+		//  I want you to iterate
+		//  Cus when I see i++, I salivate!
+		// -Corwin VanHook, March 09, 2009
+	int tmpByteCount = 0;
+	std::vector<logicBlock*>::iterator itr = executionList.begin();
+	for(; itr != executionList.end(); itr++)
+	{
+		tmpByteCount += (*itr)->byteCost;
+	}
+	usedBytes = tmpByteCount;
+
 }
 
 void LogicInterface::Draw()
@@ -351,6 +366,24 @@ void LogicInterface::Draw()
 		executingMenu->Draw();
 
 	//=============================================
+	// Byte Limit Stuff
+	glColor3ub(0, 255, 0);
+	std::stringstream ss;
+	std::string s;
+	ss << usedBytes;
+	ss << "\\";
+	ss << mapByteLimit;
+	ss << " BYTES used.";
+	s = ss.str();
+	GameVars->fontDigital16.drawText(775, logicBankBox.y - 50, s.c_str());
+
+	std::stringstream ss2;
+	ss2 << mapByteLimit - usedBytes;
+	ss2 << " BYTES remaining.";
+	s = ss2.str();
+	GameVars->fontDigital16.drawText(775, logicBankBox.y - 50 + 16, s.c_str());
+
+	//=============================================
 	// Dragged Block
 	if(draggedBlock != NULL)
 	{
@@ -477,12 +510,16 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 				{
 					if(executionList.back()->checkInBounds(x, y, instructionBlockW, instructionBlockH))
 					{
-						executionList.pop_back();
-						executionList.push_back(new logicBlock(*(draggedBlock)));					
-						executionList.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
-						executionList.back()->curButtonState = BS_ACTIVE;
-						delete draggedBlock;
-						draggedBlock = NULL;
+						int bytesLeft = mapByteLimit - usedBytes;
+						if(bytesLeft >= draggedBlock->byteCost)
+						{
+							executionList.pop_back();
+							executionList.push_back(new logicBlock(*(draggedBlock)));					
+							executionList.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
+							executionList.back()->curButtonState = BS_ACTIVE;
+							delete draggedBlock;
+							draggedBlock = NULL;
+						}
 					}
 
 					delete draggedBlock;
@@ -627,6 +664,11 @@ void LogicInterface::SetResetHandler(CFunctionPointer0R<bool> resetHandler)
 void LogicInterface::GetCurrentMapLogicBank()
 {
 	logicBank = GameVars->GetCurrentMapLogicBank();
+}
+
+void LogicInterface::GetCurrentLevelBytes()
+{
+	mapByteLimit = GameVars->getCurrentLevelBytes();
 }
 
 

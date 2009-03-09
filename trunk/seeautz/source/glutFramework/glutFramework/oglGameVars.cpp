@@ -35,6 +35,7 @@ oglGameVars::oglGameVars()
 	fontDigital64.open	("fonts\\DIGIRU__.ttf", 32);
 	fontDigital200.open	("fonts\\DIGIRU__.ttf", 200);
 	fontDigital32.open  ("fonts\\DIGIRU__.ttf", 32);
+	fontDigital16.open  ("fonts\\DIGIRU__.ttf", 16);
 	fontOurs.open		("fonts\\Schwaben_Alt_Bold.ttf", 32);
 	fontTimes.open		("fonts\\times.ttf", 32);
 	currentLogicBank = NULL;
@@ -319,7 +320,7 @@ void oglGameVars::loadAllLogicBlocks()
 	tmpBlock->addInstruction(SUBR2);
 	allLogicBlocks.push_back(tmpBlock);
 
-	placeInstructionBlock = new logicBlock("instructions/place_new_instruction.png", 130, 130, "Place a new instruction here.", 2, DO_NOT_PROCESS);
+	placeInstructionBlock = new logicBlock("instructions/place_new_instruction.png", 130, 130, "Place a new instruction here.", 0, DO_NOT_PROCESS);
 }
 
 std::vector<logicBlock*>* oglGameVars::getAllLogicBlocks()
