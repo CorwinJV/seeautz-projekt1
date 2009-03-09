@@ -11,6 +11,7 @@
 #include "FunctionPointer.h"
 
 #include <vector>
+#include <sstream>
 #include <string>
 
 using namespace BE;
@@ -49,6 +50,7 @@ public:
 	void SetAbortHandler(CFunctionPointer0R<bool> clickHandler);
 	void SetResetHandler(CFunctionPointer0R<bool> resetHandler);
 	void GetCurrentMapLogicBank();
+	void GetCurrentLevelBytes();
 private:
 	MenuSys* myMenu;
 	MenuSys* executingMenu;
