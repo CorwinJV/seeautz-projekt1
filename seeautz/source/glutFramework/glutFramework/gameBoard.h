@@ -3,7 +3,6 @@
 
 #include "FunctionPointer.h"
 #include "oglUtility.h"
-//#include "pixmap.h"
 #include "mapTile.h"
 #include "tileEnums.h"
 #include "oglTexture2D.h"

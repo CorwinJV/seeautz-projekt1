@@ -145,10 +145,25 @@ int oglGameVars::getLevelSpecified()
 	return levelSpecified;
 }
 
-//int oglGameVars::getPlayerCurrentLevel()
-//{
-//	return playerCurrentLevel;
-//}
+int oglGameVars::getRobotX()
+{
+	return robotXPos;
+}
+
+int oglGameVars::getRobotY()
+{
+	return robotYPos;
+}
+
+void oglGameVars::setRobotX(int x)
+{
+	robotXPos = x;
+}
+
+void oglGameVars::setRobotY(int y)
+{
+	robotYPos = y;
+}
 
 std::string oglGameVars::getFilename(int level)
 {

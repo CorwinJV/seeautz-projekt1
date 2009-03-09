@@ -1,6 +1,6 @@
 #ifndef OGLGAMEVARS_H
 #define OGLGAMEVARS_H
-#include<fstream>
+#include <fstream>
 #include <cstring>
 #include <iostream>
 #include <string>
@@ -96,6 +96,10 @@ public:
 	bool						getGameStatus();
 	void						setGameStatus(bool);
 	void						setLevel(int);
+	int							getRobotX();
+	int							getRobotY();
+	void						setRobotX(int);
+	void						setRobotY(int);
 	std::string					getFilename(int);
 	std::string					getDesc(int);
 	std::string					getLevelName(int);
@@ -124,6 +128,8 @@ private:
 	int currentLevelBytes;
 	int levelSpecified;
 	bool inGame;
+	int robotXPos;
+	int robotYPos;
 	std::vector<logicBlock*>	allLogicBlocks;
 	logicBlock*					placeInstructionBlock;
 	
