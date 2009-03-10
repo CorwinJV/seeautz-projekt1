@@ -80,6 +80,9 @@ oglGameVars::oglGameVars()
 	tempLevel = new levelData("Tile Tutorial Map 4", "Teleporting", "maps\\tileTutorialMap4.txt");
 	levelList.push_back(tempLevel);
 
+	tempLevel = new levelData("Tile Tutorial Map 1 - Re-Visit", "Climb Up to Higher Levels - Subroutine Required", "maps\\tileTutorialMap1b.txt");
+	levelList.push_back(tempLevel);
+
 	tempLevel = new levelData("Map 1", "Map #1", "maps\\Map1.txt");
 	levelList.push_back(tempLevel);
 
