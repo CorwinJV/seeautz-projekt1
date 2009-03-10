@@ -136,7 +136,7 @@ int soundEffect::Init(void)
 
 int soundEffect::Init(char* _fileName)
 {
-	int			error;
+		int			error;
 	
 	ALfloat		listenerPos[]={0.0,0.0,0.0};				// At the origin
 	ALfloat		listenerVel[]={0.0,0.0,0.0};				// The velocity (no doppler here)

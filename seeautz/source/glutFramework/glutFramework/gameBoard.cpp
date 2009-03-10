@@ -1151,17 +1151,14 @@ void gameBoard::processRobot()
 			{
 			case SUBR1:
 				GameVars->commandsProcessed++;
-				//std::cout << "commandsProcessed++ PR - SUB1 - " << GameVars->commandsProcessed << endl;
 				delayAdvance = processSub(1);
 				break;
 			case SUBR2:
 				GameVars->commandsProcessed++;
-				//std::cout << "commandsProcessed++ PR - SUB2 - " << GameVars->commandsProcessed << endl;
 				delayAdvance = processSub(2);
 				break;
 			case MOVE_FORWARD1:
 				GameVars->commandsProcessed++;
-				//std::cout << "commandsProcessed++ PR - MF1 - " << GameVars->commandsProcessed << endl;
 				this->RCmoveRobotForward();
 				// special case for ice squares
 				if(mapList[robotX][robotY]->getType() == TIce)
@@ -1175,37 +1172,30 @@ void gameBoard::processRobot()
 			case TURN_LEFT1:
 				(*oitr)->rotate(-1);
 				GameVars->commandsProcessed++;
-				//std::cout << "commandsProcessed++ PR - TL - " << GameVars->commandsProcessed << endl;
 				break;
 			case TURN_RIGHT1:
 				(*oitr)->rotate(1);
 				GameVars->commandsProcessed++;
-				//std::cout << "commandsProcessed++ PR - TR - " << GameVars->commandsProcessed << endl;
 				break;
 			case CROUCH:  // just like move forward above, only far less squares that can be moved into
 				this->RCcrouch();
 				GameVars->commandsProcessed++;
-				//std::cout << "commandsProcessed++ PR - CR - " << GameVars->commandsProcessed << endl;
 				break;
 			case CLIMB:	  // just like move forward above, only far less squares that can be moved into
 				this->RCclimb();
 				GameVars->commandsProcessed++;
-				//std::cout << "commandsProcessed++ PR - CL - " << GameVars->commandsProcessed << endl;
 				break;
 			case JUMP:	  // just like move forward above, only far less squares that can be moved into
 				this->RCjumpRobotForward();
 				GameVars->commandsProcessed++;
-				//std::cout << "commandsProcessed++ PR - JF - " << GameVars->commandsProcessed << endl;
 				break;
 			case PUNCH:	  // just like move forward above, only far less squares that can be moved into
 				this->RCpunch();
 				GameVars->commandsProcessed++;
-				//std::cout << "commandsProcessed++ PR - PU - " << GameVars->commandsProcessed << endl;
 				break;
 			case MOVE_FORWARD_UNTIL_UNABLE: // just like move forward above, only no advancement of command until destination square is invalid
 				delayAdvance = this->RCmoveRobotForward();
 				GameVars->commandsProcessed++;
-				//std::cout << "commandsProcessed++ PR - MF1 - " << GameVars->commandsProcessed << endl;
 				break;
 			case SUB:	// special case
 				break;
@@ -1215,7 +1205,6 @@ void gameBoard::processRobot()
 			case ACTIVATE:	// for now lets just check for a door so we can see it working in testmap1
 				this->RCactivate();
 				GameVars->commandsProcessed++;
-				//std::cout << "commandsProcessed++ PR - AC - " << GameVars->commandsProcessed << endl;
 				break;
 			case DO_NOT_PROCESS:
 				break;
@@ -1225,7 +1214,6 @@ void gameBoard::processRobot()
 		if(delayAdvance)
 		{
 			GameVars->commandsProcessed--;
-			//std::cout << "commandsProcessed-- PR - DA - " << GameVars->commandsProcessed << endl;
 		}
 		if(!delayAdvance)
 		{
@@ -2183,7 +2171,6 @@ bool gameBoard::processSub(int whichSub)
 			{
 			case MOVE_FORWARD1:
 				GameVars->commandsProcessed++;
-				//std::cout << "commandsProcessed++ SR - MF1 - " << GameVars->commandsProcessed << endl;
 				this->RCmoveRobotForward();
 				// special case for ice squares
 				if(mapList[robotX][robotY]->getType() == TIce)
@@ -2191,7 +2178,6 @@ bool gameBoard::processSub(int whichSub)
 					if(this->RCcanRobotMoveForward((*oitr)->getDirection(), 1))
 					{
 						GameVars->commandsProcessed--;
-						//std::cout << "commandsProcessed-- SR - MF1 - ICE SLIDING " << GameVars->commandsProcessed << endl;
 						parentDelay = true;
 						return true;
 					}
@@ -2200,32 +2186,26 @@ bool gameBoard::processSub(int whichSub)
 			case TURN_LEFT1:
 				(*oitr)->rotate(-1);
 				GameVars->commandsProcessed++;
-				//std::cout << "commandsProcessed++ SR - TL - " << GameVars->commandsProcessed << endl;
 				break;
 			case TURN_RIGHT1:
 				(*oitr)->rotate(1);
 				GameVars->commandsProcessed++;
-				//std::cout << "commandsProcessed++ SR - TR - " << GameVars->commandsProcessed << endl;
 				break;
 			case CROUCH:  // just like move forward above, only far less squares that can be moved into
 				this->RCcrouch();
 				GameVars->commandsProcessed++;
-				//std::cout << "commandsProcessed++ SR - CR - " << GameVars->commandsProcessed << endl;
 				break;
 			case CLIMB:	  // just like move forward above, only far less squares that can be moved into
 				this->RCclimb();
 				GameVars->commandsProcessed++;
-				//std::cout << "commandsProcessed++ SR - CL - " << GameVars->commandsProcessed << endl;
 				break;
 			case JUMP:	  // just like move forward above, only far less squares that can be moved into
 				this->RCjumpRobotForward();
 				GameVars->commandsProcessed++;
-				//std::cout << "commandsProcessed++ SR - JU - " << GameVars->commandsProcessed << endl;
 				break;
 			case PUNCH:	  // just like move forward above, only far less squares that can be moved into
 				this->RCpunch();
 				GameVars->commandsProcessed++;
-				//std::cout << "commandsProcessed++ SR - PU - " << GameVars->commandsProcessed << endl;
 				break;
 			case SUB:	// special case
 				break;
@@ -2235,16 +2215,13 @@ bool gameBoard::processSub(int whichSub)
 			case ACTIVATE:	// for now lets just check for a door so we can see it working in testmap1
 				this->RCactivate();
 				GameVars->commandsProcessed++;
-				//std::cout << "commandsProcessed++ SR - AC - " << GameVars->commandsProcessed << endl;
 				break;
 
 			case MOVE_FORWARD_UNTIL_UNABLE: // just like move forward above, only no advancement of command until destination square is invalid
 				moveForwardFiring = this->RCmoveRobotForward();	// false if over, true if activating
 				GameVars->commandsProcessed++;
-				//std::cout << "commandsProcessed++ SR - MFU - " << GameVars->commandsProcessed << endl;
 				if(moveForwardFiring)
 					GameVars->commandsProcessed--;
-					//std::cout << "commandsProcessed++ SR - MFU F - " << GameVars->commandsProcessed << endl;
 					return true;
 				break;
 
@@ -2263,7 +2240,6 @@ bool gameBoard::processSub(int whichSub)
 			}
 		}
 	}
-	//GameVars->commandsProcessed++;
 
 	if(whichSub == 1)
 		parentDelay = SUB1->advanceCommand();

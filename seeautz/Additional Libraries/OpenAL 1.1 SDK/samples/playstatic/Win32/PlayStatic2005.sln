@@ -1,6 +1,6 @@
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Playstatic2003", "PlayStatic2005.vcproj", "{3DC446B5-005D-4396-A3B0-890DB04D2DD7}"
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PlayStatic", "PlayStatic2005.vcproj", "{3DC446B5-005D-4396-A3B0-890DB04D2DD7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
