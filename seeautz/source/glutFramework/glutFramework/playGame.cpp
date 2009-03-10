@@ -21,6 +21,7 @@ bool playGame::Update()
 		int bytesUsed = GameVars->getBytesUsed();
 		int bytesAvail = GameVars->getCurrentLevelBytes();
 		scoreToAdd = ((100 - (((double)bytesUsed/(double)bytesAvail)*100)) * 10) + 200;
+		//scoreToAdd *= (double)GameVars->getCurrentLevel() * 0.1;
 		GameVars->setLevelScore(scoreToAdd);
 		GameVars->setTotalScore(GameVars->getLevelScore() + GameVars->getTotalScore());
 	}
@@ -52,6 +53,7 @@ bool playGame::Update()
 			if(timer > (startTime + 5000))
 			{
 				pregameRunning = false;
+				GameVars->commandsProcessed = 0;
 				gamePlay->setState(GB_LOGICVIEW);
 			}
 		}
