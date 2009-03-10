@@ -72,6 +72,10 @@ LogicInterface::LogicInterface()
 	myMenu->addButton("buttons\\tabsub2.png", "buttons\\tabsub2.png", "buttons\\tabsub2.png", BE::CreateFunctionPointer0R(this, &LogicInterface::Sub2TabButtonClick));
 	myMenu->setLastButtonDimensions(100, 25);
 	myMenu->setLastButtonPosition(instructionListBox.x + 200, instructionListBox.y - 25);
+	
+	myMenu->addButton("buttons\\clear.png", "buttons\\clear.png", "buttons\\clear.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ClearButtonClick));
+	myMenu->setLastButtonDimensions(50, 25);
+	myMenu->setLastButtonPosition(instructionListBox.x + instructionListBox.width + 25, instructionListBox.y + (instructionListBox.height / 2) - (25 / 2));
 
 	resetMenu = new MenuSys(0, 0, "blank.png", None);
 	resetMenu->addButton("buttons\\reset.png", "buttons\\reset.png", "buttons\\reset.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ResetButtonClick));
@@ -151,6 +155,7 @@ void LogicInterface::Update()
 		tmpByteCount += (*itr)->byteCost;
 	}
 	usedBytes = tmpByteCount;
+	GameVars->setBytesUsed(usedBytes);
 
 }
 
@@ -877,6 +882,26 @@ bool LogicInterface::AbortButtonClick()
 bool LogicInterface::ResetButtonClick()
 {
 	//ClearExecutionList();
+	// Clear the status of the instructions so there
+	// is no highlighted square.
+	std::vector<logicBlock*>::iterator itr = executionList.begin();
+	for(; itr != executionList.end(); itr++)
+	{
+		(*itr)->curButtonState = BS_ACTIVE;
+	}
+
+	itr = executionListSub1.begin();
+	for(; itr != executionListSub1.end(); itr++)
+	{
+		(*itr)->curButtonState = BS_ACTIVE;
+	}
+
+	itr = executionListSub2.begin();
+	for(; itr != executionListSub2.end(); itr++)
+	{
+		(*itr)->curButtonState = BS_ACTIVE;
+	}
+
 	isExecuting = false;
 	if(mResetHandler)
 	{

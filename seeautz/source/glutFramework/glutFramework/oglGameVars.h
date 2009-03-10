@@ -103,6 +103,8 @@ public:
 	std::string					getFilename(int);
 	std::string					getDesc(int);
 	std::string					getLevelName(int);
+	void						setBytesUsed(int);
+	int							getBytesUsed();
 	void						setCurrentLevel(int);
 	void						setCurrentLevelBytes(int newBytes);
 	void						setCurrentLogicBank(bool moveForwardAvail, bool moveForwardUntilAvail, bool turnLeftAvail, bool turnRightAvail,
@@ -128,6 +130,7 @@ private:
 	int currentLevelBytes;
 	int levelSpecified;
 	bool inGame;
+	int curBytesUsed;
 	int robotXPos;
 	int robotYPos;
 	std::vector<logicBlock*>	allLogicBlocks;
