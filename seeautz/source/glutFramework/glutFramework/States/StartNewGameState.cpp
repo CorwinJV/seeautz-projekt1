@@ -156,6 +156,7 @@ void StartNewGameState::keyboardInput(unsigned char c, int x, int y)
 	if(checked)
 	{
 		setPlayerName(tempString);
+		GameVars->setTotalScore(0);		
 	}
 
 }
@@ -168,20 +169,25 @@ void StartNewGameState::setPlayerName(string name)
 bool StartNewGameState::doesNameAlreadyExists(string playerGame)
 {
 	ifstream PlayerInfo;
+	
 	string playerName = playerGame;
 	string newTempString = "";
 
 	newTempString = "savedGames\\";
 	newTempString += playerGame.c_str();
 	newTempString += ".txt";
-	
+	std::cout << "Checking if " << newTempString << " exists " << endl;
+
 	PlayerInfo.open(tempString.c_str());
 
 	if(!PlayerInfo)
 	{
-		return false;
+		std::cout << "file doesn't exist" << endl;
 		newTempString = "";
+		PlayerInfo.close();
+		return false;
 	}
 
+	std::cout << "file exists" << endl;
 	return true;
 }

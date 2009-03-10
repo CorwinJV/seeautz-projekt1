@@ -108,7 +108,7 @@ bool DevLogoState::Draw()
 {
 	//logo->drawImage();
 	logo->drawImageFaded(opacity);
-	std::cout << "opacity = " << opacity << endl;
+	//std::cout << "opacity = " << opacity << endl;
 
 	//std::cout<< "I drew something at " << timer << endl;
 	return false;

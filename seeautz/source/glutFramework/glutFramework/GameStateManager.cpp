@@ -80,7 +80,7 @@ bool GameStateManager::Update()
 	//=======================================
 	vector<GameState*>::iterator itr = stateList.begin();
 	if(!stateList.empty())
-		if(stateList.back()->getStatus() != Active)
+		if((stateList.back()->getStatus() != Active) && (stateList.back()->getStatus() != DeleteMe))
 		{
 			stateList.back()->setStatus(Active);
 		}
