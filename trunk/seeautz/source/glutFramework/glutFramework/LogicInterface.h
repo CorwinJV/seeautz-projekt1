@@ -61,6 +61,7 @@ private:
 	oglTexture2D* menuBar;
 	oglTexture2D* panelArt;
 	oglTexture2D* commandBackdrop;
+	oglTexture2D* commandBackdrop2;
 	oglTexture2D* scrollBar;
 
 	int mouseX;
