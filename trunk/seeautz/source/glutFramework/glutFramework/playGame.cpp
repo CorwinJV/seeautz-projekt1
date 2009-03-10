@@ -54,6 +54,7 @@ bool playGame::Update()
 			{
 				pregameRunning = false;
 				GameVars->commandsProcessed = 0;
+				GameVars->totalCommandsProcessed = 0;
 				gamePlay->setState(GB_LOGICVIEW);
 			}
 		}
@@ -120,6 +121,8 @@ bool playGame::Update()
 			gamePlay->LoadGameMapFromFile(tempString);
 			mInterface.GetCurrentMapLogicBank();
 			mInterface.GetCurrentLevelBytes();
+			GameVars->commandsProcessed = 0;
+			GameVars->totalCommandsProcessed = 0;
 			curState = GB_PREGAME;
 		}
 		else
@@ -332,7 +335,7 @@ bool playGame::initialize()
 
 	// debug brute force of level
 	// abcxyz
-	playerCurrentLevel = 0;
+	//playerCurrentLevel = 0;
 	GameVars->setLevel(playerCurrentLevel);
 	
 
