@@ -12,7 +12,8 @@ LogicInterface::LogicInterface()
 		curInstrTab(TAB_MAIN), isExecuting(false), resetMenu(NULL),
 		curExecutionListYOffset(NULL), executionListYOffset(0), 
 		executionListSub1YOffset(0), executionListSub2YOffset(0),
-		scrollBar(NULL), mapByteLimit(0), usedBytes(0)
+		scrollBar(NULL), mapByteLimit(0), usedBytes(0), drawInsertionLine(false),
+		insertionLineColumn(0), insertionLineRow(0), insertionLine(NULL)
 {
 	//sideBarBox.width = 150;
 	//sideBarBox.height = 618;
@@ -97,6 +98,9 @@ LogicInterface::LogicInterface()
 
 	commandBackdrop2 = new oglTexture2D();
 	commandBackdrop2->loadImage("logicinterface.png", 228, 181);
+
+	insertionLine = new oglTexture2D();
+	insertionLine->loadImage("black.png", 3, instructionBlockH - 4);
 
 	//=============================================
 	// All other initialization
@@ -457,6 +461,57 @@ void LogicInterface::Draw()
 	s = ss2.str();
 	GameVars->fontDigital16.drawText(775, logicBankBox.y - 50 + 16, s.c_str());
 
+	if(drawInsertionLine == true)
+	{
+		std::vector<logicBlock*>* curExecutionList = NULL;
+		if(curInstrTab == TAB_MAIN)
+		{
+			curExecutionListYOffset = &executionListYOffset;
+			curExecutionList = &executionList;
+		}
+		else if(curInstrTab == TAB_SUB1)
+		{
+			curExecutionListYOffset = &executionListSub1YOffset;
+			curExecutionList = &executionListSub1;
+		}
+		else if(curInstrTab == TAB_SUB2)
+		{
+			curExecutionListYOffset = &executionListSub2YOffset;
+			curExecutionList = &executionListSub2;
+		}
+		// CJV2
+
+		int rowOffset = ((*curExecutionListYOffset) / (instructionSpacing + instructionBlockH));
+		int vectorSize = curExecutionList->size();
+		
+		int lastBlockRow = vectorSize / instructionListNumColumns;
+		int lastBlockColumn = vectorSize % instructionListNumColumns;
+		
+		lastBlockRow += rowOffset;
+
+		if(lastBlockColumn != 0)
+			lastBlockColumn--;
+		else
+		{
+			lastBlockColumn = instructionListNumColumns - 1;
+			lastBlockRow--;
+		}
+		if(((insertionLineColumn > lastBlockColumn) && (insertionLineRow > lastBlockRow))
+			|| ((insertionLineColumn > lastBlockColumn) && (insertionLineRow == lastBlockRow))
+			|| ((insertionLineRow > lastBlockRow)))
+		{
+			insertionLine->mX = instructionListBox.x + (lastBlockColumn * (instructionSpacing + instructionBlockW)) - 2;
+			insertionLine->mY = instructionListBox.y + (lastBlockRow * (instructionSpacing + instructionBlockH)) + 4;
+			insertionLine->drawImage();
+		}
+		else
+		{
+			insertionLine->mX = instructionListBox.x + (insertionLineColumn * (instructionSpacing + instructionBlockW)) - 2;
+			insertionLine->mY = instructionListBox.y + (insertionLineRow * (instructionSpacing + instructionBlockH)) + 4;
+			insertionLine->drawImage();
+		}
+	}
+
 	//=============================================
 	// Dragged Block
 	if(draggedBlock != NULL)
@@ -527,6 +582,49 @@ void LogicInterface::processMouse(int x, int y)
 		draggedBlock->blockTexture->mX = x - (instructionBlockW / 2);
 		draggedBlock->blockTexture->mY = y - (instructionBlockH / 2);
 	}
+
+	// Dragging & Insertion into the middle of the list
+	if(isMouseDragging == true
+		&& draggedBlock != NULL)
+	{
+		
+		int localX = x - instructionListBox.x;
+		int localY = y - instructionListBox.y;
+		int columnPosition = localX / (instructionSpacing + instructionBlockW);
+		int rowPosition = localY / (instructionSpacing + instructionBlockH);
+
+		if((columnPosition >= 0)
+			&& (columnPosition < instructionListNumColumns)
+			&& (rowPosition >= 0)
+			&& (rowPosition < instructionListNumRowsOnScreen))
+		{
+			insertionLineColumn = columnPosition;
+			insertionLineRow = rowPosition;
+			drawInsertionLine = true;
+			// CJV1
+		}
+		else
+		{
+			insertionLineColumn = 0;
+			insertionLineRow = 0;
+			drawInsertionLine = false;
+		}
+		//instructionListNumColumns
+		//instructionListNumRowsOnScreen
+		
+		// Figure out which column & row the mouse is hovering over 
+		// is that coord beyond the processInstructionHere instruction block
+			// If so, it doesn't really mean shit
+		// else
+		// Determine which blocks it's in between and shit
+
+	}
+	else
+	{
+		insertionLineColumn = 0;
+		insertionLineRow = 0;
+		drawInsertionLine = false;
+	}
 }
 
 void LogicInterface::processMouseClick(int button, int state, int x, int y)
@@ -580,6 +678,81 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 			if(isMouseDragging == true
 				&& draggedBlock != NULL)
 			{
+				//if(drawInsertionLine == true)
+				//{
+				//	std::vector<logicBlock*>* curExecutionList = NULL;
+				//	if(curInstrTab == TAB_MAIN)
+				//	{
+				//		curExecutionListYOffset = &executionListYOffset;
+				//		curExecutionList = &executionList;
+				//	}
+				//	else if(curInstrTab == TAB_SUB1)
+				//	{
+				//		curExecutionListYOffset = &executionListSub1YOffset;
+				//		curExecutionList = &executionListSub1;
+				//	}
+				//	else if(curInstrTab == TAB_SUB2)
+				//	{
+				//		curExecutionListYOffset = &executionListSub2YOffset;
+				//		curExecutionList = &executionListSub2;
+				//	}
+				//	// CJV2
+
+				//	int rowOffset = ((*curExecutionListYOffset) / (instructionSpacing + instructionBlockH));
+				//	int vectorSize = curExecutionList->size();
+				//	
+				//	int lastBlockRow = vectorSize / instructionListNumColumns;
+				//	int lastBlockColumn = vectorSize % instructionListNumColumns;
+				//	
+				//	lastBlockRow += rowOffset;
+
+				//	if(lastBlockColumn != 0)
+				//		lastBlockColumn--;
+				//	else
+				//	{
+				//		lastBlockColumn = instructionListNumColumns - 1;
+				//		lastBlockRow--;
+				//	}
+				//	if(((insertionLineColumn > lastBlockColumn) && (insertionLineRow > lastBlockRow))
+				//		|| ((insertionLineColumn > lastBlockColumn) && (insertionLineRow == lastBlockRow))
+				//		|| ((insertionLineRow > lastBlockRow)))
+				//	{
+				//		// Add block to the end of the list
+				//		int bytesLeft = mapByteLimit - usedBytes;
+				//		if(bytesLeft >= draggedBlock->byteCost)
+				//		{
+				//			curExecutionList->pop_back();
+				//			curExecutionList->push_back(new logicBlock(*(draggedBlock)));
+				//			curExecutionList->push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
+				//			curExecutionList->back()->curButtonState = BS_ACTIVE;
+				//			delete draggedBlock;
+				//			draggedBlock = NULL;
+				//			isMouseDragging = false;
+				//		}
+				//		delete draggedBlock;
+				//		draggedBlock = NULL;
+				//		isMouseDragging = false;
+				//	}
+				//	else
+				//	{
+				//		//// Insert block within the current list.
+				//		//int bytesLeft = mapByteLimit - usedBytes;
+				//		//if(bytesLeft >= draggedBlock->byteCost)
+				//		//{
+				//		//	curExecutionList->insert(
+				//		//	curExecutionList->pop_back();
+				//		//	curExecutionList->push_back(new logicBlock(*(draggedBlock)));
+				//		//	curExecutionList->push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
+				//		//	curExecutionList->back()->curButtonState = BS_ACTIVE;
+				//		//	delete draggedBlock;
+				//		//	draggedBlock = NULL;
+				//		//	isMouseDragging = false;
+				//		//}
+				//		//delete draggedBlock;
+				//		//draggedBlock = NULL;
+				//		//isMouseDragging = false;
+				//	}
+				//}
 				if(curInstrTab == TAB_MAIN)
 				{
 					if(executionList.back()->checkInBounds(x, y, instructionBlockW, instructionBlockH))
