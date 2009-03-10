@@ -63,6 +63,7 @@ private:
 	oglTexture2D* commandBackdrop;
 	oglTexture2D* commandBackdrop2;
 	oglTexture2D* scrollBar;
+	oglTexture2D* insertionLine;
 
 	int mouseX;
 	int mouseY;
@@ -82,7 +83,6 @@ private:
 	// Score Tracking
 	int mapByteLimit;
 	int usedBytes;
-	
 
 	//======================
 	// Size and Positional Variables
@@ -105,7 +105,11 @@ private:
 
 	int instructionListNumColumns;
 	int instructionListNumRowsOnScreen;
-	
+
+	bool drawInsertionLine;
+	int insertionLineColumn;
+	int insertionLineRow;
+
 	screenBox logicBankBox;
 	screenBox instructionListBox;
 
