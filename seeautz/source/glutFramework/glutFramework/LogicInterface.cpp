@@ -5,7 +5,7 @@ LogicInterface::LogicInterface()
 	: myMenu(NULL), isButtonBeingClicked(false),
 		sideBarBox(), bottomBarBox(), sideBarColumnCount(3),
 		instructionBlockW(140 / 3), instructionBlockH(140 / 3),
-		instructionSpacing(3), logicBankBox(), instructionListBox(),
+		instructionSpacing(2), logicBankBox(), instructionListBox(),
 		logicBankNumColumns(4), logicBankNumRowsOnScreen(3), 
 		instructionListNumColumns(8), instructionListNumRowsOnScreen(3),
 		mouseX(0), mouseY(0), currentHoverBlockIndex(-1),
@@ -35,7 +35,7 @@ LogicInterface::LogicInterface()
 	instructionListBox.height = logicBankBox.height;
 	//instructionListBox.x = logicBankBox.x + logicBankBox.width + 50;
 	//instructionListBox.y = logicBankBox.y;
-	instructionListBox.x = 340;
+	instructionListBox.x = 345;
 	instructionListBox.y = 600;
 
 	//=============================================
@@ -61,17 +61,17 @@ LogicInterface::LogicInterface()
 	myMenu->setLastButtonDimensions(100, 50);
 	myMenu->setLastButtonPosition(instructionListBox.x+45 + instructionListBox.width +  100, logicBankBox.y+25);
 
-	myMenu->addButton("buttons\\tabmain.png", "buttons\\tabmain.png", "buttons\\tabmain.png", BE::CreateFunctionPointer0R(this, &LogicInterface::MainTabButtonClick));
-	myMenu->setLastButtonDimensions(100, 25);
-	myMenu->setLastButtonPosition(instructionListBox.x, instructionListBox.y - 25);
+	myMenu->addButton("blank.png", "blank.png", "blank.png", BE::CreateFunctionPointer0R(this, &LogicInterface::MainTabButtonClick));
+	myMenu->setLastButtonDimensions(50, 20);
+	myMenu->setLastButtonPosition(instructionListBox.x + 25 + 3, instructionListBox.y - 25);
 
-	myMenu->addButton("buttons\\tabsub1.png", "buttons\\tabsub1.png", "buttons\\tabsub1.png", BE::CreateFunctionPointer0R(this, &LogicInterface::Sub1TabButtonClick));
-	myMenu->setLastButtonDimensions(100, 25);
-	myMenu->setLastButtonPosition(instructionListBox.x + 100, instructionListBox.y - 25);
+	myMenu->addButton("blank.png", "blank.png", "blank.png", BE::CreateFunctionPointer0R(this, &LogicInterface::Sub1TabButtonClick));
+	myMenu->setLastButtonDimensions(50, 20);
+	myMenu->setLastButtonPosition(419,575);
 
-	myMenu->addButton("buttons\\tabsub2.png", "buttons\\tabsub2.png", "buttons\\tabsub2.png", BE::CreateFunctionPointer0R(this, &LogicInterface::Sub2TabButtonClick));
-	myMenu->setLastButtonDimensions(100, 25);
-	myMenu->setLastButtonPosition(instructionListBox.x + 200, instructionListBox.y - 25);
+	myMenu->addButton("blank.png", "blank.png", "blank.png", BE::CreateFunctionPointer0R(this, &LogicInterface::Sub2TabButtonClick));
+	myMenu->setLastButtonDimensions(50, 20);
+	myMenu->setLastButtonPosition(469,575);
 	
 	myMenu->addButton("buttons\\clear.png", "buttons\\clear.png", "buttons\\clear.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ClearButtonClick));
 	myMenu->setLastButtonDimensions(50, 25);
@@ -94,6 +94,9 @@ LogicInterface::LogicInterface()
 
 	commandBackdrop = new oglTexture2D();
 	commandBackdrop->loadImage("CommandList.png", 228, 181);
+
+	commandBackdrop2 = new oglTexture2D();
+	commandBackdrop2->loadImage("logicinterface.png", 228, 181);
 
 	//=============================================
 	// All other initialization
@@ -154,9 +157,66 @@ void LogicInterface::Update()
 	{
 		tmpByteCount += (*itr)->byteCost;
 	}
+	itr = executionListSub1.begin();
+	for(; itr != executionListSub1.end(); itr++)
+	{
+		tmpByteCount += (*itr)->byteCost;
+	}
+	itr = executionListSub2.begin();
+	for(; itr != executionListSub2.end(); itr++)
+	{
+		tmpByteCount += (*itr)->byteCost;
+	}
+
 	usedBytes = tmpByteCount;
 	GameVars->setBytesUsed(usedBytes);
 
+
+	itr = executionList.begin();
+	for(; itr != executionList.end(); itr++)
+	{
+		if((*itr)->enumInstruction == DO_NOT_PROCESS)
+		{
+			if(usedBytes == mapByteLimit)
+			{
+				(*itr)->curButtonState = BS_INACTIVE;
+			}
+			else
+			{
+				(*itr)->curButtonState = BS_ACTIVE;
+			}
+		}
+	}
+	itr = executionListSub1.begin();
+	for(; itr != executionListSub1.end(); itr++)
+	{
+		if((*itr)->enumInstruction == DO_NOT_PROCESS)
+		{
+			if(usedBytes == mapByteLimit)
+			{
+				(*itr)->curButtonState = BS_INACTIVE;
+			}
+			else
+			{
+				(*itr)->curButtonState = BS_ACTIVE;
+			}
+		}
+	}
+	itr = executionListSub2.begin();
+	for(; itr != executionListSub2.end(); itr++)
+	{
+		if((*itr)->enumInstruction == DO_NOT_PROCESS)
+		{
+			if(usedBytes == mapByteLimit)
+			{
+				(*itr)->curButtonState = BS_INACTIVE;
+			}
+			else
+			{
+				(*itr)->curButtonState = BS_ACTIVE;
+			}
+		}
+	}
 }
 
 void LogicInterface::Draw()
@@ -172,12 +232,21 @@ void LogicInterface::Draw()
 	commandBackdrop->drawImage();
 	
 	// draw center commands background
-	commandBackdrop->dX = 390;
-	commandBackdrop->dY = 161;
-	commandBackdrop->mX = 340;
-	commandBackdrop->mY = instructionListBox.y;
-	commandBackdrop->drawImage();
-
+	//commandBackdrop->dX = 390;
+	//commandBackdrop->dY = 161;
+	//commandBackdrop->mX = 340;
+	//commandBackdrop->mY = instructionListBox.y;
+	//commandBackdrop->drawImage();
+	commandBackdrop2->dX = 390;
+	commandBackdrop2->dY = 161 + 25;
+	commandBackdrop2->mX = 340;
+	commandBackdrop2->mY = instructionListBox.y - 25;
+	if(curInstrTab == TAB_MAIN)
+		commandBackdrop2->drawImageSegment(0.0, 0.0, 1.0, 0.0, 0.0, (double)1/3, 1.0, (double)1/3, 1.0);
+	else if(curInstrTab == TAB_SUB1)
+		commandBackdrop2->drawImageSegment(0.0, (double)1/3, 1.0, (double)1/3, 0.0, (double)2/3, 1.0, (double)2/3, 1.0); 
+	else if(curInstrTab == TAB_SUB2)
+		commandBackdrop2->drawImageSegment(0.0, (double)2/3, 1.0, (double)2/3, 0.0, 1.0, 1.0, 1.0, 1.0);
 	std::vector<logicBlock*>::iterator itr = executionList.begin();
 
 	//=============================================
