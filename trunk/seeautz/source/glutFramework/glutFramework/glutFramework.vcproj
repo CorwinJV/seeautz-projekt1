@@ -205,6 +205,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\OALSound.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\object.cpp"
 				>
 			</File>
@@ -324,6 +328,26 @@
 				Name="Maps"
 				>
 			</Filter>
+			<Filter
+				Name="OpenALSound"
+				>
+				<File
+					RelativePath=".\OpenALSound\aldlist.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\OpenALSound\CWaves.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\OpenALSound\Framework.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\OpenALSound\LoadOAL.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -380,6 +404,10 @@
 			</File>
 			<File
 				RelativePath=".\MenuSystem.h"
+				>
+			</File>
+			<File
+				RelativePath=".\OALSound.h"
 				>
 			</File>
 			<File
@@ -523,6 +551,26 @@
 			<Filter
 				Name="Maps"
 				>
+			</Filter>
+			<Filter
+				Name="OpenALSound"
+				>
+				<File
+					RelativePath=".\OpenALSound\aldlist.h"
+					>
+				</File>
+				<File
+					RelativePath=".\OpenALSound\CWaves.h"
+					>
+				</File>
+				<File
+					RelativePath=".\OpenALSound\Framework.h"
+					>
+				</File>
+				<File
+					RelativePath=".\OpenALSound\LoadOAL.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 	</Files>

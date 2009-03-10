@@ -8,6 +8,7 @@
 #include "logicBlock.h"
 #include "aiInstructionEnums.h"
 #include "GLFT_Font.h"
+#include "OALSound.h"
 
 #define GameVars oglGameVars::Instance()
 
@@ -121,6 +122,9 @@ public:
 	GLFT_Font					fontDigital200;
 	GLFT_Font					fontDigital32;
 	GLFT_Font					fontDigital16;
+
+	// newer stupid sound stuff
+	OALSound					*GenericSound;
 
 private:				
 	std::string mPlayerName;
