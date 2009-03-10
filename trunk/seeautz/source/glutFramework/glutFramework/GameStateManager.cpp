@@ -79,6 +79,11 @@ bool GameStateManager::Update()
 	// Update Game States
 	//=======================================
 	vector<GameState*>::iterator itr = stateList.begin();
+	if(!stateList.empty())
+		if(stateList.back()->getStatus() != Active)
+		{
+			stateList.back()->setStatus(Active);
+		}
 
 	// update statelist
 	for (; itr != stateList.end(); itr++)
