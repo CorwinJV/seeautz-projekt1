@@ -181,6 +181,17 @@ std::string oglGameVars::getLevelName(int level)
 	return levelList[level]->getName();
 }
 
+void oglGameVars::setBytesUsed(int val)
+{
+	curBytesUsed = val;
+}
+
+int oglGameVars::getBytesUsed()
+{
+	return curBytesUsed;
+}
+
+
 bool oglGameVars::SavePlayerGame(string playerGame) 
 {
 		if (playerGame == ".txt")
