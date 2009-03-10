@@ -1194,8 +1194,14 @@ void gameBoard::processRobot()
 			case ACTIVATE:	// for now lets just check for a door so we can see it working in testmap1
 				this->RCactivate();
 				break;
+			case DO_NOT_PROCESS:
+				GameVars->commandsProcessed--;
+				break;
 			}
 		}
+
+		GameVars->commandsProcessed++;
+
 		if(!delayAdvance)
 			(*oitr)->advanceCommand();
 		
@@ -1291,6 +1297,7 @@ bool gameBoard::interfaceHasFiredExecuteOrder(std::vector<logicBlock*> execution
 		}
 	}*/
 	resetMap();
+	GameVars->commandsProcessed = 0;
 
 	SUB1->clearInstructions();
 	std::vector<logicBlock*>::iterator sItr = executionListSub1.begin();
@@ -1357,6 +1364,8 @@ bool gameBoard::interfaceHasFiredResetOrder()
 
 	SUB1->clearInstructions();
 	SUB2->clearInstructions();
+
+	GameVars->commandsProcessed = 0;
 
 	// Find the robot
 	std::vector<object*>::iterator oitr = objectList.begin();
@@ -2021,10 +2030,14 @@ void gameBoard::RCactivate()
 
 		// store the map tiles actives
 		for(int x = 0; x < Width; x++)
+		{
 			for(int y = 0; y < Height; y++)
 			{
 				mapList[x][y]->setResetActive(mapList[x][y]->getIsActive());
 			}
+		}
+		GameVars->totalCommandsProcessed += GameVars->commandsProcessed;
+		GameVars->commandsProcessed = 0;
 		robotStartX = robotX;
 		robotStartY = robotY;
 		curState = GB_LOGICVIEW;
@@ -2195,9 +2208,14 @@ bool gameBoard::processSub(int whichSub)
 				parentDelay = processSub(2);
 				return parentDelay;
 				break;
+
+			case DO_NOT_PROCESS:
+				GameVars->commandsProcessed--;
+				break;
 			}
 		}
 	}
+	GameVars->commandsProcessed++;
 
 	if(whichSub == 1)
 		parentDelay = SUB1->advanceCommand();

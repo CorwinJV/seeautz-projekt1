@@ -16,6 +16,7 @@ bool playGame::Update()
 	{
 		curState = GB_VIEWSCORE;
 		gamePlay->setState(curState);
+		GameVars->totalCommandsProcessed += GameVars->commandsProcessed;
 	}
 
 	// Update mInterface all the time
@@ -155,6 +156,8 @@ bool playGame::Draw()
 	//clock_t startTime;
 	int tempInt;
 	oglTexture2D fadeToBlack;
+	int textspacing = 50;
+	int viewscoretext = 125;
 
 	switch(curState)
 	{
@@ -201,7 +204,7 @@ bool playGame::Draw()
 
 		// bytes available
 		tempString = "Bytes Available: ";
-		painInTheAss.clear();
+		painInTheAss.str("");
 		tempInt = GameVars->getCurrentLevelBytes();
 		painInTheAss << tempInt;
 		tempString += painInTheAss.str();
@@ -228,28 +231,46 @@ bool playGame::Draw()
 		if(myMenu != NULL)
 			myMenu->Draw();
 
-		// clear the temp string
+		painInTheAss.str("");
+		// bytes used
 		tempString = "";
+		tempString = "BYTES USED: ";
+		tempInt = GameVars->getBytesUsed(); // this should get the bytes used value
+		painInTheAss.str("");
+		painInTheAss << tempInt;
+		tempString += painInTheAss.str();
+		GameVars->fontArial32.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
+		offsetAmt++;
 
-		// display the level score
+		// commands used
+		tempString = "";
+		tempString = "COMMANDS PROCESSED: ";
+		tempInt = GameVars->totalCommandsProcessed;
+		painInTheAss.str("");
+		painInTheAss << tempInt;
+		tempString += painInTheAss.str();
+		GameVars->fontArial32.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
+		offsetAmt++;
+		
+		// level score
+		tempString = "";
 		tempString = "YOUR LEVEL SCORE: ";
-		painInTheAss.clear();
 		tempInt = GameVars->getLevelScore();
+		painInTheAss.str("");
 		painInTheAss << tempInt;
 		tempString += painInTheAss.str();
-		GameVars->fontArial32.drawText(225, 200, tempString);
+		GameVars->fontArial32.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
+		offsetAmt++;
 
-		// clear the temp string
+		// TOTAL SCORE
 		tempString = "";
-
-		// display the total score
 		tempString = "YOUR TOTAL SCORE: ";
-		painInTheAss.clear();
 		tempInt = GameVars->getTotalScore();
+		painInTheAss.str("");
 		painInTheAss << tempInt;
 		tempString += painInTheAss.str();
-		GameVars->fontArial32.drawText(225, 300, tempString);
-
+		GameVars->fontArial32.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
+		offsetAmt++;
 		
 		if(myMenu != NULL)
 			myMenu->Draw();

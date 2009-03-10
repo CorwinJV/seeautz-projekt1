@@ -107,6 +107,8 @@ public:
 	int							getBytesUsed();
 	void						setCurrentLevel(int);
 	void						setCurrentLevelBytes(int newBytes);
+	int							commandsProcessed;
+	int							totalCommandsProcessed;
 	void						setCurrentLogicBank(bool moveForwardAvail, bool moveForwardUntilAvail, bool turnLeftAvail, bool turnRightAvail,
 													bool punchAvail, bool climbAvail, bool crouchAvail, bool jumpAvail, bool activateAvail, bool sub1Avail, bool sub2Avail);
 	std::vector<logicBlock*>*	GetCurrentMapLogicBank();
