@@ -178,7 +178,7 @@ bool StartNewGameState::doesNameAlreadyExists(string playerGame)
 	newTempString += ".txt";
 	std::cout << "Checking if " << newTempString << " exists " << endl;
 
-	PlayerInfo.open(tempString.c_str());
+	PlayerInfo.open(newTempString.c_str());
 
 	if(!PlayerInfo)
 	{
