@@ -19,6 +19,7 @@ private:
 	vector<oglTexture2D*>::iterator endGameAnimation;
 	MenuSys* myMenu;
 	oglTexture2D* img;
+	oglTexture2D* blackImage;
 	GameBoardState curState;
 	vector<Button*> buttonList;
 	bool gameSaved;

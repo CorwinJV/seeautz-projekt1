@@ -17,6 +17,12 @@ bool playGame::Update()
 		curState = GB_VIEWSCORE;
 		gamePlay->setState(curState);
 		GameVars->totalCommandsProcessed += GameVars->commandsProcessed;
+		double scoreToAdd = 0;
+		int bytesUsed = GameVars->getBytesUsed();
+		int bytesAvail = GameVars->getCurrentLevelBytes();
+		scoreToAdd = ((100 - (((double)bytesUsed/(double)bytesAvail)*100)) * 10) + 200;
+		GameVars->setLevelScore(scoreToAdd);
+		GameVars->setTotalScore(GameVars->getLevelScore() + GameVars->getTotalScore());
 	}
 
 	// Update mInterface all the time
@@ -157,7 +163,7 @@ bool playGame::Draw()
 	int tempInt;
 	oglTexture2D fadeToBlack;
 	int textspacing = 50;
-	int viewscoretext = 125;
+	int viewscoretext = 75;
 
 	switch(curState)
 	{
@@ -190,13 +196,14 @@ bool playGame::Draw()
 		GameVars->fontArial32.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
 		offsetAmt++;
 
-		// level title
+		// level name
 		tempInt = GameVars->getCurrentLevel();
 		tempString = GameVars->getLevelName(tempInt);
 
 		GameVars->fontArial32.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
 		offsetAmt++;
 
+		// level description
 		tempString = GameVars->getDesc(tempInt);
 		// description
 		GameVars->fontArial32.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
@@ -231,7 +238,21 @@ bool playGame::Draw()
 		if(myMenu != NULL)
 			myMenu->Draw();
 
+		// level name
+		tempInt = GameVars->getCurrentLevel();
+		tempString = GameVars->getLevelName(tempInt);
+
+		GameVars->fontArial32.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
+		offsetAmt++;
+
+		// level description
+		tempString = GameVars->getDesc(tempInt);
+		// description
+		GameVars->fontArial32.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
+		offsetAmt++;
+
 		painInTheAss.str("");
+
 		// bytes used
 		tempString = "";
 		tempString = "BYTES USED: ";
@@ -309,7 +330,7 @@ bool playGame::initialize()
 
 	// debug brute force of level
 	// abcxyz
-	playerCurrentLevel = 0;
+	//playerCurrentLevel = 1;
 	GameVars->setLevel(playerCurrentLevel);
 	
 
@@ -336,6 +357,9 @@ bool playGame::initialize()
 	if(img != NULL)
 		img->loadImage("..\\Content\\statescreens\\mainmenu.png", 1024, 120);
 	img->mY = 618;
+
+	blackImage = new oglTexture2D();
+	blackImage->loadImage("black.png", 373, 61);
 	
 
 	myMenu = new MenuSys(250, 50, "blank.png", None);
@@ -513,9 +537,13 @@ void playGame::drawLevelInfo()
 	int textOffsetY = 20;
 	int textSpacing = 20;
 	int offsetAmt = 0;
+
+	blackImage->mX = 0;
+	blackImage->mY = 0;
+	blackImage->drawImageFaded(0.75);
+	
 	glColor3ub(255, 0, 0);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-
 
 	//this wont work if we're coming in out of a level select
 	playerCurrentLevel = GameVars->getCurrentLevel();

@@ -449,7 +449,7 @@ void LogicInterface::Draw()
 	std::stringstream ss;
 	std::string s;
 	ss << usedBytes;
-	ss << "\\";
+	ss << " of ";
 	ss << mapByteLimit;
 	ss << " BYTES used.";
 	s = ss.str();

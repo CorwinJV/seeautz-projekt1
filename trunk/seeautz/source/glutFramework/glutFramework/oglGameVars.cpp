@@ -419,12 +419,12 @@ int oglGameVars::getMaxLevel()
 
 void oglGameVars::setLevelScore(int score)
 {
-	mTotalScore = score;
+	levelScore = score;
 }
 	
 void oglGameVars::setTotalScore(int score)
 {
-	levelScore = score;
+	mTotalScore = score;
 }
 
 void oglGameVars::setCurrentLogicBank(bool moveForwardAvail, bool moveForwardUntilAvail, bool turnLeftAvail, 
