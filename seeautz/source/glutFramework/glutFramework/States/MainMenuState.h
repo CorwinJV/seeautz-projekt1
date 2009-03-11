@@ -21,11 +21,11 @@ public:
 		img->mY = 618;
 
 		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
-		myMenu->addButton("..\\Content\\buttons\\startnewgame.png", "startnewgamehover.png", "button1over.png", CreateFunctionPointer0R(this, &MainMenuState::StartNewGameCallback));
-		myMenu->addButton("..\\Content\\buttons\\profilemanagement.png", "profilemanagementhover.png", "button2over.png", CreateFunctionPointer0R(this, &MainMenuState::ProfileManagerCallback));
-		myMenu->addButton("..\\Content\\buttons\\loadgame.png", "loadgamehover.png", "button3over.png", CreateFunctionPointer0R(this, &MainMenuState::LoadGameCallback));
-		myMenu->addButton("..\\Content\\buttons\\credits.png", "creditshover.png", "button4over.png", CreateFunctionPointer0R(this, &MainMenuState::Credits));
-		myMenu->addButton("..\\Content\\buttons\\quit.png", "quithover.png", "button4over.png", CreateFunctionPointer0R(this, &MainMenuState::Quit));
+		myMenu->addButton("..\\Content\\buttons\\startnewgame.png", "..\\Content\\buttons\\startnewgamehover.png", "button1over.png", CreateFunctionPointer0R(this, &MainMenuState::StartNewGameCallback));
+		myMenu->addButton("..\\Content\\buttons\\profilemanagement.png", "..\\Content\\buttons\\profilemanagementhover.png", "button2over.png", CreateFunctionPointer0R(this, &MainMenuState::ProfileManagerCallback));
+		myMenu->addButton("..\\Content\\buttons\\loadgame.png", "..\\Content\\buttons\\loadgamehover.png", "button3over.png", CreateFunctionPointer0R(this, &MainMenuState::LoadGameCallback));
+		myMenu->addButton("..\\Content\\buttons\\credits.png", "..\\Content\\buttons\\creditshover.png", "button4over.png", CreateFunctionPointer0R(this, &MainMenuState::Credits));
+		myMenu->addButton("..\\Content\\buttons\\quit.png", "..\\Content\\buttons\\quithover.png", "button4over.png", CreateFunctionPointer0R(this, &MainMenuState::Quit));
 	}
 
 	bool Update();

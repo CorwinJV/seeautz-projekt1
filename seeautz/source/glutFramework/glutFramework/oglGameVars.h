@@ -103,8 +103,8 @@ public:
 	void						setRobotY(int);
 	int							getLevelHeight();
 	int							getLevelWidth();
-	void						setLevelHeight();
-	void						setLevelWidth();
+	void						setLevelHeight(int);
+	void						setLevelWidth(int);
 	bool						getTileActive(int, int);
 	std::string					getFilename(int);
 	std::string					getDesc(int);

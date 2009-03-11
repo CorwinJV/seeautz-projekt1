@@ -80,7 +80,7 @@ bool SaveGameState::SavePlayerGame(string playerGame)
 		yPos = GameVars->getRobotY();
 		bytesUsed = GameVars->getBytesUsed();
 		levelBytes = GameVars->getCurrentLevelBytes();
-		remaingingBytes = levelBytes - bytesUsed;
+		int remaingingBytes = levelBytes - bytesUsed;
 
 		width = GameVars->getLevelWidth();
 		height = GameVars->getLevelHeight();
