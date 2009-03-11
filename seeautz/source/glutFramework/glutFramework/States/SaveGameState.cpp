@@ -1,5 +1,4 @@
 #include "SaveGameState.h" 
-#include "PostGameState.h"
 #include<fstream>
 #include<iostream>
 #include <string>
@@ -120,7 +119,7 @@ bool SaveGameState::SavePlayerGame(string playerGame)
 //this probably doesn't need to be here...
 bool SaveGameState::PostGameCallback()
 {
-	GSM->addGameState<PostGameState>();
+	//GSM->addGameState<PostGameState>();
 	this->setStatus(DeleteMe);
 	glClearColor(255, 0, 255, 0);
 

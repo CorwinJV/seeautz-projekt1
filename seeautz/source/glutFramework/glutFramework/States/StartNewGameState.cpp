@@ -1,6 +1,5 @@
 #include "StartNewGameState.h"
 #include "..\GameStateManager.h"
-#include "PreGameState.h"
 
 bool StartNewGameState::Update()
 {
