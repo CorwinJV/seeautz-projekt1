@@ -360,7 +360,7 @@ bool playGame::initialize()
 	//display a menu that shows info and contains advance and exit buttons
 	img = new oglTexture2D();
 	if(img != NULL)
-		img->loadImage("..\\Content\\statescreens\\mainmenu.png", 1024, 120);
+		img->loadImage("statescreens\\mainmenu.png", 1024, 120);
 	img->mY = 618;
 
 	blackImage = new oglTexture2D();
@@ -368,10 +368,10 @@ bool playGame::initialize()
 	
 
 	myMenu = new MenuSys(250, 50, "blank.png", None);
-	myMenu->addButton("..\\Content\\buttons\\advance.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &playGame::advance));
+	myMenu->addButton("buttons\\advance.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &playGame::advance));
 	myMenu->setLastButtonDimensions(100, 100);
 	myMenu->setLastButtonPosition(600, 400);
-	myMenu->addButton("..\\Content\\buttons\\exit.png",	 "button2down.png", "button2over.png", CreateFunctionPointer0R(this, &playGame::exitGame));
+	myMenu->addButton("buttons\\exit.png",	 "button2down.png", "button2over.png", CreateFunctionPointer0R(this, &playGame::exitGame));
 	myMenu->setLastButtonDimensions(100, 100);
 	myMenu->setLastButtonPosition(350, 400);
 	Update();
@@ -508,7 +508,7 @@ void playGame::doEndGameDraw()
 			// build a variable filename
 			filenumber.clear();
 			filenumber << x;
-			filename = "..\\Content\\ending\\frames\\ending00";
+			filename = "ending\\frames\\ending00";
 			filename += filenumber.str();
 			filename += ".png";
 			tempPic = new oglTexture2D;

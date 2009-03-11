@@ -20,12 +20,12 @@ public:
 	{
 		/*img = new oglTexture2D();
 		if(img != NULL)
-			img->loadImage("..\\Content\\statescreens\\startnewgame.png", 1024, 120);
+			img->loadImage("statescreens\\startnewgame.png", 1024, 120);
 		img->mY = 618;
 
 		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
-		myMenu->addButton("..\\Content\\buttons\\pregame.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &StartNewGameState::PreGameCallback));
-		myMenu->addButton("..\\Content\\buttons\\something.png", "button2down.png", "button2over.png", CreateFunctionPointer0R(this, &StartNewGameState::tutorialCallback));*/
+		myMenu->addButton("buttons\\pregame.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &StartNewGameState::PreGameCallback));
+		myMenu->addButton("buttons\\something.png", "button2down.png", "button2over.png", CreateFunctionPointer0R(this, &StartNewGameState::tutorialCallback));*/
 		finished = false;
 		checked = false;
 		Update();

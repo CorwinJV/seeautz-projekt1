@@ -20,13 +20,13 @@ public:
 	{
 		img = new oglTexture2D();
 		if(img != NULL)
-			img->loadImage("..\\Content\\statescreens\\loadgame.png", 1024, 120);
+			img->loadImage("statescreens\\loadgame.png", 1024, 120);
 		img->mY = 618;
 
 		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
-		myMenu->addButton("..\\Content\\buttons\\returntomainmenu.png", "..\\Content\\buttons\\returntomainmenuhover.png", "..\\Content\\buttons\\returntomainmenuhover.png", CreateFunctionPointer0R(this, &LoadGameState::MainMenuCallback));
-		myMenu->addButton("..\\Content\\buttons\\playgame.png", "..\\Content\\buttons\\playgamehover.png", "..\\Content\\buttons\\playgamehover.png", CreateFunctionPointer0R(this, &LoadGameState::playGameCallback));
-		myMenu->addButton("..\\Content\\buttons\\levelselect.png", "..\\Content\\buttons\\levelselecthover.png", "..\\Content\\buttons\\levelselecthover.png", CreateFunctionPointer0R(this, &LoadGameState::levelSelectCallback));
+		myMenu->addButton("buttons\\returntomainmenu.png", "buttons\\returntomainmenuhover.png", "buttons\\returntomainmenuhover.png", CreateFunctionPointer0R(this, &LoadGameState::MainMenuCallback));
+		myMenu->addButton("buttons\\playgame.png", "buttons\\playgamehover.png", "buttons\\playgamehover.png", CreateFunctionPointer0R(this, &LoadGameState::playGameCallback));
+		myMenu->addButton("buttons\\levelselect.png", "buttons\\levelselecthover.png", "buttons\\levelselecthover.png", CreateFunctionPointer0R(this, &LoadGameState::levelSelectCallback));
 
 		finished = 0;
 

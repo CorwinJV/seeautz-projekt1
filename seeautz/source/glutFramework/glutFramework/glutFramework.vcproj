@@ -260,15 +260,7 @@
 				Name="States"
 				>
 				<File
-					RelativePath=".\States\AbortState.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\States\DevLogoState.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\States\ExecutionModeState.cpp"
 					>
 				</File>
 				<File
@@ -280,31 +272,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\States\LogicViewState.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\States\MainGameLoopState.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\States\MainMenuState.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\States\NewLevelState.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\States\OptionsState.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\States\PostGameState.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\States\PreGameState.cpp"
 					>
 				</File>
 				<File
@@ -317,10 +289,6 @@
 				</File>
 				<File
 					RelativePath=".\States\StartNewGameState.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\States\StopLoopState.cpp"
 					>
 				</File>
 			</Filter>
@@ -478,15 +446,7 @@
 				Name="States"
 				>
 				<File
-					RelativePath=".\States\AbortState.h"
-					>
-				</File>
-				<File
 					RelativePath=".\States\DevLogoState.h"
-					>
-				</File>
-				<File
-					RelativePath=".\States\ExecutionModeState.h"
 					>
 				</File>
 				<File
@@ -498,31 +458,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\States\LogicViewState.h"
-					>
-				</File>
-				<File
-					RelativePath=".\States\MainGameLoopState.h"
-					>
-				</File>
-				<File
 					RelativePath=".\States\MainMenuState.h"
 					>
 				</File>
 				<File
-					RelativePath=".\States\NewLevelState.h"
-					>
-				</File>
-				<File
 					RelativePath=".\States\OptionsState.h"
-					>
-				</File>
-				<File
-					RelativePath=".\States\PostGameState.h"
-					>
-				</File>
-				<File
-					RelativePath=".\States\PreGameState.h"
 					>
 				</File>
 				<File
@@ -535,10 +475,6 @@
 				</File>
 				<File
 					RelativePath=".\States\StartNewGameState.h"
-					>
-				</File>
-				<File
-					RelativePath=".\States\StopLoopState.h"
 					>
 				</File>
 			</Filter>

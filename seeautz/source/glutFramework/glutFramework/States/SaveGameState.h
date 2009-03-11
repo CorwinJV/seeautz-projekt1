@@ -14,11 +14,11 @@ public:
 	{
 		img = new oglTexture2D();
 		if(img != NULL)
-			img->loadImage("..\\Content\\statescreens\\succeed.png", 1024, 120);
+			img->loadImage("statescreens\\succeed.png", 1024, 120);
 		img->mY = 618;
 
 		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
-		myMenu->addButton("..\\Content\\buttons\\postgame.png", "succeed.png", "button1over.png", CreateFunctionPointer0R(this, &SaveGameState::PostGameCallback));
+		myMenu->addButton("buttons\\postgame.png", "succeed.png", "button1over.png", CreateFunctionPointer0R(this, &SaveGameState::PostGameCallback));
 		Update();
 	}
 

@@ -17,15 +17,15 @@ public:
 	{
 		img = new oglTexture2D();
 		if(img != NULL)
-			img->loadImage("..\\Content\\statescreens\\mainmenu.png", 1024, 120);
-		img->mY = 618;
+			img->loadImage("logoprojekt1narrow.png", 1024, 150);
+		img->mY = 50;
 
-		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
-		myMenu->addButton("..\\Content\\buttons\\startnewgame.png", "..\\Content\\buttons\\startnewgamehover.png", "..\\Content\\buttons\\startnewgamehover.png", CreateFunctionPointer0R(this, &MainMenuState::StartNewGameCallback));
-		myMenu->addButton("..\\Content\\buttons\\profilemanagement.png", "..\\Content\\buttons\\profilemanagementhover.png", "..\\Content\\buttons\\profilemanagementhover.png", CreateFunctionPointer0R(this, &MainMenuState::ProfileManagerCallback));
-		myMenu->addButton("..\\Content\\buttons\\loadgame.png", "..\\Content\\buttons\\loadgamehover.png", "..\\Content\\buttons\\loadgamehover.png", CreateFunctionPointer0R(this, &MainMenuState::LoadGameCallback));
-		myMenu->addButton("..\\Content\\buttons\\credits.png", "..\\Content\\buttons\\creditshover.png", "..\\Content\\buttons\\creditshover.png", CreateFunctionPointer0R(this, &MainMenuState::Credits));
-		myMenu->addButton("..\\Content\\buttons\\quit.png", "..\\Content\\buttons\\quithover.png", "..\\Content\\buttons\\quithover.png", CreateFunctionPointer0R(this, &MainMenuState::Quit));
+		myMenu = new MenuSys(220, 250, "blankmenu.png", Auto);
+		myMenu->addButton("buttons\\startnewgame.png", "buttons\\startnewgamehover.png", "buttons\\startnewgamehover.png", CreateFunctionPointer0R(this, &MainMenuState::StartNewGameCallback));
+		myMenu->addButton("buttons\\profilemanagement.png", "buttons\\profilemanagementhover.png", "buttons\\profilemanagementhover.png", CreateFunctionPointer0R(this, &MainMenuState::ProfileManagerCallback));
+		myMenu->addButton("buttons\\loadgame.png", "buttons\\loadgamehover.png", "buttons\\loadgamehover.png", CreateFunctionPointer0R(this, &MainMenuState::LoadGameCallback));
+		myMenu->addButton("buttons\\credits.png", "buttons\\creditshover.png", "buttons\\creditshover.png", CreateFunctionPointer0R(this, &MainMenuState::Credits));
+		myMenu->addButton("buttons\\quit.png", "buttons\\quithover.png", "buttons\\quithover.png", CreateFunctionPointer0R(this, &MainMenuState::Quit));
 	}
 
 	bool Update();
