@@ -130,7 +130,7 @@ oglGameVars::oglGameVars()
 
 	maxLevel = levelList.size();
 	// stupid sound stuff
-	GenericSound = new OALSound;
+	//GenericSound = new OALSound;
 }
 
 //========================================
