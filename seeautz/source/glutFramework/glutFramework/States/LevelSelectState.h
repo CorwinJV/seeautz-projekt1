@@ -22,13 +22,13 @@ public:
 		
 
 		myMenu = new MenuSys(250, 50, "blank.png", None);
-		myMenu->addButton("..\\Content\\buttons\\arrow_left.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &LevelSelectState::decrement));
+		myMenu->addButton("..\\Content\\arrow_left.png", "arrow_lefthover.png", "button1over.png", CreateFunctionPointer0R(this, &LevelSelectState::decrement));
 		myMenu->setLastButtonDimensions(100, 100);
 		myMenu->setLastButtonPosition(350, 400);
-		myMenu->addButton("..\\Content\\buttons\\arrow_right.png",	 "button2down.png", "button2over.png", CreateFunctionPointer0R(this, &LevelSelectState::increment));
+		myMenu->addButton("..\\Content\\arrow_right.png",	 "arrow_righthover.png", "button2over.png", CreateFunctionPointer0R(this, &LevelSelectState::increment));
 		myMenu->setLastButtonDimensions(100, 100);
 		myMenu->setLastButtonPosition(600, 400);
-		myMenu->addButton("..\\Content\\buttons\\bacardi.png",	 "button2down.png", "button2over.png", CreateFunctionPointer0R(this, &LevelSelectState::selectLevel));
+		myMenu->addButton("..\\Content\\buttons\\startthislevel.png",	 "startthislevelhover.png", "button2over.png", CreateFunctionPointer0R(this, &LevelSelectState::selectLevel));
 		myMenu->setLastButtonDimensions(100, 100);
 		myMenu->setLastButtonPosition(480, 400);
 		Update();
