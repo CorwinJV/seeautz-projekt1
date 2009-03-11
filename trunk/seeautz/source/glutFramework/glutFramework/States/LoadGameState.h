@@ -24,9 +24,9 @@ public:
 		img->mY = 618;
 
 		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
-		myMenu->addButton("..\\Content\\buttons\\returntomainmenu.png", "returntomainmenuhover.png", "button1over.png", CreateFunctionPointer0R(this, &LoadGameState::MainMenuCallback));
-		myMenu->addButton("..\\Content\\buttons\\playgame.png", "playgamehover.png", "button2over.png", CreateFunctionPointer0R(this, &LoadGameState::playGameCallback));
-		myMenu->addButton("..\\Content\\buttons\\levelselect.png", "levelselecthover.png", "button2over.png", CreateFunctionPointer0R(this, &LoadGameState::levelSelectCallback));
+		myMenu->addButton("..\\Content\\buttons\\returntomainmenu.png", "..\\Content\\buttons\\returntomainmenuhover.png", "button1over.png", CreateFunctionPointer0R(this, &LoadGameState::MainMenuCallback));
+		myMenu->addButton("..\\Content\\buttons\\playgame.png", "..\\Content\\buttons\\playgamehover.png", "button2over.png", CreateFunctionPointer0R(this, &LoadGameState::playGameCallback));
+		myMenu->addButton("..\\Content\\buttons\\levelselect.png", "..\\Content\\buttons\\levelselecthover.png", "button2over.png", CreateFunctionPointer0R(this, &LoadGameState::levelSelectCallback));
 
 		finished = 0;
 
