@@ -17,14 +17,14 @@ public:
 	{
 		img = new oglTexture2D();
 		if(img != NULL)
-			img->loadImage("..\\Content\\statescreens\\profilemanagement.png", 1024, 120);
+			img->loadImage("statescreens\\profilemanagement.png", 1024, 120);
 		img->mY = 618;
 
 		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
-		myMenu->addButton("..\\Content\\buttons\\returntomainmenu.png", "..\\Content\\buttons\\returntomainmenuhover.png", "..\\Content\\buttons\\returntomainmenuhover.png", CreateFunctionPointer0R(this, &ProfileMgrState::MainMenuStateCallback));
-		myMenu->addButton("..\\Content\\buttons\\startnewgame.png", "..\\Content\\buttons\\startnewgamehover.png", "..\\Content\\buttons\\startnewgamehover.png", CreateFunctionPointer0R(this, &ProfileMgrState::StartNewGameStateCallback));
-		myMenu->addButton("..\\Content\\buttons\\loadgame.png", "..\\Content\\buttons\\loadgamehover.png", "..\\Content\\buttons\\loadgamehover.png", CreateFunctionPointer0R(this, &ProfileMgrState::LoadGameStateCallback));
-		myMenu->addButton("..\\Content\\buttons\\savegame.png", "..\\Content\\buttons\\savegamehover.png", "..\\Content\\buttons\\savegamehover.png", CreateFunctionPointer0R(this, &ProfileMgrState::SaveGameStateCallback));
+		myMenu->addButton("buttons\\returntomainmenu.png", "buttons\\returntomainmenuhover.png", "buttons\\returntomainmenuhover.png", CreateFunctionPointer0R(this, &ProfileMgrState::MainMenuStateCallback));
+		myMenu->addButton("buttons\\startnewgame.png", "buttons\\startnewgamehover.png", "buttons\\startnewgamehover.png", CreateFunctionPointer0R(this, &ProfileMgrState::StartNewGameStateCallback));
+		myMenu->addButton("buttons\\loadgame.png", "buttons\\loadgamehover.png", "buttons\\loadgamehover.png", CreateFunctionPointer0R(this, &ProfileMgrState::LoadGameStateCallback));
+		myMenu->addButton("buttons\\savegame.png", "buttons\\savegamehover.png", "buttons\\savegamehover.png", CreateFunctionPointer0R(this, &ProfileMgrState::SaveGameStateCallback));
 		Update();
 	}
 

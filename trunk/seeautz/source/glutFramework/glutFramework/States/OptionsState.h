@@ -16,11 +16,11 @@ public:
 	{
 		img = new oglTexture2D();
 		if(img != NULL)
-			img->loadImage("..\\Content\\statescreens\\options.png", 1024, 120);
+			img->loadImage("statescreens\\options.png", 1024, 120);
 		img->mY = 618;
 
 		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
-		myMenu->addButton("..\\Content\\buttons\\returntomainmenu.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &OptionsState::MainMenuStateCallback));
+		myMenu->addButton("buttons\\returntomainmenu.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &OptionsState::MainMenuStateCallback));
 		Update();
 	}
 
