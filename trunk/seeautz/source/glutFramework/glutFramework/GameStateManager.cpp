@@ -19,6 +19,20 @@ bool GameStateManager::Initialize()
 	// if something bad happens, return false
 }
 
+void GameStateManager::returnToMainMenu()
+{
+	vector<GameState*>::iterator itr = stateList.begin();
+	
+	for(itr; itr >= stateList.end(); itr++) // lets also make sure that we're working within the confines of the vector
+	{
+		(*itr)->setStatus(DeleteMe);
+	}
+
+
+	this->addGameState<MainMenuState>();
+	
+}
+
 bool GameStateManager::removeGameStateAt(int index)
 {
 	if (index < 0) // make sure we have an index that's at least position 0

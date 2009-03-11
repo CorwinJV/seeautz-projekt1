@@ -650,9 +650,6 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	double kbmovespeed = moveSpeed;
 	switch(c)
 	{
-	case 27:
-		exit(0);
-		break;
 	case 'q': //up-left
 		currentX -= kbmovespeed;
 		break;

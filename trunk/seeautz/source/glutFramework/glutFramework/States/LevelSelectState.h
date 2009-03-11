@@ -25,10 +25,10 @@ public:
 		myMenu->addButton("arrow_left.png", "arrow_lefthover.png", "arrow_lefthover.png", CreateFunctionPointer0R(this, &LevelSelectState::decrement));
 		myMenu->setLastButtonDimensions(100, 100);
 		myMenu->setLastButtonPosition(350, 400);
-		myMenu->addButton("arrow_right.png",	 "arrow_righthover.png", "arrow_righthover.png", CreateFunctionPointer0R(this, &LevelSelectState::increment));
+		myMenu->addButton("arrow_right.png", "arrow_righthover.png", "arrow_righthover.png", CreateFunctionPointer0R(this, &LevelSelectState::increment));
 		myMenu->setLastButtonDimensions(100, 100);
 		myMenu->setLastButtonPosition(600, 400);
-		myMenu->addButton("buttons\\startthislevel.png",	 "buttons\\startthislevelhover.png", "buttons\\startthislevelhover.png", CreateFunctionPointer0R(this, &LevelSelectState::selectLevel));
+		myMenu->addButton("buttons\\startthislevel.png", "buttons\\startthislevelhover.png", "buttons\\startthislevelhover.png", CreateFunctionPointer0R(this, &LevelSelectState::selectLevel));
 		myMenu->setLastButtonDimensions(100, 100);
 		myMenu->setLastButtonPosition(480, 400);
 		Update();

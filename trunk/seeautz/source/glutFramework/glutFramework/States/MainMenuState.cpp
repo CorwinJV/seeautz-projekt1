@@ -76,6 +76,7 @@ bool MainMenuState::Quit()
 
 bool MainMenuState::Credits()
 {
+	// credit vector to display here
 
 	return true;
 }

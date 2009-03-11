@@ -5,6 +5,7 @@
 #include "GameState.h"
 #include <iostream>
 #include "consoleDefines.h"
+#include "States\\MainMenuState.h"
 
 using namespace std;
 
@@ -52,6 +53,9 @@ public:
 	void processMouse(int x, int y);
 	void processMouseClick(int button, int state, int x, int y);
 	void keyboardInput(unsigned char c, int x, int y);
+
+	//this function is a hack for projekt1, don't use in future games
+	void returnToMainMenu();
 };
 
 #endif

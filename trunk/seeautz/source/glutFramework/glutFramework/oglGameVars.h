@@ -81,7 +81,7 @@ public:
 	std::vector<logicBlock*>*	oglGameVars::getAllLogicBlocks();
 	logicBlock*					getPlaceInstructionBlock();
 	bool						LoadPlayerGame(string name);
-	bool						SavePlayerGame(string name);
+	bool						SavePlayerGame();
 	int							getTotalScore();
 	int							getLevelScore();
 	void						setLevelScore(int score);

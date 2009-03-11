@@ -227,57 +227,56 @@ int oglGameVars::getBytesUsed()
 }
 
 
-bool oglGameVars::SavePlayerGame(string playerGame) 
+bool oglGameVars::SavePlayerGame() 
 {
-		if (playerGame == ".txt")
-	{
-		playerGame = "defaultgame.txt";
-	}
+	//if (playerGame == ".txt")
+	//{
+	//	playerGame = "defaultgame.txt";
+	//}
 
-	cout << "Saving Game...  " << playerGame << endl;
-	
-	ofstream PlayerInfo;
-	string tempString;
-	int level;
-	int score;
-	string playerName;
-	
-	// below are varible that will need to functions implemented for them to work properly
-	// once we are able to save our position on the map
-	// also need functionality for what switches have been flipped if saved in midlevel
-	// and possibly number of reprogrammable squares used and bytes remaining
-	int xPos;
-	int yPos;
-	int switchesFlipped;
-	int remainingBytes;
-	int numOfRepos;
-	int playerMaxLevel;
+	//cout << "Saving Game...  " << playerGame << endl;
+	//
+	//ofstream PlayerInfo;
+	//string tempString;
+	//int level;
+	//int score;
+	//string playerName;
+	//
+	//// below are varible that will need to functions implemented for them to work properly
+	//// once we are able to save our position on the map
+	//// also need functionality for what switches have been flipped if saved in midlevel
+	//// and possibly number of reprogrammable squares used and bytes remaining
+	//int xPos = 0;
+	//int yPos = 0;
+	//int switchesFlipped = 0;
+	//int remainingBytes = 0;
+	//int playerMaxLevel = 0;
 
-	tempString = "savedGames\\";
-	tempString += playerGame.c_str();
+	//tempString = "savedGames\\";
+	//tempString += playerGame.c_str();
 
-	PlayerInfo.open(tempString.c_str());
+	//PlayerInfo.open(tempString.c_str());
 
-	if(!PlayerInfo)
-		return false;
+	//if(!PlayerInfo)
+	//	return false;
 
-	playerMaxLevel = GameVars->getPlayerMaxLevel();
-	level = GameVars->getCurrentLevel();
+	//playerMaxLevel = GameVars->getPlayerMaxLevel();
+	//level = GameVars->getCurrentLevel();
 
-	if(level > playerMaxLevel)
-		playerMaxLevel = level;
+	//if(level > playerMaxLevel)
+	//	playerMaxLevel = level;
 
-	GameVars->setPlayerMaxLevel(level);
+	//GameVars->setPlayerMaxLevel(level);
 
-	score = GameVars->getTotalScore();
-	playerName = GameVars->getPlayerName();
+	//score = GameVars->getTotalScore();
+	//playerName = GameVars->getPlayerName();
 
-	// code for saving stats here
-	PlayerInfo << level << endl;
-	PlayerInfo << score << endl;
-	PlayerInfo << playerName << endl;
+	//// code for saving stats here
+	//PlayerInfo << level << endl;
+	//PlayerInfo << score << endl;
+	//PlayerInfo << playerName << endl;
 
-	PlayerInfo.close();
+	//PlayerInfo.close();
 
 	return true;
 }

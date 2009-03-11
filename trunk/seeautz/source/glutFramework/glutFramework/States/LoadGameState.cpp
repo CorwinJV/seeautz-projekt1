@@ -44,10 +44,9 @@ bool LoadGameState::loadGame(string playerGame)
 	string playerName = playerGame;
 
 	//implement later
-	int xPos;
-	int yPos;
-	int switchesFlipped;
-	int bytesRemaining;
+	int xPos = 0;
+	int yPos = 0;
+	int bytesRemaining = 0;
 
 	tempString = "savedGames\\";
 	tempString += playerGame.c_str();

@@ -8,6 +8,8 @@
 #include "oglGameVars.h"
 #include "GLFT_Font.h"
 #include "Button.h"
+#include "States\\PauseGameState.h"
+#include "States\\DevLogoState.h"
 
 class playGame : public GameState
 {

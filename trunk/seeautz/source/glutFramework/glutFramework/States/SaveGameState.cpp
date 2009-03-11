@@ -1,4 +1,5 @@
 #include "SaveGameState.h" 
+#include "PauseGameState.h"
 #include<fstream>
 #include<iostream>
 #include <string>
@@ -22,8 +23,12 @@ bool SaveGameState::Draw()
 	return false;
 }
 
-bool SaveGameState::SavePlayerGame(string playerGame) 
+bool SaveGameState::SavePlayerGame() 
 {
+	string playerGame;
+
+	playerGame = GameVars->getPlayerName() + ".txt";
+
 	if (playerGame == ".txt")
 	{
 		playerGame = "defaultgame.txt";
@@ -117,9 +122,9 @@ bool SaveGameState::SavePlayerGame(string playerGame)
 }
 
 //this probably doesn't need to be here...
-bool SaveGameState::PostGameCallback()
+bool SaveGameState::PauseGameCallback()
 {
-	//GSM->addGameState<PostGameState>();
+	GSM->addGameState<PauseGameState>();
 	this->setStatus(DeleteMe);
 	glClearColor(255, 0, 255, 0);
 
