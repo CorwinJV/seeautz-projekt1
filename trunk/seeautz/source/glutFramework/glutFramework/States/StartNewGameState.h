@@ -18,14 +18,15 @@ public:
 	StartNewGameState() {};
 	StartNewGameState(GameStateManager &Parent, int newID) : GameState(Parent, newID), img(NULL)
 	{
-		/*img = new oglTexture2D();
+		img = new oglTexture2D();
 		if(img != NULL)
-			img->loadImage("statescreens\\startnewgame.png", 1024, 120);
-		img->mY = 618;
+			img->loadImage("logoprojekt1narrow.png", 1024, 150);
+		img->mY = 50;
 
-		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
+		/*myMenu = new MenuSys(220, 250, "blankmenu.png", Auto);
 		myMenu->addButton("buttons\\pregame.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &StartNewGameState::PreGameCallback));
 		myMenu->addButton("buttons\\something.png", "button2down.png", "button2over.png", CreateFunctionPointer0R(this, &StartNewGameState::tutorialCallback));*/
+
 		finished = false;
 		checked = false;
 		Update();

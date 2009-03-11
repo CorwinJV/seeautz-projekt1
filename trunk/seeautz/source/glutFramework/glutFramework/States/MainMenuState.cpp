@@ -4,8 +4,6 @@
 #include "LoadGameState.h"
 #include "OptionsState.h"
 #include "..\GameStateManager.h"
-#include "MainGameLoopState.h"
-#include "PreGameState.h"
 #include "LevelSelectState.h"
 
 #include "..\playGame.h"

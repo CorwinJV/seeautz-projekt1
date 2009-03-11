@@ -1,5 +1,4 @@
 #include "LevelSelectState.h"
-#include "LogicViewState.h"
 
 bool LevelSelectState::Update()
 {	
