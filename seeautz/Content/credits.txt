@@ -1,0 +1,60 @@
+Westwood College
+Wilshire Campus
+SG300
+
+Instructor - Dave Cortez
+
+Original Concept
+David Moss
+Corwin VanHook
+
+Project Lead
+Tom Lindeman
+
+Lead Programmer
+Corwin VanHook
+
+Lead Designer
+David Moss
+
+Lead Artist
+Cameron VanHook
+
+Game Logic Programming
+David Moss
+
+Systems Design
+Corwin VanHook
+
+Gui Programming
+Tom Lindeman
+
+Additional Game Deisgn
+Corwin VanHook
+Tom Lindeman
+
+Level Designers
+Oscar Maldonado
+Chris Gonzalez
+Geovani 
+David Moss
+
+State Creation
+Amber Clark
+
+Sound Research
+Christian Martinez
+Amber Clark
+
+Temp Art
+David Moss
+
+
+"I'm going back over here where things make sense." - Programming Team
+
+"Why isn't this working?" - Design Team
+
+Special Thanks to...
+Caffiene
+Bacardi
+Lego Mindstorms
