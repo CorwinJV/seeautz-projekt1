@@ -678,129 +678,75 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 			if(isMouseDragging == true
 				&& draggedBlock != NULL)
 			{
-				//if(drawInsertionLine == true)
-				//{
-				//	std::vector<logicBlock*>* curExecutionList = NULL;
-				//	if(curInstrTab == TAB_MAIN)
-				//	{
-				//		curExecutionListYOffset = &executionListYOffset;
-				//		curExecutionList = &executionList;
-				//	}
-				//	else if(curInstrTab == TAB_SUB1)
-				//	{
-				//		curExecutionListYOffset = &executionListSub1YOffset;
-				//		curExecutionList = &executionListSub1;
-				//	}
-				//	else if(curInstrTab == TAB_SUB2)
-				//	{
-				//		curExecutionListYOffset = &executionListSub2YOffset;
-				//		curExecutionList = &executionListSub2;
-				//	}
-				//	// CJV2
-
-				//	int rowOffset = ((*curExecutionListYOffset) / (instructionSpacing + instructionBlockH));
-				//	int vectorSize = curExecutionList->size();
-				//	
-				//	int lastBlockRow = vectorSize / instructionListNumColumns;
-				//	int lastBlockColumn = vectorSize % instructionListNumColumns;
-				//	
-				//	lastBlockRow += rowOffset;
-
-				//	if(lastBlockColumn != 0)
-				//		lastBlockColumn--;
-				//	else
-				//	{
-				//		lastBlockColumn = instructionListNumColumns - 1;
-				//		lastBlockRow--;
-				//	}
-				//	if(((insertionLineColumn > lastBlockColumn) && (insertionLineRow > lastBlockRow))
-				//		|| ((insertionLineColumn > lastBlockColumn) && (insertionLineRow == lastBlockRow))
-				//		|| ((insertionLineRow > lastBlockRow)))
-				//	{
-				//		// Add block to the end of the list
-				//		int bytesLeft = mapByteLimit - usedBytes;
-				//		if(bytesLeft >= draggedBlock->byteCost)
-				//		{
-				//			curExecutionList->pop_back();
-				//			curExecutionList->push_back(new logicBlock(*(draggedBlock)));
-				//			curExecutionList->push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
-				//			curExecutionList->back()->curButtonState = BS_ACTIVE;
-				//			delete draggedBlock;
-				//			draggedBlock = NULL;
-				//			isMouseDragging = false;
-				//		}
-				//		delete draggedBlock;
-				//		draggedBlock = NULL;
-				//		isMouseDragging = false;
-				//	}
-				//	else
-				//	{
-				//		//// Insert block within the current list.
-				//		//int bytesLeft = mapByteLimit - usedBytes;
-				//		//if(bytesLeft >= draggedBlock->byteCost)
-				//		//{
-				//		//	curExecutionList->insert(
-				//		//	curExecutionList->pop_back();
-				//		//	curExecutionList->push_back(new logicBlock(*(draggedBlock)));
-				//		//	curExecutionList->push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
-				//		//	curExecutionList->back()->curButtonState = BS_ACTIVE;
-				//		//	delete draggedBlock;
-				//		//	draggedBlock = NULL;
-				//		//	isMouseDragging = false;
-				//		//}
-				//		//delete draggedBlock;
-				//		//draggedBlock = NULL;
-				//		//isMouseDragging = false;
-				//	}
-				//}
-				if(curInstrTab == TAB_MAIN)
+				if(drawInsertionLine == true)
 				{
-					if(executionList.back()->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+					std::vector<logicBlock*>* curExecutionList = NULL;
+					if(curInstrTab == TAB_MAIN)
 					{
+						curExecutionListYOffset = &executionListYOffset;
+						curExecutionList = &executionList;
+					}
+					else if(curInstrTab == TAB_SUB1)
+					{
+						curExecutionListYOffset = &executionListSub1YOffset;
+						curExecutionList = &executionListSub1;
+					}
+					else if(curInstrTab == TAB_SUB2)
+					{
+						curExecutionListYOffset = &executionListSub2YOffset;
+						curExecutionList = &executionListSub2;
+					}
+					// CJV3
+
+					int rowOffset = ((*curExecutionListYOffset) / (instructionSpacing + instructionBlockH));
+					int vectorSize = curExecutionList->size();
+					
+					int lastBlockRow = vectorSize / instructionListNumColumns;
+					int lastBlockColumn = vectorSize % instructionListNumColumns;
+					
+					lastBlockRow += rowOffset;
+
+					if(lastBlockColumn != 0)
+						lastBlockColumn--;
+					else
+					{
+						lastBlockColumn = instructionListNumColumns - 1;
+						lastBlockRow--;
+					}
+					if(((insertionLineColumn > lastBlockColumn) && (insertionLineRow > lastBlockRow))
+						|| ((insertionLineColumn > lastBlockColumn) && (insertionLineRow == lastBlockRow))
+						|| ((insertionLineRow > lastBlockRow)))
+					{
+						// Add block to the end of the list
 						int bytesLeft = mapByteLimit - usedBytes;
 						if(bytesLeft >= draggedBlock->byteCost)
 						{
-							executionList.pop_back();
-							executionList.push_back(new logicBlock(*(draggedBlock)));					
-							executionList.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
-							executionList.back()->curButtonState = BS_ACTIVE;
-							delete draggedBlock;
-							draggedBlock = NULL;
+							curExecutionList->pop_back();
+							curExecutionList->push_back(new logicBlock(*(draggedBlock)));
+							curExecutionList->push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
+							curExecutionList->back()->curButtonState = BS_ACTIVE;
 						}
-					}
-
-					delete draggedBlock;
-					draggedBlock = NULL;
-					isMouseDragging = false;
-				}
-				else if(curInstrTab == TAB_SUB1)
-				{
-					if(executionListSub1.back()->checkInBounds(x, y, instructionBlockW, instructionBlockH))
-					{
-						executionListSub1.pop_back();
-						executionListSub1.push_back(new logicBlock(*(draggedBlock)));
-						executionListSub1.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
-						executionListSub1.back()->curButtonState = BS_ACTIVE;
 						delete draggedBlock;
 						draggedBlock = NULL;
+						isMouseDragging = false;
 					}
-
-					delete draggedBlock;
-					draggedBlock = NULL;
-					isMouseDragging = false;
-				}
-				else if(curInstrTab == TAB_SUB2)
-				{
-					if(executionListSub2.back()->checkInBounds(x, y, instructionBlockW, instructionBlockH))
+					else
 					{
-						executionListSub2.pop_back();
-						executionListSub2.push_back(new logicBlock(*(draggedBlock)));
-						executionListSub2.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
-						executionListSub2.back()->curButtonState = BS_ACTIVE;
+						// Insert block within the current list.
+						int bytesLeft = mapByteLimit - usedBytes;
+						if(bytesLeft >= draggedBlock->byteCost)
+						{
+							std::vector<logicBlock*>::iterator insertionPosition = curExecutionList->begin();
+							insertionPosition += (insertionLineRow * 8) + (insertionLineColumn);
+							curExecutionList->insert(insertionPosition, new logicBlock(*(draggedBlock)));
+						}
 						delete draggedBlock;
 						draggedBlock = NULL;
+						isMouseDragging = false;
 					}
-
+				}
+				else
+				{
 					delete draggedBlock;
 					draggedBlock = NULL;
 					isMouseDragging = false;
