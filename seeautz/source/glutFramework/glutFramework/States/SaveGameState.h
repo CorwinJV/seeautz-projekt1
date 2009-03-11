@@ -18,7 +18,7 @@ public:
 		img->mY = 618;
 
 		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
-		myMenu->addButton("buttons\\postgame.png", "succeed.png", "button1over.png", CreateFunctionPointer0R(this, &SaveGameState::PostGameCallback));
+		myMenu->addButton("buttons\\postgame.png", "succeed.png", "button1over.png", CreateFunctionPointer0R(this, &SaveGameState::PauseGameCallback));
 		Update();
 	}
 
@@ -26,8 +26,8 @@ public:
 	void processMouseClick(int button, int state, int x, int y);
 	bool SaveGameState::Update();
 	bool SaveGameState::Draw();
-	bool PostGameCallback();
-	bool SaveGameState::SavePlayerGame(string playerGame);
+	bool PauseGameCallback();
+	bool SaveGameState::SavePlayerGame();
 
 private:
 	oglTexture2D* img;

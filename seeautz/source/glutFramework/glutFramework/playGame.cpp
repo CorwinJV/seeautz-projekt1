@@ -89,7 +89,7 @@ bool playGame::Update()
 		//save the game for the player, if it hasn't been saved yet
 		if(!gameSaved)
 		{
-			GameVars->SavePlayerGame(GameVars->getPlayerName()+".txt");
+			GameVars->SavePlayerGame();
 			gameSaved = true;
 		}
 
@@ -434,6 +434,15 @@ void playGame::keyboardInput(unsigned char c, int x, int y)
 	{
 	case GB_LOGICVIEW:
 	case GB_EXECUTION:
+		switch(c)
+		{
+		case 27:
+			this->setStatus(Passive);
+			GSM->addGameState<PauseGameState>();
+			break;
+		default:
+			break;
+		}
 		gamePlay->keyboardInput(c, x, y);
 		break;
 	case GB_PREGAME:
@@ -441,7 +450,7 @@ void playGame::keyboardInput(unsigned char c, int x, int y)
 		switch(c)
 		{
 		case 27:
-			gamePlay->setState(GB_LOGICVIEW);
+			curState = GB_LOGICVIEW;
 			break;
 		default:
 			break;
@@ -451,7 +460,8 @@ void playGame::keyboardInput(unsigned char c, int x, int y)
 		switch(c)
 		{
 		case 27:
-			exit(0);
+			this->setStatus(DeleteMe);
+			GSM->addGameState<PauseGameState>();
 			break;
 		default:
 			break;

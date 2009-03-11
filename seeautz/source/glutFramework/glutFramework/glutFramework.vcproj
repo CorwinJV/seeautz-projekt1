@@ -280,6 +280,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\States\PauseGameState.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\States\ProfileMgrState.cpp"
 					>
 				</File>
@@ -463,6 +467,10 @@
 				</File>
 				<File
 					RelativePath=".\States\OptionsState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\States\PauseGameState.h"
 					>
 				</File>
 				<File
