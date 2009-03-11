@@ -446,6 +446,9 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 	Width = nWidth;
 	Height = nHeight;
 
+	GameVars->setLevelHeight(Height);
+	GameVars->setLevelWidth(Width);
+
 	int temptile;
 
 	for(int y = 0; y < Height; y++)

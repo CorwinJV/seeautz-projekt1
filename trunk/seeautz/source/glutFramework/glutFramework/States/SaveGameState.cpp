@@ -47,7 +47,12 @@ bool SaveGameState::SavePlayerGame(string playerGame)
 	int yPos = 0;
 	int remainingBytes = 0;
 	int playerMaxLevel = 0;
+	int levelBytes = 0;
+	int bytesUsed = 0;
 	int isActive = -1;
+	int height;
+	int width;
+	bool activeTile;
 	
 
 	inGame = GameVars->getGameStatus();
@@ -73,7 +78,22 @@ bool SaveGameState::SavePlayerGame(string playerGame)
 	{
 		xPos = GameVars->getRobotX();
 		yPos = GameVars->getRobotY();
-		//also save remaining bytes here
+		bytesUsed = GameVars->getBytesUsed();
+		levelBytes = GameVars->getCurrentLevelBytes();
+		remaingingBytes = levelBytes - bytesUsed;
+
+		width = GameVars->getLevelWidth();
+		height = GameVars->getLevelHeight();
+		for(int i = 0; i < width; i++)
+		{
+			for(int j = 0; j < height; j++)
+			{
+
+				// see if tile is active or not based off of the gameboard info
+				// by implementing a function in oglGameVars 
+			}
+		}
+
 	}
 
 	GameVars->setPlayerMaxLevel(level);

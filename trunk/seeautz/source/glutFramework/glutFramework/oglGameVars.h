@@ -101,6 +101,11 @@ public:
 	int							getRobotY();
 	void						setRobotX(int);
 	void						setRobotY(int);
+	int							getLevelHeight();
+	int							getLevelWidth();
+	void						setLevelHeight();
+	void						setLevelWidth();
+	bool						getTileActive(int, int);
 	std::string					getFilename(int);
 	std::string					getDesc(int);
 	std::string					getLevelName(int);
@@ -139,6 +144,9 @@ private:
 	int curBytesUsed;
 	int robotXPos;
 	int robotYPos;
+	int levelHeight;
+	int levelWidth;
+	bool tileActive;
 	std::vector<logicBlock*>	allLogicBlocks;
 	logicBlock*					placeInstructionBlock;
 	
