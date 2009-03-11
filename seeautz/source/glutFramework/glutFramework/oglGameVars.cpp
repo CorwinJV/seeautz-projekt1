@@ -172,6 +172,31 @@ void oglGameVars::setRobotY(int y)
 	robotYPos = y;
 }
 
+void oglGameVars::setLevelHeight(int height)
+{
+	levelHeight = height;
+}
+
+void oglGameVars::setLevelWidth(int width)
+{
+	levelWidth = width;
+}
+
+int oglGameVars::getLevelHeight()
+{
+	return levelHeight;
+}
+
+int oglGameVars::getLevelWidth()
+{
+	return levelWidth;
+}
+
+bool oglGameVars::getTileActive(int x, int y)
+{
+	return tileActive;
+}
+
 std::string oglGameVars::getFilename(int level)
 {
 
