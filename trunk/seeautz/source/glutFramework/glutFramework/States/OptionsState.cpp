@@ -21,7 +21,7 @@ bool OptionsState::MainMenuStateCallback()
 {
 	GSM->addGameState<MainMenuState>();
 	this->setStatus(DeleteMe);
-	glClearColor(0, 255, 255, 0);
+	glClearColor(0, 0, 0, 0);
 
 	return true;
 }

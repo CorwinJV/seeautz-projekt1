@@ -9,7 +9,7 @@ bool StartNewGameState::Update()
 	{
 		GSM->addGameState<playGame>();
 		this->setStatus(DeleteMe);
-		glClearColor(255, 0, 255, 0);
+		glClearColor(0, 0, 0, 0);
 	}
 
 	return true;
@@ -17,19 +17,25 @@ bool StartNewGameState::Update()
 
 bool StartNewGameState::Draw()
 {
+	glClearColor(0, 0, 0, 0);
+	logoImage->drawImage();
+	backgroundImage->drawImage();
+
+	glColor3ub(0, 0, 0);
+	
 	// Display onto the screen until user advances with ENTER key
 	if(!finished)
 	{
-		GameVars->fontArial32.drawText(125, 200, "Enter Your Name: ");
-		GameVars->fontArial32.drawText(535, 200, tempString);
-		GameVars->fontArial32.drawText(125, 250, "Press the ENTER key when finished");
-		GameVars->fontArial32.drawText(125, 300, "No numbers or special characters");
-		GameVars->fontArial32.drawText(125, 350, "Or press the escape key to return to the main menu");
+		GameVars->fontArial24.drawText(150, 300, "Enter Your Name: ");
+		GameVars->fontArial24.drawText(400, 300, tempString);
+		GameVars->fontArial24.drawText(150, 350, "Press the ENTER key when finished");
+		GameVars->fontArial24.drawText(150, 400, "No numbers or special characters");
+		GameVars->fontArial24.drawText(150, 450, "Or press the escape key to return to the main menu");
 	}
 	if((finished)&&(!checked))
 	{
-		GameVars->fontArial32.drawText(125, 150, "Name already exists, please enter another name: ");
-		GameVars->fontArial32.drawText(125, 200, "Or press the escape key to return to the main menu");
+		GameVars->fontArial24.drawText(150, 300, "Name already exists, please enter another name: ");
+		GameVars->fontArial24.drawText(150, 350, "Or press the escape key to return to the main menu");
 	}
 	return false;
 }

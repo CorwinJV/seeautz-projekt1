@@ -56,6 +56,7 @@ public:
 
 	//this function is a hack for projekt1, don't use in future games
 	void returnToMainMenu();
+	void setAllButTopPassive();
 };
 
 #endif

@@ -23,7 +23,7 @@ public:
 			img->loadImage("statescreens\\loadgame.png", 1024, 120);
 		img->mY = 618;
 
-		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
+		myMenu = new MenuSys(220, 250, "blankmenu.png", Auto);
 		myMenu->addButton("buttons\\returntomainmenu.png", "buttons\\returntomainmenuhover.png", "buttons\\returntomainmenuhover.png", CreateFunctionPointer0R(this, &LoadGameState::MainMenuCallback));
 		myMenu->addButton("buttons\\playgame.png", "buttons\\playgamehover.png", "buttons\\playgamehover.png", CreateFunctionPointer0R(this, &LoadGameState::playGameCallback));
 		myMenu->addButton("buttons\\levelselect.png", "buttons\\levelselecthover.png", "buttons\\levelselecthover.png", CreateFunctionPointer0R(this, &LoadGameState::levelSelectCallback));

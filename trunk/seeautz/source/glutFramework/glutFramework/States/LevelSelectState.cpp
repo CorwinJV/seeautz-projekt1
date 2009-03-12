@@ -40,8 +40,10 @@ bool LevelSelectState::Draw()
 	string tempString;
 	int tempInt;
 
-	if(img != NULL)
-		img->drawImage();
+	glClearColor(0, 0, 0, 0);
+	logoImage->drawImage();
+
+	backgroundImage->drawImage();
 
 	if(myMenu != NULL)
 		myMenu->Draw();
@@ -50,12 +52,59 @@ bool LevelSelectState::Draw()
 	// right side increments one, left side decrements one, if you get to the end on either 
 	// side, it wraps around to the other side.
 
-	tempString = "Would you like to load this level?";
-	painInTheAss.clear();
+	int offsetAmt = 0;
+	int textspacing = 30;
+	int offsetX = backgroundImage->mX + 50;
+	int offsetY = backgroundImage->mY + 50;
+
+	glColor3ub(0, 0, 0);
+
+	// profile name
+	GameVars->fontArial24.drawText(offsetX, offsetY + offsetAmt*textspacing, GameVars->getPlayerName());
+	offsetAmt++;
+
+	// level number
+	painInTheAss.str("");
+	tempString = "Level : ";
 	tempInt = playerCurrentLevel;
 	painInTheAss << tempInt;
 	tempString += painInTheAss.str();
-	GameVars->fontArial32.drawText(225, 300, tempString);
+	GameVars->fontArial24.drawText(offsetX, offsetY + offsetAmt*textspacing, tempString);
+	offsetAmt++;
+
+	// level name
+	GameVars->fontArial24.drawText(offsetX, offsetY + offsetAmt*textspacing, GameVars->getLevelName(playerCurrentLevel));
+	offsetAmt++;
+
+	// level description
+	GameVars->fontArial24.drawText(offsetX, offsetY + offsetAmt*textspacing, GameVars->getDesc(playerCurrentLevel));
+	offsetAmt++;
+
+	// your best score for level
+	painInTheAss.str("");
+	tempString = "Your best score on this level : ";
+	tempInt = 0;		// this needs to read in something
+	painInTheAss << tempInt;
+	tempString += painInTheAss.str();
+	GameVars->fontArial24.drawText(offsetX, offsetY + offsetAmt*textspacing, tempString);
+	offsetAmt++;
+
+	// your best commands for level
+	/*tempString = "Your least commands processed on this level: ";
+	tempInt = playerCurrentLevel;
+	painInTheAss << tempInt;
+	tempString += painInTheAss.str();
+	GameVars->fontArial32.drawText(offsetX, offsetY + offsetAmt*textspacing, tempString);
+	offsetAmt++;*/
+
+	// picture of level
+	GameVars->levelArt[playerCurrentLevel]->mX = 1024/2 - GameVars->levelArt[playerCurrentLevel]->dX/2;
+	GameVars->levelArt[playerCurrentLevel]->mY = offsetY + offsetAmt*textspacing;
+	GameVars->levelArt[playerCurrentLevel]->drawImage();
+
+
+	glColor3ub(0, 0, 0);
+	GameVars->fontArial24.drawText(offsetX+125,565, "Would you like to load this level?");
 
 	return false;
 }

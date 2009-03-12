@@ -10,26 +10,35 @@ bool LoadGameState::Update()
 
 bool LoadGameState::Draw()
 {
+	glClearColor(0, 0, 0, 0);
+	logoImage->drawImage();
+
 	if(finished == 0)
-	{
-		GameVars->fontArial32.drawText(125, 200, "Enter the name of the profile you wish to load: ");
-		GameVars->fontArial32.drawText(535, 250, tempString);
-		GameVars->fontArial32.drawText(125, 300, "Press the ENTER key when finished");
-		GameVars->fontArial32.drawText(125, 350, "No numbers or special characters");
-		GameVars->fontArial32.drawText(125, 450, "Or press Escape to return to the main menu ");
+	{	
+		backgroundImage->drawImage();
+		glColor3ub(0, 0, 0);
+
+		GameVars->fontArial24.drawText(200, 300, "Enter the name of the profile you wish to load: ");
+		GameVars->fontArial24.drawText(400, 350, tempString);
+		GameVars->fontArial24.drawText(200, 400, "Press the ENTER key when finished");
+		GameVars->fontArial24.drawText(200, 450, "No numbers or special characters");
+		GameVars->fontArial24.drawText(200, 500, "Or press Escape to return to the main menu ");
 	}
 	if(finished == 1)
 	{
-		if(img != NULL)
-			img->drawImage();
+	//	if(img != NULL)
+	//		img->drawImage();
 
 		if(myMenu != NULL)
 			myMenu->Draw();
 	}
 	if(finished == 2)
 	{
-		GameVars->fontArial32.drawText(105, 200, "No profile found, press Enter to retry: ");
-		GameVars->fontArial32.drawText(105, 250, "Or press Escape to return to the main menu ");
+		backgroundImage->drawImage();
+		glColor3ub(0, 0, 0);
+
+		GameVars->fontArial24.drawText(200, 300, "No profile found, press Enter to retry: ");
+		GameVars->fontArial24.drawText(200, 350, "Or press Escape to return to the main menu ");
 	}
 
 	return false;
@@ -78,7 +87,7 @@ bool LoadGameState::MainMenuCallback()
 {
 	GSM->addGameState<MainMenuState>();
 	this->setStatus(DeleteMe);
-	glClearColor(0, 255, 255, 0);
+	glClearColor(0, 0, 0, 0);
 
 	return true;
 } 
@@ -87,7 +96,7 @@ bool LoadGameState::playGameCallback()
 {
 	GSM->addGameState<playGame>();
 	this->setStatus(DeleteMe);
-	glClearColor(255, 0, 255, 0);
+	glClearColor(0, 0, 0, 0);
 
 	return true;
 } 
@@ -96,7 +105,7 @@ bool LoadGameState::levelSelectCallback()
 {
 	GSM->addGameState<LevelSelectState>();
 	this->setStatus(DeleteMe);
-	glClearColor(255, 0, 255, 0);
+	glClearColor(0, 0, 0, 0);
 
 	return true;
 }

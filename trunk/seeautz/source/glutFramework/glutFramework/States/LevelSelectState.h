@@ -24,13 +24,13 @@ public:
 		myMenu = new MenuSys(250, 50, "blank.png", None);
 		myMenu->addButton("arrow_left.png", "arrow_lefthover.png", "arrow_lefthover.png", CreateFunctionPointer0R(this, &LevelSelectState::decrement));
 		myMenu->setLastButtonDimensions(100, 100);
-		myMenu->setLastButtonPosition(350, 400);
+		myMenu->setLastButtonPosition(150, 600);
 		myMenu->addButton("arrow_right.png", "arrow_righthover.png", "arrow_righthover.png", CreateFunctionPointer0R(this, &LevelSelectState::increment));
 		myMenu->setLastButtonDimensions(100, 100);
-		myMenu->setLastButtonPosition(600, 400);
+		myMenu->setLastButtonPosition(775, 600);
 		myMenu->addButton("buttons\\startthislevel.png", "buttons\\startthislevelhover.png", "buttons\\startthislevelhover.png", CreateFunctionPointer0R(this, &LevelSelectState::selectLevel));
-		myMenu->setLastButtonDimensions(100, 100);
-		myMenu->setLastButtonPosition(480, 400);
+		myMenu->setLastButtonDimensions(475, 100);
+		myMenu->setLastButtonPosition(275, 600);
 		Update();
 	}
 

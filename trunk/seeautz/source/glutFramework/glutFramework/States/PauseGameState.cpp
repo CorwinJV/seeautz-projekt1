@@ -4,6 +4,7 @@ bool PauseGameState::Update()
 {
 	if(myMenu != NULL)
 		myMenu->Update();
+	GSM->setAllButTopPassive();
 	return true;
 }
 
