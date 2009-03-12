@@ -10,6 +10,7 @@
 #include "Button.h"
 #include "States\\PauseGameState.h"
 #include "States\\DevLogoState.h"
+#include "States\\SaveGameState.h"
 
 class playGame : public GameState
 {
