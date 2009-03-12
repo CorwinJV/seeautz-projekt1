@@ -20,6 +20,7 @@ protected:
 	GameStateManager *GSM;
 	MenuSys *myMenu;
 	clock_t startTime;
+	clock_t timer;
 	oglTexture2D *logoImage;
 	oglTexture2D *backgroundImage;
 
