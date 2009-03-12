@@ -4,6 +4,7 @@
 #include "GameState.h" 
 #include "GameStateManager.h"
 #include "oglTexture2D.h"
+#include "oglGameVars.h"
 #include <cstring>
 
 class CreditsState : public GameState
@@ -26,6 +27,11 @@ private:
 	void init();
 	int numlines;
 	int offsetY;
+	int lineSpacing;
+	int offsetYLimit;
+	void drawCredits();
+	int scrollSpeed;
+	int scrollAmount;
 
 };
 

@@ -3,13 +3,24 @@
 
 bool CreditsState::Update()
 {
-
+	timer = clock();
 	return true;
 }
 
 bool CreditsState::Draw()
 {
+	if(timer > startTime + scrollSpeed)
+	{
+		startTime = clock();
+		offsetY-= scrollAmount;
+	}
+	drawCredits();
 
+	if(offsetY < offsetYLimit)
+	{
+		GSM->addGameState<MainMenuState>();
+		this->setStatus(DeleteMe);
+	}
 	return false;
 }
 
@@ -30,8 +41,8 @@ void CreditsState::keyboardInput(unsigned char c, int x, int y)
 	switch(c)
 	{
 	case 27:
-		GSM->addGameState<MainMenuState>();
-		this->setStatus(DeleteMe);
+		scrollSpeed = 1;
+		scrollAmount = 8;
 		break;
 	default:
 		break;
@@ -56,4 +67,25 @@ void CreditsState::init()
 		creditsList.push_back(tempStringP);
 		numlines++;
 	}
+	lineSpacing = 28;
+	offsetYLimit = 0 - numlines*lineSpacing - 50;
+	startTime = clock() + 500;
+	timer = clock();
+	scrollSpeed = 50;
+	scrollAmount = 1;
+}
+void CreditsState::drawCredits()
+{
+	vector<string*>::iterator sitr = creditsList.begin();
+	int drawOffsetY = 0;
+	
+	glColor3ub(255, 255, 255);
+
+	for(;sitr < creditsList.end(); sitr++)
+	{
+		int length = (*sitr)->length();
+		GameVars->fontArial24.drawText(200, offsetY + drawOffsetY, (*sitr)->c_str());
+		drawOffsetY += lineSpacing;
+	}
+
 }
