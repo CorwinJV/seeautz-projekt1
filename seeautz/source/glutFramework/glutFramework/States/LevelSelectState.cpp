@@ -23,9 +23,9 @@ bool LevelSelectState::selectLevel()
 	tempString = GameVars->getFilename(playerCurrentLevel);
 	gamePlay->LoadGameMapFromFile(tempString);
 
-	gamePlay->setState(GB_PREGAME);
-	GSM->addGameState<playGame>();
-	this->setStatus(DeleteMe);
+	GameVars->setLevel(playerCurrentLevel);
+	GSM->launchNewGame();
+
 	return true;
 }
 

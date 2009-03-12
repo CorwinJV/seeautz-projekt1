@@ -6,6 +6,7 @@
 #include <iostream>
 #include "consoleDefines.h"
 #include "States\\MainMenuState.h"
+#include "playGame.h"
 
 using namespace std;
 
@@ -57,6 +58,7 @@ public:
 	//this function is a hack for projekt1, don't use in future games
 	void returnToMainMenu();
 	void setAllButTopPassive();
+	void launchNewGame();
 };
 
 #endif

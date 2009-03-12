@@ -45,6 +45,7 @@ oglGameVars::oglGameVars()
 
 	levelData* tempLevel;
 	oglTexture2D* tempArt;
+	PM = new profileManager;
 
 	tempLevel = new levelData("DEBUG MAP", "THIS IS FOR DAVE TO DEBUG MAP TILES", "maps\\testMap1.txt");
 	levelList.push_back(tempLevel);

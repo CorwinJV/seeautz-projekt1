@@ -241,6 +241,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\profileManager.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\program.cpp"
 				>
 			</File>
@@ -432,6 +436,10 @@
 			</File>
 			<File
 				RelativePath=".\playGame.h"
+				>
+			</File>
+			<File
+				RelativePath=".\profileManager.h"
 				>
 			</File>
 			<File
