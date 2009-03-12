@@ -3,7 +3,6 @@
 
 bool StartNewGameState::Update()
 {
-
 	// Once ENTER key is pressed, and name has been checked move into game
 	if((finished)&&(checked))
 	{

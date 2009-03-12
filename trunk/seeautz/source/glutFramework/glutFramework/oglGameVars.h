@@ -10,6 +10,7 @@
 #include "GLFT_Font.h"
 #include "OALSound.h"
 #include "gameBoard.h"
+#include "profileManager.h"
 
 #define GameVars oglGameVars::Instance()
 
@@ -153,6 +154,7 @@ private:
 	bool tileActive;
 	std::vector<logicBlock*>	allLogicBlocks;
 	logicBlock*					placeInstructionBlock;	
+	profileManager* PM;
 };
 
 #endif // OGLGAMEVARS_H
