@@ -167,8 +167,8 @@ bool playGame::Draw()
 	//clock_t startTime;
 	int tempInt;
 	oglTexture2D fadeToBlack;
-	int textspacing = 50;
-	int viewscoretext = 75;
+	int textspacing = 30;
+	int viewscoretext = backgroundImage->mY+50;
 
 	switch(curState)
 	{
@@ -240,20 +240,34 @@ bool playGame::Draw()
 		break;
 
 	case GB_VIEWSCORE:
+		glClearColor(0, 0, 0, 0);
+		logoImage->drawImage();
+		backgroundImage->drawImage();
+		
 		if(myMenu != NULL)
 			myMenu->Draw();
+
+		glColor3ub(0, 0, 0);
+		//
+		// level name
+		tempString = "Congradulations! Level Complete!";
+		GameVars->fontArial32.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
+		offsetAmt++;
+		offsetAmt++;
+		offsetAmt++;
 
 		// level name
 		tempInt = GameVars->getCurrentLevel();
 		tempString = GameVars->getLevelName(tempInt);
 
-		GameVars->fontArial32.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
+		GameVars->fontArial24.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
 		offsetAmt++;
 
 		// level description
 		tempString = GameVars->getDesc(tempInt);
 		// description
-		GameVars->fontArial32.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
+		GameVars->fontArial24.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
+		offsetAmt++;
 		offsetAmt++;
 
 		painInTheAss.str("");
@@ -265,7 +279,7 @@ bool playGame::Draw()
 		painInTheAss.str("");
 		painInTheAss << tempInt;
 		tempString += painInTheAss.str();
-		GameVars->fontArial32.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
+		GameVars->fontArial24.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
 		offsetAmt++;
 
 		// commands used
@@ -275,7 +289,7 @@ bool playGame::Draw()
 		painInTheAss.str("");
 		painInTheAss << tempInt;
 		tempString += painInTheAss.str();
-		GameVars->fontArial32.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
+		GameVars->fontArial24.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
 		offsetAmt++;
 		
 		// level score
@@ -285,7 +299,7 @@ bool playGame::Draw()
 		painInTheAss.str("");
 		painInTheAss << tempInt;
 		tempString += painInTheAss.str();
-		GameVars->fontArial32.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
+		GameVars->fontArial24.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
 		offsetAmt++;
 
 		// TOTAL SCORE
@@ -295,7 +309,7 @@ bool playGame::Draw()
 		painInTheAss.str("");
 		painInTheAss << tempInt;
 		tempString += painInTheAss.str();
-		GameVars->fontArial32.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
+		GameVars->fontArial24.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
 		offsetAmt++;
 		
 		if(myMenu != NULL)
@@ -368,12 +382,12 @@ bool playGame::initialize()
 	
 
 	myMenu = new MenuSys(250, 50, "blank.png", None);
-	myMenu->addButton("buttons\\advance.png", "button1down.png", "button1over.png", CreateFunctionPointer0R(this, &playGame::advance));
-	myMenu->setLastButtonDimensions(100, 100);
-	myMenu->setLastButtonPosition(600, 400);
-	myMenu->addButton("buttons\\exit.png",	 "button2down.png", "button2over.png", CreateFunctionPointer0R(this, &playGame::exitGame));
-	myMenu->setLastButtonDimensions(100, 100);
-	myMenu->setLastButtonPosition(350, 400);
+	myMenu->addButton("buttons\\advance.png", "buttons\\advancehover.png", "buttons\\advancehover.png", CreateFunctionPointer0R(this, &playGame::advance));
+	myMenu->setLastButtonDimensions(100, 50);
+	myMenu->setLastButtonPosition(600, backgroundImage->mY+backgroundImage->dY - 60);
+	myMenu->addButton("buttons\\exit.png",	 "buttons\\exithover.png", "buttons\\exithover.png", CreateFunctionPointer0R(this, &playGame::exitGame));
+	myMenu->setLastButtonDimensions(100, 50);
+	myMenu->setLastButtonPosition(350, backgroundImage->mY+backgroundImage->dY - 60);
 	Update();
 
 	// pregame textinfo
