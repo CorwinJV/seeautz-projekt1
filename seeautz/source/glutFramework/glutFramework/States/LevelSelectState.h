@@ -36,6 +36,7 @@ public:
 
 	void processMouse(int x, int y);
 	void processMouseClick(int button, int state, int x, int y);
+	void LevelSelectState::keyboardInput(unsigned char c, int x, int y);
 	bool LevelSelectState::Update();
 	bool LevelSelectState::Draw();
 	bool LevelSelectState::selectLevel();

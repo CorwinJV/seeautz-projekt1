@@ -18,16 +18,18 @@ public:
 		img->mY = 618;
 
 		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
-		myMenu->addButton("buttons\\postgame.png", "succeed.png", "button1over.png", CreateFunctionPointer0R(this, &SaveGameState::PauseGameCallback));
+		myMenu->addButton("buttons\\returntogame.png", "buttons\\returntogamehover.png", "buttons\\returntogamehover.png", CreateFunctionPointer0R(this, &SaveGameState::PauseGameCallback));
 		Update();
 	}
 
 	void processMouse(int x, int y);
 	void processMouseClick(int button, int state, int x, int y);
+	void SaveGameState::keyboardInput(unsigned char c, int x, int y);
 	bool SaveGameState::Update();
 	bool SaveGameState::Draw();
 	bool PauseGameCallback();
 	bool SaveGameState::SavePlayerGame();
+	bool saved;
 
 private:
 	oglTexture2D* img;

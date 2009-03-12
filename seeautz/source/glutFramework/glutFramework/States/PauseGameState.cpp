@@ -10,7 +10,6 @@ bool PauseGameState::Update()
 
 bool PauseGameState::Draw()
 {
-
 	if(myMenu != NULL)
 		myMenu->Draw();
 	
@@ -19,14 +18,17 @@ bool PauseGameState::Draw()
 
 bool PauseGameState::SaveCallback()
 {
-	GSM->addGameState<SaveGameState>();
+	GameVars->SavePlayerGame();
+	//GSM->addGameState<SaveGameState>();
 	return true;
 }
 
 bool PauseGameState::SaveQuitCallback()
 {
-	this->setStatus(DeleteMe);
-	GSM->addGameState<SaveGameState>();
+	GameVars->SavePlayerGame();
+	/*this->setStatus(DeleteMe);
+	GSM->removeTopGameState();
+	GSM->addGameState<SaveGameState>();*/
 	exit(0);
 
 	return true;
@@ -42,8 +44,9 @@ bool PauseGameState::QuitCallback()
 	
 bool PauseGameState::LevelSelectCallback()
 {
-	GSM->addGameState<LevelSelectState>();
 	this->setStatus(DeleteMe);
+	//GSM->removeTopGameState();
+	GSM->addGameState<LevelSelectState>();
 
 	return true;
 }
