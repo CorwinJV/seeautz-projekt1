@@ -1,5 +1,6 @@
 #include "LogicInterface.h"
-
+#include "oglTexture2D.h"
+#include <sstream>
 
 LogicInterface::LogicInterface()
 	: myMenu(NULL), isButtonBeingClicked(false),
@@ -225,6 +226,12 @@ void LogicInterface::Update()
 
 void LogicInterface::Draw()
 {
+	oglTexture2D tempBlackThing;
+	tempBlackThing.loadImage("black.png", 225, 75);
+	tempBlackThing.mX = 760;
+	tempBlackThing.mY = logicBankBox.y - 60;
+	tempBlackThing.drawImageFaded(0.75);
+
 	// draw panel background
 	panelArt->drawImage();
 
@@ -445,6 +452,7 @@ void LogicInterface::Draw()
 
 	//=============================================
 	// Byte Limit Stuff
+
 	glColor3ub(0, 255, 0);
 	std::stringstream ss;
 	std::string s;
@@ -559,6 +567,16 @@ void LogicInterface::Draw()
 					endOfText = true;
 				}
 			}
+			// now that we're at the end of the text...
+			// lets bump up current line once more
+			currentLine++;
+			// and lets draw the byte information for this block!
+			std::stringstream byteCost;
+			byteCost << "(Uses ";
+			byteCost << tmpBlock->byteCost;
+			byteCost << " Bytes)";
+			GameVars->fontArial12.drawText(menuBar->mX+10, menuBar->mY + (currentLine * 12), byteCost.str());
+
 		}
 	}
 }
