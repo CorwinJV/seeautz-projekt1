@@ -3,6 +3,7 @@
 
 #include "MenuSystem.h"
 #include <ctime>
+#include "oglTexture2D.h"
 
 class GameStateManager;
 class GameState
@@ -19,6 +20,8 @@ protected:
 	GameStateManager *GSM;
 	MenuSys *myMenu;
 	clock_t startTime;
+	oglTexture2D *logoImage;
+	oglTexture2D *backgroundImage;
 
 public:
 	GameState();

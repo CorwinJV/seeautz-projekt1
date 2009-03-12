@@ -16,6 +16,18 @@ GameState::GameState(GameStateManager &Parent, int newID)	// constructor
 	GSM = &Parent;
 	stateID = newID;
 	myMenu = NULL;
+
+	// logo image
+	logoImage = new oglTexture2D;
+	logoImage->loadImage("logoprojekt1narrow.png", 1024, 150);
+	logoImage->mX = 0;
+	logoImage->mY = 50;
+
+	// background image
+	backgroundImage = new oglTexture2D;
+	backgroundImage->loadImage("CommandList.png",800, 500);
+	backgroundImage->mX = 1024/2 - backgroundImage->dX/2;
+	backgroundImage->mY = (768-logoImage->dY)/2 - backgroundImage->dY/2 + logoImage->dY;
     //graphics = new GraphicsDeviceManager(this);
     //content = new ContentManager(Services);
     // graphics.IsFullScreen = true;

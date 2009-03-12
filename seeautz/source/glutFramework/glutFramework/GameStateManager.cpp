@@ -23,14 +23,12 @@ void GameStateManager::returnToMainMenu()
 {
 	vector<GameState*>::iterator itr = stateList.begin();
 	
-	for(itr; itr >= stateList.end(); itr++) // lets also make sure that we're working within the confines of the vector
+	for(; itr < stateList.end(); itr++) // lets also make sure that we're working within the confines of the vector
 	{
 		(*itr)->setStatus(DeleteMe);
 	}
-
-
-	this->addGameState<MainMenuState>();
 	
+	this->addGameState<MainMenuState>();
 }
 
 bool GameStateManager::removeGameStateAt(int index)
@@ -96,6 +94,7 @@ bool GameStateManager::Update()
 	if(!stateList.empty())
 		if((stateList.back()->getStatus() != Active) && (stateList.back()->getStatus() != DeleteMe))
 		{
+			std::cout << "top state was not active, setting it to active" << endl;
 			stateList.back()->setStatus(Active);
 		}
 
@@ -241,7 +240,8 @@ void GameStateManager::processMouse(int x, int y)
 	// update statelist
 	for (; itr != stateList.end(); itr++)
     {
-		(*itr)->processMouse(x, y);
+		if((*itr)->getStatus() == Active)
+			(*itr)->processMouse(x, y);
 	}			
 }
 
@@ -255,7 +255,8 @@ void GameStateManager::processMouseClick(int button, int state, int x, int y)
 	// update statelist
 	for (; itr != stateList.end(); itr++)
     {
-		(*itr)->processMouseClick(button, state, x, y);
+		if((*itr)->getStatus() == Active)
+			(*itr)->processMouseClick(button, state, x, y);
 	}	
 }
 
@@ -266,7 +267,8 @@ void GameStateManager::keyboardInput(unsigned char c, int x, int y)
 	// update statelist
 	for (; itr != stateList.end(); itr++)
     {
-		(*itr)->keyboardInput( c,  x,  y);
+		if((*itr)->getStatus() == Active)
+			(*itr)->keyboardInput( c,  x,  y);
 	}	
 }
 
@@ -280,4 +282,15 @@ GameStateManager::~GameStateManager()
 		(*itr)->~GameState();
     }
 	stateList.clear();
+}
+
+void GameStateManager::setAllButTopPassive()
+{
+	vector<GameState*>::iterator itr = stateList.begin();
+
+	// update statelist
+	for (; itr != stateList.end()-1; itr++)
+    {
+		(*itr)->setStatus(Passive);
+	}
 }

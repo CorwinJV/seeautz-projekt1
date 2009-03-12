@@ -9,6 +9,7 @@
 #include "aiInstructionEnums.h"
 #include "GLFT_Font.h"
 #include "OALSound.h"
+#include "gameBoard.h"
 
 #define GameVars oglGameVars::Instance()
 
@@ -119,8 +120,11 @@ public:
 													bool punchAvail, bool climbAvail, bool crouchAvail, bool jumpAvail, bool activateAvail, bool sub1Avail, bool sub2Avail);
 	std::vector<logicBlock*>*	GetCurrentMapLogicBank();
 	vector<logicBlock*>			*currentLogicBank;
+	vector<oglTexture2D*> levelArt;
+
 	GLFT_Font					fontTimes;
 	GLFT_Font					fontArial32;
+	GLFT_Font					fontArial24;
 	GLFT_Font					fontArial12;
 	GLFT_Font					fontDigital64;
 	GLFT_Font					fontOurs;
@@ -148,8 +152,7 @@ private:
 	int levelWidth;
 	bool tileActive;
 	std::vector<logicBlock*>	allLogicBlocks;
-	logicBlock*					placeInstructionBlock;
-	
+	logicBlock*					placeInstructionBlock;	
 };
 
 #endif // OGLGAMEVARS_H

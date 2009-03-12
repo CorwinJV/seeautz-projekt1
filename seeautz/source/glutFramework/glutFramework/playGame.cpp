@@ -185,15 +185,15 @@ bool playGame::Draw()
 		break;
 
 	case GB_PREGAME:
-		// gl shit that may or may not be needed for font stuff, we shall find out shortly
 		glClearColor(0, 0, 0, 0);
-		//glutSwapBuffers();
-		//glEnable(GL_TEXTURE_2D);
-		//glEnable(GL_BLEND);
+		
 
-		glColor3ub(255, 0, 0);
+		//glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
-		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+		logoImage->drawImage();
+		backgroundImage->drawImage();
+
+		glColor3ub(0, 0, 0);
 
 		// player name
 		tempString = "Player Name: ";
@@ -377,8 +377,8 @@ bool playGame::initialize()
 	Update();
 
 	// pregame textinfo
-	preGameTextOffsetX = 100;
-	preGameTextOffsetY = 100;
+	preGameTextOffsetX = 150;
+	preGameTextOffsetY = 350;
 	preGameTextSpacing = 45;
 	return true;
 }
@@ -437,8 +437,8 @@ void playGame::keyboardInput(unsigned char c, int x, int y)
 		switch(c)
 		{
 		case 27:
-			this->setStatus(Passive);
 			GSM->addGameState<PauseGameState>();
+			this->setStatus(Passive);
 			break;
 		default:
 			break;
@@ -450,7 +450,7 @@ void playGame::keyboardInput(unsigned char c, int x, int y)
 		switch(c)
 		{
 		case 27:
-			curState = GB_LOGICVIEW;
+			gamePlay->setState(GB_LOGICVIEW);
 			break;
 		default:
 			break;

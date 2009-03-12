@@ -16,9 +16,9 @@ public:
 		img(NULL)
 	{
 		img = new oglTexture2D();
-		if(img != NULL)
+		/*if(img != NULL)
 			img->loadImage("logoprojekt1narrow.png", 1024, 150);
-		img->mY = 50;
+		img->mY = 50;*/
 
 		myMenu = new MenuSys(220, 250, "blankmenu.png", Auto);
 		myMenu->addButton("buttons\\startnewgame.png", "buttons\\startnewgamehover.png", "buttons\\startnewgamehover.png", CreateFunctionPointer0R(this, &MainMenuState::StartNewGameCallback));

@@ -17,11 +17,12 @@ bool MainMenuState::Update()
 
 bool MainMenuState::Draw()
 {
+	glClearColor(0, 0, 0, 0);
+	logoImage->drawImage();
+	//backgroundImage->drawImage();
+
 	if(myMenu != NULL)
 		myMenu->Draw();
-
-	if(img != NULL)
-		img->drawImage();
 
 	return false;
 }
@@ -42,7 +43,7 @@ bool MainMenuState::StartNewGameCallback()
 {
 	GSM->addGameState<StartNewGameState>();
 	this->setStatus(DeleteMe);
-	glClearColor(255, 0, 0, 0);
+	glClearColor(0, 0, 0, 0);
 
 	return true;
 } 
@@ -51,7 +52,7 @@ bool MainMenuState::ProfileManagerCallback()
 {
 	GSM->addGameState<ProfileMgrState>();
 	this->setStatus(DeleteMe);
-	glClearColor(0, 255, 0, 0);
+	glClearColor(0, 0, 0, 0);
 	Update();
 
 	return true;
@@ -61,7 +62,7 @@ bool MainMenuState::LoadGameCallback()
 {
 	GSM->addGameState<LoadGameState>();
 	this->setStatus(DeleteMe);
-	glClearColor(0, 0, 255, 0);
+	glClearColor(0, 0, 0, 0);
 	Update();
 
 	return true;
