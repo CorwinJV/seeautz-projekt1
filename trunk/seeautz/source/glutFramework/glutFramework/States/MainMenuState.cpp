@@ -5,6 +5,7 @@
 #include "OptionsState.h"
 #include "..\GameStateManager.h"
 #include "LevelSelectState.h"
+#include "..\CreditsState.h"
 
 #include "..\playGame.h"
 
@@ -78,6 +79,9 @@ bool MainMenuState::Quit()
 bool MainMenuState::Credits()
 {
 	// credit vector to display here
-
+	GSM->addGameState<CreditsState>();
+	this->setStatus(DeleteMe);
+	glClearColor(0, 0, 0, 0);
+	Update();
 	return true;
 }

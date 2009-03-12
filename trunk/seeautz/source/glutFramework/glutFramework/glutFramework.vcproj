@@ -260,6 +260,10 @@
 				Name="States"
 				>
 				<File
+					RelativePath=".\CreditsState.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\States\DevLogoState.cpp"
 					>
 				</File>
@@ -336,6 +340,10 @@
 			</File>
 			<File
 				RelativePath=".\consoleDefines.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CreditsState.h"
 				>
 			</File>
 			<File
