@@ -45,7 +45,7 @@ bool PauseGameState::QuitCallback()
 bool PauseGameState::LevelSelectCallback()
 {
 	this->setStatus(DeleteMe);
-	//GSM->removeTopGameState();
+	GSM->setAllButTopPassive();
 	GSM->addGameState<LevelSelectState>();
 
 	return true;
