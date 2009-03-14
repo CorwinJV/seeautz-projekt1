@@ -2,11 +2,15 @@
 #define PROFILEMANAGER_H
 
 #include <string>
+#include <vector>
+#include <fstream>
+#include <cstring>
 
 using namespace std;
 
-struct levelInfo
+class levelInfo
 {
+public:
 	int level;
 	int levelHighScore;
 	int leastAmtCommands;
@@ -14,7 +18,13 @@ struct levelInfo
 };
 
 class profileManager
-{
+{	
+private:
+	string playerName;
+	int playerHighestLevel;
+	int playerCurrentLevel;
+	vector<levelInfo*> playerLevelInfo;
+
 public:
 	profileManager()
 	{
@@ -25,22 +35,18 @@ public:
 		playerLevelInfo.leastAmtInstructs = -1;
 		playerLevelInfo.level = -1;
 		playerLevelInfo.levelHighScore = -1;
-	}
+	};
 
-	string getPlayerName();
-	int getPlayerHighestLevel();
-	int getPlayerCurrentLevel();
-	levelInfo getPlayerLevelInfo();
-	void setPlayerName(string);
-	void setPlayerHighestLevel(int);
-	void setPlayerCurrentLevel(int);
-	void setPlayerLevelInfo(int, int, int, int);
+	~profileManager();
 
-private:
-	string playerName;
-	int playerHighestLevel;
-	int playerCurrentLevel;
-	levelInfo playerLevelInfo;
+	string					getPlayerName();
+	int						getPlayerHighestLevel();
+	int						getPlayerCurrentLevel();
+	vector<levelInfo>		getPlayerLevelInfo();
+	void					setPlayerName(string);
+	void					setPlayerHighestLevel(int);
+	void					setPlayerCurrentLevel(int);
+	void					setPlayerLevelInfo(int, int, int, int);
 };
 
 #endif

@@ -3,7 +3,7 @@
 bool ProfileMgrState::Update()
 {
 	
-	if((!creatingProfile)&&(checked))
+	if((!creatingProfile)&&(checked == 2))
 	{
 		if(myMenu != NULL)
 			myMenu->Update();
@@ -14,7 +14,6 @@ bool ProfileMgrState::Update()
 
 bool ProfileMgrState::Draw()
 {
-	string tempString; 
 	logoImage->drawImage();
 	
 	if(!creatingProfile)
@@ -33,7 +32,7 @@ bool ProfileMgrState::Draw()
 		GameVars->fontArial24.drawText(150, 400, "No numbers or special characters");
 		GameVars->fontArial24.drawText(150, 450, "Or press the escape key to return to the main menu");
 	}
-	if((creatingProfile)&&(!checked))
+	if((creatingProfile)&&(checked == 1))
 	{
 		GameVars->fontArial24.drawText(150, 300, "Name already exists, please enter another name: ");
 		GameVars->fontArial24.drawText(150, 350, "Or press the escape key to return to the main menu");
@@ -71,12 +70,20 @@ bool ProfileMgrState::DeleteProfile()
 
 bool ProfileMgrState::CreateProfile()
 {
-	//retrive current max levels, then increment by one for new profile
-	int max = getMaxLevels();
-	max++;
-	setMaxLevels(max);
-
+	//retrive current number of profiles, 
+	int profiles = getNumProfiles();
+	
 	creatingProfile = true;
+
+	//once name has been entered and cleared
+	if(checked == 2)
+	{
+		// set new player info and then increment by one for new profile and set it
+		setPlayerInfo(tempString, 0, 1, 1);
+		profiles++;
+		setNumProfiles(profiles);
+		GameVars->SavePlayerGame();
+	}
 	
 	return true;
 }
@@ -111,7 +118,6 @@ void ProfileMgrState::setNumProfiles(int profiles)
 void ProfileMgrState::keyboardInput(unsigned char c, int x, int y)
 {
 	bool profileCheck;
-	string tempString;
 
 	switch(c)
 	{
@@ -174,18 +180,18 @@ void ProfileMgrState::keyboardInput(unsigned char c, int x, int y)
 		}
 		break;
 	case 13: // enter key
-		if((creatingProfile)&&(checked))
+		if((creatingProfile)&&(checked == 0))
 		{
 			creatingProfile = false;
-			checked = false;
+			//checked = 1;
 		}
-		else if((!creatingProfile)&&(!checked))
+		else if((!creatingProfile)&&(checked == 1))
 		{
 			creatingProfile = true;
 		}
 		else if(tempString == "")
 		{
-			creatingProfile = false;
+			creatingProfile = true;
 		}
 		break;
 	case 8:	 // backspace
@@ -201,42 +207,39 @@ void ProfileMgrState::keyboardInput(unsigned char c, int x, int y)
 	}
 
 	//once player is finished, check to see if profile under same name already exists
-	if(!creatingProfile)
+	if((!creatingProfile)&&(checked == 0))
 	{
 		profileCheck = doesNameAlreadyExists(tempString);
 		if(!profileCheck)
 		{
-			checked = true;		// if profile doesn't already exist, proceed
+			checked = 2;		// if profile doesn't already exist, proceed
 		}
 		else 
 		{
 			tempString = "";	// otherwise clear the string out and try again
-			//finished = false;
+			checked = 1;
 		}
 	}
 
-	if(checked)
-	{
-		setPlayerName(tempString);
-		GameVars->setTotalScore(0);		
-	}
-
 }
 
-void ProfileMgrState::setPlayerName(string name)
+void ProfileMgrState::setPlayerInfo(std::string name, int score, int curLevel, int maxLevel)
 {
 	GameVars->setPlayerName(name);
+	GameVars->setTotalScore(score);	
+	GameVars->setCurrentLevel(curLevel);
+	GameVars->setPlayerMaxLevel(maxLevel);
 }
 
-bool ProfileMgrState::doesNameAlreadyExists(string playerGame)
+bool ProfileMgrState::doesNameAlreadyExists(std::string playerGame)
 {
 	ifstream PlayerInfo;
 	
-	string playerName = playerGame;
-	string newTempString = "";
+	std::string playerName = playerGame;
+	std::string newTempString = "";
 
 	newTempString = "savedGames\\";
-	newTempString += playerGame.c_str();
+	newTempString += playerName.c_str();
 	newTempString += ".txt";
 	std::cout << "Checking if " << newTempString << " exists " << endl;
 

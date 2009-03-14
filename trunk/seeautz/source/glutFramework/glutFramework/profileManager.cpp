@@ -1,6 +1,10 @@
 #include "profileManager.h"
 
-std::string profileManager::getPlayerName()
+#include <string>
+#include <vector>
+using namespace std;
+
+string profileManager::getPlayerName()
 {
 	return playerName;
 }
@@ -15,7 +19,7 @@ int profileManager::getPlayerCurrentLevel()
 	return playerCurrentLevel;
 }
 	
-levelInfo profileManager::getPlayerLevelInfo()
+std::vector<levelInfo> profileManager::getPlayerLevelInfo()
 {
 	return playerLevelInfo;
 }
