@@ -2260,3 +2260,59 @@ void gameBoard::SetInterfaceAdvanceHandler(CFunctionPointer2R<bool, instructionT
 {
 	mInterfaceAdvanceHandler = interfaceAdvanceHandler;
 }
+
+void gameBoard::panleft()
+{	
+	recalcPositions();
+	currentX -= moveSpeed/2;
+}
+
+void gameBoard::panright()
+{
+	recalcPositions();
+	currentX += moveSpeed/2;
+}
+
+void gameBoard::panup()
+{
+	recalcPositions();
+	currentY -= moveSpeed/2;
+}
+
+void gameBoard::pandown()
+{
+	recalcPositions();
+	currentY += moveSpeed/2;
+}
+void gameBoard::panupleft()
+{
+	recalcPositions();
+	currentX -= moveSpeed/2;
+	currentY -= moveSpeed/2;
+}
+void gameBoard::panupright()
+{
+	recalcPositions();
+	currentX += moveSpeed/2;
+	currentY -= moveSpeed/2;
+}
+void gameBoard::pandownleft()
+{
+	recalcPositions();
+	currentX -= moveSpeed/2;
+	currentY += moveSpeed/2;
+}
+void gameBoard::pandownright()
+{
+	recalcPositions();
+	currentX += moveSpeed/2;
+	currentY += moveSpeed/2;
+}
+void gameBoard::zoomout()
+{
+	scale -= 0.05;
+}
+void gameBoard::zoomin()
+{
+	scale += 0.05;
+}

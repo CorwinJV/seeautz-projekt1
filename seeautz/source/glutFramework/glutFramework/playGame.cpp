@@ -28,6 +28,7 @@ bool playGame::Update()
 
 	// Update mInterface all the time
 	mInterface.Update();
+	compass->Update();
 
 	int maxLevel;
 	switch(curState)
@@ -177,6 +178,7 @@ bool playGame::Draw()
 		gamePlay->draw();
 		mInterface.Draw();
 		drawLevelInfo();
+		compass->Draw();
 		break;
 
 	case GB_EXECUTION:
@@ -184,6 +186,7 @@ bool playGame::Draw()
 		gamePlay->draw();
 		mInterface.Draw();
 		drawLevelInfo();
+		compass->Draw();
 		break;
 
 	case GB_PREGAME:
@@ -220,7 +223,7 @@ bool playGame::Draw()
 		painInTheAss << tempInt;
 		tempString += painInTheAss.str();
 		GameVars->fontArial32.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
-		offsetAmt++;			
+		offsetAmt++;
 		break;
 
 	case GB_ROBOTDIED:
@@ -389,17 +392,94 @@ bool playGame::initialize()
 	myMenu->addButton("buttons\\advance.png", "buttons\\advancehover.png", "buttons\\advancehover.png", CreateFunctionPointer0R(this, &playGame::advance));
 	myMenu->setLastButtonDimensions(100, 50);
 	myMenu->setLastButtonPosition(600, backgroundImage->mY+backgroundImage->dY - 60);
+
 	myMenu->addButton("buttons\\exit.png",	 "buttons\\exithover.png", "buttons\\exithover.png", CreateFunctionPointer0R(this, &playGame::exitGame));
 	myMenu->setLastButtonDimensions(100, 50);
 	myMenu->setLastButtonPosition(350, backgroundImage->mY+backgroundImage->dY - 60);
-	Update();
+
+	// compass stuff
+	compassOffsetX = 763;
+	compassOffsetY = 580;
+	compass = new MenuSys(compassOffsetX, compassOffsetY, "blank.png", None);
+
+	// zoom out
+	compass->addButton("compass\\zoomoutnormal.png", "compass\\zoomouthover.png", "compass\\zoomouthover.png", CreateFunctionPointer0R(this, &playGame::zoomout));
+	compass->setLastButtonDimensions(73, 25);
+	compass->setLastButtonPosition(compassOffsetX+6, compassOffsetY+5);
+	
+	// zoom in
+	compass->addButton("compass\\zoominnormal.png", "compass\\zoominhover.png", "compass\\zoominhover.png", CreateFunctionPointer0R(this, &playGame::zoomin));
+	compass->setLastButtonDimensions(73, 25);
+	compass->setLastButtonPosition(compassOffsetX + 73 + 6, compassOffsetY+5);
+
+	////////////////////////////////
+	// up left
+	compass->addButton("compass\\upleftnormal.png", "compass\\uplefthover.png", "compass\\uplefthover.png", CreateFunctionPointer0R(this, &playGame::panupleft));
+	compass->setLastButtonDimensions(48, 45);
+	compass->setLastButtonPosition(compassOffsetX+3, compassOffsetY+30+3);
+
+	// up
+	compass->addButton("compass\\upnormal.png", "compass\\uphover.png", "compass\\uphover.png", CreateFunctionPointer0R(this, &playGame::panup));
+	compass->setLastButtonDimensions(51, 48);
+	compass->setLastButtonPosition(compassOffsetX+48+3, compassOffsetY+30);
+
+	// up right
+	compass->addButton("compass\\uprightnormal.png", "compass\\uprighthover.png", "compass\\uprighthover.png", CreateFunctionPointer0R(this, &playGame::panupright));
+	compass->setLastButtonDimensions(49, 45);
+	compass->setLastButtonPosition(compassOffsetX+48+51+3, compassOffsetY+30+3);
+
+	///////////////////////////////
+	// left
+	compass->addButton("compass\\leftnormal.png", "compass\\lefthover.png", "compass\\lefthover.png", CreateFunctionPointer0R(this, &playGame::panleft));
+	compass->setLastButtonDimensions(51, 47);
+	compass->setLastButtonPosition(compassOffsetX, compassOffsetY+33+48-3);
+
+	// center
+	compass->addButton("compass\\center.png", "compass\\center.png", "compass\\center.png", 0, 0);
+	compass->setLastButtonDimensions(51, 47);
+	compass->setLastButtonPosition(compassOffsetX+51, compassOffsetY+33+48-3);
+
+	// right
+	compass->addButton("compass\\rightnormal.png", "compass\\righthover.png", "compass\\righthover.png", CreateFunctionPointer0R(this, &playGame::panright));
+	compass->setLastButtonDimensions(52, 47);
+	compass->setLastButtonPosition(compassOffsetX+51+51, compassOffsetY+33+48-3);
+
+	//////////////////////////////////
+	// down left
+	compass->addButton("compass\\downleftnormal.png", "compass\\downlefthover.png", "compass\\downlefthover.png", CreateFunctionPointer0R(this, &playGame::pandownleft));
+	compass->setLastButtonDimensions(48, 46);
+	compass->setLastButtonPosition(compassOffsetX+3, compassOffsetY+33+48+47-3);
+
+	// down
+	compass->addButton("compass\\downnormal.png", "compass\\downhover.png", "compass\\downhover.png", CreateFunctionPointer0R(this, &playGame::pandown));
+	compass->setLastButtonDimensions(51, 49);
+	compass->setLastButtonPosition(compassOffsetX+48+3, compassOffsetY+33+48+47-3);
+
+
+	// down right
+	compass->addButton("compass\\downrightnormal.png", "compass\\downrighthover.png", "compass\\downrighthover.png", CreateFunctionPointer0R(this, &playGame::pandownright));
+	compass->setLastButtonDimensions(49, 46);
+	compass->setLastButtonPosition(compassOffsetX+48+51+3, compassOffsetY+33+48+47-3);
 
 	// pregame textinfo
 	preGameTextOffsetX = 150;
 	preGameTextOffsetY = 350;
 	preGameTextSpacing = 45;
+
+	Update();
 	return true;
 }
+
+void playGame::panleft()		{	gamePlay->panleft();	}
+void playGame::panright()		{	gamePlay->panright();	}
+void playGame::panup()			{	gamePlay->panup();		}
+void playGame::pandown()		{	gamePlay->pandown();	}
+void playGame::panupleft()		{	gamePlay->panupleft();	}
+void playGame::panupright()		{	gamePlay->panupright();	}
+void playGame::pandownleft()	{	gamePlay->pandownleft();}
+void playGame::pandownright()	{	gamePlay->pandownright();}
+void playGame::zoomout()		{	gamePlay->zoomout();	}
+void playGame::zoomin()			{	gamePlay->zoomin();		}
 
 void playGame::processMouse(int x, int y)
 {
@@ -411,6 +491,7 @@ void playGame::processMouse(int x, int y)
 	case GB_VIEWSCORE:
 		gamePlay->processMouse(x, y);
 		mInterface.processMouse(x, y);
+		compass->processMouse(x, y);
 		if(myMenu != NULL)
 			myMenu->processMouse(x, y);
 		break;
@@ -432,6 +513,7 @@ void playGame::processMouseClick(int button, int state, int x, int y)
 	case GB_VIEWSCORE:
 		gamePlay->processMouseClick(button, state, x, y);
 		mInterface.processMouseClick(button, state, x, y);
+		compass->processMouseClick(button, state, x, y);
 		if(curState == GB_VIEWSCORE)
 		{
 			if(myMenu != NULL)
