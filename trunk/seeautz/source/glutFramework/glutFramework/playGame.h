@@ -23,6 +23,7 @@ private:
 	MenuSys* myMenu;
 	oglTexture2D* img;
 	oglTexture2D* blackImage;
+	oglTexture2D* youDiedImage;
 	GameBoardState curState;
 	vector<Button*> buttonList;
 	bool gameSaved;

@@ -173,22 +173,21 @@ bool playGame::Draw()
 	switch(curState)
 	{
 	case GB_LOGICVIEW:
+		glClearColor(0, 0, 0, 0);
 		gamePlay->draw();
 		mInterface.Draw();
 		drawLevelInfo();
 		break;
 
 	case GB_EXECUTION:
+		glClearColor(0, 0, 0, 0);
 		gamePlay->draw();
 		mInterface.Draw();
 		drawLevelInfo();
 		break;
 
 	case GB_PREGAME:
-		glClearColor(0, 0, 0, 0);
-		
-
-		//glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+		clearBackground();
 
 		logoImage->drawImage();
 		backgroundImage->drawImage();
@@ -226,7 +225,7 @@ bool playGame::Draw()
 
 	case GB_ROBOTDIED:
 		// gl shit that may or may not be needed for font stuff, we shall find out shortly
-		glClearColor(0, 0, 0, 0);
+		clearBackground();
 		//glutSwapBuffers();
 		//glEnable(GL_TEXTURE_2D);
 		//glEnable(GL_BLEND);
@@ -236,11 +235,14 @@ bool playGame::Draw()
 		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
 		// player name
-		GameVars->fontDigital200.drawText(150 + rand()%15, 250 + rand()%15, "YOU DIED");
+		//GameVars->fontDigital200.drawText(150 + rand()%15, 250 + rand()%15, "YOU DIED");
+		youDiedImage->mX = rand()%15;
+		youDiedImage->mY = rand()%15;
+		youDiedImage->drawImage();
 		break;
 
 	case GB_VIEWSCORE:
-		glClearColor(0, 0, 0, 0);
+		clearBackground();
 		logoImage->drawImage();
 		backgroundImage->drawImage();
 		
@@ -336,6 +338,8 @@ bool playGame::initialize()
 {
 	string tempString;
 	int playerCurrentLevel;
+	youDiedImage = new oglTexture2D();
+	youDiedImage->loadImage("youdied.png", 1024,768);
 
 	gamePlay = new gameBoard();
 

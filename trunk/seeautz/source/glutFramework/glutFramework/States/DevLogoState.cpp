@@ -17,10 +17,13 @@ bool DevLogoState::Update()
 	// end - start = total # of ticks we will need
 	// 1 / total ticks = fade amount per tick
 
-	double fadeinamt =  1/((devlogofadeinend*1000)  - (devlogofadeinstart * 1000));
-	double fadeoutamt = 1/((devlogofadeoutend*1000) - (devlogofadeoutstart* 1000));
+	double fadeinamt =  (1/((devlogofadeinend*1000)  - (devlogofadeinstart * 1000)));
+	double fadeoutamt = (1/((devlogofadeoutend*1000) - (devlogofadeoutstart* 1000)));
+
+	double tempint;
 
 	// logo 1
+	logo = 0;
 
 	// at any given point... our fade in amount is...
 	// current time - start time * fadeinamt
@@ -29,26 +32,25 @@ bool DevLogoState::Update()
 
 	if(timer < (devlogofadeinend*1000))									 
 	{		
-		opacity = (clock() - (devlogofadeinstart*1000)) * fadeinamt;
+		logo = 1;
+		opacity = (timer - (devlogofadeinstart*1000)) / ((devlogofadeinend*1000) - (devlogofadeinstart * 1000));
 	}
 
 
-	if((timer > (devlogofadeinend*1000)) && (timer < (devlogofadeoutstart*1000)))	 {		opacity = 1.0;	        }
+	if((timer > (devlogofadeinend*1000)) && (timer < (devlogofadeoutstart*1000)))	 {	logo = 1;	opacity = 1.0;	        }
 
 
 	// since we're going backwards, we do 1 - our old formula
 	if( (timer > (devlogofadeoutstart*1000) && (timer < (devlogofadeoutend*1000))))
 	{		
-		opacity = 1 - (clock() - (devlogofadeoutstart*1000)) * fadeoutamt;
+		logo = 1;
+		opacity = 1 - (timer - (devlogofadeoutstart*1000)) / ((devlogofadeinend*1000) - (devlogofadeinstart * 1000));;
 	}
 
 	//// load logo 2
 	if((timer > logo2fadeinstart*1000) && (logostate == 0))
 	{
-		delete logo;
-		logo = new oglTexture2D();
-		if(logo != NULL)
-			logo->loadImage("logopresents.png", 1024, 768);
+		logo = 2;
 		opacity = 0;
 		logostate = 1;
 		fadeinamt =  1/((logo2fadeinend*1000)  - (logo2fadeinstart * 1000));
@@ -57,24 +59,24 @@ bool DevLogoState::Update()
 
 	if((timer < (logo2fadeinend*1000)) && (timer > (logo2fadeinstart * 1000)))
 	{		
-		opacity = (clock() - (logo2fadeinstart*1000)) * fadeinamt;
+		logo = 2;
+		opacity = (timer - (logo2fadeinstart*1000)) / ((logo2fadeinend*1000) - (logo2fadeinstart * 1000));
 	}
-	if((timer > (logo2fadeinend*1000)) && (timer < (logo2fadeoutstart*1000)))	 {		opacity = 1.0;	        }
+	if((timer > (logo2fadeinend*1000)) && (timer < (logo2fadeoutstart*1000)))	 {	logo = 2;	opacity = 1.0;	        }
 
 
 	// since we're going backwards, we do 1 - our old formula
 	if( (timer > (logo2fadeoutstart*1000) && (timer < (logo2fadeoutend*1000))))
 	{		
-		opacity = 1 - (clock() - (logo2fadeoutstart*1000)) * fadeoutamt;
+		logo = 2;
+		//opacity = 1 - (clock() - (logo2fadeoutstart*1000)) * fadeoutamt;
+		opacity = 1 - (timer - (logo2fadeoutstart*1000)) / ((logo2fadeinend*1000) - (logo2fadeinstart * 1000));
 	}
 
 	//// load logo 3
 	if((timer > logo3fadeinstart*1000) && (logostate == 1))
 	{
-		delete logo;
-		logo = new oglTexture2D();
-		if(logo != NULL)
-			logo->loadImage("logoprojekt1.png", 1024, 768);
+		logo = 3;
 		opacity = 0;
 		logostate = 2;
 		fadeinamt =  1/((logo3fadeinend*1000)  - (logo3fadeinstart * 1000));
@@ -82,16 +84,18 @@ bool DevLogoState::Update()
 	}
 
 	if((timer < (logo3fadeinend*1000)) && (timer > (logo3fadeinstart * 1000)))
-	{		
-		opacity = (clock() - (logo3fadeinstart*1000)) * fadeinamt;
+	{	
+		logo = 3;
+		opacity = (timer - (logo3fadeinstart*1000)) / ((logo3fadeinend*1000) - (logo3fadeinstart * 1000));
 	}
-	if((timer > (logo3fadeinend*1000)) && (timer < (logo3fadeoutstart*1000)))	 {		opacity = 1.0;	        }
+	if((timer > (logo3fadeinend*1000)) && (timer < (logo3fadeoutstart*1000)))	 {	logo = 3;	opacity = 1.0;	        }
 
 
 	// since we're going backwards, we do 1 - our old formula
 	if( (timer > (logo3fadeoutstart*1000) && (timer < (logo3fadeoutend*1000))))
 	{		
-		opacity = 1 - (clock() - (logo3fadeoutstart*1000)) * fadeoutamt;
+		logo = 3;
+		opacity = 1 - (timer - (logo3fadeoutstart*1000)) / ((logo3fadeinend*1000) - (logo3fadeinstart * 1000));
 	}
 
 	if((timer > logo3fadeoutend*1000) || theyWantOut)
@@ -101,13 +105,27 @@ bool DevLogoState::Update()
 	}
 
 	//std::cout << "Opacity is " << opacity << endl;
+	//std::cout << "Logo is " << logo << endl;
 	return true;
 }
 
 bool DevLogoState::Draw()
 {
 	//logo->drawImage();
-	logo->drawImageFaded(opacity);
+	switch(logo)
+	{
+		case 1:
+			logo1->drawImageFaded(opacity);
+			break;
+		case 2:
+			logo2->drawImageFaded(opacity);
+			break;
+		case 3:
+			logo3->drawImageFaded(opacity);
+			break;
+		default:
+			break;
+	}
 	//std::cout << "opacity = " << opacity << endl;
 
 	//std::cout<< "I drew something at " << timer << endl;
@@ -116,7 +134,9 @@ bool DevLogoState::Draw()
 
 DevLogoState::~DevLogoState()
 {
-	delete logo;
+	delete logo1;
+	delete logo2;
+	delete logo3;
 }
 
 void DevLogoState::keyboardInput(unsigned char c, int x, int y)

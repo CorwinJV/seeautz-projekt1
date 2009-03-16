@@ -40,7 +40,7 @@ bool LevelSelectState::Draw()
 	string tempString;
 	int tempInt;
 
-	glClearColor(0, 0, 0, 0);
+	clearBackground();
 	logoImage->drawImage();
 
 	backgroundImage->drawImage();

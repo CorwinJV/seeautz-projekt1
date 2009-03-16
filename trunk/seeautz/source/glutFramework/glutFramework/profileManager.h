@@ -31,10 +31,6 @@ public:
 		playerName = "";
 		playerHighestLevel = -1;
 		playerCurrentLevel = -1;
-		playerLevelInfo.leastAmtCommands = -1;
-		playerLevelInfo.leastAmtInstructs = -1;
-		playerLevelInfo.level = -1;
-		playerLevelInfo.levelHighScore = -1;
 	};
 
 	~profileManager();
@@ -42,7 +38,7 @@ public:
 	string					getPlayerName();
 	int						getPlayerHighestLevel();
 	int						getPlayerCurrentLevel();
-	vector<levelInfo>		getPlayerLevelInfo();
+	void					getPlayerLevelInfo();
 	void					setPlayerName(string);
 	void					setPlayerHighestLevel(int);
 	void					setPlayerCurrentLevel(int);
