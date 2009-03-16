@@ -264,6 +264,10 @@
 				Name="States"
 				>
 				<File
+					RelativePath=".\clickOKState.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CreditsState.cpp"
 					>
 				</File>
@@ -465,6 +469,10 @@
 			<Filter
 				Name="States"
 				>
+				<File
+					RelativePath=".\clickOKState.h"
+					>
+				</File>
 				<File
 					RelativePath=".\States\DevLogoState.h"
 					>

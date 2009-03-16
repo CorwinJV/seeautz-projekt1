@@ -101,6 +101,8 @@ public:
 	bool						getGameStatus();
 	void						setGameStatus(bool);
 	void						setLevel(int);
+	void						setPMStatus(int);
+	int							getPMStatus();
 	int							getRobotX();
 	int							getRobotY();
 	void						setRobotX(int);
@@ -154,6 +156,7 @@ private:
 	int levelHeight;
 	int levelWidth;
 	bool tileActive;
+	int pmStatus;
 	std::vector<logicBlock*>	allLogicBlocks;
 	logicBlock*					placeInstructionBlock;	
 };
