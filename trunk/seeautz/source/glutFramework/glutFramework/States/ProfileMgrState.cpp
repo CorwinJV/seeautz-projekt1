@@ -56,6 +56,7 @@ bool ProfileMgrState::MainMenuStateCallback()
 {
 	GSM->addGameState<MainMenuState>();
 	this->setStatus(DeleteMe);
+
 	return true;
 }
 
@@ -68,19 +69,16 @@ bool ProfileMgrState::DeleteProfile()
 
 bool ProfileMgrState::CreateProfile()
 {
-	//retrive current number of profiles, 
-	int profiles = getNumProfiles();
-	
 	creatingProfile = true;
 
 	//once name has been entered and cleared
 	if(checked == 2)
 	{
-		// set new player info and then increment by one for new profile and set it
-		setPlayerInfo(tempString, 0, 1, 1);
-		profiles++;
-		setNumProfiles(profiles);
-		GameVars->SavePlayerGame();
+		// set new player info 
+		GameVars->PM->setPlayerLevelInfo(1, -1, -1, -1);
+		GameVars->PM->setPlayerCurrentLevel(1);
+		GameVars->PM->setPlayerHighestLevel(1);
+		GameVars->PM->setPlayerName(tempString);
 	}
 	
 	return true;
@@ -89,28 +87,8 @@ bool ProfileMgrState::CreateProfile()
 bool ProfileMgrState::SelectProfile()
 {
 	// code for selecting profile
-
+	GameVars->PM->selectProfile(tempString);
 	return true;
-}
-
-int ProfileMgrState::getMaxLevels()
-{
-	return maxLevels;
-}
-
-int ProfileMgrState::getNumProfiles()
-{
-	return numProfiles;
-}
-
-void ProfileMgrState::setMaxLevels(int max)
-{
-	maxLevels = max;
-}
-
-void ProfileMgrState::setNumProfiles(int profiles)
-{
-	numProfiles = profiles;
 }
 
 void ProfileMgrState::keyboardInput(unsigned char c, int x, int y)

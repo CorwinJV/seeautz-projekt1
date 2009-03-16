@@ -65,6 +65,8 @@ class oglGameVars
 {
 public:
     static oglGameVars* Instance();
+	playerInfo* PI;
+	profileManager* PM;
 protected:
     oglGameVars();
     oglGameVars(const oglGameVars&);
@@ -154,7 +156,6 @@ private:
 	bool tileActive;
 	std::vector<logicBlock*>	allLogicBlocks;
 	logicBlock*					placeInstructionBlock;	
-	profileManager* PM;
 };
 
 #endif // OGLGAMEVARS_H
