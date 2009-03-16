@@ -8,6 +8,7 @@
 #include "StartNewGameState.h"
 #include "LoadGameState.h"
 #include ".\..\playGame.h"
+#include ".\..\clickOKState.h"
 
 
 class ProfileMgrState : public GameState

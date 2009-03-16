@@ -640,3 +640,13 @@ void oglGameVars::setCurrentLogicBank(bool moveForwardAvail, bool moveForwardUnt
 	if(sub2Avail)
 		currentLogicBank->push_back(allLogicBlocks[10]);
 }
+
+void oglGameVars::setPMStatus(int status)
+{
+	pmStatus = status;
+}
+
+int oglGameVars::getPMStatus()
+{
+	return pmStatus;
+}

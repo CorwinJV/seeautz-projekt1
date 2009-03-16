@@ -2,8 +2,21 @@
 
 bool ProfileMgrState::Update()
 {
-	
-	if((!creatingProfile)&&(checked == 2))
+	if((!creatingProfile)&&(checked==2))
+	{
+		//set new player info 
+		GameVars->PM->setPlayerLevelInfo(1, -1, -1, -1);
+		GameVars->PM->setPlayerCurrentLevel(1);
+		GameVars->PM->setPlayerHighestLevel(1);
+		GameVars->PM->setPlayerName(tempString);
+		//reset values for another record to be entered
+		checked = 0;
+		creatingProfile = false;
+		tempString = "";
+		GameVars->setPMStatus(0);
+		GSM->addGameState<clickOKState>();
+	}
+	if((!creatingProfile)&&(checked == 0))
 	{
 		if(myMenu != NULL)
 			myMenu->Update();
@@ -18,7 +31,7 @@ bool ProfileMgrState::Draw()
 	logoImage->drawImage();
 	
 	
-	if(!creatingProfile)
+	if((!creatingProfile)&&(checked == 0))
 	{
 		if(img != NULL)
 			img->drawImage();
@@ -36,13 +49,18 @@ bool ProfileMgrState::Draw()
 		GameVars->fontArial24.drawText(150, 400, "No numbers or special characters");
 		GameVars->fontArial24.drawText(150, 450, "Or press the escape key to return to the main menu");
 	}
-	else if((creatingProfile)&&(checked == 1))
+	else if((!creatingProfile)&&(checked == 1))
 	{
 		backgroundImage->drawImage();
 		glColor3ub(0, 0, 0);
 		GameVars->fontArial24.drawText(150, 300, "Name already exists, please enter another name: ");
 		GameVars->fontArial24.drawText(150, 350, "Or press the escape key to return to the main menu");
 	}
+	else if((!creatingProfile)&&(checked == 2))
+	{
+		
+	}
+
 	return false;
 }
 
@@ -78,14 +96,21 @@ bool ProfileMgrState::CreateProfile()
 	creatingProfile = true;
 
 	//once name has been entered and cleared
-	if(checked == 2)
+	if((!creatingProfile)&&(checked==2))
 	{
-		// set new player info 
+		//set new player info 
 		GameVars->PM->setPlayerLevelInfo(1, -1, -1, -1);
 		GameVars->PM->setPlayerCurrentLevel(1);
 		GameVars->PM->setPlayerHighestLevel(1);
 		GameVars->PM->setPlayerName(tempString);
+		//reset values for another record to be entered
+		checked = 0;
+		creatingProfile = false;
+		tempString = "";
+		GSM->addGameState<clickOKState>();
 	}
+	
+	
 	
 	return true;
 }
@@ -170,10 +195,12 @@ void ProfileMgrState::keyboardInput(unsigned char c, int x, int y)
 		else if((!creatingProfile)&&(checked == 1))
 		{
 			creatingProfile = true;
+			checked = 0;
 		}
 		else if(tempString == "")
 		{
 			creatingProfile = true;
+			checked = 1;
 		}
 		break;
 	case 8:	 // backspace
@@ -192,7 +219,7 @@ void ProfileMgrState::keyboardInput(unsigned char c, int x, int y)
 	if((!creatingProfile)&&(checked == 0))
 	{
 		profileCheck = doesNameAlreadyExists(tempString);
-		if(!profileCheck)
+		if(profileCheck)
 		{
 			checked = 2;		// if profile doesn't already exist, proceed
 		}
