@@ -30,8 +30,8 @@ public:
 	{
 		maxLevel = newMaxLevel;
 		playerName = "";
-		playerHighestLevel = -1;
-		playerCurrentLevel = -1;
+		playerHighestLevel = 1;
+		playerCurrentLevel = 1;
 		
 		levelInfo* tempPlayerLevelInfo;
 		for(int i = 0; i < maxLevel; i++)
@@ -39,7 +39,7 @@ public:
 			tempPlayerLevelInfo = new levelInfo;
 			tempPlayerLevelInfo->leastAmtCommands = -1;
 			tempPlayerLevelInfo->leastAmtInstructs = -1;
-			tempPlayerLevelInfo->level = -1;
+			tempPlayerLevelInfo->level = i;
 			tempPlayerLevelInfo->levelHighScore = -1;
 			playerLevelInfo.push_back(tempPlayerLevelInfo);
 		}
@@ -54,12 +54,12 @@ public:
 	void			setPlayerName(string name){playerName = name;};
 	void			setPlayerHighestLevel(int level){playerHighestLevel = level;};
 	void			setPlayerCurrentLevel(int level){playerCurrentLevel = level;};
-	void			setPlayerLevelInfo(int level, int score, int commands, int instructs)
+	void			setPlayerLevelInfo(int newLevel, int score, int commands, int instructs)
 	{	
-		playerLevelInfo[level]->level = level;
-		playerLevelInfo[level]->levelHighScore = score;
-		playerLevelInfo[level]->leastAmtCommands = commands;
-		playerLevelInfo[level]->leastAmtInstructs = instructs;
+		playerLevelInfo[newLevel]->level = newLevel;
+		playerLevelInfo[newLevel]->levelHighScore = score;
+		playerLevelInfo[newLevel]->leastAmtCommands = commands;
+		playerLevelInfo[newLevel]->leastAmtInstructs = instructs;
 	};
 
 };

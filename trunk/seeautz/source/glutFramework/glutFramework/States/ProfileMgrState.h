@@ -20,11 +20,11 @@ public:
 		creatingProfile = false; 
 		checked = 0;
 		img = new oglTexture2D();
-		if(img != NULL)
+		/*if(img != NULL)
 			img->loadImage("statescreens\\profilemanagement.png", 1024, 120);
-		img->mY = 618;
+		img->mY = 618;*/
 
-		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
+		myMenu = new MenuSys(250, 250, "blankmenu.png", Auto);
 		myMenu->addButton("buttons\\returntomainmenu.png", "buttons\\returntomainmenuhover.png", "buttons\\returntomainmenuhover.png", CreateFunctionPointer0R(this, &ProfileMgrState::MainMenuStateCallback));
 		myMenu->addButton("buttons\\deleteprofile.png", "buttons\\deleteprofilehover.png", "buttons\\deleteprofilehover.png", CreateFunctionPointer0R(this, &ProfileMgrState::DeleteProfile));
 		myMenu->addButton("buttons\\createprofile.png", "buttons\\createprofilehover.png", "buttons\\createprofilehover.png", CreateFunctionPointer0R(this, &ProfileMgrState::CreateProfile));
