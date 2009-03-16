@@ -16,6 +16,7 @@ public:
 	ProfileMgrState() {};
 	ProfileMgrState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
+		
 		creatingProfile = false; 
 		checked = 0;
 		img = new oglTexture2D();
@@ -40,10 +41,6 @@ public:
 	bool DeleteProfile();
 	bool CreateProfile();
 	bool SelectProfile();
-	int getMaxLevels();
-	int getNumProfiles();
-	void setMaxLevels(int);
-	void setNumProfiles(int);
 	bool ProfileMgrState::doesNameAlreadyExists(std::string);
 	void ProfileMgrState::setPlayerInfo(std::string name, int, int, int);
 	bool creatingProfile;
@@ -54,7 +51,6 @@ private:
 	oglTexture2D* img;
 	int maxLevels;
 	int numProfiles;
-	vector<profileManager*> profileList;
 	// add private stuff here
 
 };

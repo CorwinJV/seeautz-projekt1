@@ -20,8 +20,6 @@ bool DevLogoState::Update()
 	double fadeinamt =  (1/((devlogofadeinend*1000)  - (devlogofadeinstart * 1000)));
 	double fadeoutamt = (1/((devlogofadeoutend*1000) - (devlogofadeoutstart* 1000)));
 
-	double tempint;
-
 	// logo 1
 	logo = 0;
 

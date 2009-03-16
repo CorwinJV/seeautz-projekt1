@@ -45,7 +45,6 @@ oglGameVars::oglGameVars()
 
 	levelData* tempLevel;
 	oglTexture2D* tempArt;
-	PM = new profileManager;
 
 	tempLevel = new levelData("DEBUG MAP", "THIS IS FOR DAVE TO DEBUG MAP TILES", "maps\\testMap1.txt");
 	levelList.push_back(tempLevel);
@@ -216,6 +215,8 @@ oglGameVars::oglGameVars()
 	levelArt.push_back(tempArt);
 
 	maxLevel = levelList.size();
+	PI = new playerInfo(maxLevel);
+	PM = new profileManager(maxLevel);
 	// stupid sound stuff
 	//GenericSound = new OALSound;
 }

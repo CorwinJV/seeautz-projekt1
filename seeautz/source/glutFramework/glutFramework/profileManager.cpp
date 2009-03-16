@@ -2,42 +2,144 @@
 
 #include <string>
 #include <vector>
+#include <fstream>
+#include <iostream>
 using namespace std;
 
-string profileManager::getPlayerName()
+bool profileManager::createProfile(string name)
 {
-	return playerName;
+	string tempName = name;
+
+	for(int i = 0; i < maxRecords; i++)
+	{
+		if(name == allPlayerInfo[i]->getPlayerName())
+		{
+			return false;
+		}
+	}
+
+	playerInfo* tempPlayerInfo;
+	tempPlayerInfo = new playerInfo(maxLevel);
+	tempPlayerInfo->setPlayerName(tempName);
+	allPlayerInfo.push_back(tempPlayerInfo);
+	maxRecords++;
+
+	return true;
 }
 
-int profileManager::getPlayerHighestLevel()
+void profileManager::deleteProfile()
 {
-	return playerHighestLevel;
+
 }
 
-int profileManager::getPlayerCurrentLevel()
+void profileManager::saveProfile()
 {
-	return playerCurrentLevel;
+	ofstream saveFile;
+	string tempName;
+	int	tempInt;
+	int highScore;
+	int leastCmds;
+	int leastInstructs;
+
+	saveFile.open("saveFile.txt");
+
+	saveFile << maxLevel;
+	saveFile << maxRecords;
+
+	for (int i = 0; i < maxRecords; i++)
+	{
+		tempName = allPlayerInfo[i]->getPlayerName();
+		saveFile << tempName << endl;
+		
+		tempInt = allPlayerInfo[i]->getPlayerHighestLevel();
+		saveFile << tempInt << endl;
+
+		tempInt = allPlayerInfo[i]->getPlayerCurrentLevel();
+		saveFile << tempInt << endl;
+
+		for (int j = 0; j < maxLevel; j++)
+		{
+			tempInt = allPlayerInfo[i]->getPlayerLevel(j);
+			highScore = allPlayerInfo[i]->getPlayerLevelScore(j);
+			leastCmds = allPlayerInfo[i]->getPlayerLeastCmd(j);
+			leastInstructs = allPlayerInfo[i]->getPlayerLeastInst(j);
+			saveFile << tempInt << " ";
+			saveFile << highScore << " ";
+			saveFile << leastCmds << " ";
+			saveFile << leastInstructs << endl;
+		}
+	}
+	saveFile.close();
 }
-	
-void profileManager::getPlayerLevelInfo()
+
+bool profileManager::selectProfile(string name)
 {
+	string tempName = name;
+
+	for(int i = 0; i < maxRecords; i++)
+	{
+		if(name == allPlayerInfo[i]->getPlayerName())
+		{
+			currentRecord = i;
+			return true;
+		}
+	}
+
+	return false;
+
 }
-	
-void profileManager::setPlayerName(string name)
+
+void profileManager::loadAllProfiles()
 {
-	playerName = name;
-}
-	
-void profileManager::setPlayerHighestLevel(int level)
-{
-	playerHighestLevel = level;
-}
-	
-void profileManager::setPlayerCurrentLevel(int level)
-{
-	playerCurrentLevel = level;
-}
-	
-void profileManager::setPlayerLevelInfo(int commands, int instructs, int level, int score)
-{
+	playerInfo* tempPlayerInfo;
+
+	ifstream saveFile;
+	ofstream createSaveFile;
+	string tempName;
+	int	tempInt;
+	int highScore;
+	int leastCmds;
+	int leastInstructs;
+
+	saveFile.open("saveFile.txt");
+
+	if(!saveFile)
+	{
+		saveFile.close();
+		createSaveFile.open("saveFile.txt");
+		maxRecords = 0;
+
+		createSaveFile << maxLevel;
+		createSaveFile << maxRecords;
+		createSaveFile.close();
+		saveFile.open("saveFile.txt");
+	}
+
+	saveFile >> maxLevel;
+	saveFile >> maxRecords;
+
+	for (int i = 0; i < maxRecords; i++)
+	{
+		tempPlayerInfo = new playerInfo(maxLevel);
+
+		saveFile >> tempName;
+		tempPlayerInfo->setPlayerName(tempName);
+
+		saveFile >> tempInt;
+		tempPlayerInfo->setPlayerHighestLevel(tempInt);
+
+		saveFile >> tempInt;
+		tempPlayerInfo->setPlayerCurrentLevel(tempInt);
+
+		for (int j = 0; j < maxLevel; j++)
+		{
+			saveFile >> tempInt;
+			saveFile >> highScore;
+			saveFile >> leastCmds;
+			saveFile >> leastInstructs;
+			tempPlayerInfo->setPlayerLevelInfo(tempInt, highScore, leastCmds, leastInstructs);
+		}
+		allPlayerInfo.push_back(tempPlayerInfo);
+	}
+	saveFile.close();
 }
