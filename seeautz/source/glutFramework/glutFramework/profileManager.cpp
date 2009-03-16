@@ -23,6 +23,7 @@ bool profileManager::createProfile(string name)
 	tempPlayerInfo->setPlayerName(tempName);
 	allPlayerInfo.push_back(tempPlayerInfo);
 	maxRecords++;
+	saveProfile();
 
 	return true;
 }
@@ -41,10 +42,10 @@ void profileManager::saveProfile()
 	int leastCmds;
 	int leastInstructs;
 
-	saveFile.open("saveFile.txt");
+	saveFile.open("savedGames\\savefile.txt");
 
-	saveFile << maxLevel;
-	saveFile << maxRecords;
+	saveFile << maxLevel << endl;
+	saveFile << maxRecords << endl;
 
 	for (int i = 0; i < maxRecords; i++)
 	{
@@ -101,18 +102,18 @@ void profileManager::loadAllProfiles()
 	int leastCmds;
 	int leastInstructs;
 
-	saveFile.open("saveFile.txt");
+	saveFile.open("savedGames\\savefile.txt");
 
 	if(!saveFile)
 	{
 		saveFile.close();
-		createSaveFile.open("saveFile.txt");
+		createSaveFile.open("savedGames\\savefile.txt");
 		maxRecords = 0;
 
 		createSaveFile << maxLevel;
 		createSaveFile << maxRecords;
 		createSaveFile.close();
-		saveFile.open("saveFile.txt");
+		saveFile.open("savedGames\\savefile.txt");
 	}
 
 	saveFile >> maxLevel;
@@ -133,11 +134,11 @@ void profileManager::loadAllProfiles()
 
 		for (int j = 0; j < maxLevel; j++)
 		{
-			saveFile >> tempInt;
+			saveFile >> j;
 			saveFile >> highScore;
 			saveFile >> leastCmds;
 			saveFile >> leastInstructs;
-			tempPlayerInfo->setPlayerLevelInfo(tempInt, highScore, leastCmds, leastInstructs);
+			tempPlayerInfo->setPlayerLevelInfo(j, highScore, leastCmds, leastInstructs);
 		}
 		allPlayerInfo.push_back(tempPlayerInfo);
 	}

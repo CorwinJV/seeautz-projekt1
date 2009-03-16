@@ -79,7 +79,7 @@ void CreditsState::drawCredits()
 	vector<string*>::iterator sitr = creditsList.begin();
 	int drawOffsetY = 0;
 	
-	glColor3ub(255, 255, 255);
+	glColor3ub(0, 0, 0);
 
 	for(;sitr < creditsList.end(); sitr++)
 	{

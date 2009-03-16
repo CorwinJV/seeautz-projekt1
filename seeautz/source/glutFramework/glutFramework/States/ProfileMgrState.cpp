@@ -14,7 +14,9 @@ bool ProfileMgrState::Update()
 
 bool ProfileMgrState::Draw()
 {
+
 	logoImage->drawImage();
+	
 	
 	if(!creatingProfile)
 	{
@@ -24,16 +26,20 @@ bool ProfileMgrState::Draw()
 		if(myMenu != NULL)
 			myMenu->Draw();
 	}
-	if(creatingProfile)
+	else if((creatingProfile)&&(checked == 0))
 	{
+		backgroundImage->drawImage();
+		glColor3ub(0, 0, 0);
 		GameVars->fontArial24.drawText(150, 300, "Enter Your Name: ");
 		GameVars->fontArial24.drawText(400, 300, tempString);
 		GameVars->fontArial24.drawText(150, 350, "Press the ENTER key when finished");
 		GameVars->fontArial24.drawText(150, 400, "No numbers or special characters");
 		GameVars->fontArial24.drawText(150, 450, "Or press the escape key to return to the main menu");
 	}
-	if((creatingProfile)&&(checked == 1))
+	else if((creatingProfile)&&(checked == 1))
 	{
+		backgroundImage->drawImage();
+		glColor3ub(0, 0, 0);
 		GameVars->fontArial24.drawText(150, 300, "Name already exists, please enter another name: ");
 		GameVars->fontArial24.drawText(150, 350, "Or press the escape key to return to the main menu");
 	}
@@ -209,26 +215,5 @@ void ProfileMgrState::setPlayerInfo(std::string name, int score, int curLevel, i
 
 bool ProfileMgrState::doesNameAlreadyExists(std::string playerGame)
 {
-	ifstream PlayerInfo;
-	
-	std::string playerName = playerGame;
-	std::string newTempString = "";
-
-	newTempString = "savedGames\\";
-	newTempString += playerName.c_str();
-	newTempString += ".txt";
-	std::cout << "Checking if " << newTempString << " exists " << endl;
-
-	PlayerInfo.open(newTempString.c_str());
-
-	if(!PlayerInfo)
-	{
-		std::cout << "file doesn't exist" << endl;
-		newTempString = "";
-		PlayerInfo.close();
-		return false;
-	}
-
-	std::cout << "file exists" << endl;
-	return true;
+	return GameVars->PM->createProfile(tempString);
 }
