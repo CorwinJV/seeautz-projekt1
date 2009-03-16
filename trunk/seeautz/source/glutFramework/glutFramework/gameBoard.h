@@ -156,6 +156,17 @@ public:
 	// Setting Function Pointers
 	void SetInterfaceAdvanceHandler(CFunctionPointer2R<bool, instructionTab, logicBlock*> interfaceAdvanceHandler);
 
+	void panup();
+	void panleft();
+	void panright();
+	void pandown();
+	void panupleft();
+	void panupright();
+	void pandownleft();
+	void pandownright();
+	void zoomout();
+	void zoomin();
+
 
 	GameBoardState getCurState();							// returns the current state of the gameBoard	
 };

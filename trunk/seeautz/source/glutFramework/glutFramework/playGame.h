@@ -21,6 +21,9 @@ private:
 	vector<oglTexture2D*> endGamePics;
 	vector<oglTexture2D*>::iterator endGameAnimation;
 	MenuSys* myMenu;
+	MenuSys* compass;
+	int compassOffsetX;
+	int compassOffsetY;
 	oglTexture2D* img;
 	oglTexture2D* blackImage;
 	oglTexture2D* youDiedImage;
@@ -35,6 +38,17 @@ private:
 	int preGameTextSpacing;
 	int playerScore;
 	void drawLevelInfo();
+
+	void panup();
+	void panleft();
+	void panright();
+	void pandown();
+	void panupleft();
+	void panupright();
+	void pandownleft();
+	void pandownright();
+	void zoomout();
+	void zoomin();
 
 public:
 	playGame();
