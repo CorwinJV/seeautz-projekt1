@@ -12,7 +12,11 @@ class DevLogoState : public GameState
 {
 private:
 	bool theyWantOut;
-	oglTexture2D* logo;
+	//oglTexture2D* logo;
+	int logo;
+	oglTexture2D* logo1;
+	oglTexture2D* logo2;
+	oglTexture2D* logo3;
 	clock_t timer;
 	double opacity;
 	int logostate;
@@ -45,9 +49,14 @@ public:
 	{
 		theyWantOut = false;
 		opacity = 0;
-		logo = new oglTexture2D();
-		if(logo != NULL)
-			logo->loadImage("seeautslogo.png", 1024, 768);
+		logo1 = new oglTexture2D();
+		logo1->loadImage("seeautslogo.png", 1024, 768);
+
+		logo2 = new oglTexture2D();
+		logo2->loadImage("logopresents.png", 1024, 768);
+
+		logo3 = new oglTexture2D();
+		logo3->loadImage("stupidrobot.png", 1024, 768);
 
 		//logo->mX = -500;
 		//logo->mY = 500;

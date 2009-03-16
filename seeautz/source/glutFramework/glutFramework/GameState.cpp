@@ -19,7 +19,7 @@ GameState::GameState(GameStateManager &Parent, int newID)	// constructor
 
 	// logo image
 	logoImage = new oglTexture2D;
-	logoImage->loadImage("logoprojekt1narrow.png", 1024, 150);
+	logoImage->loadImage("stupidrobotnarrow.png", 1024, 150);
 	logoImage->mX = 0;
 	logoImage->mY = 50;
 
@@ -33,6 +33,11 @@ GameState::GameState(GameStateManager &Parent, int newID)	// constructor
     // graphics.IsFullScreen = true;
 
     initialize();
+}
+
+void GameState::clearBackground()
+{
+	glClearColor(255, 255, 255, 0);
 }
 
 GameState::~GameState()

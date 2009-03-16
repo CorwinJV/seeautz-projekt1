@@ -1,3 +1,5 @@
+#define fullscreen 0
+
 /////////////////////////////////////////////////////////////
 /// oglApp.cpp
 ///		Here's the definition for the OGL Framework.
@@ -20,7 +22,18 @@ oglApp::oglApp(std::string title, int sizeX, int sizeY, int argc, char **argv)
 	glutInitWindowSize(sizeX, sizeY);
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-	glutCreateWindow(title.c_str());
+
+	if(fullscreen != 1)
+	{
+		// windowed mode
+		glutCreateWindow(title.c_str());
+	}
+	else
+	{
+		// full screen mode
+		glutGameModeString("1024x768:32@60");
+		glutEnterGameMode();
+	}
 
 	// Unfortunately the glut callback registration stuff is tricky
 	// and has to be done from program.cpp

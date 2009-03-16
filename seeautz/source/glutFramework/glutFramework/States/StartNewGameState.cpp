@@ -8,7 +8,6 @@ bool StartNewGameState::Update()
 	{
 		GSM->addGameState<playGame>();
 		this->setStatus(DeleteMe);
-		glClearColor(0, 0, 0, 0);
 	}
 
 	return true;
@@ -16,7 +15,7 @@ bool StartNewGameState::Update()
 
 bool StartNewGameState::Draw()
 {
-	glClearColor(0, 0, 0, 0);
+	clearBackground();
 	logoImage->drawImage();
 	backgroundImage->drawImage();
 

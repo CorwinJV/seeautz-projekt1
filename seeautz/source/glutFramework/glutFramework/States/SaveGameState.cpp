@@ -135,8 +135,6 @@ bool SaveGameState::PauseGameCallback()
 {
 	GSM->addGameState<PauseGameState>();
 	this->setStatus(DeleteMe);
-	glClearColor(0, 0, 0, 0);
-
 	return true;
 }
 

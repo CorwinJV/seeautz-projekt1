@@ -56,8 +56,6 @@ bool ProfileMgrState::MainMenuStateCallback()
 {
 	GSM->addGameState<MainMenuState>();
 	this->setStatus(DeleteMe);
-	glClearColor(0, 0, 0, 0);
-
 	return true;
 }
 

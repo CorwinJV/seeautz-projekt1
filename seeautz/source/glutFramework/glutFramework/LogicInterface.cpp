@@ -60,8 +60,8 @@ LogicInterface::LogicInterface()
 	myMenu->setLastButtonPosition(instructionListBox.x + instructionListBox.width, instructionListBox.y + instructionListBox.height - 45);
 
 	myMenu->addButton("buttons\\execute.png", "buttons\\execute.png", "buttons\\execute.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ExecuteButtonClick));
-	myMenu->setLastButtonDimensions(100, 50);
-	myMenu->setLastButtonPosition(instructionListBox.x+45 + instructionListBox.width +  100, logicBankBox.y+25);
+	myMenu->setLastButtonDimensions(75, 30);
+	myMenu->setLastButtonPosition(instructionListBox.x+45 + instructionListBox.width +  100+50, logicBankBox.y+25);
 
 	myMenu->addButton("blank.png", "blank.png", "blank.png", BE::CreateFunctionPointer0R(this, &LogicInterface::MainTabButtonClick));
 	myMenu->setLastButtonDimensions(50, 20);
@@ -76,18 +76,18 @@ LogicInterface::LogicInterface()
 	myMenu->setLastButtonPosition(469,575);
 	
 	myMenu->addButton("buttons\\clear.png", "buttons\\clear.png", "buttons\\clear.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ClearButtonClick));
-	myMenu->setLastButtonDimensions(50, 25);
-	myMenu->setLastButtonPosition(instructionListBox.x + instructionListBox.width + 25, instructionListBox.y + (instructionListBox.height / 2) - (25 / 2));
+	myMenu->setLastButtonDimensions(75, 30);
+	myMenu->setLastButtonPosition(instructionListBox.x+45 + instructionListBox.width +  100+50, logicBankBox.y+25+35);
 
 	resetMenu = new MenuSys(0, 0, "blank.png", None);
 	resetMenu->addButton("buttons\\reset.png", "buttons\\reset.png", "buttons\\reset.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ResetButtonClick));
-	resetMenu->setLastButtonDimensions(100, 50);
-	resetMenu->setLastButtonPosition(instructionListBox.x +45+ instructionListBox.width +  100, logicBankBox.y + 70 +15);
+	resetMenu->setLastButtonDimensions(75, 30);
+	resetMenu->setLastButtonPosition(instructionListBox.x+45 + instructionListBox.width +  100+50, logicBankBox.y+25+35+35);
 
 	executingMenu = new MenuSys(0, 0, "blank.png", None);
 	executingMenu->addButton("buttons\\abort.png", "buttons\\abort.png", "buttons\\abort.png", BE::CreateFunctionPointer0R(this, &LogicInterface::AbortButtonClick));
-	executingMenu->setLastButtonDimensions(100, 50);
-	executingMenu->setLastButtonPosition(instructionListBox.x +45 + instructionListBox.width +  100, logicBankBox.y+25);
+	executingMenu->setLastButtonDimensions(75, 30);
+	executingMenu->setLastButtonPosition(instructionListBox.x +45 + instructionListBox.width +  100+50, logicBankBox.y+25);
 
 	panelArt = new oglTexture2D();
 	panelArt->loadImage("Panel.png", 1024, 190);

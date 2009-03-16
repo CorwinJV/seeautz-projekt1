@@ -19,9 +19,8 @@ int profileManager::getPlayerCurrentLevel()
 	return playerCurrentLevel;
 }
 	
-std::vector<levelInfo> profileManager::getPlayerLevelInfo()
+void profileManager::getPlayerLevelInfo()
 {
-	return playerLevelInfo;
 }
 	
 void profileManager::setPlayerName(string name)
@@ -41,8 +40,4 @@ void profileManager::setPlayerCurrentLevel(int level)
 	
 void profileManager::setPlayerLevelInfo(int commands, int instructs, int level, int score)
 {
-	playerLevelInfo.leastAmtCommands = commands;
-	playerLevelInfo.leastAmtInstructs = instructs;
-	playerLevelInfo.level = level;
-	playerLevelInfo.levelHighScore = score;
 }

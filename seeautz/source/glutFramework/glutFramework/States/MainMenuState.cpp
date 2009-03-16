@@ -18,7 +18,7 @@ bool MainMenuState::Update()
 
 bool MainMenuState::Draw()
 {
-	glClearColor(0, 0, 0, 0);
+	clearBackground();
 	logoImage->drawImage();
 	//backgroundImage->drawImage();
 
@@ -44,8 +44,6 @@ bool MainMenuState::StartNewGameCallback()
 {
 	GSM->addGameState<StartNewGameState>();
 	this->setStatus(DeleteMe);
-	glClearColor(0, 0, 0, 0);
-
 	return true;
 } 
 
@@ -53,7 +51,6 @@ bool MainMenuState::ProfileManagerCallback()
 {
 	GSM->addGameState<ProfileMgrState>();
 	this->setStatus(DeleteMe);
-	glClearColor(0, 0, 0, 0);
 	Update();
 
 	return true;
@@ -63,7 +60,6 @@ bool MainMenuState::LoadGameCallback()
 {
 	GSM->addGameState<LoadGameState>();
 	this->setStatus(DeleteMe);
-	glClearColor(0, 0, 0, 0);
 	Update();
 
 	return true;
@@ -81,7 +77,6 @@ bool MainMenuState::Credits()
 	// credit vector to display here
 	GSM->addGameState<CreditsState>();
 	this->setStatus(DeleteMe);
-	glClearColor(0, 0, 0, 0);
 	Update();
 	return true;
 }

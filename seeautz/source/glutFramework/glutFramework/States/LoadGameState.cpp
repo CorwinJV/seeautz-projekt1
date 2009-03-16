@@ -10,7 +10,7 @@ bool LoadGameState::Update()
 
 bool LoadGameState::Draw()
 {
-	glClearColor(0, 0, 0, 0);
+	clearBackground();
 	logoImage->drawImage();
 
 	if(finished == 0)
@@ -87,8 +87,6 @@ bool LoadGameState::MainMenuCallback()
 {
 	GSM->addGameState<MainMenuState>();
 	this->setStatus(DeleteMe);
-	glClearColor(0, 0, 0, 0);
-
 	return true;
 } 
 
@@ -96,8 +94,6 @@ bool LoadGameState::playGameCallback()
 {
 	GSM->addGameState<playGame>();
 	this->setStatus(DeleteMe);
-	glClearColor(0, 0, 0, 0);
-
 	return true;
 } 
 
@@ -105,8 +101,6 @@ bool LoadGameState::levelSelectCallback()
 {
 	GSM->addGameState<LevelSelectState>();
 	this->setStatus(DeleteMe);
-	glClearColor(0, 0, 0, 0);
-
 	return true;
 }
 
