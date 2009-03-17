@@ -84,7 +84,7 @@ public:
 	};
 	void		saveProfile();
 	bool		selectProfile(string);
-	void		deleteProfile();
+	void		deleteProfile(string);
 	bool		createProfile(string);
 	void		loadAllProfiles();
 
