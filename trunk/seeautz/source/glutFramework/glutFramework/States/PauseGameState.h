@@ -35,6 +35,7 @@ public:
 	bool LevelSelectCallback();
 	bool MainMenuCallback();
 	bool ReturnToGameCallback();
+	void keyboardInput(unsigned char c, int x, int y);
 
 private:
 	oglTexture2D* img;

@@ -615,6 +615,11 @@ void gameBoard::mapScroll()
 		//mapOffsetY+= moveSpeed;
 		currentX-=mMoveSpeed;
 		currentY-=mMoveSpeed;
+		if(!verifyMapPosition())
+		{
+			currentX += mMoveSpeed;
+			currentY += mMoveSpeed;
+		}
 	}
 
 	// see if mouse is at bottom of screen
@@ -623,6 +628,11 @@ void gameBoard::mapScroll()
 		//mapOffsetY-= moveSpeed;
 		currentX+= mMoveSpeed;
 		currentY+= mMoveSpeed;
+		if(!verifyMapPosition())
+		{
+			currentX -= mMoveSpeed;
+			currentY -= mMoveSpeed;
+		}
 	}
 	// see if mouse is at left side of screen
 	if((mouseX > 0) && (mouseX < screenEdgeWidth * screenEdge))
@@ -630,6 +640,12 @@ void gameBoard::mapScroll()
 		//mapOffsetX+= moveSpeed;
 		currentX-=mMoveSpeed;
 		currentY+=mMoveSpeed;
+		if(!verifyMapPosition())
+		{
+			currentX += mMoveSpeed;
+			currentY -= mMoveSpeed;
+		}
+
 	}
 	// see if mouse is at right side of screen
 	if((mouseX < screenEdgeWidth) && (mouseX > (screenEdgeWidth - (screenEdgeWidth * screenEdge))))
@@ -637,6 +653,11 @@ void gameBoard::mapScroll()
 		//mapOffsetX-= moveSpeed;
 		currentX+=mMoveSpeed;
 		currentY-=mMoveSpeed;
+		if(!verifyMapPosition())
+		{
+			currentX -= mMoveSpeed;
+			currentY += mMoveSpeed;
+		}
 	}
 
 	verifyMapPosition();
@@ -652,31 +673,67 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	{
 	case 'q': //up-left
 		currentX -= kbmovespeed;
+		if(!verifyMapPosition())
+		{
+			currentX += kbmovespeed;
+		}
 		break;
 	case 'e': // up-right
 		currentY -= kbmovespeed;
+		if(!verifyMapPosition())
+		{
+			currentY += kbmovespeed;
+		}
 		break;
 	case 'z': // down-left
 		currentY += kbmovespeed;
+		if(!verifyMapPosition())
+		{
+			currentY -= kbmovespeed;
+		}
 		break;
 	case 'c': // down-right
 		currentX += kbmovespeed;
+		if(!verifyMapPosition())
+		{
+			currentX -= kbmovespeed;
+		}
 		break;
 	case 'w': // up
 		currentY -= kbmovespeed;
 		currentX -= kbmovespeed;
+		if(!verifyMapPosition())
+		{
+			currentX += kbmovespeed;
+			currentY += kbmovespeed;
+		}
 		break;
 	case 'a':  // left
 		currentY += kbmovespeed;
 		currentX -= kbmovespeed;
+		if(!verifyMapPosition())
+		{
+			currentX -= kbmovespeed;
+			currentY += kbmovespeed;
+		}
 		break;
 	case 'd': // right
 		currentX += kbmovespeed;
 		currentY -= kbmovespeed;
+		if(!verifyMapPosition())
+		{
+			currentX -= kbmovespeed;
+			currentY += kbmovespeed;
+		}
 		break;
 	case 's': // down
 		currentY += kbmovespeed;
 		currentX += kbmovespeed;
+		if(!verifyMapPosition())
+		{
+			currentX -= kbmovespeed;
+			currentY -= kbmovespeed;
+		}
 		break;
 	case '-':	// zoom out (decrease scale)
 		scale -= 0.05;
@@ -942,7 +999,7 @@ void gameBoard::playSound()
 	ourSound->playSound("sound\\click.wav");
 }
 
-void gameBoard::verifyMapPosition()
+bool gameBoard::verifyMapPosition()
 {
 	recalcPositions();
 
@@ -950,23 +1007,27 @@ void gameBoard::verifyMapPosition()
 	if((mapOffsetY + overallHeight) < (screenHeight - screenHeight * screenEdge))
 	{
 		mapOffsetY = (screenHeight - screenHeight * screenEdge) - overallHeight;
+		return false;
 	}
 	// max down ( checks top )
 	if((mapOffsetY) > (screenHeight * screenEdge))
 	{
 		mapOffsetY = screenHeight * screenEdge;
+		return false;
 	}
 
 	//// max left ( checking right )
 	if((mapOffsetX + ((Width +2)*hw)) < (screenWidth - screenWidth * screenEdge))
 	{
 		mapOffsetX = (screenWidth - screenWidth * screenEdge) - ((Width+2)*hw);
+		return false;
 	}
 
 	//// max right ( checking left )
 	if((mapOffsetX - ((Height-2)*hw)) > (screenWidth * screenEdge))
 	{
 		mapOffsetX = (screenWidth * screenEdge) + ((Height-2)*hw);
+		return false;
 	}
 
 	// now lets see if this board should be centered or not
@@ -981,6 +1042,8 @@ void gameBoard::verifyMapPosition()
 		// center vertically
 		mapOffsetY = ((int)((Width - Height)/2) * hh) + (int)(screenHeight/2) - (int)(overallHeight/2);
 	}
+
+	return true;
 }
 
 void gameBoard::recalcPositions()
@@ -1215,6 +1278,7 @@ void gameBoard::processRobot()
 		{
 			GameVars->commandsProcessed--;
 		}
+
 		if(!delayAdvance)
 		{
 			(*oitr)->advanceCommand();
@@ -2163,7 +2227,7 @@ bool gameBoard::processSub(int whichSub)
 
 	std::vector<object*>::iterator oitr = objectList.begin();
 
-	for(;oitr != objectList.end(); oitr++)
+	for(;oitr != objectList.end(); oitr++)	// finding the robot
 	{
 		if((*oitr)->getType() == ORobot)
 		{
@@ -2266,6 +2330,11 @@ void gameBoard::panleft()
 	recalcPositions();
 	currentX -= moveSpeed*2;
 	currentY += moveSpeed*2;
+	if(!verifyMapPosition())
+	{
+		currentX += moveSpeed*2;
+		currentY -= moveSpeed*2;
+	}
 }
 
 void gameBoard::panright()
@@ -2273,6 +2342,11 @@ void gameBoard::panright()
 	recalcPositions();
 	currentX += moveSpeed*2;
 	currentY -= moveSpeed*2;
+	if(!verifyMapPosition())
+	{
+		currentX -= moveSpeed*2;
+		currentY += moveSpeed*2;
+	}
 }
 
 void gameBoard::panup()
@@ -2280,6 +2354,11 @@ void gameBoard::panup()
 	recalcPositions();
 	currentX -= moveSpeed*2;
 	currentY -= moveSpeed*2;
+	if(!verifyMapPosition())
+	{
+		currentX += moveSpeed*2;
+		currentY += moveSpeed*2;
+	}
 }
 
 void gameBoard::pandown()
@@ -2287,26 +2366,47 @@ void gameBoard::pandown()
 	recalcPositions();
 	currentX += moveSpeed*2;
 	currentY += moveSpeed*2;
+	if(!verifyMapPosition())
+	{
+		currentX -= moveSpeed*2;
+		currentY -= moveSpeed*2;
+	}
 }
 void gameBoard::panupleft()
 {
 	recalcPositions();
 	currentX -= moveSpeed*2;
+	if(!verifyMapPosition())
+	{
+		currentX += moveSpeed*2;
+	}
 }
 void gameBoard::panupright()
 {
 	recalcPositions();
 	currentY -= moveSpeed*2;
+	if(!verifyMapPosition())
+	{
+		currentY += moveSpeed*2;
+	}
 }
 void gameBoard::pandownleft()
 {
 	recalcPositions();
 	currentY += moveSpeed*2;
+	if(!verifyMapPosition())
+	{
+		currentY -= moveSpeed*2;
+	}
 }
 void gameBoard::pandownright()
 {
 	recalcPositions();
 	currentX += moveSpeed*2;
+	if(!verifyMapPosition())
+	{
+		currentX -= moveSpeed*2;
+	}
 }
 void gameBoard::zoomout()
 {
@@ -2320,4 +2420,8 @@ void gameBoard::center()
 {
 	currentX = robotX;
 	currentY = robotY;
+}
+bool gameBoard::getRobotAlive()
+{
+	return robotAlive;
 }

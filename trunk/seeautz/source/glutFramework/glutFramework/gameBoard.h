@@ -111,7 +111,7 @@ protected:
 	bool setOffsets(int x, int y);
 	bool setScale(double newScale);
 	double getScale();
-	void verifyMapPosition();
+	bool verifyMapPosition();
 	void recalcPositions();
 	bool resetMap();
 	void processRobot();
@@ -148,6 +148,7 @@ public:
 	void mapScroll();
 	void keyboardInput(unsigned char c, int x, int y);
 	bool robotAtEndSquare();
+	bool getRobotAlive();
 		
 	bool interfaceHasFiredExecuteOrder(std::vector<logicBlock*> executionList, std::vector<logicBlock*> executionListSub1, std::vector<logicBlock*> executionListSub2);
 	bool interfaceHasFiredAbortOrder();

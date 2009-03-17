@@ -28,6 +28,12 @@ GameState::GameState(GameStateManager &Parent, int newID)	// constructor
 	backgroundImage->loadImage("CommandList.png",800, 500);
 	backgroundImage->mX = 1024/2 - backgroundImage->dX/2;
 	backgroundImage->mY = (768-logoImage->dY)/2 - backgroundImage->dY/2 + logoImage->dY;
+
+	// solid white background
+	solidWhite = new oglTexture2D;
+	solidWhite->loadImage("white.png", 1024, 768);
+	solidWhite->mX = 0;
+	solidWhite->mY = 0;
     //graphics = new GraphicsDeviceManager(this);
     //content = new ContentManager(Services);
     // graphics.IsFullScreen = true;

@@ -23,6 +23,7 @@ protected:
 	clock_t timer;
 	oglTexture2D *logoImage;
 	oglTexture2D *backgroundImage;
+	oglTexture2D *solidWhite;
 
 public:
 	GameState();

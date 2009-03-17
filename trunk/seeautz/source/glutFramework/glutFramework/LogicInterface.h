@@ -64,6 +64,7 @@ private:
 	oglTexture2D* commandBackdrop2;
 	oglTexture2D* scrollBar;
 	oglTexture2D* insertionLine;
+	oglTexture2D* bytesLeftBackground;
 
 	int mouseX;
 	int mouseY;

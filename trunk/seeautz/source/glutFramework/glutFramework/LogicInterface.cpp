@@ -59,7 +59,7 @@ LogicInterface::LogicInterface()
 	myMenu->setLastButtonDimensions(25, 25);
 	myMenu->setLastButtonPosition(instructionListBox.x + instructionListBox.width, instructionListBox.y + instructionListBox.height - 45);
 
-	myMenu->addButton("buttons\\execute.png", "buttons\\execute.png", "buttons\\execute.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ExecuteButtonClick));
+	myMenu->addButton("buttons\\execute.png", "buttons\\executehover.png", "buttons\\executehover.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ExecuteButtonClick));
 	myMenu->setLastButtonDimensions(75, 30);
 	myMenu->setLastButtonPosition(instructionListBox.x+45 + instructionListBox.width +  100+50, logicBankBox.y+25);
 
@@ -75,17 +75,17 @@ LogicInterface::LogicInterface()
 	myMenu->setLastButtonDimensions(50, 20);
 	myMenu->setLastButtonPosition(469,575);
 	
-	myMenu->addButton("buttons\\clear.png", "buttons\\clear.png", "buttons\\clear.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ClearButtonClick));
+	myMenu->addButton("buttons\\clear.png", "buttons\\clearhover.png", "buttons\\clearhover.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ClearButtonClick));
 	myMenu->setLastButtonDimensions(75, 30);
 	myMenu->setLastButtonPosition(instructionListBox.x+45 + instructionListBox.width +  100+50, logicBankBox.y+25+35);
 
 	resetMenu = new MenuSys(0, 0, "blank.png", None);
-	resetMenu->addButton("buttons\\reset.png", "buttons\\reset.png", "buttons\\reset.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ResetButtonClick));
+	resetMenu->addButton("buttons\\reset.png", "buttons\\resethover.png", "buttons\\resethover.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ResetButtonClick));
 	resetMenu->setLastButtonDimensions(75, 30);
 	resetMenu->setLastButtonPosition(instructionListBox.x+45 + instructionListBox.width +  100+50, logicBankBox.y+25+35+35);
 
 	executingMenu = new MenuSys(0, 0, "blank.png", None);
-	executingMenu->addButton("buttons\\abort.png", "buttons\\abort.png", "buttons\\abort.png", BE::CreateFunctionPointer0R(this, &LogicInterface::AbortButtonClick));
+	executingMenu->addButton("buttons\\abort.png", "buttons\\aborthover.png", "buttons\\aborthover.png", BE::CreateFunctionPointer0R(this, &LogicInterface::AbortButtonClick));
 	executingMenu->setLastButtonDimensions(75, 30);
 	executingMenu->setLastButtonPosition(instructionListBox.x +45 + instructionListBox.width +  100+50, logicBankBox.y+25);
 
@@ -127,6 +127,11 @@ LogicInterface::LogicInterface()
 	executionListYOffset = 0;
 
 	isMouseDragging = false;
+
+	bytesLeftBackground = new oglTexture2D;
+	bytesLeftBackground->loadImage("CommandList.png", 265, 125);
+	bytesLeftBackground->mX = 745;
+	bytesLeftBackground->mY = logicBankBox.y - 60;
 }
 
 void LogicInterface::Update()
@@ -226,11 +231,13 @@ void LogicInterface::Update()
 
 void LogicInterface::Draw()
 {
-	oglTexture2D tempBlackThing;
-	tempBlackThing.loadImage("black.png", 225, 75);
+	//oglTexture2D tempBlackThing;
+	/*tempBlackThing.loadImage("black.png", 225, 75);
 	tempBlackThing.mX = 760;
 	tempBlackThing.mY = logicBankBox.y - 60;
-	tempBlackThing.drawImageFaded(0.75);
+	tempBlackThing.drawImageFaded(0.75);*/
+	bytesLeftBackground->drawImage();
+
 
 	// draw panel background
 	panelArt->drawImage();
@@ -453,7 +460,7 @@ void LogicInterface::Draw()
 	//=============================================
 	// Byte Limit Stuff
 
-	glColor3ub(0, 255, 0);
+	glColor3ub(0, 0, 0);
 	std::stringstream ss;
 	std::string s;
 	ss << usedBytes;
