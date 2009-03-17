@@ -39,16 +39,17 @@ private:
 	int playerScore;
 	void drawLevelInfo();
 
-	void panup();
-	void panleft();
-	void panright();
-	void pandown();
-	void panupleft();
-	void panupright();
-	void pandownleft();
-	void pandownright();
-	void zoomout();
-	void zoomin();
+	bool panup();
+	bool panleft();
+	bool panright();
+	bool pandown();
+	bool panupleft();
+	bool panupright();
+	bool pandownleft();
+	bool pandownright();
+	bool zoomout();
+	bool zoomin();
+	bool center();
 
 public:
 	playGame();

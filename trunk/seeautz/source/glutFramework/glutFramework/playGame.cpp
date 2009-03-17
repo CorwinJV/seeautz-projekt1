@@ -435,7 +435,7 @@ bool playGame::initialize()
 	compass->setLastButtonPosition(compassOffsetX, compassOffsetY+33+48-3);
 
 	// center
-	compass->addButton("compass\\center.png", "compass\\center.png", "compass\\center.png", 0, 0);
+	compass->addButton("compass\\center.png", "compass\\centerhover.png", "compass\\centerhover.png", CreateFunctionPointer0R(this, &playGame::center));
 	compass->setLastButtonDimensions(51, 47);
 	compass->setLastButtonPosition(compassOffsetX+51, compassOffsetY+33+48-3);
 
@@ -470,16 +470,17 @@ bool playGame::initialize()
 	return true;
 }
 
-void playGame::panleft()		{	gamePlay->panleft();	}
-void playGame::panright()		{	gamePlay->panright();	}
-void playGame::panup()			{	gamePlay->panup();		}
-void playGame::pandown()		{	gamePlay->pandown();	}
-void playGame::panupleft()		{	gamePlay->panupleft();	}
-void playGame::panupright()		{	gamePlay->panupright();	}
-void playGame::pandownleft()	{	gamePlay->pandownleft();}
-void playGame::pandownright()	{	gamePlay->pandownright();}
-void playGame::zoomout()		{	gamePlay->zoomout();	}
-void playGame::zoomin()			{	gamePlay->zoomin();		}
+bool playGame::panleft()		{	gamePlay->panleft();	return true;}
+bool playGame::panright()		{	gamePlay->panright();	return true;}
+bool playGame::panup()			{	gamePlay->panup();		return true;}
+bool playGame::pandown()		{	gamePlay->pandown();	return true;}
+bool playGame::panupleft()		{	gamePlay->panupleft();	return true;}
+bool playGame::panupright()		{	gamePlay->panupright();	return true;}
+bool playGame::pandownleft()	{	gamePlay->pandownleft();return true;}
+bool playGame::pandownright()	{	gamePlay->pandownright();return true;}
+bool playGame::zoomout()		{	gamePlay->zoomout();	return true;}
+bool playGame::zoomin()			{	gamePlay->zoomin();		return true;}
+bool playGame::center()			{	gamePlay->center();		return true;}
 
 void playGame::processMouse(int x, int y)
 {

@@ -166,6 +166,7 @@ public:
 	void pandownright();
 	void zoomout();
 	void zoomin();
+	void center();
 
 
 	GameBoardState getCurState();							// returns the current state of the gameBoard	
