@@ -56,10 +56,7 @@ bool ProfileMgrState::Draw()
 		GameVars->fontArial24.drawText(150, 300, "Name already exists, please enter another name: ");
 		GameVars->fontArial24.drawText(150, 350, "Or press the escape key to return to the main menu");
 	}
-	else if((!creatingProfile)&&(checked == 2))
-	{
-		
-	}
+	
 
 	return false;
 }
@@ -109,8 +106,6 @@ bool ProfileMgrState::CreateProfile()
 		tempString = "";
 		GSM->addGameState<clickOKState>();
 	}
-	
-	
 	
 	return true;
 }
