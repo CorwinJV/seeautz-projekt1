@@ -69,13 +69,14 @@ bool playGame::Update()
 
 	case GB_ROBOTDIED:
 		gameSaved = false;
+		doneDead = false;
 		if(pregameRunning)
 		{
 			timer = clock();
 			if(timer > (startTime + 5000))
 			{
 				pregameRunning = false;
-				gamePlay->setState(GB_LOGICVIEW);
+				doneDead = true;
 			}
 		}
 		else
@@ -153,6 +154,13 @@ bool playGame::Update()
 
 	default:
 		break;
+	}
+
+	if((!gamePlay->getRobotAlive()) && doneDead)
+	{
+		mInterface.AbortButtonClick();
+		doneDead = false;
+		gamePlay->setState(GB_LOGICVIEW);
 	}
 
 	return true;
@@ -343,6 +351,7 @@ bool playGame::initialize()
 	int playerCurrentLevel;
 	youDiedImage = new oglTexture2D();
 	youDiedImage->loadImage("youdied.png", 1024,768);
+	doneDead = false;
 
 	gamePlay = new gameBoard();
 
@@ -356,8 +365,9 @@ bool playGame::initialize()
 
 	// debug brute force of level
 	// abcxyz
-	//playerCurrentLevel = 0;
+	playerCurrentLevel = 0;
 	GameVars->setLevel(playerCurrentLevel);
+	
 	
 
 	tempString = GameVars->getFilename(playerCurrentLevel);
@@ -547,11 +557,22 @@ void playGame::keyboardInput(unsigned char c, int x, int y)
 		gamePlay->keyboardInput(c, x, y);
 		break;
 	case GB_PREGAME:
+		switch(c)
+		{
+		case 27:
+			gamePlay->setState(GB_LOGICVIEW);
+			//doneDead = false;
+			break;
+		default:
+			break;
+		}
+		break;
 	case GB_ROBOTDIED:
 		switch(c)
 		{
 		case 27:
 			gamePlay->setState(GB_LOGICVIEW);
+			doneDead = true;
 			break;
 		default:
 			break;

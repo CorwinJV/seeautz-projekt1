@@ -38,6 +38,7 @@ private:
 	int preGameTextSpacing;
 	int playerScore;
 	void drawLevelInfo();
+	bool doneDead;
 
 	bool panup();
 	bool panleft();

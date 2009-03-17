@@ -41,6 +41,7 @@ bool LevelSelectState::Draw()
 	int tempInt;
 
 	clearBackground();
+	solidWhite->drawImage();
 	logoImage->drawImage();
 
 	backgroundImage->drawImage();

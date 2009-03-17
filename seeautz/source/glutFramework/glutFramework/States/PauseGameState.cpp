@@ -76,3 +76,15 @@ void PauseGameState::processMouseClick(int button, int state, int x, int y)
 	if(myMenu != NULL)
 		myMenu->processMouseClick(button, state, x, y);
 }
+
+void PauseGameState::keyboardInput(unsigned char c, int x, int y)
+{
+	switch(c)
+	{
+	case 27:
+		this->setStatus(DeleteMe);
+		break;
+	default:
+		break;
+	}
+}
