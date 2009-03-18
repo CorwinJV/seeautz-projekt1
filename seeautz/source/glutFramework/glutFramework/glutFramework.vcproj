@@ -268,7 +268,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\createProfileState.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CreditsState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\deleteProfileState.cpp"
 					>
 				</File>
 				<File
@@ -301,6 +309,10 @@
 				</File>
 				<File
 					RelativePath=".\States\SaveGameState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\selectProfileState.cpp"
 					>
 				</File>
 				<File
@@ -474,6 +486,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\createProfileState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\deleteProfileState.h"
+					>
+				</File>
+				<File
 					RelativePath=".\States\DevLogoState.h"
 					>
 				</File>
@@ -503,6 +523,10 @@
 				</File>
 				<File
 					RelativePath=".\States\SaveGameState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\selectProfileState.h"
 					>
 				</File>
 				<File

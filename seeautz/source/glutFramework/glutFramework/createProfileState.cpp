@@ -1,6 +1,6 @@
-#include "ProfileMgrState.h"
+#include "createProfileState.h"
 
-bool ProfileMgrState::Update()
+bool createProfileState::Update()
 {
 	if((!creatingProfile)&&(checked==2))
 	{
@@ -28,7 +28,7 @@ bool ProfileMgrState::Update()
 	return true;
 }
 
-bool ProfileMgrState::Draw()
+bool createProfileState::Draw()
 {
 
 	logoImage->drawImage();
@@ -62,48 +62,19 @@ bool ProfileMgrState::Draw()
 	return false;
 }
 
-void ProfileMgrState::processMouse(int x, int y)
+void createProfileState::processMouse(int x, int y)
 {
 	if(myMenu != NULL)
 		myMenu->processMouse(x, y);
 }
 
-void ProfileMgrState::processMouseClick(int button, int state, int x, int y)
+void createProfileState::processMouseClick(int button, int state, int x, int y)
 {
 	if(myMenu != NULL)
 		myMenu->processMouseClick(button, state, x, y);
 }
 
-bool ProfileMgrState::MainMenuStateCallback()
-{
-	GSM->addGameState<MainMenuState>();
-	this->setStatus(DeleteMe);
-
-	return true;
-}
-
-bool ProfileMgrState::DeleteProfile()
-{
-	GSM->addGameState<deleteProfileState>();
-	this->setStatus(Passive);
-	return true;
-}
-
-bool ProfileMgrState::CreateProfile()
-{
-	GSM->addGameState<createProfileState>();
-	this->setStatus(Passive);
-	return true;
-}
-
-bool ProfileMgrState::SelectProfile()
-{
-	GSM->addGameState<selectProfileState>();
-	this->setStatus(Passive);
-	return true;
-}
-
-void ProfileMgrState::keyboardInput(unsigned char c, int x, int y)
+void createProfileState::keyboardInput(unsigned char c, int x, int y)
 {
 	bool profileCheck;
 
@@ -213,7 +184,7 @@ void ProfileMgrState::keyboardInput(unsigned char c, int x, int y)
 
 }
 
-void ProfileMgrState::setPlayerInfo(std::string name, int score, int curLevel, int maxLevel)
+void createProfileState::setPlayerInfo(std::string name, int score, int curLevel, int maxLevel)
 {
 	GameVars->setPlayerName(name);
 	GameVars->setTotalScore(score);	
@@ -221,7 +192,7 @@ void ProfileMgrState::setPlayerInfo(std::string name, int score, int curLevel, i
 	GameVars->setPlayerMaxLevel(maxLevel);
 }
 
-bool ProfileMgrState::doesNameAlreadyExists(std::string playerGame)
+bool createProfileState::doesNameAlreadyExists(std::string playerGame)
 {
 	return GameVars->PM->createProfile(tempString);
 }

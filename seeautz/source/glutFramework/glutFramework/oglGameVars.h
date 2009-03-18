@@ -85,7 +85,7 @@ public:
 	std::vector<logicBlock*>*	oglGameVars::getAllLogicBlocks();
 	logicBlock*					getPlaceInstructionBlock();
 	bool						LoadPlayerGame(string name);
-	bool						SavePlayerGame();
+	bool						updatePlayerFile();
 	int							getTotalScore();
 	int							getLevelScore();
 	void						setLevelScore(int score);
@@ -111,6 +111,10 @@ public:
 	int							getLevelWidth();
 	void						setLevelHeight(int);
 	void						setLevelWidth(int);
+	void						setLevelCommands(int);
+	void						setLevelInstructions(int);
+	int							getLevelCommands();
+	int							getLevelInstructions();
 	bool						getTileActive(int, int);
 	std::string					getFilename(int);
 	std::string					getDesc(int);
@@ -147,6 +151,8 @@ private:
 	int maxLevel;
 	int playerMaxLevel;
 	int levelScore;
+	int levelCommands;
+	int levelInstructions;
 	int currentLevelBytes;
 	int levelSpecified;
 	bool inGame;

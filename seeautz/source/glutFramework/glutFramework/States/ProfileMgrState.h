@@ -9,6 +9,9 @@
 #include "LoadGameState.h"
 #include ".\..\playGame.h"
 #include ".\..\clickOKState.h"
+#include ".\..\selectProfileState.h"
+#include ".\..\createProfileState.h"
+#include ".\..\deleteProfileState.h"
 
 
 class ProfileMgrState : public GameState
@@ -17,7 +20,6 @@ public:
 	ProfileMgrState() {};
 	ProfileMgrState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
-		
 		creatingProfile = false; 
 		checked = 0;
 		img = new oglTexture2D();
@@ -44,7 +46,7 @@ public:
 	bool SelectProfile();
 	bool ProfileMgrState::doesNameAlreadyExists(std::string);
 	void ProfileMgrState::setPlayerInfo(std::string name, int, int, int);
-	bool creatingProfile;
+	
 	int checked;
 	std::string tempString; 
 
@@ -52,6 +54,7 @@ private:
 	oglTexture2D* img;
 	int maxLevels;
 	int numProfiles;
+	bool creatingProfile;
 	// add private stuff here
 
 };

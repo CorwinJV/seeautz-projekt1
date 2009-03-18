@@ -315,28 +315,36 @@ int oglGameVars::getBytesUsed()
 }
 
 
-bool oglGameVars::SavePlayerGame() 
+bool oglGameVars::updatePlayerFile() 
 {
+	// get the players name and ensure it isn't set to blank which would 
+	// break our vector
 	string playerGame;
-
 	playerGame = GameVars->getPlayerName();
 
 	if (playerGame == "")
 	{
 		playerGame = "defaultgame.txt";
+		GameVars->setPlayerName(playerGame);
 	}
 
 	cout << "Saving Game...  " << playerGame << endl;
+
+	//should this go through a for loop here to check the player name 
+	//against the database for a match?
+
 	ofstream PlayerInfo;
 	string tempString;
 	int highestLevel;
 	int currentLevel;
 	int level;
 	int levelHighScore;
+	int playerLevelScore;
 	int leastAmtCmds;
-	int leastAmtInstructs;
+	int playerCmds;
+	//int leastAmtInstructs;		// this will get used once implemented
+	//int playerInstructs;		// this too
 	bool inGame;
-	string playerName;
 	
 		// below are varible that will need to functions implemented for them to work properly
 		// once we are able to save our position on the map
@@ -352,25 +360,8 @@ bool oglGameVars::SavePlayerGame()
 	int width;
 	bool activeTile;
 	
-
+	// see if we are saving in game or between levels
 	inGame = GameVars->getGameStatus();
-
-	// open the master save file
-	tempString = "savedGames\\savefile.txt";
-		
-	PlayerInfo.open(tempString.c_str());
-
-	if(!PlayerInfo)
-		return false;
-
-	highestLevel = GameVars->getPlayerMaxLevel();
-	currentLevel = GameVars->getCurrentLevel();
-
-	if(currentLevel > highestLevel)
-	{
-		highestLevel = currentLevel;
-		GameVars->setPlayerMaxLevel(highestLevel);
-	}
 
 	// unless we are saving in the middle of a level, increment the level. 
 	// otherwise store the map information.
@@ -378,6 +369,7 @@ bool oglGameVars::SavePlayerGame()
 		currentLevel++;
 	else
 	{
+		// following is only used should we implement in game saves
 		xPos = GameVars->getRobotX();
 		yPos = GameVars->getRobotY();
 		bytesUsed = GameVars->getBytesUsed();
@@ -399,55 +391,90 @@ bool oglGameVars::SavePlayerGame()
 
 	}
 
-	// *** will have to pull score from current level ****
-	// *** then compare it against the score of the level just completed ***
-	levelHighScore = GameVars->getTotalScore();
-	playerName = GameVars->getPlayerName();
+	// get which level the player just completed for stat comparisons
+	// initialize variables for max level, level score, least amount of 
+	// commands used and least instructions used to compare against the 
+	// stats in the vector
+	level = GameVars->getCurrentLevel();
 
-	// code for saving stats here
-	PlayerInfo << level << endl;
-	PlayerInfo << levelHighScore << endl;
-	PlayerInfo << playerName << endl;
+	playerLevelScore = GameVars->getLevelScore();
+	levelHighScore = GameVars->PM->getPlayerLevelScore(level);
 
-	if(inGame)
+	leastAmtCmds = GameVars->PM->getPlayerLeastCmd(level);
+	playerCmds = GameVars->getLevelCommands();
+
+	//uncomment these once functionality is in place
+	/*leastAmtInstructs = GameVars->PM->getPlayerLeastInst();
+	playerInstructs = GameVars->getLevelInstructions();*/
+
+	highestLevel = GameVars->getPlayerMaxLevel();
+	currentLevel = GameVars->getCurrentLevel();
+
+	//in all cases, keep the better stats by replacing them
+	//also if stats are set to the initialized value of -1
+	//save over them
+	if(currentLevel > highestLevel)
+	{
+		highestLevel = currentLevel;
+		GameVars->setPlayerMaxLevel(highestLevel);
+	}
+
+	if(playerLevelScore > levelHighScore)
+	{
+		GameVars->PM->setPlayerLevelScore(level, playerLevelScore);
+	}
+
+	if((playerCmds < leastAmtCmds) || (leastAmtCmds == -1))
+	{
+		GameVars->PM->setPlayerLeastCmd(level, playerCmds);
+	}
+
+	//following can be uncommented once we implement it
+	/*if((playerInstructs < leastAmtInstructs) || (leastAmtInstructs == -1))
+	{
+		GameVars->PM->setPlayerLeastInst(level, playerInstructs);
+	}*/
+	
+
+	//below only needs to be implemented if/when we do in game saves
+	/*if(inGame)
 	{
 		PlayerInfo << xPos << " ";
 		PlayerInfo << yPos << " ";
-	}
-
-	PlayerInfo.close();
+	}*/
 
 	return true;
 }
 
 bool oglGameVars::LoadPlayerGame(string playerGame) 
 {	
-	cout << "Loading Game...: " << playerGame <<std::endl;
-	ifstream PlayerInfo;
-	string tempString;
-	int score;
-	int level;
-	string playerName;
+	//cout << "Loading Game...: " << playerGame <<std::endl;
+	//ifstream PlayerInfo;
+	//string tempString;
+	//int score;
+	//int level;
+	//string playerName;
+	//int tempInt;
 
-	tempString = "savedGames\\";
-	tempString += playerGame.c_str();
-	
-	if(!PlayerInfo)
-		return false;
+	//tempString = "savedGames\\";
+	//tempString += playerGame.c_str();
+	//
+	//if(!PlayerInfo)
+	//	return false;
 
-	PlayerInfo.open(tempString.c_str());
+	//PlayerInfo.open(tempString.c_str());
 
-	// code for loading player stats here
-	PlayerInfo >> level;
-	GameVars->setPlayerMaxLevel(level);
+	//// code for loading player stats here
+	//PlayerInfo >> level;
+	//GameVars->setPlayerMaxLevel(level);
 
-	PlayerInfo >> score;
-	GameVars->setTotalScore(score);
+	//PlayerInfo >> score;
+	//GameVars->setTotalScore(score);
 
-	PlayerInfo >> playerName;
-	GameVars->setPlayerName(playerName);
+	//PlayerInfo >> playerName;
+	//GameVars->setPlayerName(playerName);
 
-	PlayerInfo.close();
+	//PlayerInfo.close();
 	
 	return true;
 }
@@ -649,4 +676,24 @@ void oglGameVars::setPMStatus(int status)
 int oglGameVars::getPMStatus()
 {
 	return pmStatus;
+}
+
+void oglGameVars::setLevelCommands(int commands)
+{
+	levelCommands = commands;
+}
+
+void oglGameVars::setLevelInstructions(int instructions)
+{
+	levelInstructions = instructions;
+}
+
+int oglGameVars::getLevelCommands()
+{
+	return levelCommands;
+}
+
+int oglGameVars::getLevelInstructions()
+{
+	return levelInstructions;
 }
