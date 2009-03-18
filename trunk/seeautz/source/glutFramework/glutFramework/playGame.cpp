@@ -91,7 +91,7 @@ bool playGame::Update()
 		//save the game for the player, if it hasn't been saved yet
 		if(!gameSaved)
 		{
-			GameVars->SavePlayerGame();
+			GameVars->updatePlayerFile();
 			gameSaved = true;
 		}
 

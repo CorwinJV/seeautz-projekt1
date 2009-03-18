@@ -49,7 +49,7 @@ public:
 	int				getPlayerCurrentLevel(){return playerCurrentLevel;};
 	int				getPlayerLevel(int level){return playerLevelInfo[level]->level;};
 	int				getPlayerLevelScore(int level){return playerLevelInfo[level]->levelHighScore;};
-	int				getPlayerLeastCmd(int level){return playerLevelInfo[level]->levelHighScore;};
+	int				getPlayerLeastCmd(int level){return playerLevelInfo[level]->leastAmtCommands;};
 	int				getPlayerLeastInst(int level){return playerLevelInfo[level]->leastAmtInstructs;};
 	void			setPlayerName(string name){playerName = name;};
 	void			setPlayerHighestLevel(int level){playerHighestLevel = level;};
@@ -61,6 +61,10 @@ public:
 		playerLevelInfo[newLevel]->leastAmtCommands = commands;
 		playerLevelInfo[newLevel]->leastAmtInstructs = instructs;
 	};
+	void			setPlayerLevelScore(int level, int score)    {playerLevelInfo[level]->levelHighScore = score;};
+	void			setPlayerLeastCmd  (int level, int commands) {playerLevelInfo[level]->leastAmtCommands = commands;};
+	void			setPlayerLeastInst (int level, int instructs){playerLevelInfo[level]->leastAmtInstructs = instructs;};
+
 
 };
 
@@ -84,11 +88,12 @@ public:
 	};
 	void		saveProfile();
 	bool		selectProfile(string);
-	void		deleteProfile(string);
+	bool		deleteProfile(string);
 	bool		createProfile(string);
 	void		loadAllProfiles();
 
-	
+
+	void		setCurrentRecord(int record){currentRecord = record;};
 	string		getPlayerName(){return allPlayerInfo[currentRecord]->getPlayerName();};
 	int			getPlayerHighestLevel(){return allPlayerInfo[currentRecord]->getPlayerHighestLevel();};
 	int			getPlayerCurrentLevel(){return allPlayerInfo[currentRecord]->getPlayerCurrentLevel();};
@@ -102,6 +107,9 @@ public:
 	{
 		allPlayerInfo[currentRecord]->setPlayerLevelInfo(level, score, commands, instructs);
 	};
+	void		setPlayerLevelScore(int level, int score){allPlayerInfo[level]->setPlayerLevelScore(level, score);};
+	void		setPlayerLeastCmd(int level, int command){allPlayerInfo[level]->setPlayerLeastCmd(level, command);};
+	void		setPlayerLeastInst(int level, int instructs){allPlayerInfo[level]->setPlayerLeastInst(level, instructs);};
 };
 
 

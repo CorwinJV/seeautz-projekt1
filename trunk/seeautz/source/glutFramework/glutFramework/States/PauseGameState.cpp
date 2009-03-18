@@ -18,14 +18,14 @@ bool PauseGameState::Draw()
 
 bool PauseGameState::SaveCallback()
 {
-	GameVars->SavePlayerGame();
+	GameVars->updatePlayerFile();
 	//GSM->addGameState<SaveGameState>();
 	return true;
 }
 
 bool PauseGameState::SaveQuitCallback()
 {
-	GameVars->SavePlayerGame();
+	GameVars->updatePlayerFile();
 	/*this->setStatus(DeleteMe);
 	GSM->removeTopGameState();
 	GSM->addGameState<SaveGameState>();*/

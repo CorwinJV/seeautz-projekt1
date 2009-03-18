@@ -10,6 +10,9 @@ bool profileManager::createProfile(string name)
 {
 	string tempName = name;
 
+	if(name == "")
+		return false;
+
 	for(int i = 0; i < maxRecords; i++)
 	{
 		if(name == allPlayerInfo[i]->getPlayerName())
@@ -28,10 +31,9 @@ bool profileManager::createProfile(string name)
 	return true;
 }
 
-void profileManager::deleteProfile(string name)
+bool profileManager::deleteProfile(string name)
 {
 	string tempName = name;
-	//below can't be stateList, needs to have something to do with the names 
 	vector<playerInfo*>::iterator itr = allPlayerInfo.begin();
 
 	for(; itr != allPlayerInfo.end(); itr++)
@@ -41,8 +43,10 @@ void profileManager::deleteProfile(string name)
 			delete(*itr);
 			allPlayerInfo.erase(itr);
 			maxRecords--;
+			return true;
 		}
 	}
+	return false;
 }
 
 void profileManager::saveProfile()

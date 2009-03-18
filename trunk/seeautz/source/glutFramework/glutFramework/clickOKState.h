@@ -18,6 +18,9 @@ class clickOKState : public GameState
 public:
 	clickOKState() 
 	{
+		selected = false;
+		deleted = false;
+		created = false;
 		int check = 0;
 		check = GameVars->getPMStatus();
 		switch(check)
