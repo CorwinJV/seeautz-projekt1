@@ -8,30 +8,6 @@ bool LevelSelectState::Update()
 	return true;
 }
 
-bool LevelSelectState::selectLevel()
-{
-	// player has pressed the select button, set the level
-	// they selected as the current level and load the game
-	gameBoard *gamePlay;
-	string tempString;
-
-	gamePlay = new gameBoard();
-	GameVars->setLevelSpecified(playerCurrentLevel);
-	//GameVars->setLevel(playerCurrentLevel);
-	
-	
-	tempString = GameVars->getFilename(playerCurrentLevel);
-	gamePlay->LoadGameMapFromFile(tempString);
-
-	GameVars->setLevel(playerCurrentLevel);
-	GSM->launchNewGame();
-
-	return true;
-}
-
-
-
-
 bool LevelSelectState::Draw()
 {
 	std::stringstream painInTheAss;
@@ -109,6 +85,28 @@ bool LevelSelectState::Draw()
 
 	return false;
 }
+
+bool LevelSelectState::selectLevel()
+{
+	// player has pressed the select button, set the level
+	// they selected as the current level and load the game
+	gameBoard *gamePlay;
+	string tempString;
+
+	gamePlay = new gameBoard();
+	GameVars->setLevelSpecified(playerCurrentLevel);
+	//GameVars->setLevel(playerCurrentLevel);
+	
+	
+	tempString = GameVars->getFilename(playerCurrentLevel);
+	gamePlay->LoadGameMapFromFile(tempString);
+
+	GameVars->setLevel(playerCurrentLevel);
+	GSM->launchNewGame();
+
+	return true;
+}
+
 
 bool LevelSelectState::decrement()
 {

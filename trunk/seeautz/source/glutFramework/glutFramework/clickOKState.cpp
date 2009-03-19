@@ -44,9 +44,9 @@ bool clickOKState::Draw()
 
 	if(created)
 		GameVars->fontArial24.drawText(250, 300, "Profile has been created, click OK ");
-	else if(selected)
+	if(selected)
 		GameVars->fontArial24.drawText(250, 300, "Profile has been selected, click OK ");
-	else if(deleted)
+	if(deleted)
 		GameVars->fontArial24.drawText(250, 300, "Profile has been deleted, click OK ");
 
 	return true;
@@ -54,6 +54,10 @@ bool clickOKState::Draw()
 
 bool clickOKState::clickOKCallback()
 {
+	if(selected)
+	{
+		GSM->addGameState<LevelSelectState>();
+	}
 	this->setStatus(DeleteMe);
 	return true;
 }
