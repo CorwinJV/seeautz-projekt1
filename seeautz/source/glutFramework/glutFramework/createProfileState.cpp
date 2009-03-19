@@ -14,8 +14,9 @@ bool createProfileState::Update()
 		checked = 0;
 		creatingProfile = false;
 		tempString = "";
-		GameVars->setPMStatus(0);
+		GameVars->setPMStatus(2);
 		GSM->addGameState<clickOKState>();
+		this->setStatus(DeleteMe);
 	}
 
 	// if we aren't in the middle of any profile management or checking anything

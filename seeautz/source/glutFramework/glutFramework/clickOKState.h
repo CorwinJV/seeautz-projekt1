@@ -16,29 +16,8 @@ using namespace std;
 class clickOKState : public GameState
 {
 public:
-	clickOKState() 
-	{
-		selected = false;
-		deleted = false;
-		created = false;
-		int check = 0;
-		check = GameVars->getPMStatus();
-		switch(check)
-		{
-		case 0:
-			selected = true;
-			break;
-		case 1:
-			deleted = true;
-			break;
-		case 2:
-			created = true;
-			break;
-		default:
-			break;
-		}
+	clickOKState();
 
-	};
 	clickOKState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
 		img = new oglTexture2D();

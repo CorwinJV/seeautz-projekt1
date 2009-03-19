@@ -11,7 +11,7 @@ bool deleteProfileState::Update()
 		checked = 0;
 		deletingProfile = false;
 		tempString = "";
-		GameVars->setPMStatus(2);
+		GameVars->setPMStatus(1);
 		GSM->addGameState<clickOKState>();
 	}
 
