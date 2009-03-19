@@ -17,7 +17,6 @@ class clickOKState : public GameState
 {
 public:
 	clickOKState();
-
 	clickOKState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
 		img = new oglTexture2D();

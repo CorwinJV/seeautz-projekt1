@@ -110,6 +110,9 @@ public:
 	void		setPlayerLevelScore(int level, int score){allPlayerInfo[level]->setPlayerLevelScore(level, score);};
 	void		setPlayerLeastCmd(int level, int command){allPlayerInfo[level]->setPlayerLeastCmd(level, command);};
 	void		setPlayerLeastInst(int level, int instructs){allPlayerInfo[level]->setPlayerLeastInst(level, instructs);};
+	int			getMaxRecords(){return maxRecords;};
+	void		setMaxRecords(int newRecords){maxRecords = newRecords;};
+	int			getPlayerTotalScore();
 };
 
 

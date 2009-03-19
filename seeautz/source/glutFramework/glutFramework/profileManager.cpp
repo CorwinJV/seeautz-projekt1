@@ -109,6 +109,25 @@ bool profileManager::selectProfile(string name)
 
 }
 
+int profileManager::getPlayerTotalScore()
+{
+	int max;
+	int score = 0;
+	int levelScore = 0;
+	max = allPlayerInfo[currentRecord]->getPlayerHighestLevel();
+
+	for(int i = 0; i < max; i++)
+	{
+		levelScore = allPlayerInfo[currentRecord]->getPlayerLevelScore(i);
+		if(levelScore > 0)
+		{
+			score += allPlayerInfo[currentRecord]->getPlayerLevelScore(i);
+		}
+	}
+
+	return score;
+}
+
 void profileManager::loadAllProfiles()
 {
 	playerInfo* tempPlayerInfo;
