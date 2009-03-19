@@ -11,7 +11,7 @@ bool selectProfileState::Update()
 		checked = 0;
 		selectingProfile = false;
 		tempString = "";
-		GameVars->setPMStatus(2);
+		GameVars->setPMStatus(0);
 		GSM->addGameState<clickOKState>();
 	}
 

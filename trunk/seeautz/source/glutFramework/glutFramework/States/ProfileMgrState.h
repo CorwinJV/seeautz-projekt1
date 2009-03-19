@@ -37,15 +37,15 @@ public:
 
 	void processMouse(int x, int y);
 	void processMouseClick(int button, int state, int x, int y);
-	void ProfileMgrState::keyboardInput(unsigned char c, int x, int y);
+	/*void ProfileMgrState::keyboardInput(unsigned char c, int x, int y);*/
 	bool ProfileMgrState::Update();
 	bool ProfileMgrState::Draw();
 	bool MainMenuStateCallback();
 	bool DeleteProfile();
 	bool CreateProfile();
 	bool SelectProfile();
-	bool ProfileMgrState::doesNameAlreadyExists(std::string);
-	void ProfileMgrState::setPlayerInfo(std::string name, int, int, int);
+	//bool ProfileMgrState::doesNameAlreadyExists(std::string);
+	//void ProfileMgrState::setPlayerInfo(std::string name, int, int, int);
 	
 	int checked;
 	std::string tempString; 
