@@ -134,6 +134,7 @@ public:
 	GLFT_Font					fontTimes;
 	GLFT_Font					fontArial32;
 	GLFT_Font					fontArial24;
+	GLFT_Font					fontArial18;
 	GLFT_Font					fontArial12;
 	GLFT_Font					fontDigital64;
 	GLFT_Font					fontOurs;

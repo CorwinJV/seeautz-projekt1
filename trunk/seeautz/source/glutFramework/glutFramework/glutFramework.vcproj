@@ -316,6 +316,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\SG400KGA1.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\States\StartNewGameState.cpp"
 					>
 				</File>
@@ -527,6 +531,10 @@
 				</File>
 				<File
 					RelativePath=".\selectProfileState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\SG400KGA1.h"
 					>
 				</File>
 				<File
