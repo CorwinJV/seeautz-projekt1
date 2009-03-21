@@ -211,6 +211,7 @@ void SG400KGA1::interpret(string iString)
 			imgSG400->dY = 256;
 			imgSG400->mX = 300;
 			imgSG400->mY = 50;
+			alpha = 1.0;
 		}
 		else if(command == "load")
 		{
