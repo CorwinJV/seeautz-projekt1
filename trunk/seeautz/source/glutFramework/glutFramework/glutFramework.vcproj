@@ -193,6 +193,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\interpreter.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\LogicInterface.cpp"
 				>
 			</File>
@@ -392,6 +396,10 @@
 			</File>
 			<File
 				RelativePath=".\GLFT_Font.h"
+				>
+			</File>
+			<File
+				RelativePath=".\interpreter.h"
 				>
 			</File>
 			<File

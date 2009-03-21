@@ -15,6 +15,12 @@ public:
 	SG400KGA1(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
 		imgSG400 = new oglTexture2D();
+		imgSG400->loadImage("buttons\\bacardi.png", 256, 256);
+		imgSG400->dX = 256;
+		imgSG400->dY = 256;
+		imgSG400->mX = 300;
+		imgSG400->mY = 50;
+		alpha = 1;
 	}
 
 	bool SG400KGA1::Update();
@@ -30,6 +36,7 @@ private:
 	std::string tempString;
 	int finished;
 	void interpret(string);
+	double alpha;
 	// add private stuff here
 
 };

@@ -36,6 +36,9 @@ oglGameVars::oglGameVars()
 	fontArial24.open	("fonts\\arial.ttf", 24);
 	fontArial18.open	("fonts\\arial.ttf", 18);
 	fontArial12.open	("fonts\\arial.ttf", 12);
+	fontCourier24.open	("fonts\\cour.ttf", 24);
+	fontCourier18.open	("fonts\\cour.ttf", 18);
+	fontCourier12.open	("fonts\\cour.ttf", 12);
 	fontDigital64.open	("fonts\\DIGIRU__.ttf", 32);
 	fontDigital200.open	("fonts\\DIGIRU__.ttf", 200);
 	fontDigital32.open  ("fonts\\DIGIRU__.ttf", 32);
@@ -359,7 +362,7 @@ bool oglGameVars::updatePlayerFile()
 	int isActive = -1;
 	int height;
 	int width;
-	bool activeTile;
+	//bool activeTile;
 	
 	// see if we are saving in game or between levels
 	inGame = GameVars->getGameStatus();
