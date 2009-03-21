@@ -16,8 +16,8 @@ projekt1App::projekt1App(std::string title, int sizeX, int sizeY, int argc, char
 	
 	//myStateManager.addGameState<playGame>();
 	//myStateManager.addGameState<LogicViewState>();
-	myStateManager.addGameState<DevLogoState>();		// 0	
-	//myStateManager.addGameState<SG400KGA1>();
+	//myStateManager.addGameState<DevLogoState>();		// 0	
+	myStateManager.addGameState<SG400KGA1>();
 }
 
 void projekt1App::initOpenGL()
