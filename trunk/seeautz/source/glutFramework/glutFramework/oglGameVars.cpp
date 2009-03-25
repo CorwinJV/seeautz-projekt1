@@ -339,9 +339,8 @@ bool oglGameVars::updatePlayerFile()
 
 	ofstream PlayerInfo;
 	string tempString;
-	int highestLevel;
-	int currentLevel;
-	int level;
+	int highLevel;
+	int curLevel;
 	int levelHighScore;
 	int playerLevelScore;
 	int leastAmtCmds;
@@ -367,10 +366,12 @@ bool oglGameVars::updatePlayerFile()
 	// see if we are saving in game or between levels
 	inGame = GameVars->getGameStatus();
 
+	curLevel = getCurrentLevel();
+
 	// unless we are saving in the middle of a level, increment the level. 
 	// otherwise store the map information.
 	if(!inGame)
-		currentLevel++;
+		curLevel++;
 	else
 	{
 		// following is only used should we implement in game saves
@@ -399,38 +400,37 @@ bool oglGameVars::updatePlayerFile()
 	// initialize variables for max level, level score, least amount of 
 	// commands used and least instructions used to compare against the 
 	// stats in the vector
-	level = GameVars->getCurrentLevel();
 
 	playerLevelScore = GameVars->getLevelScore();
-	levelHighScore = GameVars->PM->getPlayerLevelScore(level);
+	levelHighScore = GameVars->PM->getPlayerLevelScore(curLevel);
 
-	leastAmtCmds = GameVars->PM->getPlayerLeastCmd(level);
+	leastAmtCmds = GameVars->PM->getPlayerLeastCmd(curLevel);
 	playerCmds = GameVars->getLevelCommands();
 
 	//uncomment these once functionality is in place
 	/*leastAmtInstructs = GameVars->PM->getPlayerLeastInst();
 	playerInstructs = GameVars->getLevelInstructions();*/
 
-	highestLevel = GameVars->getPlayerMaxLevel();
-	currentLevel = GameVars->getCurrentLevel();
+	highLevel = getPlayerMaxLevel();
+	curLevel = getCurrentLevel();
 
 	//in all cases, keep the better stats by replacing them
 	//also if stats are set to the initialized value of -1
 	//save over them
-	if(currentLevel > highestLevel)
+	if(curLevel > highLevel)
 	{
-		highestLevel = currentLevel;
-		GameVars->setPlayerMaxLevel(highestLevel);
+		highLevel = curLevel;
+		GameVars->setPlayerMaxLevel(highLevel);
 	}
 
 	if(playerLevelScore > levelHighScore)
 	{
-		GameVars->PM->setPlayerLevelScore(level, playerLevelScore);
+		GameVars->PM->setPlayerLevelScore(curLevel, playerLevelScore);
 	}
 
 	if((playerCmds < leastAmtCmds) || (leastAmtCmds == -1))
 	{
-		GameVars->PM->setPlayerLeastCmd(level, playerCmds);
+		GameVars->PM->setPlayerLeastCmd(curLevel, playerCmds);
 	}
 
 	//following can be uncommented once we implement it
@@ -447,11 +447,14 @@ bool oglGameVars::updatePlayerFile()
 		PlayerInfo << yPos << " ";
 	}*/
 
+	GameVars->PM->saveProfile();
+
 	return true;
 }
 
 bool oglGameVars::LoadPlayerGame(string playerGame) 
 {	
+	
 	//cout << "Loading Game...: " << playerGame <<std::endl;
 	//ifstream PlayerInfo;
 	//string tempString;

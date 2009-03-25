@@ -11,6 +11,7 @@
 #include "OALSound.h"
 #include "gameBoard.h"
 #include "profileManager.h"
+#include "GameStateManager.h"
 
 #define GameVars oglGameVars::Instance()
 
