@@ -6,6 +6,7 @@ bool clickOKState::Update()
 	selected = false;
 	deleted = false;
 	created = false;
+	GSM->setAllButTopPassive();
 
 	int check = GameVars->getPMStatus();
 	switch(check)
@@ -33,9 +34,6 @@ bool clickOKState::Draw()
 {
 	clearBackground();
 	logoImage->drawImage();
-
-	if(img != NULL)
-		img->drawImage();
 
 	if(myMenu != NULL)
 		myMenu->Draw();

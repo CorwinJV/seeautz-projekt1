@@ -368,6 +368,52 @@ bool oglGameVars::updatePlayerFile()
 
 	curLevel = getCurrentLevel();
 
+	// get which level the player just completed for stat comparisons
+	// initialize variables for max level, level score, least amount of 
+	// commands used and least instructions used to compare against the 
+	// stats in the vector
+
+	playerLevelScore = GameVars->getLevelScore();
+	levelHighScore = GameVars->PM->getPlayerLevelScore(curLevel);
+
+	leastAmtCmds = GameVars->PM->getPlayerLeastCmd(curLevel);
+	playerCmds = GameVars->getLevelCommands();
+
+	//uncomment these once functionality is in place
+	/*leastAmtInstructs = GameVars->PM->getPlayerLeastInst();
+	playerInstructs = GameVars->getLevelInstructions();*/
+
+	highLevel = getPlayerMaxLevel();
+	//curLevel = getCurrentLevel();
+
+	//in all cases, keep the better stats by replacing them
+	//also if stats are set to the initialized value of -1
+	//save over them
+	
+	if(playerLevelScore > levelHighScore)
+	{
+		GameVars->PM->setPlayerLevelScore(curLevel, playerLevelScore);
+	}
+
+	if((playerCmds < leastAmtCmds) || (leastAmtCmds == -1))
+	{
+		GameVars->PM->setPlayerLeastCmd(curLevel, playerCmds);
+	}
+
+	//following can be uncommented once we implement it
+	/*if((playerInstructs < leastAmtInstructs) || (leastAmtInstructs == -1))
+	{
+		GameVars->PM->setPlayerLeastInst(level, playerInstructs);
+	}*/
+	
+
+	//below only needs to be implemented if/when we do in game saves
+	/*if(inGame)
+	{
+		PlayerInfo << xPos << " ";
+		PlayerInfo << yPos << " ";
+	}*/
+
 	// unless we are saving in the middle of a level, increment the level. 
 	// otherwise store the map information.
 	if(!inGame)
@@ -393,59 +439,14 @@ bool oglGameVars::updatePlayerFile()
 				// that uses the players name
 			}
 		}
-
 	}
 
-	// get which level the player just completed for stat comparisons
-	// initialize variables for max level, level score, least amount of 
-	// commands used and least instructions used to compare against the 
-	// stats in the vector
-
-	playerLevelScore = GameVars->getLevelScore();
-	levelHighScore = GameVars->PM->getPlayerLevelScore(curLevel);
-
-	leastAmtCmds = GameVars->PM->getPlayerLeastCmd(curLevel);
-	playerCmds = GameVars->getLevelCommands();
-
-	//uncomment these once functionality is in place
-	/*leastAmtInstructs = GameVars->PM->getPlayerLeastInst();
-	playerInstructs = GameVars->getLevelInstructions();*/
-
-	highLevel = getPlayerMaxLevel();
-	curLevel = getCurrentLevel();
-
-	//in all cases, keep the better stats by replacing them
-	//also if stats are set to the initialized value of -1
-	//save over them
 	if(curLevel > highLevel)
 	{
 		highLevel = curLevel;
 		GameVars->setPlayerMaxLevel(highLevel);
+		GameVars->PM->setPlayerHighestLevel(highLevel);
 	}
-
-	if(playerLevelScore > levelHighScore)
-	{
-		GameVars->PM->setPlayerLevelScore(curLevel, playerLevelScore);
-	}
-
-	if((playerCmds < leastAmtCmds) || (leastAmtCmds == -1))
-	{
-		GameVars->PM->setPlayerLeastCmd(curLevel, playerCmds);
-	}
-
-	//following can be uncommented once we implement it
-	/*if((playerInstructs < leastAmtInstructs) || (leastAmtInstructs == -1))
-	{
-		GameVars->PM->setPlayerLeastInst(level, playerInstructs);
-	}*/
-	
-
-	//below only needs to be implemented if/when we do in game saves
-	/*if(inGame)
-	{
-		PlayerInfo << xPos << " ";
-		PlayerInfo << yPos << " ";
-	}*/
 
 	GameVars->PM->saveProfile();
 

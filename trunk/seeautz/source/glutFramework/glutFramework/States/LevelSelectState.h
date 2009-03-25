@@ -5,6 +5,8 @@
 #include "..\GameStateManager.h"
 #include ".\..\oglTexture2D.h"
 #include ".\..\playGame.h"
+#include "..\oglGameVars.h"
+#include <vector>
 
 class LevelSelectState : public GameState
 {
@@ -32,7 +34,7 @@ public:
 		myMenu->setLastButtonDimensions(475, 100);
 		myMenu->setLastButtonPosition(275, 600);
 		Update();
-	}
+	};
 
 	void processMouse(int x, int y);
 	void processMouseClick(int button, int state, int x, int y);

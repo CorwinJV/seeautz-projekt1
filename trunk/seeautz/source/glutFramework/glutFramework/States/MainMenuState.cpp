@@ -42,7 +42,8 @@ void MainMenuState::processMouseClick(int button, int state, int x, int y)
 
 bool MainMenuState::StartNewGameCallback()
 {
-	GSM->addGameState<StartNewGameState>();
+	//GSM->addGameState<StartNewGameState>();
+	GSM->addGameState<createProfileState>();
 	this->setStatus(DeleteMe);
 	return true;
 } 
@@ -58,7 +59,8 @@ bool MainMenuState::ProfileManagerCallback()
 
 bool MainMenuState::LoadGameCallback()
 {
-	GSM->addGameState<LoadGameState>();
+	//GSM->addGameState<LoadGameState>();
+	GSM->addGameState<selectProfileState>();
 	this->setStatus(DeleteMe);
 	Update();
 
