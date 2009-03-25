@@ -2,6 +2,10 @@
 
 bool createProfileState::Update()
 {
+	// this needs to be storing this into the playerinfo data structure then pushing back onto the vector.
+	// this is what's causing the crash bug, if a new user is created and it tries to access their position
+	// in the vector, since it was never added to the vector that's where its going kaboom!
+
 	if((!creatingProfile)&&(checked==2))
 	{
 		//set new player info 
@@ -15,8 +19,11 @@ bool createProfileState::Update()
 		creatingProfile = false;
 		tempString = "";
 		GameVars->setPMStatus(2);
+		GSM->addGameState<playGame>();
 		GSM->addGameState<clickOKState>();
+		GSM->setAllButTopPassive();
 		this->setStatus(DeleteMe);
+		GameVars->PM->createProfile(tempString);
 	}
 
 	// if we aren't in the middle of any profile management or checking anything

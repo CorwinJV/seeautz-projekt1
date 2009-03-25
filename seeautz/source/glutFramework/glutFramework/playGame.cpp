@@ -198,6 +198,15 @@ bool playGame::Draw()
 		break;
 
 	case GB_PREGAME:
+
+		if(currentStatus == Passive)	// waiting for click ok to continue to finish...
+		{
+			startTime = clock();
+			timer = clock();
+			pregameRunning = true;
+			gamePlay->setState(GB_PREGAME);
+		}
+
 		clearBackground();
 
 		logoImage->drawImage();
@@ -207,7 +216,7 @@ bool playGame::Draw()
 
 		// player name
 		tempString = "Player Name: ";
-		tempString += GameVars->getPlayerName();
+		tempString += GameVars->PM->getPlayerName();
 		GameVars->fontArial32.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
 		offsetAmt++;
 
@@ -389,10 +398,6 @@ bool playGame::initialize()
 	gameSaved = false;
 
 	//display a menu that shows info and contains advance and exit buttons
-	img = new oglTexture2D();
-	if(img != NULL)
-		img->loadImage("statescreens\\mainmenu.png", 1024, 120);
-	img->mY = 618;
 
 	blackImage = new oglTexture2D();
 	blackImage->loadImage("black.png", 373, 61);

@@ -332,26 +332,6 @@
 				Name="Maps"
 				>
 			</Filter>
-			<Filter
-				Name="OpenALSound"
-				>
-				<File
-					RelativePath=".\OpenALSound\aldlist.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\OpenALSound\CWaves.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\OpenALSound\Framework.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\OpenALSound\LoadOAL.cpp"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -559,26 +539,6 @@
 			<Filter
 				Name="Maps"
 				>
-			</Filter>
-			<Filter
-				Name="OpenALSound"
-				>
-				<File
-					RelativePath=".\OpenALSound\aldlist.h"
-					>
-				</File>
-				<File
-					RelativePath=".\OpenALSound\CWaves.h"
-					>
-				</File>
-				<File
-					RelativePath=".\OpenALSound\Framework.h"
-					>
-				</File>
-				<File
-					RelativePath=".\OpenALSound\LoadOAL.h"
-					>
-				</File>
 			</Filter>
 		</Filter>
 	</Files>

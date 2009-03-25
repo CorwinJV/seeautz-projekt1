@@ -11,7 +11,7 @@
 #include "OALSound.h"
 #include "gameBoard.h"
 #include "profileManager.h"
-#include "GameStateManager.h"
+//#include "GameStateManager.h"
 
 #define GameVars oglGameVars::Instance()
 
@@ -30,12 +30,12 @@ public:
 		levelName = lvlName;
 		description = desc;
 		fileName = file;
-	}
+	};
 
 	~levelData()
 	{
 		
-	}
+	};
 
 	std::string getName()
 	{
