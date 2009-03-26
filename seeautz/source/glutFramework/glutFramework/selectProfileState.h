@@ -31,7 +31,7 @@ public:
 		myMenu->addButton("arrow_right.png", "arrow_righthover.png", "arrow_righthover.png", CreateFunctionPointer0R(this, &selectProfileState::increment));
 		myMenu->setLastButtonDimensions(100, 100);
 		myMenu->setLastButtonPosition(775, 600);
-		myMenu->addButton("buttons\\startthislevel.png", "buttons\\startthislevelhover.png", "buttons\\startthislevelhover.png", CreateFunctionPointer0R(this, &selectProfileState::selectProfile));
+		myMenu->addButton("buttons\\selectprofile.png", "buttons\\selectprofilehover.png", "buttons\\selectprofilehover.png", CreateFunctionPointer0R(this, &selectProfileState::selectProfile));
 		myMenu->setLastButtonDimensions(475, 100);
 		myMenu->setLastButtonPosition(275, 600);
 		

@@ -43,21 +43,27 @@ bool ProfileMgrState::MainMenuStateCallback()
 
 bool ProfileMgrState::DeleteProfile()
 {
-	GSM->addGameState<deleteProfileState>();
-	this->setStatus(Passive);
+	if(GameVars->PM->getMaxRecords() > 0)
+	{
+		GSM->addGameState<deleteProfileState>();
+		this->setStatus(DeleteMe);
+	}
 	return true;
 }
 
 bool ProfileMgrState::CreateProfile()
 {
 	GSM->addGameState<createProfileState>();
-	this->setStatus(Passive);
+	this->setStatus(DeleteMe);
 	return true;
 }
 
 bool ProfileMgrState::SelectProfile()
 {
-	GSM->addGameState<selectProfileState>();
-	this->setStatus(Passive);
+	if(GameVars->PM->getMaxRecords() > 0)
+	{
+		GSM->addGameState<selectProfileState>();
+		this->setStatus(DeleteMe);
+	}
 	return true;
 }

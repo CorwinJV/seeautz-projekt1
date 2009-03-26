@@ -20,7 +20,7 @@ public:
 			img->loadImage("logoprojekt1narrow.png", 1024, 150);
 		img->mY = 50;*/
 
-		myMenu = new MenuSys(220, 250, "blankmenu.png", Auto);
+		myMenu = new MenuSys(250, 250, "blankmenu.png", Auto);
 		myMenu->addButton("buttons\\startnewgame.png", "buttons\\startnewgamehover.png", "buttons\\startnewgamehover.png", CreateFunctionPointer0R(this, &MainMenuState::StartNewGameCallback));
 		myMenu->addButton("buttons\\profilemanagement.png", "buttons\\profilemanagementhover.png", "buttons\\profilemanagementhover.png", CreateFunctionPointer0R(this, &MainMenuState::ProfileManagerCallback));
 		myMenu->addButton("buttons\\loadgame.png", "buttons\\loadgamehover.png", "buttons\\loadgamehover.png", CreateFunctionPointer0R(this, &MainMenuState::LoadGameCallback));

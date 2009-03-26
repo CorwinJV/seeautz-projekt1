@@ -11,7 +11,6 @@
 #include "oglGameVars.h"
 #include "Oswitch.h"
 #include "Oteleport.h"
-#include "sound.h"
 #include "subroutine.h"
 
 #include <cstring>
@@ -88,7 +87,6 @@ protected:
 	double screenEdge;
 	double moveSpeed;
 	double interfaceHeight;
-	soundEffect *ourSound;
 	clock_t timer;
 	clock_t startTime;
 
@@ -117,7 +115,6 @@ protected:
 	void processRobot();
 	void teleporterCheck();
 	void keepRobotOnTheBoard();
-	void playSound();
 	bool RCcanRobotLeaveSquare(int direction);		        // can the robot leave this square in the direction it is facing
 	bool RCwillRobotDieTryingToLeaveSquare(int direction);  // will the robot die trying to leave this square in the direction it is facing (regardless of if it can actually leave)
 	bool RCwillRobotDieStayingHere();						// will the robot die by standing in this square

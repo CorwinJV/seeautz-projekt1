@@ -327,7 +327,6 @@ void gameBoard::initialize()
 	// time to setup offsets based on centers
 	logicBank = GameVars->Instance()->getAllLogicBlocks();
 	objectList.clear();
-	ourSound = new soundEffect;
 	robotAlive = true;
 	drawText = false;
 
@@ -346,7 +345,6 @@ void gameBoard::cleanup()
 		delete (*itr);
 	}
 	tileImages.clear();
-	delete ourSound;
 	delete SUB1;
 	delete SUB2;
 
@@ -947,9 +945,6 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 		robotY++;
 		currentY = robotY;
 		break;
-	case '9':
-		playSound();
-		break;
 	case '1':
 		// find the robot
 		oitr = objectList.begin();
@@ -994,10 +989,6 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	teleporterCheck();
 }
 
-void gameBoard::playSound()
-{
-	ourSound->playSound("sound\\click.wav");
-}
 
 bool gameBoard::verifyMapPosition()
 {

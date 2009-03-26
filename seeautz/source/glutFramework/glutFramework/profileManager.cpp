@@ -148,8 +148,8 @@ void profileManager::loadAllProfiles()
 		createSaveFile.open("savedGames\\savefile.txt");
 		maxRecords = 0;
 
-		createSaveFile << maxLevel;
-		createSaveFile << maxRecords;
+		createSaveFile << maxLevel << endl;
+		createSaveFile << maxRecords << endl;
 		createSaveFile.close();
 		saveFile.open("savedGames\\savefile.txt");
 	}
