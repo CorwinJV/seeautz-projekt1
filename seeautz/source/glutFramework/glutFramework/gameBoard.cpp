@@ -945,6 +945,8 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 		robotY++;
 		currentY = robotY;
 		break;
+	case '9':
+		break;
 	case '1':
 		// find the robot
 		oitr = objectList.begin();
@@ -989,7 +991,6 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	teleporterCheck();
 }
 
-
 bool gameBoard::verifyMapPosition()
 {
 	recalcPositions();
@@ -1021,18 +1022,18 @@ bool gameBoard::verifyMapPosition()
 		return false;
 	}
 
-	// now lets see if this board should be centered or not
-	if(overallWidth < screenWidth)
-	{
-		// center horizontally
-		mapOffsetX = ((int)((Height - Width)/2) * hw) + (int)(screenWidth/2) - (int)(overallWidth/2);
-	}
-	
-	if(overallHeight < screenHeight)
-	{
-		// center vertically
-		mapOffsetY = ((int)((Width - Height)/2) * hh) + (int)(screenHeight/2) - (int)(overallHeight/2);
-	}
+	//// now lets see if this board should be centered or not
+	//if(overallWidth < screenWidth)
+	//{
+	//	// center horizontally
+	//	mapOffsetX = ((int)((Height - Width)/2) * hw) + (int)(screenWidth/2) - (int)(overallWidth/2);
+	//}
+	//
+	//if(overallHeight < screenHeight)
+	//{
+	//	// center vertically
+	//	mapOffsetY = ((int)((Width - Height)/2) * hh) + (int)(screenHeight/2) - (int)(overallHeight/2);
+	//}
 
 	return true;
 }

@@ -130,7 +130,7 @@ public:
 	vector<logicBlock*>			*currentLogicBank;
 	vector<oglTexture2D*> levelArt;
 
-	GLFT_Font					fontTimes;
+//	GLFT_Font					fontTimes;
 	GLFT_Font					fontArial32;
 	GLFT_Font					fontArial24;
 	GLFT_Font					fontArial18;
@@ -140,9 +140,9 @@ public:
 	GLFT_Font					fontDigital200;
 	GLFT_Font					fontDigital32;
 	GLFT_Font					fontDigital16;
-	GLFT_Font					fontCourier12;
-	GLFT_Font					fontCourier18;
-	GLFT_Font					fontCourier24;
+	//GLFT_Font					fontCourier12;
+	//GLFT_Font					fontCourier18;
+	//GLFT_Font					fontCourier24;
 
 
 private:				

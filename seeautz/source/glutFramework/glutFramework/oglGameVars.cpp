@@ -36,15 +36,15 @@ oglGameVars::oglGameVars()
 	fontArial24.open	("fonts\\arial.ttf", 24);
 	fontArial18.open	("fonts\\arial.ttf", 18);
 	fontArial12.open	("fonts\\arial.ttf", 12);
-	fontCourier24.open	("fonts\\cour.ttf", 24);
-	fontCourier18.open	("fonts\\cour.ttf", 18);
-	fontCourier12.open	("fonts\\cour.ttf", 12);
+	//fontCourier24.open	("fonts\\cour.ttf", 24);
+	//fontCourier18.open	("fonts\\cour.ttf", 18);
+	//fontCourier12.open	("fonts\\cour.ttf", 12);
 	fontDigital64.open	("fonts\\DIGIRU__.ttf", 32);
 	fontDigital200.open	("fonts\\DIGIRU__.ttf", 200);
 	fontDigital32.open  ("fonts\\DIGIRU__.ttf", 32);
 	fontDigital16.open  ("fonts\\DIGIRU__.ttf", 16);
 	fontOurs.open		("fonts\\Schwaben_Alt_Bold.ttf", 32);
-	fontTimes.open		("fonts\\times.ttf", 32);
+//	fontTimes.open		("fonts\\times.ttf", 32);
 	currentLogicBank = NULL;
 
 	levelData* tempLevel;
