@@ -24,7 +24,7 @@ bool oglTexture2D::loadImage(std::string filename, int dWidth, int dHeight)
 	if(!ilLoadImage(filename.c_str()))
 	{
 		//std::cout << "oglTexture2D::loadImage failed to load " 
-			<< filename << std::endl;
+		//	<< filename << std::endl;
 		return false;
 	}
 	mWidth = ilGetInteger(IL_IMAGE_WIDTH);
