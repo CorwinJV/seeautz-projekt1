@@ -30,7 +30,7 @@ public:
 	inline bool addGameState(State newState = Active)
 	{
 #ifdef GSMWork
-		std::cout << "GSM:addGAmeState - Adding new Gamestate " << std::endl;
+		//std::cout << "GSM:addGAmeState - Adding new Gamestate " << std::endl;
 #endif
 		stateCount++;
 		T* newGS = new T(*this, stateCount);

@@ -54,7 +54,7 @@ public:
 	{
 		numButtons++;
 #ifdef menuWork
-		std::cout << "MS:addButton - Adding new Button " << std::endl;
+	//	std::cout << "MS:addButton - Adding new Button " << std::endl;
 #endif
 		Button* newButton = new Button(buttonXpos, buttonYpos, buttonImageNormal, buttonImageClicked, buttonImageHover);  // this needs to be implemented for button constructor
 

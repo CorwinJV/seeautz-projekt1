@@ -366,7 +366,7 @@ bool gameBoard::setOffsets(int x, int y)
 bool gameBoard::LoadGameMapFromFile(std::string filename)
 {
 
-	cout << "attempting to open file: " << filename << endl;
+	//cout << "attempting to open file: " << filename << endl;
 	ifstream mapfile;
 	//if(!mapfile)
 	//	return false;
@@ -578,27 +578,27 @@ void gameBoard::processMouseClick(int button, int state, int x, int y)
 	{
 		if ( button == GLUT_WHEEL_UP )
 		{
-			std::cout << "Mouse up" << endl;
+			//std::cout << "Mouse up" << endl;
 		}
 		else if( button == GLUT_WHEEL_DOWN )
 		{
-			std::cout << "Mouse down" << endl;
+			//std::cout << "Mouse down" << endl;
 		}
 		else if( button == GLUT_LEFT_BUTTON )
 		{
-			std::cout << "Mouse LB" << endl;
+			//std::cout << "Mouse LB" << endl;
 		}
 		else if( button == GLUT_RIGHT_BUTTON )
 		{
-			std::cout << "Mouse RB" << endl;
+			//std::cout << "Mouse RB" << endl;
 		}
 		else if( button == GLUT_MIDDLE_BUTTON )
 		{
-			std::cout << "Mouse MB" << endl;
+			//std::cout << "Mouse MB" << endl;
 		}
 	}
 
-	std::cout << "Button = " << button << " - State = " << state << " X,Y " << x << ", " << y <<  endl;
+	//std::cout << "Button = " << button << " - State = " << state << " X,Y " << x << ", " << y <<  endl;
 }
 
 void gameBoard::mapScroll()
@@ -767,7 +767,7 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 					{
 			//			// add move forward to the robot command queue
 						(*oitr)->addCommand(*lbitr);
-						std::cout << "added MOVE_FORWARD1 to robot command list " << endl;
+						//std::cout << "added MOVE_FORWARD1 to robot command list " << endl;
 						(*oitr)->coreDump();
 					}
 				}
@@ -791,7 +791,7 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 					{
 			//			// add move forward to the robot command queue
 						(*oitr)->addCommand(*lbitr);
-						std::cout << "added TURN_LEFT1 to robot command list " << endl;
+					//	std::cout << "added TURN_LEFT1 to robot command list " << endl;
 						(*oitr)->coreDump();
 					}
 				}
@@ -815,7 +815,7 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 					{
 			//			// add move forward to the robot command queue
 						(*oitr)->addCommand(*lbitr);
-						std::cout << "added TURN_RIGHT1 to robot command list " << endl;
+					//	std::cout << "added TURN_RIGHT1 to robot command list " << endl;
 						(*oitr)->coreDump();
 					}
 				}
@@ -840,7 +840,7 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 					{
 			//			// add move forward to the robot command queue
 						(*oitr)->addCommand(*lbitr);
-						std::cout << "added JUMP to robot command list " << endl;
+					//	std::cout << "added JUMP to robot command list " << endl;
 						(*oitr)->coreDump();
 					}
 				}
@@ -864,7 +864,7 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 					{
 			//			// add move forward to the robot command queue
 						(*oitr)->addCommand(*lbitr);
-						std::cout << "added CROUCH to robot command list " << endl;
+					//	std::cout << "added CROUCH to robot command list " << endl;
 						(*oitr)->coreDump();
 					}
 				}
@@ -888,7 +888,7 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 					{
 			//			// add move forward to the robot command queue
 						(*oitr)->addCommand(*lbitr);
-						std::cout << "added ACTIVATE to robot command list " << endl;
+						//std::cout << "added ACTIVATE to robot command list " << endl;
 						(*oitr)->coreDump();
 					}
 				}
@@ -912,7 +912,7 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 					{
 			//			// add move forward to the robot command queue
 						(*oitr)->addCommand(*lbitr);
-						std::cout << "added PUNCH to robot command list " << endl;
+						//std::cout << "added PUNCH to robot command list " << endl;
 						(*oitr)->coreDump();
 					}
 				}
@@ -982,7 +982,7 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	default:
 		break;
 	}
-	std::cout << "RobotX,y = " << robotX << ", " << robotY << std::endl;
+	//std::cout << "RobotX,y = " << robotX << ", " << robotY << std::endl;
 
 	if (scale > maxscale)	scale = maxscale;
 	if (scale < minscale)	scale = minscale;
@@ -1303,7 +1303,7 @@ void gameBoard::teleporterCheck()
 	// see if we're standing in a teleporter square
 	if(mapList[robotX][robotY]->getType() == TTeleport)
 	{
-		std::cout << "robot has found a teleporter at " << robotX << ", " << robotY << std::endl;
+	//	std::cout << "robot has found a teleporter at " << robotX << ", " << robotY << std::endl;
 		// if we are, lets find the teleporter in the list
 		for(;titr < teleportList.end(); titr++)
 		{

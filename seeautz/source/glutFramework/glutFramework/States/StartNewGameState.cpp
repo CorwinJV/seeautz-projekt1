@@ -179,18 +179,18 @@ bool StartNewGameState::doesNameAlreadyExists(string playerGame)
 	newTempString = "savedGames\\";
 	newTempString += playerGame.c_str();
 	newTempString += ".txt";
-	std::cout << "Checking if " << newTempString << " exists " << endl;
+	//std::cout << "Checking if " << newTempString << " exists " << endl;
 
 	PlayerInfo.open(newTempString.c_str());
 
 	if(!PlayerInfo)
 	{
-		std::cout << "file doesn't exist" << endl;
+		//std::cout << "file doesn't exist" << endl;
 		newTempString = "";
 		PlayerInfo.close();
 		return false;
 	}
 
-	std::cout << "file exists" << endl;
+	//std::cout << "file exists" << endl;
 	return true;
 }
