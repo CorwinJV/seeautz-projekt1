@@ -1,5 +1,6 @@
 #include "projekt1App.h"
 #include "States\DevLogoState.h"
+//#include "States\LogicViewState.h"
 #include "playGame.h"
 #include "oglGameVars.h"
 #include "SG400KGA1.h"
