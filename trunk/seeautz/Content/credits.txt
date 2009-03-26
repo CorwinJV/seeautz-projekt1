@@ -6,39 +6,39 @@ Instructor
 Dave Cortez
 
 Original Concept
-David Moss
+David Moss - davidbmoss@gmail.com
 Corwin VanHook
 
 Project Lead
-Tom Lindeman
+Tom Lindeman - tomlindeman@xnaprotege.com
 
 Lead Programmer
 Corwin VanHook
 
 Lead Designer
-David Moss
+David Moss - davidbmoss@gmail.com
 
 Lead Artist
 Cameron VanHook
 
 Game Logic Programming
-David Moss
+David Moss - davidbmoss@gmail.com
 
 Systems Design
 Corwin VanHook
 
 Gui Programming
-Tom Lindeman
+Tom Lindeman - tomlindeman@xnaprotege.com
 
 Additional Game Deisgn
 Corwin VanHook
-Tom Lindeman
+Tom Lindeman - tomlindeman@xnaprotege.com
 
 Level Designers
 Oscar Maldonado
 Chris Gonzalez
 Geovani 
-David Moss
+David Moss - davidbmoss@gmail.com
 
 State Creation
 Amber Clark
@@ -48,7 +48,7 @@ Christian Martinez
 Amber Clark
 
 Temp Art
-David Moss
+David Moss - davidbmoss@gmail.com
 
 
 "I'm going back over here where shit make sense." 
