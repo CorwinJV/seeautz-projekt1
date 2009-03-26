@@ -41,11 +41,17 @@ bool clickOKState::Draw()
 	glColor3ub(0, 0, 0);
 
 	if(created)
-		GameVars->fontArial24.drawText(250, 300, "Profile has been created, click OK ");
+	{
+		GameVars->fontArial24.drawText(270, 300, "Profile has been created,");
+		GameVars->fontArial24.drawText(270, 350, "click OK to begin game");
+	}
 	if(selected)
-		GameVars->fontArial24.drawText(250, 300, "Profile has been selected, click OK ");
+	{
+		GameVars->fontArial24.drawText(270, 300, "Profile has been selected,"); 
+		GameVars->fontArial24.drawText(270, 350, "click OK to proceed to select level");
+	}
 	if(deleted)
-		GameVars->fontArial24.drawText(250, 300, "Profile has been deleted, click OK ");
+		GameVars->fontArial24.drawText(270, 300, "Profile has been deleted, click OK ");
 
 	return true;
 }
@@ -55,6 +61,10 @@ bool clickOKState::clickOKCallback()
 	if(selected)
 	{
 		GSM->addGameState<LevelSelectState>();
+	}
+	if(deleted)
+	{
+		GSM->addGameState<MainMenuState>();
 	}
 	this->setStatus(DeleteMe);
 	return true;

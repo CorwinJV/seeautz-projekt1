@@ -3,8 +3,6 @@
 
 #include "GameState.h" 
 #include ".\States\MainMenuState.h"
-//#include "LevelSelectState.h"
-//#include "..\playGame.h"
 #include "oglTexture2D.h"
 #include "oglGameVars.h"
 #include<fstream>
@@ -19,7 +17,7 @@ public:
 	clickOKState();
 	clickOKState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
-		myMenu = new MenuSys(220, 250, "blankmenu.png");
+		myMenu = new MenuSys(250, 250, "blankmenu.png");
 		myMenu->addButton("buttons\\ok.png", "buttons\\okhover.png", "buttons\\okhover.png", CreateFunctionPointer0R(this, &clickOKState::clickOKCallback));
 		myMenu->setLastButtonDimensions(100, 100);
 		myMenu->setLastButtonPosition((int)1024/2, 400);

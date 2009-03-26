@@ -221,8 +221,6 @@ oglGameVars::oglGameVars()
 	maxLevel = levelList.size();
 	PI = new playerInfo(maxLevel);
 	PM = new profileManager(maxLevel);
-	// stupid sound stuff
-	//GenericSound = new OALSound;
 }
 
 //========================================
