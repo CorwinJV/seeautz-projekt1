@@ -106,7 +106,7 @@ bool GameStateManager::Update()
 	if(!stateList.empty())
 		if((stateList.back()->getStatus() != Active) && (stateList.back()->getStatus() != DeleteMe))
 		{
-			std::cout << "top state was not active, setting it to active" << endl;
+			//std::cout << "top state was not active, setting it to active" << endl;
 			stateList.back()->setStatus(Active);
 		}
 

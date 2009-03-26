@@ -32,7 +32,7 @@ object::object(int x, int y, int newDirection, objectEnum newType)
 object::~object()
 {
 	delete image;
-	std::cout << "tick tick tick boom" << endl;
+	//std::cout << "tick tick tick boom" << endl;
 }
 
 bool object::getActive()
@@ -147,12 +147,12 @@ void object::coreDump()
 {
 	vector <logicBlock*>::iterator itr = instructionList.begin();
 
-	std::cout << "Core Dump: " << endl;
+//	std::cout << "Core Dump: " << endl;
 	for(;itr < instructionList.end(); itr++)
 	{
-		std::cout << (*itr)->enumInstruction << " ";
+		//std::cout << (*itr)->enumInstruction << " ";
 	}
-	std::cout << endl;
+	//std::cout << endl;
 }
 
 void object::setAlive(bool status)

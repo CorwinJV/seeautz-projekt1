@@ -64,12 +64,12 @@ void subroutine::coreDump()
 {
 	vector <logicBlock*>::iterator itr = instructionList.begin();
 
-	std::cout << "Subroutine Core Dump: " << endl;
+	//std::cout << "Subroutine Core Dump: " << endl;
 	for(;itr < instructionList.end(); itr++)
 	{
-		std::cout << (*itr)->enumInstruction << " ";
+		//std::cout << (*itr)->enumInstruction << " ";
 	}
-	std::cout << endl;
+	//std::cout << endl;
 }
 
 bool subroutine::isEmpty()

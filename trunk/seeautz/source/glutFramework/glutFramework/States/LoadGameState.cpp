@@ -46,7 +46,7 @@ bool LoadGameState::Draw()
 
 bool LoadGameState::loadGame(string playerGame)
 {
-	cout << "Loading Game...: " << playerGame <<std::endl;
+	//cout << "Loading Game...: " << playerGame <<std::endl;
 	ifstream PlayerInfo;
 	int score;
 	int level;

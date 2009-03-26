@@ -23,7 +23,7 @@ bool oglTexture2D::loadImage(std::string filename, int dWidth, int dHeight)
 	// Load in the image
 	if(!ilLoadImage(filename.c_str()))
 	{
-		std::cout << "oglTexture2D::loadImage failed to load " 
+		//std::cout << "oglTexture2D::loadImage failed to load " 
 			<< filename << std::endl;
 		return false;
 	}
@@ -36,8 +36,8 @@ bool oglTexture2D::loadImage(std::string filename, int dWidth, int dHeight)
 	// Copy to OpenGL texture
 	if(!ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE))
 	{
-		std::cout << "oglTexture2D::loadImage unable to convert image"
-			<< " into display friendly format." << std::endl;
+		//std::cout << "oglTexture2D::loadImage unable to convert image"
+		//	<< " into display friendly format." << std::endl;
 		return false;
 	}
 	glGenTextures(1, &texture);
@@ -57,7 +57,7 @@ bool oglTexture2D::loadImage(std::string filename, int dWidth, int dHeight)
 	ILenum Error;
 	while ((Error = ilGetError()) != IL_NO_ERROR) 
 	{ 
-		std::cout << "DevIL Loading error: " << Error; 
+	//	std::cout << "DevIL Loading error: " << Error; 
 	} 
 	return true;
 }
