@@ -272,7 +272,7 @@ bool playGame::Draw()
 		glColor3ub(0, 0, 0);
 		//
 		// level name
-		tempString = "Congradulations! Level Complete!";
+		tempString = "Congratulations! Level Complete!";
 		GameVars->fontArial32.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
 		offsetAmt++;
 		offsetAmt++;
