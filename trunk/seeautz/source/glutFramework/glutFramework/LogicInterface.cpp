@@ -134,6 +134,66 @@ LogicInterface::LogicInterface()
 	bytesLeftBackground->mY = logicBankBox.y - 60;
 }
 
+LogicInterface::~LogicInterface()
+{
+	delete myMenu;
+	myMenu = NULL;
+
+	delete executingMenu;
+	executingMenu = NULL;
+
+	delete resetMenu;
+	resetMenu = NULL;
+
+	delete menuBar;
+	menuBar = NULL;
+
+	delete panelArt;
+	panelArt = NULL;
+
+	delete commandBackdrop;
+	commandBackdrop = NULL;
+
+	delete commandBackdrop2;
+	commandBackdrop2 = NULL;
+
+	delete scrollBar;
+	scrollBar = NULL;
+	
+	delete insertionLine;
+	insertionLine = NULL;
+
+	delete bytesLeftBackground;
+	bytesLeftBackground = NULL;
+
+	delete draggedBlock;
+	draggedBlock = NULL;
+
+	delete curExecutionListYOffset;
+	curExecutionListYOffset = NULL;
+
+	// Don't destroy the contents of logicBank because they're stored on the singleton...
+	delete logicBank;
+	logicBank = NULL;
+	
+	// Destroy the contents of the executionLists because they're new copies
+	for(unsigned int i = 0; i < executionList.size(); i++)
+	{
+		delete executionList[i];
+		executionList[i] = NULL;
+	}
+	for(unsigned int i = 0; i < executionListSub1.size(); i++)
+	{
+		delete executionListSub1[i];
+		executionListSub1[i] = NULL;
+	}
+	for(unsigned int i = 0; i < executionListSub2.size(); i++)
+	{
+		delete executionListSub2[i];
+		executionListSub2[i] = NULL;
+	}
+}
+
 void LogicInterface::Update()
 {
 	resetMenu->Update();
