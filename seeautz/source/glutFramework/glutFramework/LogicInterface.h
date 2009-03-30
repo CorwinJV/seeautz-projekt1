@@ -21,7 +21,7 @@ class LogicInterface
 
 public:
 	LogicInterface();
-	~LogicInterface() {}
+	~LogicInterface();
 	void Update();
 	void Draw();
 	void processMouse(int x, int y);
