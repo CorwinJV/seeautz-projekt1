@@ -1148,14 +1148,38 @@ bool LogicInterface::MainTabButtonClick()
 
 bool LogicInterface::Sub1TabButtonClick()
 {
-	curInstrTab = TAB_SUB1;
-	return false;
+	// Check and see if Sub1 is available to use
+	// in this level. If not, don't let the player select this tabs
+	std::vector<logicBlock*>::iterator itr = logicBank->begin();
+	for(; itr != logicBank->end(); itr++)
+	{
+		if((*itr)->enumInstruction == SUBR1)
+		{
+			if((*itr)->isUsable == true)
+			{
+				curInstrTab = TAB_SUB1;
+				return false;
+			}
+		}
+	}
 }
 
 bool LogicInterface::Sub2TabButtonClick()
 {
-	curInstrTab = TAB_SUB2;
-	return false;
+	// Check and see if Sub2 is available to use
+	// in this level. If not, don't let the player select this tabs
+	std::vector<logicBlock*>::iterator itr = logicBank->begin();
+	for(; itr != logicBank->end(); itr++)
+	{
+		if((*itr)->enumInstruction == SUBR2)
+		{
+			if((*itr)->isUsable == true)
+			{
+				curInstrTab = TAB_SUB2;
+				return false;
+			}
+		}
+	}
 }
 
 
