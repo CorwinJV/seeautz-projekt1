@@ -117,7 +117,6 @@ protected:
 	bool verifyCameraPositionX();
 	bool verifyCameraPositionY();
 	void recalcPositions();
-	bool resetMap();
 	void processRobot();
 	void teleporterCheck();
 	void keepRobotOnTheBoard();
@@ -160,6 +159,7 @@ public:
 	// Setting Function Pointers
 	void SetInterfaceAdvanceHandler(CFunctionPointer2R<bool, instructionTab, logicBlock*> interfaceAdvanceHandler);
 
+	bool resetMap();
 	void panup();
 	void panleft();
 	void panright();

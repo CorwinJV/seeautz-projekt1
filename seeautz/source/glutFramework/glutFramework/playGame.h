@@ -11,6 +11,7 @@
 #include "States\\PauseGameState.h"
 #include "States\\DevLogoState.h"
 #include "States\\SaveGameState.h"
+#include "States\\MainMenuState.h"
 
 class playGame : public GameState
 {
@@ -72,11 +73,12 @@ public:
 	bool playGame::Draw();
 	bool exitGame();
 	bool advance();
+	bool replayLevel();
 	void processMouse(int x, int y);
 	void processMouseClick(int button, int state, int x, int y);
 	void keyboardInput(unsigned char c, int x, int y);
 	void doEndGameDraw();
-	void levelSelect();
+	
 	LogicInterface mInterface;
 
 };

@@ -6,6 +6,7 @@
 #include ".\..\oglTexture2D.h"
 #include ".\..\playGame.h"
 #include "..\oglGameVars.h"
+#include "MainMenuState.h"
 #include <vector>
 
 class LevelSelectState : public GameState
