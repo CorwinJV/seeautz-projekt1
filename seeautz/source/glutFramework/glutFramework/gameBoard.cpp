@@ -1207,7 +1207,7 @@ void gameBoard::processRobot()
 bool gameBoard::robotAtEndSquare()
 {
 	// find the end square
-	if (mapList[robotX][robotY]->getType() == TEnd)
+	if ((mapList[robotX][robotY]->getType() == TEnd) && (mapList[robotX][robotY]->getIsActive()))
 		return true;
 	else
 		return false;
@@ -2199,8 +2199,10 @@ bool gameBoard::processSub(int whichSub)
 				moveForwardFiring = this->RCmoveRobotForward();	// false if over, true if activating
 				GameVars->commandsProcessed++;
 				if(moveForwardFiring)
+				{
 					GameVars->commandsProcessed--;
 					return true;
+				}				
 				break;
 
 			case SUBR1:

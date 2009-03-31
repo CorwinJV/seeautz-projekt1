@@ -101,7 +101,10 @@ bool selectProfileState::Draw()
 	// picture of level
 	GameVars->levelArt[highestLevel]->mX = 1024/2 - GameVars->levelArt[highestLevel]->dX/2;
 	GameVars->levelArt[highestLevel]->mY = offsetY + offsetAmt*textspacing;
+	int tempheight = GameVars->levelArt[highestLevel]->dY;
+	GameVars->levelArt[highestLevel]->dY *= 0.75;
 	GameVars->levelArt[highestLevel]->drawImage();
+	GameVars->levelArt[highestLevel]->dY = tempheight;
 
 
 	glColor3ub(0, 0, 0);

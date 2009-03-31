@@ -640,7 +640,7 @@ void oglGameVars::setCurrentLogicBank(bool moveForwardAvail, bool moveForwardUnt
 	
 	currentLogicBank = new vector<logicBlock*>;
 
-	for(int i = 0; i < allLogicBlocks.size(); i++)
+	for(int i = 0; i < (int)allLogicBlocks.size(); i++)
 	{
 		allLogicBlocks[i]->isUsable = true;
 		allLogicBlocks[i]->isCurrentlyUsable = true;
