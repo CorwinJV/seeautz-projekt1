@@ -15,6 +15,8 @@ using namespace std;
 
 gameBoard::gameBoard() : curState(GB_LOGICVIEW)
 {
+	std::vector<std::vector<mapTile*>> mapListTemp;
+
 	// make it all empty
 	mapList.resize(1);
 	for(int x = 0; x < 1; x++)
@@ -138,6 +140,7 @@ bool gameBoard::draw()
 		basex = x*hw;
 		basey = x*hh;
 		vector<mapTile*>::iterator itr = mapList[x].begin();
+		//std::cout << "map offsets x/y " << mapOffsetX << " " << mapOffsetY << "Current x/y" << currentX << " " << currentY << endl;
 		for(int y = 0; y < Height; y++)
 		{
 			drawAtX = mapOffsetX + (x * hw - (y * hw) + (hw));
@@ -153,8 +156,9 @@ bool gameBoard::draw()
 				// todo - this will eventually iterate through all the objects in the 
 				// game board and draw them in the proper spot if they should be drawn at all
 				// for the time being, the only "object" that requires being drawn is the robot
-				drawAtX = mapOffsetX + (robotX * hw - (robotY * hw) + (hw));
-				drawAtY = mapOffsetY + (robotY * imageHeight - (robotY * hh) + (robotX * hh) + hh/2);
+				//drawAtX = mapOffsetX + (robotX * hw - (robotY * hw) + (hw));
+				//drawAtY = mapOffsetY + (robotY * imageHeight - (robotY * hh) + (robotX * hh) + hh/2);
+				drawAtY += hh/2;
 				
 				// conditional drawing based on height
 				if(mapList[robotX][robotY]->getType() == TRaised1)
@@ -335,6 +339,11 @@ void gameBoard::initialize()
 	interfaceHeight = 190;
 	screenHeight -= interfaceHeight;
 	screenHeight -= (int)hh;
+	mapRotation = 0;
+
+	mouseTimer = 0;
+	mouseTimerStart = 0;
+
 }
 
 void gameBoard::cleanup()
@@ -607,58 +616,48 @@ void gameBoard::mapScroll()
 	// mouse stuff
 	recalcPositions();
 
+	mouseTimer = clock();
+	int mouseDelay = 50;
+
 	// see if mouse is at top of screen
 	if((mouseY > 0) && (mouseY < screenEdgeHeight*screenEdge))
 	{
-		//mapOffsetY+= moveSpeed;
-		currentX-=mMoveSpeed;
-		currentY-=mMoveSpeed;
-		if(!verifyMapPosition())
+		if(mouseTimer > mouseTimerStart + mouseDelay)
 		{
-			currentX += mMoveSpeed;
-			currentY += mMoveSpeed;
+			mouseTimerStart = clock();
+			//mapOffsetY+= moveSpeed;
+			panup();
 		}
 	}
 
 	// see if mouse is at bottom of screen
 	if((mouseY < screenEdgeHeight) && (mouseY > (screenEdgeHeight - (screenEdgeHeight*screenEdge))))
 	{
-		//mapOffsetY-= moveSpeed;
-		currentX+= mMoveSpeed;
-		currentY+= mMoveSpeed;
-		if(!verifyMapPosition())
+		if(mouseTimer > mouseTimerStart + mouseDelay)
 		{
-			currentX -= mMoveSpeed;
-			currentY -= mMoveSpeed;
+			mouseTimerStart = clock();
+			pandown();
 		}
 	}
 	// see if mouse is at left side of screen
 	if((mouseX > 0) && (mouseX < screenEdgeWidth * screenEdge))
 	{
-		//mapOffsetX+= moveSpeed;
-		currentX-=mMoveSpeed;
-		currentY+=mMoveSpeed;
-		if(!verifyMapPosition())
+		if(mouseTimer > mouseTimerStart + mouseDelay)
 		{
-			currentX += mMoveSpeed;
-			currentY -= mMoveSpeed;
+			mouseTimerStart = clock();
+			panleft();
 		}
-
 	}
 	// see if mouse is at right side of screen
 	if((mouseX < screenEdgeWidth) && (mouseX > (screenEdgeWidth - (screenEdgeWidth * screenEdge))))
 	{
-		//mapOffsetX-= moveSpeed;
-		currentX+=mMoveSpeed;
-		currentY-=mMoveSpeed;
-		if(!verifyMapPosition())
+		if(mouseTimer > mouseTimerStart + mouseDelay)
 		{
-			currentX -= mMoveSpeed;
-			currentY += mMoveSpeed;
+			mouseTimerStart = clock();
+			panright();
 		}
 	}
-
-	verifyMapPosition();
+	verifyCameraCenter();
 }
 
 void gameBoard::keyboardInput(unsigned char c, int x, int y)
@@ -666,83 +665,48 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	vector<object*>::iterator oitr;
 	vector<logicBlock*>::iterator lbitr;
 
+	recalcPositions();
+
 	double kbmovespeed = moveSpeed;
 	switch(c)
 	{
 	case 'q': //up-left
-		currentX -= kbmovespeed;
-		if(!verifyMapPosition())
-		{
-			currentX += kbmovespeed;
-		}
+		panupleft();
 		break;
 	case 'e': // up-right
-		currentY -= kbmovespeed;
-		if(!verifyMapPosition())
-		{
-			currentY += kbmovespeed;
-		}
+		panupright();
 		break;
 	case 'z': // down-left
-		currentY += kbmovespeed;
-		if(!verifyMapPosition())
-		{
-			currentY -= kbmovespeed;
-		}
+		pandownleft();
 		break;
 	case 'c': // down-right
-		currentX += kbmovespeed;
-		if(!verifyMapPosition())
-		{
-			currentX -= kbmovespeed;
-		}
+		pandownright();
 		break;
 	case 'w': // up
-		currentY -= kbmovespeed;
-		currentX -= kbmovespeed;
-		if(!verifyMapPosition())
-		{
-			currentX += kbmovespeed;
-			currentY += kbmovespeed;
-		}
+		panup();
 		break;
 	case 'a':  // left
-		currentY += kbmovespeed;
-		currentX -= kbmovespeed;
-		if(!verifyMapPosition())
-		{
-			currentX -= kbmovespeed;
-			currentY += kbmovespeed;
-		}
+		panleft();
 		break;
 	case 'd': // right
-		currentX += kbmovespeed;
-		currentY -= kbmovespeed;
-		if(!verifyMapPosition())
-		{
-			currentX -= kbmovespeed;
-			currentY += kbmovespeed;
-		}
+		panright();
 		break;
 	case 's': // down
-		currentY += kbmovespeed;
-		currentX += kbmovespeed;
-		if(!verifyMapPosition())
-		{
-			currentX -= kbmovespeed;
-			currentY -= kbmovespeed;
-		}
+		pandown();
 		break;
 	case '-':	// zoom out (decrease scale)
-		scale -= 0.05;
+	case '_':
+		zoomout();
 		break;
 	case '=':	// zoom in (increase scale)
-		scale += 0.05;
+	case '+':
+		zoomin();
 		break;
 	case '\\':	// reset scale
 		scale = 1;
 		break;
 	case ']':	// reset center on center of map
+		break;	// disabled
 		currentX = centerX;
 		currentY = centerY;
 		break;
@@ -753,6 +717,7 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	// move forward
 	case 'i':
 	case 'I':
+		break; // disabled
 		// find the robot
 		oitr = objectList.begin();
 		for(;oitr != objectList.end(); oitr++)
@@ -777,6 +742,7 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	// turn left
 	case 'j':
 	case 'J':
+		break; // disabled
 		// find the robot
 		oitr = objectList.begin();
 		for(;oitr != objectList.end(); oitr++)
@@ -801,6 +767,7 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	// turn right
 	case 'l':
 	case 'L':
+		break; // disabled
 		// find the robot
 		oitr = objectList.begin();
 		for(;oitr != objectList.end(); oitr++)
@@ -826,6 +793,7 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	// jump
 	case 'u':
 	case 'U':
+		break; // disabled
 		// find the robot
 		oitr = objectList.begin();
 		for(;oitr != objectList.end(); oitr++)
@@ -850,6 +818,7 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	// crouch
 	case 'k':
 	case 'K':
+		break; // disabled
 		// find the robot
 		oitr = objectList.begin();
 		for(;oitr != objectList.end(); oitr++)
@@ -874,6 +843,7 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	// activate
 	case 'o':
 	case 'O':
+		break; // disabled
 		// find the robot
 		oitr = objectList.begin();
 		for(;oitr != objectList.end(); oitr++)
@@ -898,6 +868,7 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	// punch
 	case 'p':
 	case 'P':
+		break; // disabled
 		// find the robot
 		oitr = objectList.begin();
 		for(;oitr != objectList.end(); oitr++)
@@ -921,53 +892,62 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 		break;
 	case 't': // process next thing in robot loop
 	case 'T':
+		break; // disabled
 		processRobot();
 		break;
 	case 'r':
 	case 'R':
+		break; // disabled
 		robotX = robotStartX;
 		robotY = robotStartY;
 		break;
-
 	case 'X':
+		break; // disabled
 		robotX--;
 		currentX = robotX;
 		break;
 	case 'x':
+		break; // disabled
 		robotX++;
 		currentX = robotX;
 		break;
 	case 'Y':
+		break; // disabled
 		robotY--;
 		currentY = robotY;
 		break;
 	case 'y':
+		break; // disabled
 		robotY++;
 		currentY = robotY;
 		break;
 	case '9':
 		break;
 	case '1':
+		rotateMapLeft();
+		break; // disabled
 		// find the robot
-		oitr = objectList.begin();
+	/*	oitr = objectList.begin();
 		for(;oitr != objectList.end(); oitr++)
 		{
 			if((*oitr)->getType() == ORobot)
 			{
 				(*oitr)->rotate(-1);				
 			}
-		}	
+		}	*/
 		break;
 	case '2':
+		rotateMapRight();
+		break; // disabled
 		// find the robot
-		oitr = objectList.begin();
+	/*	oitr = objectList.begin();
 		for(;oitr != objectList.end(); oitr++)
 		{
 			if((*oitr)->getType() == ORobot)
 			{
 				(*oitr)->rotate(1);				
 			}
-		}	
+		}*/	
 		break;
 	case '3':
 		// toggle drawtext
@@ -982,85 +962,15 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	default:
 		break;
 	}
+
 	//std::cout << "RobotX,y = " << robotX << ", " << robotY << std::endl;
 
 	if (scale > maxscale)	scale = maxscale;
 	if (scale < minscale)	scale = minscale;
+
 	keepRobotOnTheBoard();
-	verifyMapPosition();	
+	verifyCameraCenter();
 	teleporterCheck();
-}
-
-bool gameBoard::verifyMapPosition()
-{
-	recalcPositions();
-
-	// max up ( checks bottom )
-	if((mapOffsetY + overallHeight) < (screenHeight - screenHeight * screenEdge))
-	{
-		mapOffsetY = (screenHeight - screenHeight * screenEdge) - overallHeight;
-		return false;
-	}
-	// max down ( checks top )
-	if((mapOffsetY) > (screenHeight * screenEdge))
-	{
-		mapOffsetY = screenHeight * screenEdge;
-		return false;
-	}
-
-	//// max left ( checking right )
-	if((mapOffsetX + ((Width +2)*hw)) < (screenWidth - screenWidth * screenEdge))
-	{
-		mapOffsetX = (screenWidth - screenWidth * screenEdge) - ((Width+2)*hw);
-		return false;
-	}
-
-	//// max right ( checking left )
-	if((mapOffsetX - ((Height-2)*hw)) > (screenWidth * screenEdge))
-	{
-		mapOffsetX = (screenWidth * screenEdge) + ((Height-2)*hw);
-		return false;
-	}
-
-	//// now lets see if this board should be centered or not
-	//if(overallWidth < screenWidth)
-	//{
-	//	// center horizontally
-	//	mapOffsetX = ((int)((Height - Width)/2) * hw) + (int)(screenWidth/2) - (int)(overallWidth/2);
-	//}
-	//
-	//if(overallHeight < screenHeight)
-	//{
-	//	// center vertically
-	//	mapOffsetY = ((int)((Width - Height)/2) * hh) + (int)(screenHeight/2) - (int)(overallHeight/2);
-	//}
-
-	return true;
-}
-
-void gameBoard::recalcPositions()
-{
-	if(currentX > Width)	currentX = Width;
-	if(currentX < 0)		currentX = 0;
-	if(currentY > Height)	currentY = Height;
-	if(currentY < 0)		currentY = 0;
-
-	// setting offsety based on center spot
-	imageWidth = imageBaseWidth * scale;
-	imageHeight = imageBaseHeight * scale;
-
-	hw = imageWidth/2;
-	hh = imageHeight/2;
-
-	overallWidth = (((Height + Width) * hw) + hw);
-	overallHeight = (((Height + Width) * hh) + hh);
-
-	//moveSpeed = scale * 0.1;	
-
-	// setting offsetx based on center spot
-	// start at the center of the screen
-	mapOffsetX = (screenWidth/2) + (hw*currentY) - (hw*currentX);
-	mapOffsetY = (screenHeight/2)- (hh*currentY) - (hh*currentX);
 }
 
 bool gameBoard::resetMap()
@@ -1068,6 +978,13 @@ bool gameBoard::resetMap()
 	//OM->startOver();
 
 	std::vector<object*>::iterator oitr = objectList.begin();
+	if(mapRotation > 0)
+		while(mapRotation > 0)
+			rotateMapLeft();
+
+	if(mapRotation < 0)
+		while(mapRotation < 0)
+			rotateMapRight();
 
 	for(;oitr != objectList.end(); oitr++)
 	{
@@ -1088,8 +1005,6 @@ bool gameBoard::resetMap()
 			mapList[x][y]->resetActive();
 		}
 	}
-	
-
 	return true;
 }
 
@@ -1278,7 +1193,7 @@ void gameBoard::processRobot()
 		
 		currentX = robotX;
 		currentY = robotY;
-		verifyMapPosition();	
+		verifyCameraCenter();
 		teleporterCheck();
 	}
 }
@@ -1920,11 +1835,12 @@ void gameBoard::RCpunch()
 				// lets break it
 				mapList[destX][destY]->setActive(false);
 
+				// by concensus this has been well, disabled
 				// and move the robot to this new square
-				robotX = destX;
-				robotY = destY;
-				(*oitr)->setXPos(robotX);
-				(*oitr)->setYPos(robotY);
+				//robotX = destX;
+				//robotY = destY;
+				//(*oitr)->setXPos(robotX);
+				//(*oitr)->setYPos(robotY);
 			}
 			// or lets also check to see if the square we're standing in is a breakable directional square
 			// since our dest's are set, we don't need to set anything additional
@@ -2322,11 +2238,9 @@ void gameBoard::panleft()
 	recalcPositions();
 	currentX -= moveSpeed*2;
 	currentY += moveSpeed*2;
-	if(!verifyMapPosition())
-	{
-		currentX += moveSpeed*2;
-		currentY -= moveSpeed*2;
-	}
+	verifyCameraPositionX();
+	verifyCameraPositionY();
+	verifyCameraCenter();
 }
 
 void gameBoard::panright()
@@ -2334,11 +2248,9 @@ void gameBoard::panright()
 	recalcPositions();
 	currentX += moveSpeed*2;
 	currentY -= moveSpeed*2;
-	if(!verifyMapPosition())
-	{
-		currentX -= moveSpeed*2;
-		currentY += moveSpeed*2;
-	}
+	verifyCameraPositionX();
+	verifyCameraPositionY();
+	verifyCameraCenter();
 }
 
 void gameBoard::panup()
@@ -2346,11 +2258,9 @@ void gameBoard::panup()
 	recalcPositions();
 	currentX -= moveSpeed*2;
 	currentY -= moveSpeed*2;
-	if(!verifyMapPosition())
-	{
-		currentX += moveSpeed*2;
-		currentY += moveSpeed*2;
-	}
+	verifyCameraPositionX();
+	verifyCameraPositionY();
+	verifyCameraCenter();
 }
 
 void gameBoard::pandown()
@@ -2358,55 +2268,47 @@ void gameBoard::pandown()
 	recalcPositions();
 	currentX += moveSpeed*2;
 	currentY += moveSpeed*2;
-	if(!verifyMapPosition())
-	{
-		currentX -= moveSpeed*2;
-		currentY -= moveSpeed*2;
-	}
+	verifyCameraPositionX();
+	verifyCameraPositionY();
+	verifyCameraCenter();
 }
 void gameBoard::panupleft()
 {
 	recalcPositions();
 	currentX -= moveSpeed*2;
-	if(!verifyMapPosition())
-	{
-		currentX += moveSpeed*2;
-	}
+	verifyCameraPositionX();
+	verifyCameraCenter();
 }
 void gameBoard::panupright()
 {
 	recalcPositions();
 	currentY -= moveSpeed*2;
-	if(!verifyMapPosition())
-	{
-		currentY += moveSpeed*2;
-	}
+	verifyCameraPositionY();
+	verifyCameraCenter();
 }
 void gameBoard::pandownleft()
 {
 	recalcPositions();
 	currentY += moveSpeed*2;
-	if(!verifyMapPosition())
-	{
-		currentY -= moveSpeed*2;
-	}
+	verifyCameraPositionY();
+	verifyCameraCenter();
 }
 void gameBoard::pandownright()
 {
 	recalcPositions();
 	currentX += moveSpeed*2;
-	if(!verifyMapPosition())
-	{
-		currentX -= moveSpeed*2;
-	}
+	verifyCameraPositionX();
+	verifyCameraCenter();
 }
 void gameBoard::zoomout()
 {
 	scale -= 0.05;
+	if (scale < minscale)	scale = minscale;
 }
 void gameBoard::zoomin()
 {
 	scale += 0.05;
+	if (scale > maxscale)	scale = maxscale;
 }
 void gameBoard::center()
 {
@@ -2416,4 +2318,283 @@ void gameBoard::center()
 bool gameBoard::getRobotAlive()
 {
 	return robotAlive;
+}
+
+void gameBoard::spinRobot()
+{
+	vector<object*>::iterator oitr;
+	oitr = objectList.begin();
+	for(;oitr != objectList.end(); oitr++)
+	{
+		if((*oitr)->getType() == ORobot)
+		{
+			(*oitr)->rotate(1);				
+		}
+	}	
+}
+
+void gameBoard::rotateMapRight()
+{
+	mapRotation++;
+	std::vector<std::vector<mapTile*>> mapListTemp;
+
+	int tempWidth = Height;
+	int tempHeight = Width;
+
+	// make it all empty
+	mapListTemp.resize(tempWidth);
+	for(int x = 0; x < tempWidth; x++)
+	{
+		mapListTemp[x].resize(tempHeight);
+	}
+	bool foundRobot = false;
+
+	// now that we have an empty vector
+	for(int x = 0; x < tempWidth; x++)
+	{
+		for(int y = 0; y < tempHeight; y++)
+		{
+			int newY = Height-x-1;
+			mapListTemp[x][y] = mapList[y][newY];
+			// tile comparisons go here
+			// i.e.
+			// half top
+			if		(mapListTemp[x][y]->getType() == THalfTopL)		{	mapListTemp[x][y]->setType(THalfTopR);		}
+			else if	(mapListTemp[x][y]->getType() == THalfTopR)		{	mapListTemp[x][y]->setType(THalfTopL);		}
+			// half bottom
+			else if (mapListTemp[x][y]->getType() == THalfBottomR)	{	mapListTemp[x][y]->setType(THalfBottomL);	}
+			else if (mapListTemp[x][y]->getType() == THalfBottomL)	{	mapListTemp[x][y]->setType(THalfBottomR);	}
+			// electric
+			else if	(mapListTemp[x][y]->getType() == TElectricTL)	{	mapListTemp[x][y]->setType(TElectricTR);	}
+			else if (mapListTemp[x][y]->getType() == TElectricTR)	{	mapListTemp[x][y]->setType(TElectricBR);	}
+			else if (mapListTemp[x][y]->getType() == TElectricBR)	{	mapListTemp[x][y]->setType(TElectricBL);	}
+			else if (mapListTemp[x][y]->getType() == TElectricBL)	{	mapListTemp[x][y]->setType(TElectricTL);	}
+			// switches
+			else if	(mapListTemp[x][y]->getType() == TSwitchTL)		{	mapListTemp[x][y]->setType(TSwitchTR);		}
+			else if	(mapListTemp[x][y]->getType() == TSwitchTR)		{	mapListTemp[x][y]->setType(TSwitchBR);		}
+			else if	(mapListTemp[x][y]->getType() == TSwitchBR)		{	mapListTemp[x][y]->setType(TSwitchBL);		}
+			else if	(mapListTemp[x][y]->getType() == TSwitchBL)		{	mapListTemp[x][y]->setType(TSwitchTL);		}
+			// reprogram squares
+			else if	(mapListTemp[x][y]->getType() == TProgramTL)	{	mapListTemp[x][y]->setType(TProgramTR);		}
+			else if	(mapListTemp[x][y]->getType() == TProgramTR)	{	mapListTemp[x][y]->setType(TProgramBR);		}
+			else if	(mapListTemp[x][y]->getType() == TProgramBR)	{	mapListTemp[x][y]->setType(TProgramBL);		}
+			else if	(mapListTemp[x][y]->getType() == TProgramBL)	{	mapListTemp[x][y]->setType(TProgramTL);		}
+			// breakables
+			else if	(mapListTemp[x][y]->getType() == TBreakableTL)	{	mapListTemp[x][y]->setType(TBreakableTR);	}
+			else if	(mapListTemp[x][y]->getType() == TBreakableTR)	{	mapListTemp[x][y]->setType(TBreakableBR);	}
+			else if	(mapListTemp[x][y]->getType() == TBreakableBR)	{	mapListTemp[x][y]->setType(TBreakableBL);	}
+			else if	(mapListTemp[x][y]->getType() == TBreakableBL)	{	mapListTemp[x][y]->setType(TBreakableTL);	}
+			// doors
+			else if	(mapListTemp[x][y]->getType() == TDoorTL)		{	mapListTemp[x][y]->setType(TDoorTR);		}
+			else if	(mapListTemp[x][y]->getType() == TDoorTR)		{	mapListTemp[x][y]->setType(TDoorBR);		}
+			else if	(mapListTemp[x][y]->getType() == TDoorBR)		{	mapListTemp[x][y]->setType(TDoorBL);		}
+			else if	(mapListTemp[x][y]->getType() == TDoorBL)		{	mapListTemp[x][y]->setType(TDoorTL);		}
+
+			if((robotX == y) && (robotY == (newY)) && (!foundRobot))
+			{
+				foundRobot = true;
+				robotX = x;
+				robotY = y;
+				vector<object*>::iterator oitr;
+				oitr = objectList.begin();
+				for(;oitr != objectList.end(); oitr++)
+				{
+					if((*oitr)->getType() == ORobot)
+					{
+						(*oitr)->rotate(1);	
+					}
+				}
+			}
+		}
+	}
+
+	double tempX, tempY;
+
+	tempX = Height - currentY;
+	tempY = currentX;
+	currentX = tempX;
+	currentY = tempY;
+
+	recalcPositions();
+
+	Width = tempWidth;
+	Height = tempHeight;
+	mapList = mapListTemp;
+}
+
+void gameBoard::rotateMapLeft()
+{
+	mapRotation--;
+	std::vector<std::vector<mapTile*>> mapListTemp;
+
+	int tempWidth = Height;
+	int tempHeight = Width;
+
+	// make it all empty
+	mapListTemp.resize(tempWidth);
+	for(int x = 0; x < tempWidth; x++)
+	{
+		mapListTemp[x].resize(tempHeight);
+	}
+	bool foundRobot = false;
+
+	// now that we have an empty vector
+	for(int x = 0; x < tempWidth; x++)
+	{
+		for(int y = 0; y < tempHeight; y++)
+		{
+			mapListTemp[x][y] = mapList[Width-y-1][x];
+
+			// tile comparisons go here
+			// i.e.
+			// half top
+			if		(mapListTemp[x][y]->getType() == THalfTopL)		{	mapListTemp[x][y]->setType(THalfTopR);		}
+			else if	(mapListTemp[x][y]->getType() == THalfTopR)		{	mapListTemp[x][y]->setType(THalfTopL);		}
+			// half bottom
+			else if (mapListTemp[x][y]->getType() == THalfBottomR)	{	mapListTemp[x][y]->setType(THalfBottomL);	}
+			else if (mapListTemp[x][y]->getType() == THalfBottomL)	{	mapListTemp[x][y]->setType(THalfBottomR);	}
+			// electric
+			else if	(mapListTemp[x][y]->getType() == TElectricTL)	{	mapListTemp[x][y]->setType(TElectricBL);	}
+			else if (mapListTemp[x][y]->getType() == TElectricBL)	{	mapListTemp[x][y]->setType(TElectricBR);	}
+			else if (mapListTemp[x][y]->getType() == TElectricBR)	{	mapListTemp[x][y]->setType(TElectricTR);	}
+			else if (mapListTemp[x][y]->getType() == TElectricTR)	{	mapListTemp[x][y]->setType(TElectricTL);	}
+			// switches
+			else if	(mapListTemp[x][y]->getType() == TSwitchTL)		{	mapListTemp[x][y]->setType(TSwitchBL);		}
+			else if	(mapListTemp[x][y]->getType() == TSwitchBL)		{	mapListTemp[x][y]->setType(TSwitchBR);		}
+			else if	(mapListTemp[x][y]->getType() == TSwitchBR)		{	mapListTemp[x][y]->setType(TSwitchTR);		}
+			else if	(mapListTemp[x][y]->getType() == TSwitchTR)		{	mapListTemp[x][y]->setType(TSwitchTL);		}
+			// reprogram squares
+			else if	(mapListTemp[x][y]->getType() == TProgramTL)	{	mapListTemp[x][y]->setType(TProgramBL);		}
+			else if	(mapListTemp[x][y]->getType() == TProgramBL)	{	mapListTemp[x][y]->setType(TProgramBR);		}
+			else if	(mapListTemp[x][y]->getType() == TProgramBR)	{	mapListTemp[x][y]->setType(TProgramTR);		}
+			else if	(mapListTemp[x][y]->getType() == TProgramTR)	{	mapListTemp[x][y]->setType(TProgramTL);		}
+			// breakables
+			else if	(mapListTemp[x][y]->getType() == TBreakableTL)	{	mapListTemp[x][y]->setType(TBreakableBL);	}
+			else if	(mapListTemp[x][y]->getType() == TBreakableBL)	{	mapListTemp[x][y]->setType(TBreakableBR);	}
+			else if	(mapListTemp[x][y]->getType() == TBreakableBR)	{	mapListTemp[x][y]->setType(TBreakableTR);	}
+			else if	(mapListTemp[x][y]->getType() == TBreakableTR)	{	mapListTemp[x][y]->setType(TBreakableTL);	}
+			// doors
+			else if	(mapListTemp[x][y]->getType() == TDoorTL)		{	mapListTemp[x][y]->setType(TDoorBL);		}
+			else if	(mapListTemp[x][y]->getType() == TDoorBL)		{	mapListTemp[x][y]->setType(TDoorBR);		}
+			else if	(mapListTemp[x][y]->getType() == TDoorBR)		{	mapListTemp[x][y]->setType(TDoorTR);		}
+			else if	(mapListTemp[x][y]->getType() == TDoorTR)		{	mapListTemp[x][y]->setType(TDoorTL);		}
+
+			if((robotX == (Width-y-1)) && (robotY == x) && (!foundRobot))
+			{
+				foundRobot = true;
+				robotX = x;
+				robotY = y;
+				vector<object*>::iterator oitr;
+				oitr = objectList.begin();
+				for(;oitr != objectList.end(); oitr++)
+				{
+					if((*oitr)->getType() == ORobot)
+					{
+						(*oitr)->rotate(-1);				
+					}
+				}
+			}
+		}
+	}
+
+	
+	double tempX, tempY;
+
+	tempX = currentY;
+	tempY = Width - currentX;
+	currentX = tempX;
+	currentY = tempY;
+
+	recalcPositions();
+
+	Width = tempWidth;
+	Height = tempHeight;
+	mapList = mapListTemp;
+}
+
+
+bool gameBoard::verifyCameraCenter()
+{
+	// this function should be run after other functions, it effectively checks
+	// to see if the board should be centered in any direction
+
+	// with the new camera centering, i'm not sure if this is really even needed
+	// it doesn't seem to be breaking anything soo... i'm not going to touch it
+
+	//recalcPositions();
+	//int centerpointX = (int)screenWidth/2;
+	//int centerpointY = (int)(screenHeight - interfaceHeight)/2;
+
+	//// now lets see if this board should be centered or not
+	//if(overallWidth < screenWidth)
+	//{
+	//	// center horizontally
+	//	mapOffsetX = centerpointX - (int)overallWidth/2;
+	//}
+	//
+	//if(overallHeight < screenHeight)
+	//{
+	//	// center vertically
+	//	mapOffsetY = centerpointY - (int)overallHeight/2;
+	//}
+	//recalcPositions();
+	return true;
+}
+
+void gameBoard::recalcPositions()
+{	
+	// recalculate image width/height with current scale
+	imageWidth = imageBaseWidth * scale;
+	imageHeight = imageBaseHeight * scale;
+
+	// recalc half width/height
+	hw = imageWidth/2;
+	hh = imageHeight/2;
+
+	// recalc overall width and height
+	overallWidth = (((Height + Width) * hw) + hw);
+	overallHeight = (((Height + Width) * hh) + hh);
+
+	//moveSpeed = scale * 0.1;	
+
+	// setting offsetx based on camera center spot
+	// start at the center of the screen
+	// if the screen is not centering properly, look here
+	mapOffsetX = (screenWidth/2) + (hw*currentY) - (hw*currentX) - hw*2;
+	mapOffsetY = (screenHeight/2)- (hh*currentY) - (hh*currentX) - hh;
+}
+
+bool gameBoard::verifyCameraPositionX()
+{
+	// if they have moved the camera beyond the gameboard
+	// return a failure
+	//std::cout << "Camera X = " << currentX << endl;
+	if(currentX > Width)	
+	{
+		currentX = Width;
+		return false;
+	}
+	else if(currentX < 0)
+	{
+		currentX = 0;
+		return false;
+	}
+	return true;
+}
+bool gameBoard::verifyCameraPositionY()
+{
+	// if they have moved the camera beyond the gameboard
+	// return a failure
+	//std::cout << "Camera Y = " << currentY << endl;
+	if(currentY > Height)	
+	{
+		currentY = Height;
+		return false;
+	}
+	else if(currentY < 0)
+	{
+		currentY = 0;	
+		return false;
+	}
+	return true;
 }

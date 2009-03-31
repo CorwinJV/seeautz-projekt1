@@ -17,6 +17,8 @@ class playGame : public GameState
 private:
 	gameBoard *gamePlay;
 	int timer;
+	int spintimer;
+	int spintimerStart;
 	vector<levelData*> levelList;
 	vector<oglTexture2D*> endGamePics;
 	vector<oglTexture2D*>::iterator endGameAnimation;
@@ -31,6 +33,9 @@ private:
 	vector<Button*> buttonList;
 	bool gameSaved;
 	bool pregameRunning;
+
+	bool finishNow;
+	bool finishing;
 
 	// pregame text locations
 	int preGameTextOffsetX;
@@ -50,6 +55,8 @@ private:
 	bool pandownright();
 	bool zoomout();
 	bool zoomin();
+	bool rotatemapleft();
+	bool rotatemapright();
 	bool center();
 
 public:

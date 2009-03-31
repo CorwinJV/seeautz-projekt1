@@ -53,6 +53,7 @@ protected:
 	int robotStartY;
 	int robotReprogramX;
 	int robotReprogramY;
+	int mapRotation;
 
 	bool didWeJustTeleport;
 	bool robotAlive;
@@ -62,6 +63,9 @@ protected:
 
 	int mouseX;
 	int mouseY;
+
+	int mouseTimer;
+	int mouseTimerStart;
 	
 	double scale;
 	double maxscale;
@@ -109,7 +113,9 @@ protected:
 	bool setOffsets(int x, int y);
 	bool setScale(double newScale);
 	double getScale();
-	bool verifyMapPosition();
+	bool verifyCameraCenter();
+	bool verifyCameraPositionX();
+	bool verifyCameraPositionY();
 	void recalcPositions();
 	bool resetMap();
 	void processRobot();
@@ -166,6 +172,10 @@ public:
 	void zoomin();
 	void center();
 
+	void spinRobot();
+
+	void rotateMapLeft();
+	void rotateMapRight();
 
 	GameBoardState getCurState();							// returns the current state of the gameBoard	
 };
