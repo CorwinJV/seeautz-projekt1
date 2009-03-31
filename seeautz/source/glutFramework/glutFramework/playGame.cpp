@@ -14,16 +14,36 @@ bool playGame::Update()
 	// see if the robot is at the end square
 	if((gamePlay->robotAtEndSquare())&& (curState == GB_EXECUTION))
 	{
-		curState = GB_VIEWSCORE;
-		gamePlay->setState(curState);
-		GameVars->totalCommandsProcessed += GameVars->commandsProcessed;
-		double scoreToAdd = 0;
-		int bytesUsed = GameVars->getBytesUsed();
-		int bytesAvail = GameVars->getCurrentLevelBytes();
-		scoreToAdd = ((100 - (((double)bytesUsed/(double)bytesAvail)*100)) * 10) + 200;
-		//scoreToAdd *= (double)GameVars->getCurrentLevel() * 0.1;
-		GameVars->setLevelScore(scoreToAdd);
-		GameVars->setTotalScore(GameVars->getLevelScore() + GameVars->getTotalScore());
+		if(!finishing)
+		{
+			startTime = clock();
+			spintimer = clock();
+			spintimerStart = clock();
+			finishing = true;
+		}
+		timer = clock();
+		if(timer > startTime + 2000)
+		{
+			finishing = false;
+			finishNow = true;
+			curState = GB_VIEWSCORE;
+			gamePlay->setState(curState);
+			GameVars->totalCommandsProcessed += GameVars->commandsProcessed;
+			double scoreToAdd = 0;
+			int bytesUsed = GameVars->getBytesUsed();
+			int bytesAvail = GameVars->getCurrentLevelBytes();
+			scoreToAdd = ((100 - (((double)bytesUsed/(double)bytesAvail)*100)) * 10) + 200;
+			//scoreToAdd *= (double)GameVars->getCurrentLevel() * 0.1;
+			GameVars->setLevelScore(scoreToAdd);
+			GameVars->setTotalScore(GameVars->getLevelScore() + GameVars->getTotalScore());
+		}
+		spintimer = clock();
+		if(spintimer > spintimerStart + 200)
+		{
+			gamePlay->spinRobot();
+			spintimerStart = clock();
+		}
+
 	}
 
 	// Update mInterface all the time
@@ -41,9 +61,12 @@ bool playGame::Update()
 		break;
 
 	case GB_EXECUTION:
-		gameSaved = false;
-		gamePlay->update();
-		gamePlay->mapScroll();
+		if(!finishNow && !finishing)
+		{
+			gameSaved = false;
+			gamePlay->update();
+			gamePlay->mapScroll();
+		}
 		break;
 
 	case GB_PREGAME:
@@ -89,6 +112,7 @@ bool playGame::Update()
 
 	case GB_VIEWSCORE:
 		//save the game for the player, if it hasn't been saved yet
+		finishNow = false;
 		if(!gameSaved)
 		{
 			GameVars->updatePlayerFile();
@@ -356,6 +380,8 @@ bool playGame::Draw()
 
 bool playGame::initialize()
 {
+	finishNow = false;
+	finishing = false;
 	string tempString;
 	int playerCurrentLevel;
 	youDiedImage = new oglTexture2D();
@@ -417,15 +443,25 @@ bool playGame::initialize()
 	compassOffsetY = 580;
 	compass = new MenuSys(compassOffsetX, compassOffsetY, "blank.png", None);
 
+	// rotate map left
+	compass->addButton("compass\\rotateleftnormal.png", "compass\\rotatelefthover.png", "compass\\rotatelefthover.png", CreateFunctionPointer0R(this, &playGame::rotatemapleft));
+	compass->setLastButtonDimensions(37, 25);
+	compass->setLastButtonPosition(compassOffsetX+6, compassOffsetY+5);
+
 	// zoom out
 	compass->addButton("compass\\zoomoutnormal.png", "compass\\zoomouthover.png", "compass\\zoomouthover.png", CreateFunctionPointer0R(this, &playGame::zoomout));
-	compass->setLastButtonDimensions(73, 25);
-	compass->setLastButtonPosition(compassOffsetX+6, compassOffsetY+5);
+	compass->setLastButtonDimensions(35, 25);
+	compass->setLastButtonPosition(compassOffsetX+6+37, compassOffsetY+5);
 	
 	// zoom in
 	compass->addButton("compass\\zoominnormal.png", "compass\\zoominhover.png", "compass\\zoominhover.png", CreateFunctionPointer0R(this, &playGame::zoomin));
-	compass->setLastButtonDimensions(73, 25);
-	compass->setLastButtonPosition(compassOffsetX + 73 + 6, compassOffsetY+5);
+	compass->setLastButtonDimensions(36, 25);
+	compass->setLastButtonPosition(compassOffsetX + 6 + 37 + 35, compassOffsetY+5);
+
+	// zoom in
+	compass->addButton("compass\\rotaterightnormal.png", "compass\\rotaterighthover.png", "compass\\rotaterighthover.png", CreateFunctionPointer0R(this, &playGame::rotatemapright));
+	compass->setLastButtonDimensions(38, 25);
+	compass->setLastButtonPosition(compassOffsetX + 6 + 37 + 35 + 36, compassOffsetY+5);
 
 	////////////////////////////////
 	// up left
@@ -496,6 +532,8 @@ bool playGame::pandownright()	{	gamePlay->pandownright();return true;}
 bool playGame::zoomout()		{	gamePlay->zoomout();	return true;}
 bool playGame::zoomin()			{	gamePlay->zoomin();		return true;}
 bool playGame::center()			{	gamePlay->center();		return true;}
+bool playGame::rotatemapleft()	{	gamePlay->rotateMapLeft(); return true;}
+bool playGame::rotatemapright()	{	gamePlay->rotateMapRight(); return true;}
 
 void playGame::processMouse(int x, int y)
 {

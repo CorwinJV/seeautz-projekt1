@@ -21,7 +21,7 @@ bool oglTexture2D::loadImage(std::string filename, int dWidth, int dHeight)
 	ilBindImage(image);
 
 	// Load in the image
-	if(!ilLoadImage(filename.c_str()))
+	if(!ilLoadImage((ILconst_string)filename.c_str()))
 	{
 		//std::cout << "oglTexture2D::loadImage failed to load " 
 		//	<< filename << std::endl;
