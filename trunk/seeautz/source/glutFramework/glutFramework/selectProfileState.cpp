@@ -126,6 +126,18 @@ void selectProfileState::processMouseClick(int button, int state, int x, int y)
 		myMenu->processMouseClick(button, state, x, y);
 }
 
+void selectProfileState::keyboardInput(unsigned char c, int x, int y)
+{
+	switch(c)
+	{
+	case 27: // escape key
+		GSM->addGameState<MainMenuState>();
+		this->setStatus(DeleteMe);
+		break;
+	default:
+		break;
+	}
+}
 void selectProfileState::setPlayerInfo(std::string name, int score, int curLevel, int maxLevel)
 {
 	GameVars->setPlayerName(name);
