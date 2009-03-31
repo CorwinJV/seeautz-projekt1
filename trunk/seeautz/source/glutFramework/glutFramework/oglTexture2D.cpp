@@ -128,6 +128,9 @@ bool oglTexture2D::drawImageFaded(double amount)
 
 bool oglTexture2D::drawImageFaded(double amount, int dWidth, int dHeight)
 {
+	int tmpDX = dX;
+	int tmpDY = dY;
+
 	if(dWidth != 0
 		&& dHeight != 0)
 	{
@@ -159,7 +162,8 @@ bool oglTexture2D::drawImageFaded(double amount, int dWidth, int dHeight)
 	glEnd();
 
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-
+	dX = tmpDX;
+	dY = tmpDY;
 	return true;
 }
 

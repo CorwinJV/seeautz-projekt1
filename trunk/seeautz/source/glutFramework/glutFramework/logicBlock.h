@@ -38,6 +38,8 @@ struct logicBlock
 		logicBlock::byteCost = byteCost;
 		logicBlock::enumInstruction = enumInstruction;
 		curButtonState = BS_INACTIVE;
+		isUsable = true;
+		isCurrentlyUsable = true;
 	}
 	~logicBlock()
 	{
@@ -54,6 +56,8 @@ struct logicBlock
 		byteCost = p.byteCost;
 		enumInstruction = p.enumInstruction;
 		curButtonState = p.curButtonState;
+		isUsable = p.isUsable;
+		isCurrentlyUsable = p.isCurrentlyUsable;
 	}
 
 	void addInstruction(AiInstructions instr)
@@ -77,6 +81,8 @@ struct logicBlock
 	int									byteCost;
 	AiInstructions						enumInstruction;
 	logicBlockState						curButtonState;
+	bool								isUsable;
+	bool								isCurrentlyUsable;
 };
 
 #endif

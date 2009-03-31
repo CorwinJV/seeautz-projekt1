@@ -640,38 +640,77 @@ void oglGameVars::setCurrentLogicBank(bool moveForwardAvail, bool moveForwardUnt
 	
 	currentLogicBank = new vector<logicBlock*>;
 
-	if(moveForwardAvail)
-		currentLogicBank->push_back(allLogicBlocks[0]);
+	for(int i = 0; i < allLogicBlocks.size(); i++)
+	{
+		allLogicBlocks[i]->isUsable = true;
+		allLogicBlocks[i]->isCurrentlyUsable = true;
+	}
 
-	if(moveForwardUntilAvail)
-		currentLogicBank->push_back(allLogicBlocks[1]);
+	currentLogicBank->push_back(allLogicBlocks[0]);
+	if(!moveForwardAvail)
+	{
+		currentLogicBank->back()->isUsable = false;
+	}
 	
-	if(turnLeftAvail)
-		currentLogicBank->push_back(allLogicBlocks[2]);
+	currentLogicBank->push_back(allLogicBlocks[1]);
+	if(!moveForwardUntilAvail)
+	{
+		currentLogicBank->back()->isUsable = false;
+	}
+	
+	currentLogicBank->push_back(allLogicBlocks[2]);
+	if(!turnLeftAvail)
+	{
+		currentLogicBank->back()->isUsable = false;
+	}
 
-	if(turnRightAvail)
-		currentLogicBank->push_back(allLogicBlocks[3]);
+	currentLogicBank->push_back(allLogicBlocks[3]);
+	if(!turnRightAvail)
+	{
+		currentLogicBank->back()->isUsable = false;
+	}	
 
-	if(punchAvail)
-		currentLogicBank->push_back(allLogicBlocks[4]);
+	currentLogicBank->push_back(allLogicBlocks[4]);
+	if(!punchAvail)
+	{
+		currentLogicBank->back()->isUsable = false;
+	}
+	
+	currentLogicBank->push_back(allLogicBlocks[5]);	
+	if(!climbAvail)
+	{
+		currentLogicBank->back()->isUsable = false;
+	}
 
-	if(climbAvail)
-		currentLogicBank->push_back(allLogicBlocks[5]);
+	currentLogicBank->push_back(allLogicBlocks[6]);
+	if(!crouchAvail)	
+	{
+		currentLogicBank->back()->isUsable = false;
+	}
+	
+	currentLogicBank->push_back(allLogicBlocks[7]);
+	if(!jumpAvail)
+	{
+		currentLogicBank->back()->isUsable = false;
+	}
 
-	if(crouchAvail)
-		currentLogicBank->push_back(allLogicBlocks[6]);
+	currentLogicBank->push_back(allLogicBlocks[8]);
+	if(!activateAvail)
+	{
+		currentLogicBank->back()->isUsable = false;
+	}	
+	
+	currentLogicBank->push_back(allLogicBlocks[9]);
+	if(!sub1Avail)
+	{
+		currentLogicBank->back()->isUsable = false;
+	}	
 
-	if(jumpAvail)
-		currentLogicBank->push_back(allLogicBlocks[7]);
-
-	if(activateAvail)
-		currentLogicBank->push_back(allLogicBlocks[8]);
-
-	if(sub1Avail)
-		currentLogicBank->push_back(allLogicBlocks[9]);
-
-	if(sub2Avail)
-		currentLogicBank->push_back(allLogicBlocks[10]);
+	currentLogicBank->push_back(allLogicBlocks[10]);	
+	if(!sub2Avail)
+	{
+		currentLogicBank->back()->isUsable = false;
+	}
 }
 
 void oglGameVars::setPMStatus(int status)
