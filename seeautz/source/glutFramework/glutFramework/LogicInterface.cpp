@@ -14,7 +14,8 @@ LogicInterface::LogicInterface()
 		curExecutionListYOffset(NULL), executionListYOffset(0), 
 		executionListSub1YOffset(0), executionListSub2YOffset(0),
 		scrollBar(NULL), mapByteLimit(0), usedBytes(0), drawInsertionLine(false),
-		insertionLineColumn(0), insertionLineRow(0), insertionLine(NULL)
+		insertionLineColumn(0), insertionLineRow(0), insertionLine(NULL),
+		draggedBlockMouseX(0), draggedBlockMouseY(0)
 {
 	//sideBarBox.width = 150;
 	//sideBarBox.height = 618;
@@ -138,37 +139,26 @@ LogicInterface::~LogicInterface()
 {
 	delete myMenu;
 	myMenu = NULL;
-
 	delete executingMenu;
 	executingMenu = NULL;
-
 	delete resetMenu;
 	resetMenu = NULL;
-
 	delete menuBar;
 	menuBar = NULL;
-
 	delete panelArt;
 	panelArt = NULL;
-
 	delete commandBackdrop;
 	commandBackdrop = NULL;
-
 	delete commandBackdrop2;
 	commandBackdrop2 = NULL;
-
 	delete scrollBar;
 	scrollBar = NULL;
-	
 	delete insertionLine;
 	insertionLine = NULL;
-
 	delete bytesLeftBackground;
 	bytesLeftBackground = NULL;
-
 	delete draggedBlock;
 	draggedBlock = NULL;
-
 	delete curExecutionListYOffset;
 	curExecutionListYOffset = NULL;
 
@@ -199,6 +189,22 @@ void LogicInterface::Update()
 	resetMenu->Update();
 	myMenu->Update();
 	executingMenu->Update();
+
+	// Toggle whether or not a logic instruction is usable
+	// based on whether or not bytes are available for it
+	std::vector<logicBlock*>::iterator dItr = logicBank->begin();
+	for(; dItr != logicBank->end(); dItr++)
+	{
+		int bytesLeft = mapByteLimit - usedBytes;
+		if((*dItr)->byteCost > bytesLeft)
+		{
+			(*dItr)->isCurrentlyUsable = false;
+		}
+		else
+		{
+			(*dItr)->isCurrentlyUsable = true;
+		}
+	}
 
 	// Hover Over Stuff
 	currentHoverBlockIndex = -1;
@@ -342,7 +348,7 @@ void LogicInterface::Draw()
 	menuBar->drawImage(logicBankBox.width + 7, logicBankBox.height - 18);*/
 
 	//=============================================
-	// Robot Instructios (sidebar)
+	// Robot Instructions
 	int rowCount = 0;
 	int columnIndex = 0;
 	if(this->curInstrTab == TAB_MAIN)
@@ -384,7 +390,7 @@ void LogicInterface::Draw()
 	}
 
 	//=============================================
-	// Robot Instructios (Sub1)
+	// Robot Instructions (Sub1)
 	if(this->curInstrTab == TAB_SUB1)
 	{
 		itr = executionListSub1.begin();
@@ -424,7 +430,7 @@ void LogicInterface::Draw()
 	}
 
 	//=============================================
-	// Robot Instructios (Sub2)
+	// Robot Instructions (Sub2)
 	if(this->curInstrTab == TAB_SUB2)
 	{
 		itr = executionListSub2.begin();
@@ -493,6 +499,15 @@ void LogicInterface::Draw()
 			else if((*itr)->curButtonState == BS_INACTIVE)
 			{
 				(*itr)->blockTexture->drawImageSegment((double)2/3, 0.0, (double)3/3, 0.0, (double)2/3, 1.0, (double)3/3, 1.0, 1, instructionBlockW, instructionBlockH);
+			}
+
+			// If an instruction is not usable, draw a box over it
+			if(!((*itr)->isUsable)
+				|| !((*itr)->isCurrentlyUsable))
+			{
+				insertionLine->mX = (*itr)->blockTexture->mX;
+				insertionLine->mY = (*itr)->blockTexture->mY;
+				insertionLine->drawImageFaded(0.5, instructionBlockW, instructionBlockH);
 			}
 
 			columnIndex++;
@@ -741,9 +756,15 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 					{
 						if((*itr)->checkInBounds(x, y, instructionBlockW, instructionBlockH))
 						{
-							draggedBlock = new logicBlock(*(*itr));
-							draggedBlock->curButtonState = BS_ACTIVE;
-							isMouseDragging = true;
+							if((*itr)->isUsable
+								&& (*itr)->isCurrentlyUsable)
+							{
+								draggedBlock = new logicBlock(*(*itr));
+								draggedBlock->curButtonState = BS_ACTIVE;
+								isMouseDragging = true;
+								draggedBlockMouseX = x;
+								draggedBlockMouseY = y;
+							}
 						}
 					}
 				}
@@ -751,6 +772,52 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 		}
 	}
 
+	//=====================================
+	// If the player clicks an instruction 
+	// from the logicBank it should add it 
+	// to the current list
+	if(!isExecuting)
+	{
+		if(button == GLUT_LEFT
+			&& state == GLUT_UP)
+		{
+			if(isMouseDragging == true
+				&& draggedBlock != NULL)
+			{
+				if(draggedBlockMouseX == x
+					&& draggedBlockMouseY == y)
+				{
+					std::vector<logicBlock*>* curExecutionList = NULL;
+					if(curInstrTab == TAB_MAIN)
+					{
+						curExecutionList = &executionList;
+					}
+					else if(curInstrTab == TAB_SUB1)
+					{
+						curExecutionList = &executionListSub1;
+					}
+					else if(curInstrTab == TAB_SUB2)
+					{
+						curExecutionList = &executionListSub2;
+					}
+					// Add block to the end of the list
+					int bytesLeft = mapByteLimit - usedBytes;
+					if(bytesLeft >= draggedBlock->byteCost)
+					{
+						curExecutionList->pop_back();
+						curExecutionList->push_back(new logicBlock(*(draggedBlock)));
+						curExecutionList->push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
+						curExecutionList->back()->curButtonState = BS_ACTIVE;
+					}
+					delete draggedBlock;
+					draggedBlock = NULL;
+					isMouseDragging = false;
+					draggedBlockMouseX = 0;
+					draggedBlockMouseY = 0;
+				}
+			}
+		}
+	}
 
 	//=====================================
 	// Dropping the instruction block into 

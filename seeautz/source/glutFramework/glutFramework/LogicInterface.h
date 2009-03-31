@@ -68,6 +68,8 @@ private:
 
 	int mouseX;
 	int mouseY;
+	int draggedBlockMouseX;
+	int draggedBlockMouseY;
 	bool isMouseDragging;
 	logicBlock* draggedBlock;
 
