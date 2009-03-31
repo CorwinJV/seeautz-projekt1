@@ -438,7 +438,7 @@ bool playGame::initialize()
 	myMenu->setLastButtonDimensions(100, 50);
 	myMenu->setLastButtonPosition(600, backgroundImage->mY+backgroundImage->dY - 60);
 
-	myMenu->addButton("buttons\\bacardi.png",	 "buttons\\bacardi.png", "buttons\\bacardi.png", CreateFunctionPointer0R(this, &playGame::replayLevel));
+	myMenu->addButton("buttons\\replaylevel.png",	 "buttons\\replaylevelhover.png", "buttons\\replaylevelhover.png", CreateFunctionPointer0R(this, &playGame::replayLevel));
 	myMenu->setLastButtonDimensions(100, 50);
 	myMenu->setLastButtonPosition(475, backgroundImage->mY+backgroundImage->dY - 60);
 

@@ -40,6 +40,7 @@ public:
 
 	void processMouse(int x, int y);
 	void processMouseClick(int button, int state, int x, int y);
+	void keyboardInput(unsigned char c, int x, int y);
 	bool selectProfileState::Update();
 	bool selectProfileState::Draw();
 	void selectProfileState::setPlayerInfo(std::string name, int, int, int);

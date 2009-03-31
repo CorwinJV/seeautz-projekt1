@@ -2,10 +2,6 @@
 
 bool createProfileState::Update()
 {
-	// this needs to be storing this into the playerinfo data structure then pushing back onto the vector.
-	// this is what's causing the crash bug, if a new user is created and it tries to access their position
-	// in the vector, since it was never added to the vector that's where its going kaboom!
-
 	if((!creatingProfile)&&(checked==2))
 	{
 		//set new player info 
@@ -73,8 +69,9 @@ bool createProfileState::Draw()
 		GameVars->fontArial24.drawText(150, 350, "         below to select profile with this name");
 		GameVars->fontArial24.drawText(150, 400, "Or press the enter key to return to try another name");
 
+		// button isnt being drawn!
 		if(myMenu != NULL)
-			myMenu->Update();
+			myMenu->Draw();
 	}
 	if((!creatingProfile)&&(checked == 1)&&(profileCheck == -2))
 	{
