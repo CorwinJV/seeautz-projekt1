@@ -463,6 +463,12 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 		for(int x = 0; x < Width; x++)
 		{
 			mapfile >> temptile;
+			if((temptile == THalfBottomL) || (temptile == THalfBottomR))
+			{
+				temptile = TGap;
+				// do NOT comment out this cout line, it is for verification purposes when loading a map
+				std::cout << filename.c_str() << "is referencing a THalfBottomL or THalfBottomR, I have converted it to a TGap" << endl;
+			}
 			this->setTileType(x, y, (tileTypeEnum)temptile);
 			// if its a start spot, add the robot to the object list
 			if(temptile == TStart)
@@ -2412,6 +2418,7 @@ void gameBoard::rotateMapRight()
 
 	tempX = Height - currentY;
 	tempY = currentX;
+
 	currentX = tempX;
 	currentY = tempY;
 
@@ -2502,6 +2509,7 @@ void gameBoard::rotateMapLeft()
 
 	tempX = currentY;
 	tempY = Width - currentX;
+
 	currentX = tempX;
 	currentY = tempY;
 

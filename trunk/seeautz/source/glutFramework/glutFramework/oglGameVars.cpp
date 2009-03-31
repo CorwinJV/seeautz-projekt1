@@ -80,7 +80,7 @@ oglGameVars::oglGameVars()
 	tempArt->loadImage("maps\\tutorialMap4.png", 300, 150);
 	levelArt.push_back(tempArt);
 
-	tempLevel = new levelData("Instruction Tutorial 5", "Climbing and Jumping", "maps\\tutorialMap5.txt");
+	tempLevel = new levelData("Instruction Tutorial 5", "Jumping", "maps\\tutorialMap5.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\tutorialMap5.png", 300, 150);
@@ -524,7 +524,7 @@ void oglGameVars::loadAllLogicBlocks()
 	tmpBlock->addInstruction(PUNCH);
 	allLogicBlocks.push_back(tmpBlock);
 
-	tmpBlock = new logicBlock("instructions/climb.png", 130, 130, "Climb                Use this instruction to climb up to a     higher level, or overcertain obstacles.", 4, CLIMB);
+	tmpBlock = new logicBlock("instructions/climb.png", 130, 130, "Climb                Use this instruction to climb up to a     higher level.", 4, CLIMB);
 	tmpBlock->addInstruction(CLIMB);
 	allLogicBlocks.push_back(tmpBlock);
 
