@@ -423,7 +423,7 @@ bool playGame::initialize()
 	pregameRunning = false;
 	gameSaved = false;
 
-	//display a menu that shows info and contains advance and exit buttons
+	//display a menu that shows info and contains advance, replay level and exit buttons
 
 	blackImage = new oglTexture2D();
 	blackImage->loadImage("black.png", 373, 61);
@@ -432,11 +432,15 @@ bool playGame::initialize()
 	myMenu = new MenuSys(250, 50, "blank.png", None);
 	myMenu->addButton("buttons\\advance.png", "buttons\\advancehover.png", "buttons\\advancehover.png", CreateFunctionPointer0R(this, &playGame::advance));
 	myMenu->setLastButtonDimensions(100, 50);
-	myMenu->setLastButtonPosition(600, backgroundImage->mY+backgroundImage->dY - 60);
+	myMenu->setLastButtonPosition(350, backgroundImage->mY+backgroundImage->dY - 60);
 
 	myMenu->addButton("buttons\\exit.png",	 "buttons\\exithover.png", "buttons\\exithover.png", CreateFunctionPointer0R(this, &playGame::exitGame));
 	myMenu->setLastButtonDimensions(100, 50);
-	myMenu->setLastButtonPosition(350, backgroundImage->mY+backgroundImage->dY - 60);
+	myMenu->setLastButtonPosition(600, backgroundImage->mY+backgroundImage->dY - 60);
+
+	myMenu->addButton("buttons\\bacardi.png",	 "buttons\\bacardi.png", "buttons\\bacardi.png", CreateFunctionPointer0R(this, &playGame::replayLevel));
+	myMenu->setLastButtonDimensions(100, 50);
+	myMenu->setLastButtonPosition(475, backgroundImage->mY+backgroundImage->dY - 60);
 
 	// compass stuff
 	compassOffsetX = 763;
@@ -651,6 +655,7 @@ playGame::~playGame()
 
 bool playGame::advance()
 {
+	// sets the game state to finished to allow advancement through mini state manager
 	curState = GB_FINISHED;
 	gamePlay->setState(curState);
 
@@ -659,14 +664,25 @@ bool playGame::advance()
 
 bool playGame::exitGame()
 {
-	exit(0);
+	//delete this state while creating a Main Menu State
+	GSM->addGameState<MainMenuState>();
+	this->setStatus(DeleteMe);
 
 	return true;
 }
 
-void playGame::levelSelect()
+bool playGame::replayLevel()
 {
-	//add level select state info here when it's setup
+	// reset the state to pregame of the current level
+	curState = GB_PREGAME;
+	gamePlay->setState(curState);
+
+	// reset the map for a fresh start for the replay
+	gamePlay->resetMap();
+
+	// is there a way to clear the instruction list?
+	// find/use same code as when user clicks clear button on interface
+	return true;
 }
 
 void playGame::doEndGameDraw()

@@ -33,6 +33,11 @@ bool createProfileState::Update()
 		if(myMenu != NULL)
 			myMenu->Update();
 	}
+	if(profileCheck >= 0)
+	{
+		if(myMenu != NULL)
+			myMenu->Update();
+	}
 	return true;
 }
 
@@ -60,14 +65,46 @@ bool createProfileState::Draw()
 		GameVars->fontArial24.drawText(150, 400, "No numbers or special characters");
 		GameVars->fontArial24.drawText(150, 450, "Or press the escape key to return to the main menu");
 	}
-	if((!creatingProfile)&&(checked == 1))
+	if((!creatingProfile)&&(checked == 1)&&(profileCheck >= 0))
 	{
 		backgroundImage->drawImage();
 		glColor3ub(0, 0, 0);
-		GameVars->fontArial24.drawText(150, 300, "Name already exists, please enter another name: ");
-		GameVars->fontArial24.drawText(150, 350, "Or press the escape key to return to the main menu");
+		GameVars->fontArial24.drawText(150, 300, "Name already exists, click select this profile button");
+		GameVars->fontArial24.drawText(150, 350, "         below to select profile with this name");
+		GameVars->fontArial24.drawText(150, 400, "Or press the enter key to return to try another name");
+
+		if(myMenu != NULL)
+			myMenu->Update();
+	}
+	if((!creatingProfile)&&(checked == 1)&&(profileCheck == -2))
+	{
+		backgroundImage->drawImage();
+		glColor3ub(0, 0, 0);
+		GameVars->fontArial24.drawText(150, 300, "Name can't be left blank, press enter to try another name ");
+		GameVars->fontArial24.drawText(150, 350, "Or press the escpae key to return to the main menu");
 	}
 	return false;
+}
+
+bool createProfileState::SelectProfile()
+{
+	// since we already know the name exists, run it through the check function, so it returns
+	// the position the name is in, and set the current record to that position
+	int recNum = doesNameAlreadyExists(tempString);
+	GameVars->PM->setCurrentRecord(recNum);
+	
+	// retrieve the information from the save file
+	int score = GameVars->PM->getPlayerTotalScore();
+	int currentLev = GameVars->PM->getPlayerCurrentLevel();
+	int maxLev = GameVars->PM->getPlayerHighestLevel();
+
+	// and set it as the active information
+	GameVars->setPlayerName(tempString);
+	GameVars->setTotalScore(score);	
+	GameVars->setCurrentLevel(currentLev);
+	GameVars->setPlayerMaxLevel(maxLev);
+
+	return true;
 }
 
 void createProfileState::processMouse(int x, int y)
@@ -84,7 +121,6 @@ void createProfileState::processMouseClick(int button, int state, int x, int y)
 
 void createProfileState::keyboardInput(unsigned char c, int x, int y)
 {
-	bool profileCheck;
 
 	switch(c)
 	{
@@ -156,6 +192,8 @@ void createProfileState::keyboardInput(unsigned char c, int x, int y)
 		{
 			creatingProfile = true;
 			checked = 0;
+			tempString = "";
+			profileCheck = -3;
 		}
 		else if(tempString == "")
 		{
@@ -179,17 +217,42 @@ void createProfileState::keyboardInput(unsigned char c, int x, int y)
 	if((!creatingProfile)&&(checked == 0))
 	{
 		profileCheck = doesNameAlreadyExists(tempString);
-		if(profileCheck)
+		if(profileCheck == -2)
 		{
-			checked = 2;		// if profile doesn't already exist, proceed
-		}
-		else 
-		{
-			tempString = "";	// otherwise clear the string out and try again
+			tempString = "";	// name can't be left blank, try again
 			checked = 1;
+		}
+		if(profileCheck == -1)
+		{
+			checked = 2;		// profile doesn't already exist, proceed with new profile using the chosen name
+		}
+		if(profileCheck >= 0) 
+		{
+			checked = 1;		// a profile using this name exists, check if they wish to load this profile
 		}
 	}
 
+}
+
+
+int createProfileState::doesNameAlreadyExists(std::string playerGame)
+{
+	string tempName = playerGame;
+
+	if(playerGame == "")
+		return -2;
+
+	int recs = GameVars->PM->getMaxRecords();
+	for(int i = 0; i < recs; i++)
+	{
+		GameVars->PM->setCurrentRecord(i);
+		if(playerGame == GameVars->PM->getPlayerName())
+		{
+			return i;
+		}
+	}
+
+	return -1;
 }
 
 void createProfileState::setPlayerInfo(std::string name, int score, int curLevel, int maxLevel)
@@ -198,9 +261,6 @@ void createProfileState::setPlayerInfo(std::string name, int score, int curLevel
 	GameVars->setTotalScore(score);	
 	GameVars->setCurrentLevel(curLevel);
 	GameVars->setPlayerMaxLevel(maxLevel);
-}
 
-bool createProfileState::doesNameAlreadyExists(std::string playerGame)
-{
-	return GameVars->PM->createProfile(tempString);
+	GameVars->PM->createProfile(name);
 }

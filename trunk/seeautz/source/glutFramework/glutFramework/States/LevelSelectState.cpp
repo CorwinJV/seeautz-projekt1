@@ -151,6 +151,7 @@ void LevelSelectState::keyboardInput(unsigned char c, int x, int y)
 	switch(c)
 	{
 	case 27: // escape key
+		GSM->addGameState<MainMenuState>();
 		this->setStatus(DeleteMe);
 		break;
 	default:
