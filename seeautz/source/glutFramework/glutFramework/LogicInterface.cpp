@@ -928,12 +928,16 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 						{
 							if((*itr)->checkInBounds(x, y, instructionBlockW, instructionBlockH))
 							{
-								draggedBlock = new logicBlock(*(*itr));
-								isMouseDragging = true;
+								if((*itr)->blockTexture->mY >= instructionListBox.y
+								 && (*itr)->blockTexture->mY <= instructionListBox.y + instructionListBox.height - (instructionSpacing + instructionBlockH))
+								{
+									draggedBlock = new logicBlock(*(*itr));
+									isMouseDragging = true;
 
-								delete (*itr);
-								executionList.erase(itr.base() - 1);
-								break;
+									delete (*itr);
+									executionList.erase(itr.base() - 1);
+									break;
+								}
 							}
 						}
 					}
@@ -951,12 +955,17 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 						{
 							if((*itr)->checkInBounds(x, y, instructionBlockW, instructionBlockH))
 							{
-								draggedBlock = new logicBlock(*(*itr));
-								isMouseDragging = true;
+								if((*itr)->blockTexture->mY >= instructionListBox.y
+								 && (*itr)->blockTexture->mY <= instructionListBox.y + instructionListBox.height - (instructionSpacing + instructionBlockH))
+								{
+									draggedBlock = new logicBlock(*(*itr));
+									isMouseDragging = true;
 
-								delete (*itr);
-								executionListSub1.erase(itr.base() - 1);
-								break;
+									delete (*itr);
+									executionListSub1.erase(itr.base() - 1);
+									break;
+							
+								}
 							}
 						}
 					}
@@ -974,12 +983,16 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 						{
 							if((*itr)->checkInBounds(x, y, instructionBlockW, instructionBlockH))
 							{
-								draggedBlock = new logicBlock(*(*itr));
-								isMouseDragging = true;
+								if((*itr)->blockTexture->mY >= instructionListBox.y
+								 && (*itr)->blockTexture->mY <= instructionListBox.y + instructionListBox.height - (instructionSpacing + instructionBlockH))
+								{
+									draggedBlock = new logicBlock(*(*itr));
+									isMouseDragging = true;
 
-								delete (*itr);
-								executionListSub2.erase(itr.base() - 1);
-								break;
+									delete (*itr);
+									executionListSub2.erase(itr.base() - 1);
+									break;
+								}
 							}
 						}
 					}
