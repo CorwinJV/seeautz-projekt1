@@ -5,11 +5,15 @@ bool createProfileState::Update()
 	if((!creatingProfile)&&(checked==2))
 	{
 		//set new player info 
+		GameVars->PM->createProfile(tempString);
 		GameVars->PM->setPlayerLevelInfo(1, -1, -1, -1);
 		GameVars->PM->setPlayerCurrentLevel(1);
 		GameVars->PM->setPlayerHighestLevel(1);
 		GameVars->PM->setPlayerName(tempString);
-		GameVars->PM->createProfile(tempString);
+		GameVars->setCurrentLevel(1);
+		GameVars->setPlayerName(tempString);
+		GameVars->setTotalScore(0);
+		
 
 		//reset values for another record to be entered
 		checked = 0;

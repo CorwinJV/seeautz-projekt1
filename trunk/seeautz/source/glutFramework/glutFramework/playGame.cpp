@@ -116,7 +116,7 @@ bool playGame::Update()
 		if(!gameSaved)
 		{
 			GameVars->updatePlayerFile();
-			GameVars->PM->saveProfile();
+		//	GameVars->PM->saveProfile();
 			gameSaved = true;
 		}
 
@@ -684,7 +684,7 @@ bool playGame::replayLevel()
 	mInterface.ClearExecutionList();
 	mInterface.ResetExecutionMode();
 
-	GameVars->PM->saveProfile();
+	//GameVars->PM->saveProfile();
 	GameVars->updatePlayerFile();
 
 	// is there a way to clear the instruction list?

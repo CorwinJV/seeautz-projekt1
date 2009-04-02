@@ -8,6 +8,7 @@ using namespace std;
 
 bool profileManager::createProfile(string name)
 {
+
 	string tempName = name;
 
 	if(name == "")

@@ -42,7 +42,7 @@ bool clickOKState::Draw()
 
 	if(created)
 	{
-		GameVars->fontArial24.drawText(300, 350, "Profile has been created,");
+		GameVars->fontArial24.drawText(350, 350, "Profile has been created,");
 		GameVars->fontArial24.drawText(350, 400, "click OK to begin game");
 	}
 	if(selected)

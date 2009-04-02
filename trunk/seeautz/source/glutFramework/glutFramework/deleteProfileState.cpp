@@ -52,8 +52,9 @@ bool deleteProfileState::Draw()
 	{
 		backgroundImage->drawImage();
 		glColor3ub(0, 0, 0);
-		GameVars->fontArial24.drawText(150, 300, "Name does not exist, please try another name: ");
-		GameVars->fontArial24.drawText(150, 350, "Or press the escape key to return to the main menu");
+		GameVars->fontArial24.drawText(250, 400, "Profile does not exist, press Enter ");
+		GameVars->fontArial24.drawText(250, 450, "to try another name, or press the ");
+		GameVars->fontArial24.drawText(250, 500, "escape key to return to the main menu");
 	}
 
 	return false;

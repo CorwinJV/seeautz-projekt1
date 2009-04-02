@@ -128,7 +128,7 @@ oglGameVars::oglGameVars()
 	tempArt->loadImage("maps\\tileTutorialMap1b.png", 300, 150);
 	levelArt.push_back(tempArt);
 
-	/*tempLevel = new levelData("Map 1", "Map #1", "maps\\Map1.txt");
+	tempLevel = new levelData("Map 1", "Map #1", "maps\\Map1.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\Map1.png", 300, 150);
@@ -186,7 +186,7 @@ oglGameVars::oglGameVars()
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\Map10.png", 300, 150);
-	levelArt.push_back(tempArt);*/
+	levelArt.push_back(tempArt);
 
 	tempLevel = new levelData("Map 11", "Insanity #1", "maps\\Map11.txt");
 	levelList.push_back(tempLevel);
