@@ -24,6 +24,7 @@ protected:
 	oglTexture2D *logoImage;
 	oglTexture2D *backgroundImage;
 	oglTexture2D *solidWhite;
+	oglTexture2D *solidBlack;
 
 public:
 	GameState();

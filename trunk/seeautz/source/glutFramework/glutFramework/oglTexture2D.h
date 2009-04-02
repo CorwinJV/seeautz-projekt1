@@ -27,6 +27,7 @@ public:
 
 	bool loadImage(std::string, int dWidth, int dHeight);
 	bool drawImage(int dWidth = 0, int dHeight = 0);
+	bool drawImage(int nWidth, int nHeight, int nX, int nY);
 	bool drawImageFaded(double amount);
 	bool drawImageFaded(double amount, int dWidth, int dHeight);
 	bool oglTexture2D::drawImageSegment(double topLeftX, double topLeftY, 
