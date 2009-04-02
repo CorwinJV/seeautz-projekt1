@@ -96,6 +96,32 @@ bool oglTexture2D::drawImage(int dWidth, int dHeight)
 	return true;
 }
 
+bool oglTexture2D::drawImage(int nWidth, int nHeight, int nX, int nY)
+{
+	// Bind texture to current context 
+	glBindTexture(GL_TEXTURE_2D, texture); 
+	// Set the alpha 
+	glColor4f(1.0, 1.0, 1.0, 1.0); 
+
+	// Draw texture using a quad 
+	glBegin(GL_POLYGON); 
+		// Top left 
+		glTexCoord2f(0.0, 0.0); 
+		glVertex2i(nX, nY); 
+		// Top right 
+		glTexCoord2f(1.0, 0.0); 
+		glVertex2i(nX + nWidth, nY); 
+		// Bottom right 
+		glTexCoord2f(1.0, 1.0); 
+		glVertex2i(nX + nWidth, nY + nHeight); 
+		// Bottom left 
+		glTexCoord2f(0.0, 1.0); 
+		glVertex2i(nX, nY + nHeight); 
+		// Finish quad drawing 
+	glEnd();
+	return true;
+}
+
 bool oglTexture2D::drawImageFaded(double amount)
 {
 	// Bind texture to current context 

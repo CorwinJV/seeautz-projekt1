@@ -277,6 +277,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\helpScreenState.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\States\LevelSelectState.cpp"
 					>
 				</File>
@@ -464,6 +468,10 @@
 				</File>
 				<File
 					RelativePath=".\States\DevLogoState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\helpScreenState.h"
 					>
 				</File>
 				<File

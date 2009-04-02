@@ -450,6 +450,8 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 			(*itr) = temp;
 		}
 	}
+	Width = 0;
+	Height = 0;
 	Width = nWidth;
 	Height = nHeight;
 

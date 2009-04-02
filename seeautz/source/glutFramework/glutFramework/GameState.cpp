@@ -34,6 +34,10 @@ GameState::GameState(GameStateManager &Parent, int newID)	// constructor
 	solidWhite->loadImage("white.png", 1024, 768);
 	solidWhite->mX = 0;
 	solidWhite->mY = 0;
+	solidBlack = new oglTexture2D;
+	solidBlack->loadImage("black.png", 1024, 768);
+	solidBlack->mX = 0;
+	solidBlack->mY = 0;
     //graphics = new GraphicsDeviceManager(this);
     //content = new ContentManager(Services);
     // graphics.IsFullScreen = true;
@@ -43,11 +47,15 @@ GameState::GameState(GameStateManager &Parent, int newID)	// constructor
 
 void GameState::clearBackground()
 {
+	solidWhite->drawImage();
 	glClearColor(255, 255, 255, 0);
 }
 
 GameState::~GameState()
 {
+	delete backgroundImage;
+	delete solidWhite;
+	delete solidBlack;
 
 }
 
