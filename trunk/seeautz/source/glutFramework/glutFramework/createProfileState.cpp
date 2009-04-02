@@ -9,7 +9,8 @@ bool createProfileState::Update()
 		GameVars->PM->setPlayerCurrentLevel(1);
 		GameVars->PM->setPlayerHighestLevel(1);
 		GameVars->PM->setPlayerName(tempString);
-		
+		GameVars->PM->createProfile(tempString);
+
 		//reset values for another record to be entered
 		checked = 0;
 		creatingProfile = false;
@@ -19,7 +20,7 @@ bool createProfileState::Update()
 		GSM->addGameState<clickOKState>();
 		GSM->setAllButTopPassive();
 		this->setStatus(DeleteMe);
-		GameVars->PM->createProfile(tempString);
+		
 	}
 
 	// if we aren't in the middle of any profile management or checking anything
@@ -69,6 +70,11 @@ bool createProfileState::Draw()
 		GameVars->fontArial24.drawText(150, 350, "         below to select profile with this name");
 		GameVars->fontArial24.drawText(150, 400, "Or press the enter key to return to try another name");
 
+		if(!added)
+		{
+			added = true;
+			myMenu->addButton("buttons\\selectprofile.png", "buttons\\selectprofilehover.png", "buttons\\selectprofilehover.png", CreateFunctionPointer0R(this, &createProfileState::SelectProfile));
+		}
 		// button isnt being drawn!
 		if(myMenu != NULL)
 			myMenu->Draw();
@@ -100,6 +106,7 @@ bool createProfileState::SelectProfile()
 	GameVars->setTotalScore(score);	
 	GameVars->setCurrentLevel(currentLev);
 	GameVars->setPlayerMaxLevel(maxLev);
+	GSM->addGameState<LevelSelectState>();
 
 	return true;
 }
