@@ -103,6 +103,7 @@ bool LevelSelectState::selectLevel()
 
 	GameVars->setLevel(playerCurrentLevel);
 	GSM->launchNewGame();
+	this->setStatus(DeleteMe);
 
 	return true;
 }

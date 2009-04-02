@@ -16,6 +16,7 @@ public:
 	createProfileState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
 		creatingProfile = true;
+		added = false;
 		checked = 0;
 		profileCheck = -3;
 		img = new oglTexture2D();
@@ -23,10 +24,6 @@ public:
 			img->loadImage("statescreens\\profilemanagement.png", 1024, 120);
 		img->mY = 618;*/
 		myMenu = new MenuSys(250, 450, "blankmenu.png", Auto);
-		if(profileCheck >= 0)
-		{
-			myMenu->addButton("buttons\\selectprofile.png", "buttons\\selectprofilehover.png", "buttons\\selectprofilehover.png", CreateFunctionPointer0R(this, &createProfileState::SelectProfile));
-		}
 		Update();
 	}
 
@@ -47,6 +44,7 @@ private:
 	profileManager* PM;
 	oglTexture2D* img;
 	bool creatingProfile;
+	bool added;
 	// add private stuff here
 
 };

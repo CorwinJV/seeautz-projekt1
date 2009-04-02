@@ -116,6 +116,7 @@ bool playGame::Update()
 		if(!gameSaved)
 		{
 			GameVars->updatePlayerFile();
+			GameVars->PM->saveProfile();
 			gameSaved = true;
 		}
 
@@ -679,6 +680,12 @@ bool playGame::replayLevel()
 
 	// reset the map for a fresh start for the replay
 	gamePlay->resetMap();
+
+	mInterface.ClearExecutionList();
+	mInterface.ResetExecutionMode();
+
+	GameVars->PM->saveProfile();
+	GameVars->updatePlayerFile();
 
 	// is there a way to clear the instruction list?
 	// find/use same code as when user clicks clear button on interface
