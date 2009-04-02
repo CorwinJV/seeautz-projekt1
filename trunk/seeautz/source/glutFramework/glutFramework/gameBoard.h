@@ -47,6 +47,8 @@ protected:
 	subroutine*	  SUB1;
 	subroutine*   SUB2;
 
+	int processSubRecurCounter;
+
 	int robotX;
 	int robotY;
 	int robotStartX;

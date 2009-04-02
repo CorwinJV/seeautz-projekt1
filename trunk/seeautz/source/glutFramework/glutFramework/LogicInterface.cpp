@@ -200,6 +200,16 @@ void LogicInterface::Update()
 		{
 			(*dItr)->isCurrentlyUsable = false;
 		}
+		else if(curInstrTab == TAB_SUB1
+			&& ((*dItr)->enumInstruction == SUBR1 || (*dItr)->enumInstruction == SUBR2))
+		{
+			(*dItr)->isCurrentlyUsable = false;
+		}
+		else if(curInstrTab == TAB_SUB2
+			&& ((*dItr)->enumInstruction == SUBR1 || (*dItr)->enumInstruction == SUBR2))
+		{
+			(*dItr)->isCurrentlyUsable = false;
+		}
 		else
 		{
 			(*dItr)->isCurrentlyUsable = true;
@@ -726,6 +736,8 @@ void LogicInterface::processMouse(int x, int y)
 		drawInsertionLine = false;
 	}
 }
+
+// Add in KeyboardInput functions for TAB (DEC: 9 ASCII value)
 
 void LogicInterface::processMouseClick(int button, int state, int x, int y)
 {

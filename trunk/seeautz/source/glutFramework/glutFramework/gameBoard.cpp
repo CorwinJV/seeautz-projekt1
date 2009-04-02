@@ -13,7 +13,7 @@
 
 using namespace std;
 
-gameBoard::gameBoard() : curState(GB_LOGICVIEW)
+gameBoard::gameBoard() : curState(GB_LOGICVIEW), processSubRecurCounter(0)
 {
 	std::vector<std::vector<mapTile*>> mapListTemp;
 
@@ -2124,6 +2124,20 @@ void gameBoard::setState(GameBoardState state)
 
 bool gameBoard::processSub(int whichSub)
 {
+	//=======================
+	// Subroutines processing
+	// other subs does not work...
+	// Right now we're designing the system
+	// so that it won't allow these kinds of
+	// algorithms but this will have to be fixed
+	// in the future.
+	processSubRecurCounter++;
+	//if(processSubRecurCounter > 32)
+	//{
+	//	processSubRecurCounter--;
+	//	return false;
+	//}
+	//std::cout << "Processing..." << endl;
 	AiInstructions nextCommand;
 	bool parentDelay = false;
 	bool moveForwardFiring = false;
@@ -2131,15 +2145,25 @@ bool gameBoard::processSub(int whichSub)
 
 	if(whichSub == 1)
 		if(SUB1->isEmpty())
+		{
+			/*processSubRecurCounter--;*/
 			return false;
+		}
 		else
+		{
 			nextCommand = SUB1->getNextCommand();
+		}
 
 	if(whichSub == 2)
 		if(SUB2->isEmpty())
+		{
+			/*processSubRecurCounter--;*/
 			return false;
+		}
 		else
+		{
 			nextCommand = SUB2->getNextCommand();
+		}
 
 	std::vector<object*>::iterator oitr = objectList.begin();
 
@@ -2159,6 +2183,7 @@ bool gameBoard::processSub(int whichSub)
 					{
 						GameVars->commandsProcessed--;
 						parentDelay = true;
+						/*processSubRecurCounter--;*/
 						return true;
 					}
 				}
@@ -2203,6 +2228,7 @@ bool gameBoard::processSub(int whichSub)
 				if(moveForwardFiring)
 				{
 					GameVars->commandsProcessed--;
+					/*processSubRecurCounter--;*/
 					return true;
 				}				
 				break;
@@ -2235,6 +2261,7 @@ bool gameBoard::processSub(int whichSub)
 		GameVars->commandsProcessed++;
 	}
 
+	/*processSubRecurCounter--;*/
 	return parentDelay;
 }
 
