@@ -1174,6 +1174,7 @@ bool LogicInterface::Sub1TabButtonClick()
 			}
 		}
 	}
+	return false;
 }
 
 bool LogicInterface::Sub2TabButtonClick()
@@ -1192,6 +1193,7 @@ bool LogicInterface::Sub2TabButtonClick()
 			}
 		}
 	}
+	return false;
 }
 
 
