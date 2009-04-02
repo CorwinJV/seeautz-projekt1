@@ -19,8 +19,8 @@ public:
 	{
 		myMenu = new MenuSys(250, 250, "blankmenu.png");
 		myMenu->addButton("buttons\\ok.png", "buttons\\okhover.png", "buttons\\okhover.png", CreateFunctionPointer0R(this, &clickOKState::clickOKCallback));
-		myMenu->setLastButtonDimensions(100, 100);
-		myMenu->setLastButtonPosition((int)1024/2, 400);
+		myMenu->setLastButtonDimensions(100, 75);
+		myMenu->setLastButtonPosition(500, 550);
 		Update();
 	}
 
