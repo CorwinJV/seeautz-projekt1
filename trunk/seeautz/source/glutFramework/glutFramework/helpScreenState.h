@@ -41,6 +41,9 @@ private:
 	int tempX;
 	int tempY;
 
+	// another pic to load once
+	oglTexture2D* logicInterfaceHelp;
+
 	// robot
 	oglTexture2D* robotImage;
 
@@ -65,7 +68,7 @@ public:
 		offsetAmt = 0;
 		textSpacing = 16;
 		textSpacing2 = 22;
-		maxPage = 9;
+		maxPage = 7;
 		myMenu = new MenuSys(250, 250, "blank.png", None);
 		myMenu->addButton("arrow_right.png", "arrow_righthover.png", "arrow_righthover.png", CreateFunctionPointer0R(this, &helpScreenState::next));
 		myMenu->setLastButtonDimensions(50, 50);
@@ -80,6 +83,7 @@ public:
 		//Update();
 		init();
 	}
+	~helpScreenState();
 
 	void processMouse(int x, int y);
 	void processMouseClick(int button, int state, int x, int y);

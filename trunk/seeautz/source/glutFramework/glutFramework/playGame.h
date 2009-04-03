@@ -60,6 +60,8 @@ private:
 	bool rotatemapright();
 	bool center();
 
+	bool launchHelpState();
+
 public:
 	playGame();
 	playGame(GameStateManager &Parent, int newID) : GameState(Parent, newID)

@@ -34,44 +34,26 @@ bool helpScreenState::Draw()
 	case 0: // condensed help
 		drawPage0();
 		break;
-	case 1: // table of contents
-		glColor3ub(0, 0, 0);
-		GameVars->fontArial24.drawText(textOffsetX, textOffsetY, "Table of Contents");
-		offsetAmt++;		offsetAmt++;
-		GameVars->fontArial18.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, "Page 1 - Overview");
-		offsetAmt++;
+	case 1: // user interface
+		drawPage1();
 		break;
-	case 2:	// basic game concepts
-		glColor3ub(0, 0, 0);
-		GameVars->fontArial24.drawText(textOffsetX, textOffsetY, "Basic Game Concepts");
-		offsetAmt++;		offsetAmt++;
-		GameVars->fontArial18.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, "Stuff");
-		offsetAmt++;
+	case 2:	// instructions help
+		drawPage2();
 		break;
-	case 3: // user interface
-		glColor3ub(0, 0, 0);
-		GameVars->fontArial24.drawText(textOffsetX, textOffsetY, "User Interface");
-		offsetAmt++;		offsetAmt++;
-		GameVars->fontArial18.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, "Stuff");
-		offsetAmt++;
+	case 3: // scoring and subroutines
+		drawPage3();
 		break;
-	case 4:	// instructions help
+	case 4: // tile list page 1?
 		drawPage4();
 		break;
-	case 5: // scoring and subroutines
+	case 5: // tile list page 2?
 		drawPage5();
 		break;
-	case 6: // tile list page 1?
+	case 6: // tile list page 3?
 		drawPage6();
 		break;
-	case 7: // tile list page 2?
+	case 7: // tile list page 4?
 		drawPage7();
-		break;
-	case 8: // tile list page 3?
-		drawPage8();
-		break;
-	case 9: // tile list page 4?
-		drawPage9();
 		break;
 
 	default:
@@ -123,7 +105,7 @@ void helpScreenState::keyboardInput(unsigned char c, int x, int y)
 	switch(c)
 	{
 	case 27:
-		exit(0);
+		this->setStatus(DeleteMe);
 		break;
 	default:
 		break;
@@ -191,6 +173,9 @@ void helpScreenState::init()
 	// robot
 	robotImage = new oglTexture2D;
 	robotImage->loadImage("object\\robotDefault.png", 195*0.45, 110*2*0.45);
+
+	logicInterfaceHelp = new oglTexture2D;
+	logicInterfaceHelp->loadImage("interfacehelp.png", 725, 403);
 }
 
 bool helpScreenState::drawTile(tileTypeEnum nType, int txPos, int tyPos, double scale, bool isActive)
@@ -255,11 +240,16 @@ void helpScreenState::drawPage0()
 	robotImage->dY = tempY;
 	offsetAmt++;
 }
-void helpScreenState::drawPage1()
+void helpScreenState::drawPage1() // user interface
 {
-
+	glColor3ub(0, 0, 0);
+	GameVars->fontArial24.drawText(textOffsetX, textOffsetY, "User Interface");
+	offsetAmt++;		offsetAmt++;
+	logicInterfaceHelp->mX = 150;
+	logicInterfaceHelp->mY = 285;
+	logicInterfaceHelp->drawImage();
 }
-void helpScreenState::drawPage4()
+void helpScreenState::drawPage2() // instructions
 {
 	glColor3ub(0, 0, 0);
 	GameVars->fontArial24.drawText(textOffsetX, textOffsetY, "Instructions");
@@ -340,7 +330,7 @@ void helpScreenState::drawPage4()
 	// now for text
 
 }
-void helpScreenState::drawPage5()
+void helpScreenState::drawPage3() // scoring and subroutines
 {
 	glColor3ub(0, 0, 0);
 	offsetAmt++;
@@ -384,7 +374,7 @@ void helpScreenState::drawPage5()
 	offsetAmt++;
 	
 }
-void helpScreenState::drawPage6()
+void helpScreenState::drawPage4() // tile list page 1
 {
 	glColor3ub(0, 0, 0);
 	GameVars->fontArial24.drawText(textOffsetX, textOffsetY, "Tiles (page 1)");
@@ -508,7 +498,7 @@ void helpScreenState::drawPage6()
 	offsetAmt++;
 }
 
-void helpScreenState::drawPage7()
+void helpScreenState::drawPage5() // tile list page 2
 {
 	glColor3ub(0, 0, 0);
 	GameVars->fontArial24.drawText(textOffsetX, textOffsetY, "Tiles (page 2)");
@@ -625,7 +615,7 @@ void helpScreenState::drawPage7()
 	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "memory.");
 	offsetAmt++;
 }
-void helpScreenState::drawPage8()
+void helpScreenState::drawPage6() // tile list page 3
 {
 	glColor3ub(0, 0, 0);
 	GameVars->fontArial24.drawText(textOffsetX, textOffsetY, "Tiles (page 3)");
@@ -734,7 +724,7 @@ void helpScreenState::drawPage8()
 	offsetAmt++;
 	offsetAmt++;
 }
-void helpScreenState::drawPage9()
+void helpScreenState::drawPage7() // tile list page 4
 {
 	glColor3ub(0, 0, 0);
 	GameVars->fontArial24.drawText(textOffsetX, textOffsetY, "Tiles (page 4)");
@@ -795,4 +785,25 @@ void helpScreenState::drawPage9()
 	//tempX = 535; // extra offset for text
 	//GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "Solid Tile - This");
 	//offsetAmt++;
+}
+
+helpScreenState::~helpScreenState()
+{
+	vector<mapTile*>::iterator tileListI = tileList.begin();
+
+	for(;tileListI < tileList.end(); tileListI++)
+	{
+		delete (*tileListI);
+	}
+
+	vector<oglTexture2D*>::iterator tileImagesI = tileImages.begin();
+
+	for(;tileImagesI < tileImages.end(); tileImagesI++)
+	{
+		delete (*tileImagesI);
+	}
+
+	delete robotImage;
+	delete logicInterfaceHelp;
+	delete myMenu;
 }

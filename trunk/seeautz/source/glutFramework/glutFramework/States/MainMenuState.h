@@ -1,29 +1,25 @@
 #ifndef MAINMENUSTATE_H
 #define MAINMENUSTATE_H
 
-#include ".\..\GameState.h"
-#include ".\..\FunctionPointer.h"
+#include "..\GameState.h"
+#include "..\FunctionPointer.h"
 #include <iostream>
-#include ".\..\oglTexture2D.h"
-
+#include "..\oglTexture2D.h"
+#include "..\helpScreenState.h"
 using namespace BE;
 
 class MainMenuState : public GameState
 {
 public:
 	MainMenuState() {};
-	MainMenuState(GameStateManager &Parent, int newID) : GameState(Parent, newID),
-		img(NULL)
+	MainMenuState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
-		img = new oglTexture2D();
-		/*if(img != NULL)
-			img->loadImage("logoprojekt1narrow.png", 1024, 150);
-		img->mY = 50;*/
 
 		myMenu = new MenuSys(250, 250, "blankmenu.png", Auto);
 		myMenu->addButton("buttons\\startnewgame.png", "buttons\\startnewgamehover.png", "buttons\\startnewgamehover.png", CreateFunctionPointer0R(this, &MainMenuState::StartNewGameCallback));
 		myMenu->addButton("buttons\\profilemanagement.png", "buttons\\profilemanagementhover.png", "buttons\\profilemanagementhover.png", CreateFunctionPointer0R(this, &MainMenuState::ProfileManagerCallback));
 		myMenu->addButton("buttons\\loadgame.png", "buttons\\loadgamehover.png", "buttons\\loadgamehover.png", CreateFunctionPointer0R(this, &MainMenuState::LoadGameCallback));
+		myMenu->addButton("buttons\\helpwide.png", "buttons\\helpwidehover.png", "buttons\\helpwidehover.png", CreateFunctionPointer0R(this, &MainMenuState::HelpCallback));
 		myMenu->addButton("buttons\\credits.png", "buttons\\creditshover.png", "buttons\\creditshover.png", CreateFunctionPointer0R(this, &MainMenuState::Credits));
 		myMenu->addButton("buttons\\quit.png", "buttons\\quithover.png", "buttons\\quithover.png", CreateFunctionPointer0R(this, &MainMenuState::Quit));
 	}
@@ -36,11 +32,12 @@ public:
 	bool StartNewGameCallback();
 	bool ProfileManagerCallback();
 	bool LoadGameCallback();
+	bool HelpCallback();
 	bool Quit();
 	bool Credits();
 
 private:
-	oglTexture2D* img;
+	//oglTexture2D* img;
 	// add private stuff here
 	
 };

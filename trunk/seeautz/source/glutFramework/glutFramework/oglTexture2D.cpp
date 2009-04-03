@@ -60,6 +60,7 @@ bool oglTexture2D::loadImage(std::string filename, int dWidth, int dHeight)
 	//	std::cout << "DevIL Loading error: " << Error; 
 	} 
 	return true;
+	delete data;
 }
 
 bool oglTexture2D::drawImage(int dWidth, int dHeight)

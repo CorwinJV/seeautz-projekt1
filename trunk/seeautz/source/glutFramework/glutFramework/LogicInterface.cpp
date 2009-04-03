@@ -673,7 +673,7 @@ void LogicInterface::Draw()
 			{
 				GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, "[Not Enough Memory");
 				currentLine++;
-				GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, "\Available]");
+				GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, "Available]");
 				currentLine++;
 			}
 
@@ -1286,6 +1286,7 @@ bool LogicInterface::AbortButtonClick()
 	}
 	return false;
 }
+
 
 //============================================
 // Reset Button Callback
