@@ -110,7 +110,7 @@ oglGameVars::oglGameVars()
 	tempArt->loadImage("maps\\tileTutorialMap2.png", 300, 150);
 	levelArt.push_back(tempArt);
 
-	tempLevel = new levelData("Tile Tutorial Map 3", "Switches Control Things and Electricity Hurts", "maps\\tileTutorialMap3.txt");
+	tempLevel = new levelData("Tile Tutorial Map 3", "Switches and Electricity", "maps\\tileTutorialMap3.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\tileTutorialMap3.png", 300, 150);
@@ -122,7 +122,7 @@ oglGameVars::oglGameVars()
 	tempArt->loadImage("maps\\tileTutorialMap4.png", 300, 150);
 	levelArt.push_back(tempArt);
 
-	tempLevel = new levelData("Tile Tutorial Map 1 - Re-Visit", "Climb Up to Higher Levels - Subroutine Required", "maps\\tileTutorialMap1b.txt");
+	tempLevel = new levelData("Tile Tutorial Map 1 - Re-Visit", "Climbing - Subroutine Required", "maps\\tileTutorialMap1b.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\tileTutorialMap1b.png", 300, 150);
