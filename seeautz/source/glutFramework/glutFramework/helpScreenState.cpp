@@ -767,7 +767,7 @@ void helpScreenState::drawPage7() // tile list page 4
 	offsetAmt++;
 	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "it will bring your robot");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "somewhere else.");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "somewhere else on the map.");
 	offsetAmt++;
 	offsetAmt++;
 
