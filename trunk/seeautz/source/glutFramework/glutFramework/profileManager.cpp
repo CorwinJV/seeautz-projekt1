@@ -26,6 +26,7 @@ bool profileManager::createProfile(string name)
 	tempPlayerInfo = new playerInfo(maxLevel);
 	tempPlayerInfo->setPlayerName(tempName);
 	allPlayerInfo.push_back(tempPlayerInfo);
+	currentRecord++;
 	maxRecords++;
 	saveProfile();
 
