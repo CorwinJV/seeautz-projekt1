@@ -81,7 +81,7 @@ public:
 	profileManager(int newMaxLevel)
 	{
 		maxRecords = 0;
-		currentRecord = 0;
+		currentRecord = -1;
 		maxLevel = newMaxLevel;
 		tempPlayerInfo = new playerInfo(maxLevel);
 		loadAllProfiles();
