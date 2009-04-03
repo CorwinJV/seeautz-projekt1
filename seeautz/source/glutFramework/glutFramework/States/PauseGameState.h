@@ -19,6 +19,7 @@ public:
 		myMenu->addButton("buttons\\savegame.png", "buttons\\savegamehover.png", "buttons\\savegamehover.png", CreateFunctionPointer0R(this, &PauseGameState::SaveCallback));
 		myMenu->addButton("buttons\\saveandquit.png", "buttons\\saveandquithover.png", "buttons\\saveandquithover.png", CreateFunctionPointer0R(this, &PauseGameState::SaveQuitCallback));
 		myMenu->addButton("buttons\\levelselect.png", "buttons\\levelselecthover.png", "buttons\\levelselecthover.png", CreateFunctionPointer0R(this, &PauseGameState::LevelSelectCallback));
+		myMenu->addButton("buttons\\helpwide.png", "buttons\\helpwidehover.png", "buttons\\helpwidehover.png", CreateFunctionPointer0R(this, &PauseGameState::HelpCallback));
 		myMenu->addButton("buttons\\returntomainmenu.png", "buttons\\returntomainmenuhover.png", "buttons\\returntomainmenuhover.png", CreateFunctionPointer0R(this, &PauseGameState::MainMenuCallback));
 		myMenu->addButton("buttons\\returntogame.png", "buttons\\returntogamehover.png", "buttons\\returntogamehover.png", CreateFunctionPointer0R(this, &PauseGameState::ReturnToGameCallback));
 		myMenu->addButton("buttons\\quit.png", "buttons\\quithover.png", "buttons\\quithover.png", CreateFunctionPointer0R(this, &PauseGameState::QuitCallback));
@@ -35,6 +36,7 @@ public:
 	bool LevelSelectCallback();
 	bool MainMenuCallback();
 	bool ReturnToGameCallback();
+	bool HelpCallback();
 	void keyboardInput(unsigned char c, int x, int y);
 
 private:

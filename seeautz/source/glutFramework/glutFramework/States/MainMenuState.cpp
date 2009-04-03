@@ -82,3 +82,11 @@ bool MainMenuState::Credits()
 	Update();
 	return true;
 }
+
+bool MainMenuState::HelpCallback()
+{
+	// credit vector to display here
+	GSM->addGameState<helpScreenState>();
+	Update();
+	return true;
+}

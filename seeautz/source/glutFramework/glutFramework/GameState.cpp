@@ -53,6 +53,7 @@ void GameState::clearBackground()
 
 GameState::~GameState()
 {
+	delete logoImage;
 	delete backgroundImage;
 	delete solidWhite;
 	delete solidBlack;

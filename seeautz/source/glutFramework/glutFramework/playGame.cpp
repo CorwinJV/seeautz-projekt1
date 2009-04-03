@@ -519,6 +519,13 @@ bool playGame::initialize()
 	preGameTextOffsetY = 350;
 	preGameTextSpacing = 45;
 
+	// help button
+	// visual location is kinda sorta hard coded, don't expect any automagical stuff on this one
+	// and since i'm hacking this to hell and back i'm using the compass menu system
+	compass->addButton("buttons\\help.png", "buttons\\helphover.png", "buttons\\helphover.png", BE::CreateFunctionPointer0R(this, &playGame::launchHelpState));
+	compass->setLastButtonDimensions(75, 30);
+	compass->setLastButtonPosition(925, 725);
+
 	Update();
 	return true;
 }
@@ -757,4 +764,10 @@ void playGame::drawLevelInfo()
 	tempString = GameVars->getDesc(playerCurrentLevel);
 	GameVars->fontArial12.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, tempString);
 	offsetAmt++;
+}
+
+bool playGame::launchHelpState()
+{
+	GSM->addGameState<helpScreenState>();
+	return true;
 }

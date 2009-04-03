@@ -293,10 +293,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\States\OptionsState.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\States\PauseGameState.cpp"
 					>
 				</File>
@@ -487,10 +483,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\States\OptionsState.h"
-					>
-				</File>
-				<File
 					RelativePath=".\States\PauseGameState.h"
 					>
 				</File>
@@ -534,7 +526,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\My Inspector Results\r001-mi1\r001-mi1.insp"
+				>
+			</File>
+			<File
 				RelativePath=".\My Inspector Results\r001-ti4\r001-ti4.insp"
+				>
+			</File>
+			<File
+				RelativePath=".\My Inspector Results\r002-mi1\r002-mi1.insp"
+				>
+			</File>
+			<File
+				RelativePath=".\My Inspector Results\r003-mi1\r003-mi1.insp"
 				>
 			</File>
 		</Filter>

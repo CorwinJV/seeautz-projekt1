@@ -7,25 +7,25 @@ Dave Cortez
 
 Original Concept
 David Moss - davidbmoss@gmail.com
-Corwin VanHook
+Corwin VanHook - corwin.j@gmail.com
 
 Project Lead
 Tom Lindeman - tomlindeman@xnaprotege.com
 
 Lead Programmer
-Corwin VanHook
+Corwin VanHook - corwin.j@gmail.com
 
 Lead Designer
 David Moss - davidbmoss@gmail.com
 
 Lead Artist
-Cameron VanHook
+Cameron VanHook - cm.vanhook@gmail.com
 
 Game Logic Programming
 David Moss - davidbmoss@gmail.com
 
 Systems Design
-Corwin VanHook
+Corwin VanHook - corwin.j@gmail.com
 
 Gui Programming
 Tom Lindeman - tomlindeman@xnaprotege.com
@@ -55,6 +55,9 @@ David Moss - davidbmoss@gmail.com
 
 "You're a towel"
           - Towlie
+
+"We have achieved functionability"
+                  - Tom
 
 Special Thanks to...
 Caffiene
