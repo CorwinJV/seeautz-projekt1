@@ -1,10 +1,14 @@
 #include "projekt1App.h"
 #include "States\DevLogoState.h"
-//#include "States\LogicViewState.h"
-#include "helpScreenState.h"
 #include "playGame.h"
 #include "oglGameVars.h"
+
+// start additional state includes for testing purposes, don't NEED to be here, but are anyways
+//#include "States\LogicViewState.h"
 #include "SG400KGA1.h"
+#include "helpScreenState.h"
+// end additional state includes
+
 #include <iostream>
 using namespace std;
 
@@ -18,9 +22,9 @@ projekt1App::projekt1App(std::string title, int sizeX, int sizeY, int argc, char
 	
 	//myStateManager.addGameState<playGame>();
 	//myStateManager.addGameState<LogicViewState>();
-	myStateManager.addGameState<DevLogoState>();		// 0	
+	myStateManager.addGameState<DevLogoState>();		// main game start screen
 	//myStateManager.addGameState<helpScreenState>();
-	//myStateManager.addGameState<SG400KGA1>();
+	//myStateManager.addGameState<SG400KGA1>();			// sg400 kga1 heh
 }
 
 void projekt1App::initOpenGL()

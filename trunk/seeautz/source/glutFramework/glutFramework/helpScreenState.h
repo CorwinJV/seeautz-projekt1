@@ -30,7 +30,7 @@ private:
 	int textOffsetX;
 	int textOffsetY;
 	int offsetAmt;
-	int textSpacing;
+	double textSpacing;
 	int textSpacing2;
 
 	// tile stuff

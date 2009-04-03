@@ -37,33 +37,29 @@ bool helpScreenState::Draw()
 	case 1: // table of contents
 		glColor3ub(0, 0, 0);
 		GameVars->fontArial24.drawText(textOffsetX, textOffsetY, "Table of Contents");
-		offsetAmt++;offsetAmt++;
+		offsetAmt++;		offsetAmt++;
 		GameVars->fontArial18.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, "Page 1 - Overview");
 		offsetAmt++;
 		break;
 	case 2:	// basic game concepts
 		glColor3ub(0, 0, 0);
 		GameVars->fontArial24.drawText(textOffsetX, textOffsetY, "Basic Game Concepts");
-		offsetAmt++;offsetAmt++;
+		offsetAmt++;		offsetAmt++;
 		GameVars->fontArial18.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, "Stuff");
 		offsetAmt++;
 		break;
 	case 3: // user interface
 		glColor3ub(0, 0, 0);
 		GameVars->fontArial24.drawText(textOffsetX, textOffsetY, "User Interface");
-		offsetAmt++;offsetAmt++;
+		offsetAmt++;		offsetAmt++;
 		GameVars->fontArial18.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, "Stuff");
 		offsetAmt++;
 		break;
 	case 4:	// instructions help
-		drawPage4();		
+		drawPage4();
 		break;
 	case 5: // scoring and subroutines
-		glColor3ub(0, 0, 0);
-		GameVars->fontArial24.drawText(textOffsetX, textOffsetY, "Scoring and Subroutines");
-		offsetAmt++;offsetAmt++;
-		GameVars->fontArial18.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, "Stuff");
-		offsetAmt++;
+		drawPage5();
 		break;
 	case 6: // tile list page 1?
 		drawPage6();
@@ -267,11 +263,10 @@ void helpScreenState::drawPage4()
 {
 	glColor3ub(0, 0, 0);
 	GameVars->fontArial24.drawText(textOffsetX, textOffsetY, "Instructions");
-	offsetAmt++;offsetAmt++;
 	//GameVars->fontArial18.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, "Stuff");
-	//offsetAmt++;
 	vector<logicBlock*>* logicBank = GameVars->Instance()->getAllLogicBlocks();
 
+	// draw all the instructions
 	for(int x = 0; x < (int)logicBank->size(); x++)
 	{
 		(*logicBank)[x]->blockTexture->mX = 200;
@@ -279,6 +274,115 @@ void helpScreenState::drawPage4()
 		(*logicBank)[x]->blockTexture->drawImageSegment(0.0, 0.0, (double)1/3, 0.0, 0.0, 1.0, (double)1/3, 1.0, 1, 35, 35);
 	}
 
+	glColor3ub(0, 0, 0);
+	// text for column 1
+	textSpacing = 12.5;
+	tempX = 100; // extra offset for text
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "Move Forward - Use this instruction to move forward one tile.");
+	offsetAmt++;
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "-----------------------------------------------------------------------");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "Move Forward (Until Unable) - Use this instruction to move forward until");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "you are unable to move forward any more, or die.");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "-----------------------------------------------------------------------");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "Rotate Left - Use this instruction to rotate left.");
+	offsetAmt++;
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "-----------------------------------------------------------------------");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "Rotate Right - Use this instruction to rotate right.");
+	offsetAmt++;
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "-----------------------------------------------------------------------");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "Punch - Use this instruction to break breakable walls.");
+	offsetAmt++;
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "-----------------------------------------------------------------------");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "Climb - Use this instruction to climb up to a higher level.");
+	offsetAmt++;
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "-----------------------------------------------------------------------");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "Crouch - Use this instruction to crawl through small holes.");
+	offsetAmt++;
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "-----------------------------------------------------------------------");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "Jump - Use this instruction to jump over most obstacles.");
+	offsetAmt++;
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "-----------------------------------------------------------------------");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "Activate - Use this instruction to activate Doors, Switches");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "and to use Reprogram Tiles.");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "-----------------------------------------------------------------------");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "Sub 1 - Use this instruction to call Subroutine 1.");
+	offsetAmt++;
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "-----------------------------------------------------------------------");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "Sub 2 - Use this instruction to call Subroutine 2.");
+	offsetAmt++;
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "-----------------------------------------------------------------------");
+
+	textSpacing = 16;	
+
+	// now for text
+
+}
+void helpScreenState::drawPage5()
+{
+	glColor3ub(0, 0, 0);
+	offsetAmt++;
+	offsetAmt++;
+	GameVars->fontArial24.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, "Scoring");
+	offsetAmt++;
+	GameVars->fontArial18.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing2, "Scoring is based off of how much memory is used versus how");
+	offsetAmt++;
+	GameVars->fontArial18.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing2, "much memory is available.  For example, you get more points");
+	offsetAmt++;
+	GameVars->fontArial18.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing2, "for finishing a level with 16 out of 32 bytes used than you");
+	offsetAmt++;
+	GameVars->fontArial18.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing2, "do for finishing a level with 50 out of 64 bytes used.");
+	offsetAmt++;
+	offsetAmt++;
+	offsetAmt++;
+	GameVars->fontArial24.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing2, "Subroutines");
+	offsetAmt++;
+	offsetAmt++;
+	offsetAmt++;
+	offsetAmt++;
+	offsetAmt++;
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, "Subroutines are a way to save memory.   When you place commands into subroutines");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, "they take up the same amount of space as if you were to place the commands in main.");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, "The difference is that these commands can now be used at a minimal cost by simply");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, "using the subroutine they were placed in.  For example: if you wanted to move forward");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, "16 times, you could do that by putting in 16 move forward commands taking up a total");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, "of 32 bytes, or you could put four move forward commands into sub 1 using up 8 bytes,");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, "then put sub1 into main four times using up another 8 bytes using a total of 16 bytes");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, "to perform the same command sequence.");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, "You cannot use a subroutine inside of another subroutine.");
+	offsetAmt++;
+	
 }
 void helpScreenState::drawPage6()
 {
@@ -327,7 +431,7 @@ void helpScreenState::drawPage6()
 	offsetAmt++;
 	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "can climb to these");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "tile from a tile that");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "tiles from a tile that");
 	offsetAmt++;
 	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "is one level lower or");
 	offsetAmt++;
@@ -604,7 +708,7 @@ void helpScreenState::drawPage8()
 	offsetAmt++;
 	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "is where your robot");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "starts the leve.");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "starts the level.");
 	offsetAmt++;
 	offsetAmt++;
 	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "End Tile - The");
