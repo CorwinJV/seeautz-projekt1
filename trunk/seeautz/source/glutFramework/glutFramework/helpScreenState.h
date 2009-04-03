@@ -31,11 +31,29 @@ private:
 	int textOffsetY;
 	int offsetAmt;
 	int textSpacing;
+	int textSpacing2;
 
 	// tile stuff
 	vector<mapTile*> tileList;
 	std::vector<oglTexture2D*> tileImages;
 	bool drawTile(tileTypeEnum nType, int txPos, int tyPos, double scale, bool isActive);
+	double scale;
+	int tempX;
+	int tempY;
+
+	// robot
+	oglTexture2D* robotImage;
+
+	void drawPage0();
+	void drawPage1();
+	void drawPage2();
+	void drawPage3();
+	void drawPage4();
+	void drawPage5();
+	void drawPage6();
+	void drawPage7();
+	void drawPage8();
+	void drawPage9();
 
 public:
 	helpScreenState();
@@ -46,7 +64,8 @@ public:
 		textOffsetY = backgroundImage->mY + 40;
 		offsetAmt = 0;
 		textSpacing = 16;
-		maxPage = 8;
+		textSpacing2 = 22;
+		maxPage = 9;
 		myMenu = new MenuSys(250, 250, "blank.png", None);
 		myMenu->addButton("arrow_right.png", "arrow_righthover.png", "arrow_righthover.png", CreateFunctionPointer0R(this, &helpScreenState::next));
 		myMenu->setLastButtonDimensions(50, 50);
