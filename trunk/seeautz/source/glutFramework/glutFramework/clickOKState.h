@@ -32,6 +32,7 @@ public:
 	bool selected;
 	bool created;
 	bool deleted;
+	bool noProfile;
 
 private:
 	oglTexture2D* img;

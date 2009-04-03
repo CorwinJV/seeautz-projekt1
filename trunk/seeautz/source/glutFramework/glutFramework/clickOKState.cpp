@@ -20,6 +20,9 @@ bool clickOKState::Update()
 	case 2:
 		created = true;
 		break;
+	case 3:
+		noProfile = true;
+		break;
 	default:
 		break;
 	}
@@ -55,6 +58,11 @@ bool clickOKState::Draw()
 		GameVars->fontArial24.drawText(350, 350, "Profile has been deleted, ");
 		GameVars->fontArial24.drawText(350, 400, "click OK to continue ");
 	}
+	if(noProfile)
+	{
+		GameVars->fontArial24.drawText(350, 350, "There are no existing profiles ");
+		GameVars->fontArial24.drawText(350, 400, "to load click OK to continue ");
+	}
 	return true;
 }
 
@@ -64,7 +72,7 @@ bool clickOKState::clickOKCallback()
 	{
 		GSM->addGameState<LevelSelectState>();
 	}
-	if(deleted)
+	if((deleted)||(noProfile))
 	{
 		GSM->addGameState<MainMenuState>();
 	}
