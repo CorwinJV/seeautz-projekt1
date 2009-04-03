@@ -633,25 +633,32 @@ void LogicInterface::Draw()
 			// Draw the background
 			menuBar->mX = tmpBlock->blockTexture->mX + 20;
 			menuBar->mY = tmpBlock->blockTexture->mY - 170;
-			menuBar->drawImageFaded(1.0, 200, 100);
+			menuBar->drawImageFaded(1.0, 210, 160);
 
 			int MAX_CHARS_PER_LINE = 21;
 			int currentLine = 1;
 			bool endOfText = false;
-			
+			int extraYSpacing = 0;			
+			glColor3ub(255, 0, 0);
+			if(tmpBlock->isUsable != true)
+			{
+				GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + 12, "[Unavailable on");
+				GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + 24, "Current Level]");
+				extraYSpacing = 24;
+			}
 			glColor3ub(0, 0, 0);
 			while(!endOfText)
 			{
 				if((int)(tmpBlock->blockDescription.length()) > currentLine * MAX_CHARS_PER_LINE)
 				{
-					GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12), tmpBlock->blockDescription.substr((currentLine - 1) * MAX_CHARS_PER_LINE, MAX_CHARS_PER_LINE));
+					GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, tmpBlock->blockDescription.substr((currentLine - 1) * MAX_CHARS_PER_LINE, MAX_CHARS_PER_LINE));
 					currentLine++;
 				}
 				else
 				{
 					GameVars->fontArial12.drawText(
 						menuBar->mX + 10,
-						menuBar->mY + (currentLine * 12),
+						menuBar->mY + (currentLine * 12) + extraYSpacing,
 						tmpBlock->blockDescription.substr(
 											(currentLine - 1) * MAX_CHARS_PER_LINE,
 											tmpBlock->blockDescription.length() % (currentLine -1 * MAX_CHARS_PER_LINE))
@@ -659,15 +666,27 @@ void LogicInterface::Draw()
 					endOfText = true;
 				}
 			}
+			currentLine++;
+			glColor3ub(255, 0, 0);
+			if(tmpBlock->isCurrentlyUsable != true
+				&& (tmpBlock->isUsable == true))
+			{
+				GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, "[Not Enough Memory");
+				currentLine++;
+				GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, "\Available]");
+				currentLine++;
+			}
+
+			glColor3ub(0, 0, 0);
+
 			// now that we're at the end of the text...
 			// lets bump up current line once more
-			currentLine++;
 			// and lets draw the byte information for this block!
 			std::stringstream byteCost;
 			byteCost << "(Uses ";
 			byteCost << tmpBlock->byteCost;
 			byteCost << " Bytes)";
-			GameVars->fontArial12.drawText(menuBar->mX+10, menuBar->mY + (currentLine * 12), byteCost.str());
+			GameVars->fontArial12.drawText(menuBar->mX+10, menuBar->mY + (currentLine * 12) + extraYSpacing, byteCost.str());
 
 		}
 	}

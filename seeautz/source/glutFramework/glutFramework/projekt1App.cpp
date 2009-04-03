@@ -1,6 +1,7 @@
 #include "projekt1App.h"
 #include "States\DevLogoState.h"
 //#include "States\LogicViewState.h"
+#include "helpScreenState.h"
 #include "playGame.h"
 #include "oglGameVars.h"
 #include "SG400KGA1.h"
@@ -18,6 +19,7 @@ projekt1App::projekt1App(std::string title, int sizeX, int sizeY, int argc, char
 	//myStateManager.addGameState<playGame>();
 	//myStateManager.addGameState<LogicViewState>();
 	myStateManager.addGameState<DevLogoState>();		// 0	
+	//myStateManager.addGameState<helpScreenState>();
 	//myStateManager.addGameState<SG400KGA1>();
 }
 

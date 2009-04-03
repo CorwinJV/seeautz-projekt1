@@ -508,7 +508,7 @@ void oglGameVars::loadAllLogicBlocks()
 	tmpBlock->addInstruction(MOVE_FORWARD1);
 	allLogicBlocks.push_back(tmpBlock);
 
-	tmpBlock = new logicBlock("instructions/moveforwarduntilunable.png", 130, 130, "Move Forward Until   Use this instruction to move forward untilyou are unable to    move forward any     more, or die.", 8, MOVE_FORWARD_UNTIL_UNABLE);
+	tmpBlock = new logicBlock("instructions/moveforwarduntilunable.png", 130, 130, "Move Forward         (Until Unable)       Use this instruction to move forward untilyou are unable to    move forward any     more, or die.", 8, MOVE_FORWARD_UNTIL_UNABLE);
 	tmpBlock->addInstruction(MOVE_FORWARD_UNTIL_UNABLE);
 	allLogicBlocks.push_back(tmpBlock);
 	
