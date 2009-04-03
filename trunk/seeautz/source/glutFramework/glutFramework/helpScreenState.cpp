@@ -259,6 +259,10 @@ void helpScreenState::drawPage0()
 	robotImage->dY = tempY;
 	offsetAmt++;
 }
+void helpScreenState::drawPage1()
+{
+
+}
 void helpScreenState::drawPage4()
 {
 	glColor3ub(0, 0, 0);
