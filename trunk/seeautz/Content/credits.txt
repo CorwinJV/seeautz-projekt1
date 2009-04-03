@@ -3,7 +3,7 @@ Wilshire Campus
 SG300
 
 Instructor
-Dave Cortez
+Dave Cortez - drcortez1961@gmail.com
 
 Original Concept
 David Moss - davidbmoss@gmail.com
@@ -31,21 +31,20 @@ Gui Programming
 Tom Lindeman - tomlindeman@xnaprotege.com
 
 Additional Game Deisgn
-Corwin VanHook
+Corwin VanHook - corwin.j@gmail.com
 Tom Lindeman - tomlindeman@xnaprotege.com
 
 Level Designers
-Oscar Maldonado
-Chris Gonzalez
-Geovani 
-David Moss - davidbmoss@gmail.com
+David Moss - davidbmoss@gmail.com (tutorials)
+Chris Gonzalez - krisryan87@yahoo.com (1-5)
+Geovani - giovancito9878@yahoo.com (6-10)
+Oscar Maldonado - fool133@yahoo.com (11-15)
 
 Sound Research
-Christian Martinez
+Christian Martinez - christianmtnz@yahoo.com
 
 Temp Art
 David Moss - davidbmoss@gmail.com
-
 
 "I'm going back over here where shit make sense." 
                                      - Programming Team
