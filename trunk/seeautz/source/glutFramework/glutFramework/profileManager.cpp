@@ -158,6 +158,8 @@ void profileManager::loadAllProfiles()
 	saveFile >> maxLevel;
 	saveFile >> maxRecords;
 
+	allPlayerInfo.clear();
+
 	for (int i = 0; i < maxRecords; i++)
 	{
 		tempPlayerInfo = new playerInfo(maxLevel);

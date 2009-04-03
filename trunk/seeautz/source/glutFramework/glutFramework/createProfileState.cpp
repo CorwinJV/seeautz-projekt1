@@ -11,8 +11,11 @@ bool createProfileState::Update()
 		GameVars->PM->setPlayerHighestLevel(1);
 		GameVars->PM->setPlayerName(tempString);
 		GameVars->setCurrentLevel(1);
+		GameVars->setPlayerMaxLevel(1);
+		GameVars->setLevel(1);
 		GameVars->setPlayerName(tempString);
 		GameVars->setTotalScore(0);
+		GameVars->setLevelSpecified(-1);
 		
 
 		//reset values for another record to be entered
@@ -79,7 +82,7 @@ bool createProfileState::Draw()
 			added = true;
 			myMenu->addButton("buttons\\selectprofile.png", "buttons\\selectprofilehover.png", "buttons\\selectprofilehover.png", CreateFunctionPointer0R(this, &createProfileState::SelectProfile));
 		}
-		// button isnt being drawn!
+		
 		if(myMenu != NULL)
 			myMenu->Draw();
 	}
