@@ -324,17 +324,6 @@ bool oglGameVars::updatePlayerFile()
 	string playerGame;
 	playerGame = GameVars->getPlayerName();
 
-	if (playerGame == "")
-	{
-		playerGame = "defaultgame.txt";
-		GameVars->setPlayerName(playerGame);
-	}
-
-	//cout << "Saving Game...  " << playerGame << endl;
-
-	//should this go through a for loop here to check the player name 
-	//against the database for a match?
-
 	ofstream PlayerInfo;
 	string tempString;
 	int highLevel;

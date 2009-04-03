@@ -155,9 +155,7 @@ bool playGame::Update()
 		else
 		{
 			curState = GB_YOUWIN;
-			levelCounter;
-			//gamePlay = NULL;
-			//gamePlay->LoadGameMapFromFile(levelList[levelCounter]->getFile());			
+			levelCounter;			
 		}
 
 		GameVars->setLevel(levelCounter);
@@ -403,9 +401,8 @@ bool playGame::initialize()
 	// abcxyz
 	//playerCurrentLevel = 0;
 	GameVars->setLevel(playerCurrentLevel);
+	GameVars->setLevelSpecified(-1);
 	
-	
-
 	tempString = GameVars->getFilename(playerCurrentLevel);
 	gamePlay->LoadGameMapFromFile(tempString);
 	//gamePlay->LoadGameMapFromFile(levelList[GameVars->getCurrentLevel()]->getFile());

@@ -20,7 +20,7 @@ bool selectProfileState::Draw()
 	std::string tempString;
 	std::stringstream displayString;
 
-	if(maxNumProfiles > 0)
+	if(maxNumProfiles >= 0)
 	{
 		playerName = GameVars->PM->getPlayerName();
 		totScore = GameVars->PM->getPlayerTotalScore();
@@ -112,7 +112,7 @@ bool selectProfileState::Draw()
 		glColor3ub(0, 0, 0);
 		GameVars->fontArial24.drawText(offsetX+125,565, "Would you like to load this profile?");
 	}
-	else
+	if(maxNumProfiles < 0)
 	{
 		GameVars->setPMStatus(3);
 		GSM->addGameState<clickOKState>();
@@ -147,6 +147,7 @@ void selectProfileState::keyboardInput(unsigned char c, int x, int y)
 		break;
 	}
 }
+
 void selectProfileState::setPlayerInfo(std::string name, int score, int curLevel, int maxLevel)
 {
 	GameVars->setPlayerName(name);

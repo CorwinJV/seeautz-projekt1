@@ -6,6 +6,7 @@ bool clickOKState::Update()
 	selected = false;
 	deleted = false;
 	created = false;
+	noProfile = false;
 	GSM->setAllButTopPassive();
 
 	int check = GameVars->getPMStatus();
@@ -71,10 +72,13 @@ bool clickOKState::clickOKCallback()
 	if(selected)
 	{
 		GSM->addGameState<LevelSelectState>();
+		selected = false;
 	}
-	if((deleted)||(noProfile))
+	else if((deleted)||(noProfile))
 	{
 		GSM->addGameState<MainMenuState>();
+		deleted = false;
+		noProfile = false;
 	}
 	this->setStatus(DeleteMe);
 	return true;
