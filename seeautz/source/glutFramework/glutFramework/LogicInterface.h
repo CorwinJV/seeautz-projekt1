@@ -98,6 +98,7 @@ private:
 	
 	screenBox bottomBarBox;
 	int logicBankYOffset;
+	int logicBankScrollbarXOffset;
 
 	int instructionBlockW;
 	int instructionBlockH;

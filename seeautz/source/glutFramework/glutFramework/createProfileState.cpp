@@ -87,8 +87,9 @@ bool createProfileState::Draw()
 	{
 		backgroundImage->drawImage();
 		glColor3ub(0, 0, 0);
-		GameVars->fontArial24.drawText(150, 300, "Name can't be left blank, press enter to try another name ");
-		GameVars->fontArial24.drawText(150, 350, "Or press the escpae key to return to the main menu");
+		GameVars->fontArial24.drawText(150, 300, "Name can't be left blank, press enter to try another");
+		GameVars->fontArial24.drawText(150, 325, "name, or press the escape key to return to the");
+		GameVars->fontArial24.drawText(150, 350, "main menu");
 	}
 	return false;
 }

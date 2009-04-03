@@ -15,7 +15,7 @@ LogicInterface::LogicInterface()
 		executionListSub1YOffset(0), executionListSub2YOffset(0),
 		scrollBar(NULL), mapByteLimit(0), usedBytes(0), drawInsertionLine(false),
 		insertionLineColumn(0), insertionLineRow(0), insertionLine(NULL),
-		draggedBlockMouseX(0), draggedBlockMouseY(0)
+		draggedBlockMouseX(0), draggedBlockMouseY(0), logicBankScrollbarXOffset(5)
 {
 	//sideBarBox.width = 150;
 	//sideBarBox.height = 618;
@@ -46,11 +46,11 @@ LogicInterface::LogicInterface()
 	myMenu = new MenuSys(0, 0, "blank.png", None);
 	myMenu->addButton("scrollbarUp.png", "scrollbarUp.png", "scrollbarUpLit.png", BE::CreateFunctionPointer0R(this, &LogicInterface::LogicBankUpArrowButtonClick));
 	myMenu->setLastButtonDimensions(25, 25);
-	myMenu->setLastButtonPosition(logicBankBox.x + logicBankBox.width, logicBankBox.y);
+	myMenu->setLastButtonPosition(logicBankBox.x + logicBankBox.width + logicBankScrollbarXOffset, logicBankBox.y);
 
 	myMenu->addButton("scrollbarDown.png", "scrollbarDown.png", "scrollbarDownLit.png", BE::CreateFunctionPointer0R(this, &LogicInterface::LogicBankDownArrowButtonClick));
 	myMenu->setLastButtonDimensions(25, 25);
-	myMenu->setLastButtonPosition(logicBankBox.x + logicBankBox.width, logicBankBox.y + logicBankBox.height - 45);
+	myMenu->setLastButtonPosition(logicBankBox.x + logicBankBox.width + logicBankScrollbarXOffset, logicBankBox.y + logicBankBox.height - 45);
 
 	myMenu->addButton("scrollbarUp.png", "scrollbarUp.png", "scrollbarUpLit.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ExecutionListUpArrowButtonClick));
 	myMenu->setLastButtonDimensions(25, 25);
@@ -527,7 +527,7 @@ void LogicInterface::Draw()
 	}
 	//=============================================
 	// Menu Bars (Behind Scroll Buttons)
-	scrollBar->mX = logicBankBox.x + logicBankBox.width;
+	scrollBar->mX = logicBankBox.x + logicBankBox.width + logicBankScrollbarXOffset;
 	scrollBar->mY = logicBankBox.y;
 	scrollBar->drawImage(25, logicBankBox.height - 20);
 
@@ -633,7 +633,7 @@ void LogicInterface::Draw()
 			// Draw the background
 			menuBar->mX = tmpBlock->blockTexture->mX + 20;
 			menuBar->mY = tmpBlock->blockTexture->mY - 170;
-			menuBar->drawImageFaded(1.0, 210, 160);
+			menuBar->drawImageFaded(1.0, 210, 140);
 
 			int MAX_CHARS_PER_LINE = 21;
 			int currentLine = 1;
