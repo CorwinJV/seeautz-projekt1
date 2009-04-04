@@ -221,6 +221,16 @@ oglGameVars::oglGameVars()
 	maxLevel = levelList.size();
 	PI = new playerInfo(maxLevel);
 	PM = new profileManager(maxLevel);
+	didYouKnow.push_back("Tom needs a new laptop.");
+	didYouKnow.push_back("You can add instructions by single clicking an instruction in the logic bank.");
+	didYouKnow.push_back("You can remove an instruction by single clicking an instruction in the robot's instruction list.");
+	didYouKnow.push_back("You can pan the map by moving the mouse to the edge of the screen.");
+	didYouKnow.push_back("You can drag an instruction into the middle of a command list.");
+	didYouKnow.push_back("Clicking on the middle of the map navigation will center the map on the robot.");
+	didYouKnow.push_back("You can jump all squares that will kill you.");
+	didYouKnow.push_back("You can email the designers at admin@wilshiregamedevelopment.com");
+
+
 }
 
 //========================================

@@ -10,6 +10,7 @@
 #include "GLFT_Font.h"
 #include "gameBoard.h"
 #include "profileManager.h"
+#include <cstring>
 
 #define GameVars oglGameVars::Instance()
 
@@ -66,6 +67,7 @@ public:
     static oglGameVars* Instance();
 	playerInfo* PI;
 	profileManager* PM;
+	vector<string> didYouKnow;
 protected:
     oglGameVars();
     oglGameVars(const oglGameVars&);
