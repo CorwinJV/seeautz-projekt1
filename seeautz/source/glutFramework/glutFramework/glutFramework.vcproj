@@ -257,10 +257,6 @@
 				Name="States"
 				>
 				<File
-					RelativePath=".\clickOKState.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\createProfileState.cpp"
 					>
 				</File>
@@ -320,6 +316,10 @@
 			<Filter
 				Name="Maps"
 				>
+				<File
+					RelativePath=".\clickOKState.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

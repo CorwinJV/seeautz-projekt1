@@ -175,7 +175,7 @@ void helpScreenState::init()
 	robotImage->loadImage("object\\robotDefault.png", 195*0.45, 110*2*0.45);
 
 	logicInterfaceHelp = new oglTexture2D;
-	logicInterfaceHelp->loadImage("interfacehelp2.png", 725, 403);
+	logicInterfaceHelp->loadImage("interfacehelp.png", 725, 403);
 }
 
 bool helpScreenState::drawTile(tileTypeEnum nType, int txPos, int tyPos, double scale, bool isActive)
