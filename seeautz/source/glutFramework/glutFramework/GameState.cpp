@@ -50,14 +50,13 @@ void GameState::clearBackground()
 	solidWhite->drawImage();
 	glClearColor(255, 255, 255, 0);
 }
-
+ 
 GameState::~GameState()
 {
 	delete logoImage;
 	delete backgroundImage;
 	delete solidWhite;
 	delete solidBlack;
-
 }
 
 bool GameState::initialize()

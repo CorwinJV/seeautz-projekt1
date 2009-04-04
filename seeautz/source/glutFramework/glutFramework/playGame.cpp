@@ -151,6 +151,11 @@ bool playGame::Update()
 			GameVars->commandsProcessed = 0;
 			GameVars->totalCommandsProcessed = 0;
 			curState = GB_PREGAME;
+			GameVars->didYouKnowI++;
+			if(GameVars->didYouKnowI == GameVars->didYouKnow.end())
+			{
+				GameVars->didYouKnowI = GameVars->didYouKnow.begin();
+			}
 		}
 		else
 		{
@@ -264,6 +269,8 @@ bool playGame::Draw()
 		tempString += painInTheAss.str();
 		GameVars->fontArial32.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
 		offsetAmt++;
+		GameVars->fontArial16.drawText(preGameTextOffsetX, 630, "Did You Know:");
+		GameVars->fontArial16.drawText(preGameTextOffsetX, 650, (*GameVars->didYouKnowI));
 		break;
 
 	case GB_ROBOTDIED:
