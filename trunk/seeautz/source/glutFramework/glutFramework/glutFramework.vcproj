@@ -541,6 +541,22 @@
 				RelativePath=".\My Inspector Results\r003-mi1\r003-mi1.insp"
 				>
 			</File>
+			<File
+				RelativePath=".\My Inspector Results\r004-mi1\r004-mi1.insp"
+				>
+			</File>
+			<File
+				RelativePath=".\My Inspector Results\r005-mi1\r005-mi1.insp"
+				>
+			</File>
+			<File
+				RelativePath=".\My Inspector Results\r006-mi1\r006-mi1.insp"
+				>
+			</File>
+			<File
+				RelativePath=".\My Inspector Results\r007-mi1\r007-mi1.insp"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

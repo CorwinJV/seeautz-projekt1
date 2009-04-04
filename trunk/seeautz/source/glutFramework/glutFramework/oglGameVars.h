@@ -68,6 +68,7 @@ public:
 	playerInfo* PI;
 	profileManager* PM;
 	vector<string> didYouKnow;
+	vector<string>::iterator didYouKnowI;
 protected:
     oglGameVars();
     oglGameVars(const oglGameVars&);
@@ -136,6 +137,7 @@ public:
 	GLFT_Font					fontArial32;
 	GLFT_Font					fontArial24;
 	GLFT_Font					fontArial18;
+	GLFT_Font					fontArial16;
 	GLFT_Font					fontArial12;
 	GLFT_Font					fontDigital64;
 	GLFT_Font					fontOurs;

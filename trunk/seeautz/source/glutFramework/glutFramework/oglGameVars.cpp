@@ -35,6 +35,7 @@ oglGameVars::oglGameVars()
 	fontArial32.open	("fonts\\arial.ttf", 32);
 	fontArial24.open	("fonts\\arial.ttf", 24);
 	fontArial18.open	("fonts\\arial.ttf", 18);
+	fontArial16.open	("fonts\\arial.ttf", 16);
 	fontArial12.open	("fonts\\arial.ttf", 12);
 	//fontCourier24.open	("fonts\\cour.ttf", 24);
 	//fontCourier18.open	("fonts\\cour.ttf", 18);
@@ -221,16 +222,20 @@ oglGameVars::oglGameVars()
 	maxLevel = levelList.size();
 	PI = new playerInfo(maxLevel);
 	PM = new profileManager(maxLevel);
-	didYouKnow.push_back("Tom needs a new laptop.");
 	didYouKnow.push_back("You can add instructions by single clicking an instruction in the logic bank.");
-	didYouKnow.push_back("You can remove an instruction by single clicking an instruction in the robot's instruction list.");
+	didYouKnow.push_back("You can remove an instruction by single clicking in the instruction list.");
 	didYouKnow.push_back("You can pan the map by moving the mouse to the edge of the screen.");
 	didYouKnow.push_back("You can drag an instruction into the middle of a command list.");
-	didYouKnow.push_back("Clicking on the middle of the map navigation will center the map on the robot.");
-	didYouKnow.push_back("You can jump all squares that will kill you.");
+	didYouKnow.push_back("Clicking on the middle of the map navigation will center on the robot.");
+	didYouKnow.push_back("You can jump over most squares that will kill you.");
+	didYouKnow.push_back("You can rotate the map left or right to see behind obstructions.");
+	didYouKnow.push_back("You can view lots of useful information in the help screen.");
+	didYouKnow.push_back("You can save memory by putting repeated commands into a subroutine.");
+	didYouKnow.push_back("You get more points by finishing a level with fewer bytes used.");
+	didYouKnow.push_back("Your command list loops when it is processing.");
+	didYouKnow.push_back("You can navigate the map with the number pad on the keyboard.");
 	didYouKnow.push_back("You can email the designers at admin@wilshiregamedevelopment.com");
-
-
+	didYouKnowI = didYouKnow.begin();
 }
 
 //========================================

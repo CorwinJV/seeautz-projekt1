@@ -9,7 +9,7 @@ oglTexture2D::oglTexture2D()
 
 oglTexture2D::~oglTexture2D()
 {
-
+	ilDeleteImage(1);
 }
 
 bool oglTexture2D::loadImage(std::string filename, int dWidth, int dHeight)
@@ -23,8 +23,7 @@ bool oglTexture2D::loadImage(std::string filename, int dWidth, int dHeight)
 	// Load in the image
 	if(!ilLoadImage((ILconst_string)filename.c_str()))
 	{
-		//std::cout << "oglTexture2D::loadImage failed to load " 
-		//	<< filename << std::endl;
+		std::cout << "oglTexture2D::loadImage failed to load " 	<< filename << std::endl;
 		return false;
 	}
 	mWidth = ilGetInteger(IL_IMAGE_WIDTH);
@@ -36,8 +35,7 @@ bool oglTexture2D::loadImage(std::string filename, int dWidth, int dHeight)
 	// Copy to OpenGL texture
 	if(!ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE))
 	{
-		//std::cout << "oglTexture2D::loadImage unable to convert image"
-		//	<< " into display friendly format." << std::endl;
+		std::cout << "oglTexture2D::loadImage unable to convert image"	<< " into display friendly format." << std::endl;
 		return false;
 	}
 	glGenTextures(1, &texture);
@@ -52,7 +50,7 @@ bool oglTexture2D::loadImage(std::string filename, int dWidth, int dHeight)
 		ilGetData()); 
 	
 	// Free DevIL image since we have it in a texture now 
-	ILubyte* data = ilGetData();
+	//ILubyte* data = ilGetData();
 	ilDeleteImages(1, &image);
 	ILenum Error;
 	while ((Error = ilGetError()) != IL_NO_ERROR) 
@@ -60,7 +58,6 @@ bool oglTexture2D::loadImage(std::string filename, int dWidth, int dHeight)
 	//	std::cout << "DevIL Loading error: " << Error; 
 	} 
 	return true;
-	delete data;
 }
 
 bool oglTexture2D::drawImage(int dWidth, int dHeight)
