@@ -943,25 +943,25 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 		//break; // disabled
 		robotX--;
 		currentX = robotX;
-		//std::cout << "robot x/y = " << robotX << ", " << robotY << endl;
+		std::cout << "robot x/y = " << robotX << ", " << robotY << endl;
 		break;
 	case 'x':
 		//break; // disabled
 		robotX++;
 		currentX = robotX;
-		//std::cout << "robot x/y = " << robotX << ", " << robotY << endl;
+		std::cout << "robot x/y = " << robotX << ", " << robotY << endl;
 		break;
 	case 'Y':
 		//break; // disabled
 		robotY--;
 		currentY = robotY;
-		//std::cout << "robot x/y = " << robotX << ", " << robotY << endl;
+		std::cout << "robot x/y = " << robotX << ", " << robotY << endl;
 		break;
 	case 'y':
 		//break; // disabled
 		robotY++;
 		currentY = robotY;
-		//std::cout << "robot x/y = " << robotX << ", " << robotY << endl;
+		std::cout << "robot x/y = " << robotX << ", " << robotY << endl;
 		break;
 	case '/':
 		rotateMapLeft();
