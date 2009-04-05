@@ -40,8 +40,6 @@ public:
 	void keyboardInput(unsigned char c, int x, int y);
 
 private:
-	oglTexture2D* img;
-	// add private stuff here
 
 };
 

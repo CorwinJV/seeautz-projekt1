@@ -17,12 +17,7 @@ public:
 	{
 		playerCurrentLevel = GameVars->getPlayerMaxLevel();
 			
-		//display a menu that shows info and contains advance and exit buttons
-		img = new oglTexture2D();
-		if(img != NULL)
-			img->loadImage("statescreens\\mainmenu.png", 1024, 120);
-		img->mY = 618;
-		
+		//display a menu that shows info and contains advance and exit buttons		
 
 		myMenu = new MenuSys(250, 50, "blank.png", None);
 		myMenu->addButton("arrow_left.png", "arrow_lefthover.png", "arrow_lefthover.png", CreateFunctionPointer0R(this, &LevelSelectState::decrement));
@@ -50,7 +45,6 @@ public:
 	
 
 private:
-	oglTexture2D* img;
 	int playerCurrentLevel;
 	vector<levelData*> levelList;
 	// add private stuff here

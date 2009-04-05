@@ -12,10 +12,6 @@ public:
 	SaveGameState() {};
 	SaveGameState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
-		img = new oglTexture2D();
-		if(img != NULL)
-			img->loadImage("statescreens\\succeed.png", 1024, 120);
-		img->mY = 618;
 
 		myMenu = new MenuSys(250, 50, "blankmenu.png", Auto);
 		myMenu->addButton("buttons\\returntogame.png", "buttons\\returntogamehover.png", "buttons\\returntogamehover.png", CreateFunctionPointer0R(this, &SaveGameState::PauseGameCallback));
@@ -32,8 +28,7 @@ public:
 	bool saved;
 
 private:
-	oglTexture2D* img;
-	// add private stuff here
+
 };
 
 #endif

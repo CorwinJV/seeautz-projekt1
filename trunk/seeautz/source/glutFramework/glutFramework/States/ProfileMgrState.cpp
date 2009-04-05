@@ -12,9 +12,6 @@ bool ProfileMgrState::Draw()
 {
 	logoImage->drawImage();
 	
-	if(img != NULL)
-		img->drawImage();
-
 	if(myMenu != NULL)
 		myMenu->Draw();
 

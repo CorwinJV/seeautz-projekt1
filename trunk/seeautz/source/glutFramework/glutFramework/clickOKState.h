@@ -35,7 +35,6 @@ public:
 	bool noProfile;
 
 private:
-	oglTexture2D* img;
 	std::string tempString;
 	
 	// add private stuff here

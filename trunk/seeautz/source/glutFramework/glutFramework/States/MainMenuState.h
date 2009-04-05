@@ -37,8 +37,7 @@ public:
 	bool Credits();
 
 private:
-	//oglTexture2D* img;
-	// add private stuff here
+
 	
 };
 

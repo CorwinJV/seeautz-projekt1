@@ -86,7 +86,6 @@ bool createProfileState::Draw()
 			myMenu->addButton("buttons\\back.png", "buttons\\backhover.png", "buttons\\backhover.png",CreateFunctionPointer0R(this, &createProfileState::back));
 			myMenu->setLastButtonDimensions(100, 50);
 			myMenu->setLastButtonPosition((int)1024/2 - 50, 625);
-			
 		}
 		
 		if(myMenu != NULL)

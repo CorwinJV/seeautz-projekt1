@@ -19,10 +19,6 @@ public:
 		maxNumProfiles = GameVars->PM->getMaxRecords() - 1;
 		profileViewing = 0;
 		GameVars->PM->setCurrentRecord(profileViewing);
-		img = new oglTexture2D();
-		/*if(img != NULL)
-			img->loadImage("statescreens\\profilemanagement.png", 1024, 120);
-		img->mY = 618;*/
 	//	myMenu = new MenuSys(250, 250, "blankmenu.png", Auto);
 		myMenu = new MenuSys(250, 50, "blank.png", None);
 		myMenu->addButton("arrow_left.png", "arrow_lefthover.png", "arrow_lefthover.png", CreateFunctionPointer0R(this, &selectProfileState::decrement));
@@ -54,7 +50,6 @@ public:
 	
 	
 private:
-	oglTexture2D* img;
 	int profileViewing;
 	int maxNumProfiles;
 	int totScore;

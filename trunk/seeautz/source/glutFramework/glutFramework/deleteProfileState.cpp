@@ -32,9 +32,6 @@ bool deleteProfileState::Draw()
 	
 	if((!deletingProfile)&&(checked == 0))
 	{
-		if(img != NULL)
-			img->drawImage();
-
 		if(myMenu != NULL)
 			myMenu->Draw();
 	}
