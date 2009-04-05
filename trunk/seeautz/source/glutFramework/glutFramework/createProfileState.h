@@ -23,7 +23,7 @@ public:
 		/*if(img != NULL)
 			img->loadImage("statescreens\\profilemanagement.png", 1024, 120);
 		img->mY = 618;*/
-		myMenu = new MenuSys(200, 300, "blank.png", Auto);
+		myMenu = new MenuSys(200, 300, "blank.png", None);
 		Update();
 	}
 
@@ -35,6 +35,7 @@ public:
 	int createProfileState::doesNameAlreadyExists(std::string);
 	void createProfileState::setPlayerInfo(std::string name, int, int, int);
 	bool SelectProfile();
+	bool back();
 	
 	int checked;
 	std::string tempString; 

@@ -700,6 +700,29 @@ bool playGame::replayLevel()
 
 	// is there a way to clear the instruction list?
 	// find/use same code as when user clicks clear button on interface
+	
+	////////////////////
+	// complete and total map reset
+	mInterface.ClearExecutionList();
+	mInterface.ResetExecutionMode();
+	
+	/*delete gamePlay;			
+	gamePlay = new gameBoard();	
+
+	int levelCounter = GameVars->getCurrentLevel();
+	string tempString;
+	tempString = GameVars->getFilename(GameVars->getCurrentLevel());
+	gamePlay->LoadGameMapFromFile(tempString);
+	mInterface.GetCurrentMapLogicBank();
+	mInterface.GetCurrentLevelBytes();
+	GameVars->commandsProcessed = 0;
+	GameVars->totalCommandsProcessed = 0;
+	curState = GB_PREGAME;
+	GameVars->didYouKnowI++;
+	if(GameVars->didYouKnowI == GameVars->didYouKnow.end())
+	{
+		GameVars->didYouKnowI = GameVars->didYouKnow.begin();
+	}*/
 	return true;
 }
 

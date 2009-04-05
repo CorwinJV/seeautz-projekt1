@@ -478,6 +478,7 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 				//OM->addNewObject<robot>(x, y, 1, ORobot);
 				robot* tempObj;
 				tempObj = new robot(x, y, startDirection, ORobot);
+				myRobot = tempObj;
 				objectList.push_back(tempObj);
 				robotX = x;
 				robotY = y;
@@ -687,8 +688,20 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 		panupright();
 		break;
 	case 'z': // down-left
+		pandownleft();
+		break;
 	case '1':
 		pandownleft();
+		//find the robot
+		oitr = objectList.begin();
+		for(;oitr != objectList.end(); oitr++)
+		{
+			if((*oitr)->getType() == ORobot)
+			{
+			// find ACTIVATE in allLogicBlocks
+				(*oitr)->rotate(-1);
+			}
+		}	
 		break;
 	case 'c': // down-right
 	case '3':
@@ -707,8 +720,21 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 		panright();
 		break;
 	case 's': // down
+		pandown();
+		break;
 	case '2':
 		pandown();
+		////////////
+		//find the robot
+		oitr = objectList.begin();
+		for(;oitr != objectList.end(); oitr++)
+		{
+			if((*oitr)->getType() == ORobot)
+			{
+			// find ACTIVATE in allLogicBlocks
+				(*oitr)->rotate(1);
+			}
+		}
 		break;
 	case '-':	// zoom out (decrease scale)
 	case '_':
@@ -854,28 +880,28 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	// activate
 	case 'o':
 	case 'O':
-		break; // disabled
-		// find the robot
-		//oitr = objectList.begin();
-		//for(;oitr != objectList.end(); oitr++)
-		//{
-		//	if((*oitr)->getType() == ORobot)
-		//	{
-		//	// find ACTIVATE in allLogicBlocks
-		//		lbitr = logicBank->begin();
-		//		for(;lbitr != logicBank->end(); lbitr++)
-		//		{
-		//			if((*lbitr)->enumInstruction == ACTIVATE)
-		//			{
-		//	//			// add move forward to the robot command queue
-		//				(*oitr)->addCommand(*lbitr);
-		//				//std::cout << "added ACTIVATE to robot command list " << endl;
-		//				(*oitr)->coreDump();
-		//			}
-		//		}
-		//	}
-		//}	
-		//break;
+		//break; // disabled
+		//find the robot
+		oitr = objectList.begin();
+		for(;oitr != objectList.end(); oitr++)
+		{
+			if((*oitr)->getType() == ORobot)
+			{
+			// find ACTIVATE in allLogicBlocks
+				lbitr = logicBank->begin();
+				for(;lbitr != logicBank->end(); lbitr++)
+				{
+					if((*lbitr)->enumInstruction == ACTIVATE)
+					{
+			//			// add move forward to the robot command queue
+						(*oitr)->addCommand(*lbitr);
+						//std::cout << "added ACTIVATE to robot command list " << endl;
+						(*oitr)->coreDump();
+					}
+				}
+			}
+		}	
+		break;
 	// punch
 	case 'p':
 	case 'P':
@@ -903,9 +929,10 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 		//break;
 	case 't': // process next thing in robot loop
 	case 'T':
-		break; // disabled
-		/*processRobot();
-		break;*/
+		//break; // disabled
+		processRobot();
+		//outputSwitchInfo();
+		break;
 	case 'r':
 	case 'R':
 		break; // disabled
@@ -913,25 +940,29 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 		robotY = robotStartY;
 		break;*/
 	case 'X':
-		break; // disabled
-		/*robotX--;
+		//break; // disabled
+		robotX--;
 		currentX = robotX;
-		break;*/
+		//std::cout << "robot x/y = " << robotX << ", " << robotY << endl;
+		break;
 	case 'x':
-		break; // disabled
-		/*robotX++;
+		//break; // disabled
+		robotX++;
 		currentX = robotX;
-		break;*/
+		//std::cout << "robot x/y = " << robotX << ", " << robotY << endl;
+		break;
 	case 'Y':
-		break; // disabled
-		/*robotY--;
+		//break; // disabled
+		robotY--;
 		currentY = robotY;
-		break;*/
+		//std::cout << "robot x/y = " << robotX << ", " << robotY << endl;
+		break;
 	case 'y':
-		break; // disabled
-		/*robotY++;
+		//break; // disabled
+		robotY++;
 		currentY = robotY;
-		break;*/
+		//std::cout << "robot x/y = " << robotX << ", " << robotY << endl;
+		break;
 	case '/':
 		rotateMapLeft();
 		break; // disabled
@@ -2455,6 +2486,47 @@ void gameBoard::rotateMapRight()
 	currentX = tempX;
 	currentY = tempY;
 
+
+	// now for switches
+	vector<Oswitch*>::iterator sitr = switchList.begin();
+
+	int tempTargetX;
+	int tempTargetY;
+	int numControlled;
+	for(;sitr < switchList.end(); sitr++)
+	{
+		// rotate the switch
+		tempX = (*sitr)->getXPos();
+		tempY = (*sitr)->getYPos();
+		(*sitr)->setXPos(Height - tempY-1);
+		(*sitr)->setYPos(tempX);
+
+		numControlled = (*sitr)->getNumTargets();
+		// now rotate the targets
+		for(int x = 0; x < numControlled; x++)
+		{
+			tempTargetX = (*sitr)->getTargetX();
+			tempTargetY = (*sitr)->getTargetY();
+			(*sitr)->setTargetX(Height - tempTargetY - 1);
+			(*sitr)->setTargetY(tempTargetX);
+			(*sitr)->cycleTargets();
+		}
+	}
+
+	// now for teleporters
+	std::vector<Oteleport*>::iterator titr = teleportList.begin();
+
+	for(; titr < teleportList.end(); titr++)
+	{
+		tempX = (*titr)->getXPos();
+		tempY = (*titr)->getYPos();
+		tempTargetX = (*titr)->getTargetX();
+		tempTargetY = (*titr)->getTargetY();
+		(*titr)->setXPos(Height - tempY - 1);
+		(*titr)->setYPos(tempX);
+		(*titr)->setTarget(Height - tempTargetY - 1, tempTargetX);
+	}
+
 	recalcPositions();
 
 	Width = tempWidth;
@@ -2537,6 +2609,7 @@ void gameBoard::rotateMapLeft()
 		}
 	}
 
+
 	
 	double tempX, tempY;
 
@@ -2545,6 +2618,46 @@ void gameBoard::rotateMapLeft()
 
 	currentX = tempX;
 	currentY = tempY;
+
+	// now for switches
+	vector<Oswitch*>::iterator sitr = switchList.begin();
+
+	int tempTargetX;
+	int tempTargetY;
+	int numControlled;
+	for(;sitr < switchList.end(); sitr++)
+	{
+		// rotate the switch
+		tempX = (*sitr)->getXPos();
+		tempY = (*sitr)->getYPos();
+		(*sitr)->setXPos(tempY);
+		(*sitr)->setYPos(Width-tempX-1);
+
+		numControlled = (*sitr)->getNumTargets();
+		// now rotate the targets
+		for(int x = 0; x < numControlled; x++)
+		{
+			tempTargetX = (*sitr)->getTargetX();
+			tempTargetY = (*sitr)->getTargetY();
+			(*sitr)->setTargetX(tempTargetY);
+			(*sitr)->setTargetY(Width-tempTargetX-1);
+			(*sitr)->cycleTargets();
+		}
+	}
+
+	// now for teleporters
+	std::vector<Oteleport*>::iterator titr = teleportList.begin();
+
+	for(; titr < teleportList.end(); titr++)
+	{
+		tempX = (*titr)->getXPos();
+		tempY = (*titr)->getYPos();
+		tempTargetX = (*titr)->getTargetX();
+		tempTargetY = (*titr)->getTargetY();
+		(*titr)->setXPos(tempY);
+		(*titr)->setYPos(Width-tempX-1);
+		(*titr)->setTarget(tempTargetY, Width-tempTargetX -1);
+	}
 
 	recalcPositions();
 
@@ -2638,4 +2751,23 @@ bool gameBoard::verifyCameraPositionY()
 		return false;
 	}
 	return true;
+}
+
+void gameBoard::outputSwitchInfo()
+{
+	vector<Oswitch*>::iterator sitr = switchList.begin();
+	// process through all switches
+
+	int counter = 0;
+	for(;sitr < switchList.end(); sitr++)
+	{
+		counter++;
+		std::cout << "Switch #" << counter << " is at " << (*sitr)->getXPos() << ", " << (*sitr)->getYPos() << " and controls " << (*sitr)->getNumTargets() << " tiles." << endl;
+		// for the switch, process through what's controlled by the switches
+		for(int x = 0; x < (*sitr)->getNumTargets(); x++)
+		{
+			std::cout << "Target #" << x << " is at " << (*sitr)->getNextX() << ", " << (*sitr)->getNextY() << endl;
+		}
+	}
+
 }

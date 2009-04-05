@@ -81,6 +81,12 @@ bool createProfileState::Draw()
 		{
 			added = true;
 			myMenu->addButton("buttons\\selectprofile.png", "buttons\\selectprofilehover.png", "buttons\\selectprofilehover.png", CreateFunctionPointer0R(this, &createProfileState::SelectProfile));
+			myMenu->setLastButtonDimensions(400, 50);
+			myMenu->setLastButtonPosition((int)1024/2 - 200, 550);
+			myMenu->addButton("buttons\\back.png", "buttons\\backhover.png", "buttons\\backhover.png",CreateFunctionPointer0R(this, &createProfileState::back));
+			myMenu->setLastButtonDimensions(100, 50);
+			myMenu->setLastButtonPosition((int)1024/2 - 50, 625);
+			
 		}
 		
 		if(myMenu != NULL)
@@ -246,6 +252,14 @@ void createProfileState::keyboardInput(unsigned char c, int x, int y)
 
 }
 
+bool createProfileState::back()
+{
+	creatingProfile = true;
+	checked = 0;
+	tempString = "";
+	profileCheck = -3;
+	return true;
+}
 
 int createProfileState::doesNameAlreadyExists(std::string playerGame)
 {

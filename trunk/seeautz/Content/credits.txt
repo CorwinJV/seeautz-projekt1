@@ -21,6 +21,9 @@ David Moss - davidbmoss@gmail.com
 Lead Artist
 Cameron VanHook - cm.vanhook@gmail.com
 
+Technical Artist
+David Moss - davidbmoss@gmail.com
+
 Game Logic Programming
 David Moss - davidbmoss@gmail.com
 
@@ -43,8 +46,7 @@ Oscar Maldonado - fool133@yahoo.com (11-15)
 Sound Research
 Christian Martinez - christianmtnz@yahoo.com
 
-Temp Art
-David Moss - davidbmoss@gmail.com
+
 
 "I'm going back over here where shit makes sense." 
                                      - Programming Team

@@ -94,6 +94,13 @@ private:
 	int executionListYOffset;
 	int executionListSub1YOffset;
 	int executionListSub2YOffset;
+
+	// hacks for missing features
+	int executionListScrolled;
+	int executionListSub1Scrolled;
+	int executionListSub2Scrolled;
+	int* curExecutionListScrolled;
+
 	int sideBarColumnCount;
 	
 	screenBox bottomBarBox;

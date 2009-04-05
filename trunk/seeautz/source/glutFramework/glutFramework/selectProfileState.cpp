@@ -147,6 +147,12 @@ void selectProfileState::keyboardInput(unsigned char c, int x, int y)
 		break;
 	}
 }
+bool selectProfileState::back()
+{
+	GSM->addGameState<MainMenuState>();
+	this->setStatus(DeleteMe);
+	return true;
+}
 
 void selectProfileState::setPlayerInfo(std::string name, int score, int curLevel, int maxLevel)
 {

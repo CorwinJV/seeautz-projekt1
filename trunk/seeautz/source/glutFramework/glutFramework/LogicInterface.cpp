@@ -133,6 +133,10 @@ LogicInterface::LogicInterface()
 	bytesLeftBackground->loadImage("CommandList.png", 265, 125);
 	bytesLeftBackground->mX = 745;
 	bytesLeftBackground->mY = logicBankBox.y - 60;
+
+	executionListScrolled = 0;
+	executionListSub1Scrolled = 0;
+	executionListSub2Scrolled = 0;
 }
 
 LogicInterface::~LogicInterface()
@@ -845,6 +849,7 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 					isMouseDragging = false;
 					draggedBlockMouseX = 0;
 					draggedBlockMouseY = 0;
+					ExecutionListDownArrowButtonClick();
 				}
 			}
 		}
@@ -868,16 +873,19 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 					{
 						curExecutionListYOffset = &executionListYOffset;
 						curExecutionList = &executionList;
+						curExecutionListScrolled = &executionListScrolled;
 					}
 					else if(curInstrTab == TAB_SUB1)
 					{
 						curExecutionListYOffset = &executionListSub1YOffset;
 						curExecutionList = &executionListSub1;
+						curExecutionListScrolled = &executionListSub1Scrolled;
 					}
 					else if(curInstrTab == TAB_SUB2)
 					{
 						curExecutionListYOffset = &executionListSub2YOffset;
 						curExecutionList = &executionListSub2;
+						curExecutionListScrolled = &executionListSub2Scrolled;
 					}
 					// CJV3
 
@@ -920,7 +928,8 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 						if(bytesLeft >= draggedBlock->byteCost)
 						{
 							std::vector<logicBlock*>::iterator insertionPosition = curExecutionList->begin();
-							insertionPosition += (insertionLineRow * 8) + (insertionLineColumn);
+							// insertion fix based on scroll amount
+							insertionPosition += (insertionLineRow * 8) + (insertionLineColumn) + ((*curExecutionListScrolled) * 8);
 							curExecutionList->insert(insertionPosition, new logicBlock(*(draggedBlock)));
 						}
 						delete draggedBlock;
@@ -1099,20 +1108,32 @@ bool LogicInterface::ExecutionListUpArrowButtonClick()
 	if(curInstrTab == TAB_MAIN)
 	{
 		curExecutionListYOffset = &executionListYOffset;
+		curExecutionListScrolled = &executionListScrolled;
 	}
 	else if(curInstrTab == TAB_SUB1)
 	{
 		curExecutionListYOffset = &executionListSub1YOffset;
+		curExecutionListScrolled = &executionListSub1Scrolled;
 	}
 	else if(curInstrTab == TAB_SUB2)
 	{
 		curExecutionListYOffset = &executionListSub2YOffset;
+		curExecutionListScrolled = &executionListSub2Scrolled;
 	}
 
 	isButtonBeingClicked = true;
 	(*curExecutionListYOffset) += (instructionSpacing + instructionBlockH);
 	if((*curExecutionListYOffset) > 0)
+	{
 		(*curExecutionListYOffset) = 0;
+	}
+
+	// insertion fix based on scroll amount
+	*curExecutionListScrolled -= 1;;
+	if(*curExecutionListScrolled < 0)
+	{
+		*curExecutionListScrolled = 0;
+	}
 
 	return true;
 }
@@ -1126,16 +1147,19 @@ bool LogicInterface::ExecutionListDownArrowButtonClick()
 	{
 		curExecutionListYOffset = &executionListYOffset;
 		curExecutionList = &executionList;
+		curExecutionListScrolled = &executionListScrolled;
 	}
 	else if(curInstrTab == TAB_SUB1)
 	{
 		curExecutionListYOffset = &executionListSub1YOffset;
 		curExecutionList = &executionListSub1;
+		curExecutionListScrolled = &executionListSub1Scrolled;
 	}
 	else if(curInstrTab == TAB_SUB2)
 	{
 		curExecutionListYOffset = &executionListSub2YOffset;
 		curExecutionList = &executionListSub2;
+		curExecutionListScrolled = &executionListSub2Scrolled;
 	}
 
 	int i = (*curExecutionList).size();
@@ -1152,6 +1176,18 @@ bool LogicInterface::ExecutionListDownArrowButtonClick()
 	if((*curExecutionListYOffset) + overallHeight < instructionListBox.height - 50)
 	{
 		(*curExecutionListYOffset) += (instructionSpacing + instructionBlockH);
+	}
+
+	// insertion fix based on scroll amount
+	*curExecutionListScrolled += 1;
+	if(*curExecutionListScrolled > numRows - 3)
+	{
+		*curExecutionListScrolled = numRows - 3;
+
+		if(*curExecutionListScrolled < 0)
+		{
+			*curExecutionListScrolled = 0;
+		}
 	}
 	return true;
 }
@@ -1267,7 +1303,7 @@ bool LogicInterface::CommandAdvanced(instructionTab instrTab, logicBlock* curBlo
 	{
 		(*itr)->curButtonState = BS_ACTIVE;
 		// TODO: When tracking execution, make the command list scrolling 
-			// stay with the current highlighted command
+			// stay with the current highlighted command		
 	}
 	curBlock->curButtonState = BS_HIGHLIGHTED;
 	

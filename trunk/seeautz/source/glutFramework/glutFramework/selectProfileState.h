@@ -34,6 +34,9 @@ public:
 		myMenu->addButton("buttons\\selectprofile.png", "buttons\\selectprofilehover.png", "buttons\\selectprofilehover.png", CreateFunctionPointer0R(this, &selectProfileState::selectProfile));
 		myMenu->setLastButtonDimensions(475, 100);
 		myMenu->setLastButtonPosition(275, 600);
+		myMenu->addButton("buttons\\back.png", "buttons\\backhover.png", "buttons\\backhover.png", CreateFunctionPointer0R(this, &selectProfileState::back));
+		myMenu->setLastButtonDimensions(100, 50);
+		myMenu->setLastButtonPosition(750, 250);
 		
 		Update();
 	}
@@ -46,6 +49,7 @@ public:
 	void selectProfileState::setPlayerInfo(std::string name, int, int, int);
 	bool increment();
 	bool decrement();
+	bool back();
 	bool selectProfile();
 	
 	
