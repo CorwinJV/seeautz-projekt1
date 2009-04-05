@@ -1,3 +1,5 @@
+Stupid Robot 1.00
+
 Westwood College
 Wilshire Campus
 SG300
@@ -39,9 +41,10 @@ Tom Lindeman - tomlindeman@xnaprotege.com
 
 Level Designers
 David Moss - davidbmoss@gmail.com (tutorials)
-Chris Gonzalez - krisryan87@yahoo.com (1-5)
-Geovani Oliva- giovancito9878@yahoo.com (6-10)
-Oscar Maldonado - fool133@yahoo.com (11-15)
+Oscar Maldonado - fool133@yahoo.com
+Geovani Oliva- giovancito9878@yahoo.com
+Chris Gonzalez - krisryan87@yahoo.com
+
 
 Sound Research
 Christian Martinez - christianmtnz@yahoo.com
