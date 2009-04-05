@@ -1,0 +1,117 @@
+*******************************************************************************
+*******************************************************************************
+*******************************************************************************
+***                                                                         ***
+***                         Stupid Robot Version 1.00                       ***
+***                                                                         ***
+*******************************************************************************
+*******************************************************************************
+*******************************************************************************
+
+Notes: Stupid Robot is a project that is ongoing. At the moment it is written
+using OpenGL in C++.
+
+*******************************************************************************
+
+Credits:
+Original Concept
+David Moss - davidbmoss@gmail.com
+Corwin VanHook - corwin.j@gmail.com
+
+Project Lead
+Tom Lindeman - tomlindeman@xnaprotege.com
+
+Lead Programmer
+Corwin VanHook - corwin.j@gmail.com
+
+Lead Designer
+David Moss - davidbmoss@gmail.com
+
+Lead Artist
+Cameron VanHook - cm.vanhook@gmail.com
+
+Technical Artist
+David Moss - davidbmoss@gmail.com
+
+Game Logic Programming
+David Moss - davidbmoss@gmail.com
+
+Systems Design
+Corwin VanHook - corwin.j@gmail.com
+
+Gui Programming
+Tom Lindeman - tomlindeman@xnaprotege.com
+
+Additional Game Deisgn
+Corwin VanHook - corwin.j@gmail.com
+Tom Lindeman - tomlindeman@xnaprotege.com
+
+Level Designers
+David Moss - davidbmoss@gmail.com (tutorials)
+Oscar Maldonado - fool133@yahoo.com
+Chris Gonzalez - krisryan87@yahoo.com
+Geovani Oliva- giovancito9878@yahoo.com
+
+Sound Research
+Christian Martinez - christianmtnz@yahoo.com
+
+*******************************************************************************
+
+Revision History
+0.99
+First public release yay!
+
+1.00
+First Final Release
+
+*******************************************************************************
+*******************************************************************************
+Changes from 0.99 to 1.00
+*******************************************************************************
+*******************************************************************************
+
+*******************************************************************************
+Updates/Changes
+*******************************************************************************
+03/29/2009	Major memory cleanups
+03/29/2009	The robot now does a victory dance upon level completion
+03/29/2009	Instruction's hover tooltips now show the name of the instruction
+03/29/2009	Punch no longer automatically moves you into the square if you
+		just punched a breakable solid tile
+03/30/2009	You can now single click to add an instruction from the logic 
+                bank to the instruction list
+03/30/2009	Level select now has a method to exit
+03/30/2009	Level completion screen is now updated with advance, replay and
+		return to main menu
+03/30/2009	Replay level is now an option
+03/30/2009	You can now rotate the map left and right
+04/01/2009	Help screen implemented
+04/01/2009	Level select from create profile state changes
+04/02/2009	Massive profile system overhaul
+04/02/2009	Subroutines can no longer call themselves or other subroutines
+04/02/2009	all instructions are now drawn regardless of if they are avaiable or not
+04/02/2009	instructions now show if they are unable to be used for any reason
+04/03/2009	"Did you know" text has been added to level loading screens
+04/04/2009	Massive map rebalance/reordering
+04/04/2009	Select profile screen how has a back button
+04/04/2009	If a profile already exists in the create profile screen, there
+		is now a back button
+
+*******************************************************************************
+Bug Fixes
+*******************************************************************************
+03/29/2009	More savegame fixes
+03/30/2009	If sub1/2 are not available, you can no longer click on their tabs
+03/30/2009	Maps no longer try to center themselves, instead you can now pan
+		around as long as what is centered is part of the map.
+03/30/2009	Move forward until unable now stops running if you hit a closed door
+04/01/2009	You can no longer pick up pieces if there is not enough memory
+		to use the piece
+04/04/2009	Level select now shows a score for the level if you've played it
+		before
+04/04/2009	Using single click to add a command to the execution list now
+		auto-scrolls down if you go beyond what is visible
+04/04/2009	if you drag a command into the instruction list after scrolling down
+		it now drags it to the proper position
+04/04/2009	maps and teleporters now work properly after you rotate the map
+
