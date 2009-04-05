@@ -32,7 +32,29 @@ bool playGame::Update()
 			double scoreToAdd = 0;
 			int bytesUsed = GameVars->getBytesUsed();
 			int bytesAvail = GameVars->getCurrentLevelBytes();
-			scoreToAdd = ((100 - (((double)bytesUsed/(double)bytesAvail)*100)) * 10) + 200;
+			// happy magical scoring stuff yay
+
+			// for the time being, we're going to add a 10% bonus per level
+			// such that at level 1 you get 110% score, level 2 you get  120%
+			// and so on and so on capping out at roughly 250% at 15 levels
+			// so bust out those subroutines on the higher levels for maximum scorage yay!
+			// score bonus is only applied to the memory used portion of the scoring
+			// function, the default of 200 base is always default of 200 base so yeah there
+			// for shitz n gigglez i'm having it give only 25% bonus on tutorial levels
+			// you won't get a whole lot of points on the tutorials
+			double levelmultiplier = 0.0;
+			if(GameVars->getCurrentLevel() > GameVars->numTutorialLevels)
+			{	// if we're in a normal level, do this
+				levelmultiplier = GameVars->getCurrentLevel() - GameVars->numTutorialLevels;
+				levelmultiplier *= 0.1;  // here's our 10% 
+				levelmultiplier += 1;
+			}
+			else
+			{
+				levelmultiplier = 0.25;	// 25% for tutorial levels, suck it tutorials
+			}			
+
+			scoreToAdd = ((100 - (((double)bytesUsed/(double)bytesAvail)*100)) * 10)*levelmultiplier + 200;
 			//scoreToAdd *= (double)GameVars->getCurrentLevel() * 0.1;
 			GameVars->setLevelScore(scoreToAdd);
 			GameVars->setTotalScore(GameVars->getLevelScore() + GameVars->getTotalScore());
