@@ -253,6 +253,10 @@
 				RelativePath=".\subroutine.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\switchManager.cpp"
+				>
+			</File>
 			<Filter
 				Name="States"
 				>
@@ -437,6 +441,10 @@
 			</File>
 			<File
 				RelativePath=".\subroutine.h"
+				>
+			</File>
+			<File
+				RelativePath=".\switchManager.h"
 				>
 			</File>
 			<File

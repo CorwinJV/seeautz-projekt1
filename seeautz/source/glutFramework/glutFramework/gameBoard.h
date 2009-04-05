@@ -58,6 +58,10 @@ protected:
 	int robotReprogramY;
 	int mapRotation;
 
+	bool switchInProgress;
+	void processSwitch();
+	bool switchToggled;
+
 	bool didWeJustTeleport;
 	bool robotAlive;
 

@@ -94,7 +94,14 @@ bool gameBoard::update()
 		timer = clock();
 		if(timer >= startTime + 500)
 		{
-			processRobot();
+			if(!switchInProgress)
+			{
+				processRobot();
+			}
+			else
+			{
+				processSwitch();
+			}
 			startTime = clock();
 		}
 	}
@@ -344,6 +351,9 @@ void gameBoard::initialize()
 	mouseTimer = 0;
 	mouseTimerStart = 0;
 
+	switchInProgress = false;
+	switchToggled = false;
+
 }
 
 void gameBoard::cleanup()
@@ -490,7 +500,11 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 		}
 	}
 
+	/////////////////////////////////////////////////////////////////
 	// now lets see if there's any switches in the game map
+	// either way lets clear the switchlist manager first
+	GameVars->SM->clearSwitchList();
+
 	if(!mapfile.eof())
 	{
 		int switchcount;
@@ -518,19 +532,29 @@ bool gameBoard::LoadGameMapFromFile(std::string filename)
 			// x y of this switch
 			mapfile >> myX;
 			mapfile >> myY;
+
+			/////////////////////////////////////
+			// add a switch to the switch manager
+			GameVars->SM->addSwitch(myX, myY, numcnt);
 			
-			tempObj = new Oswitch(myX, myY, 0, OSwitch);
+			tempObj = new Oswitch(myX, myY, 0, OSwitch);	// old code - if SM works right, this gets removed
 
 			for(int sx = 0; sx < numcnt; sx++)
 			{
+				///////////////////////////////
 				// x y of first tile controlled
 				mapfile >> tempX;
 				mapfile >> tempY;
-				tempObj->addTarget(tempX, tempY);
+
+				///////////////////////////////////////////////////////////
+				// add this target to the last switch in the switch manager
+				GameVars->SM->addTargetToLastSwitch(tempX, tempY);
+
+				tempObj->addTarget(tempX, tempY); // old code - if SM works right, this gets removed
 				// ...
 				// x y of nth tile controlled
 			}
-			switchList.push_back(tempObj);
+			switchList.push_back(tempObj);	// old code - if SM works right, this gets removed
 		}
 
 		// read in the teleporters
@@ -930,6 +954,7 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	case 't': // process next thing in robot loop
 	case 'T':
 		//break; // disabled
+		//switchInProgress = false;
 		processRobot();
 		//outputSwitchInfo();
 		break;
@@ -1026,6 +1051,11 @@ bool gameBoard::resetMap()
 	if(mapRotation < 0)
 		while(mapRotation < 0)
 			rotateMapRight();
+
+	GameVars->SM->resetAllSwitches();
+	switchInProgress = false;
+	switchToggled = false;
+	
 
 	for(;oitr != objectList.end(); oitr++)
 	{
@@ -1379,6 +1409,9 @@ bool gameBoard::interfaceHasFiredAbortOrder()
 	if(curState == GB_EXECUTION)
 	{
 		curState = GB_LOGICVIEW;
+		GameVars->SM->resetAllSwitches();
+		switchInProgress = false;
+		switchToggled = false;
 	}
 	return false;
 }
@@ -1989,8 +2022,8 @@ void gameBoard::RCactivate()
 	// are we standing on a switch square?
 	sitr = switchList.begin();
 
-	int sx;
-	int sy;
+	//int sx;
+	//int sy;
 
 	if((robotSquare == TSwitch) ||
 	   ((robotSquare == TSwitchTR) && (robotDirection == 0)) ||
@@ -1999,52 +2032,81 @@ void gameBoard::RCactivate()
 	   ((robotSquare == TSwitchTL) && (robotDirection == 3)))
 
 	{
-		for(;sitr != switchList.end(); sitr++)
+		// if we are in fact standing on a switch... lets see if one exists in the switch list
+		if((GameVars->SM->isThereASwitchAt(robotX, robotY)) && (!switchInProgress))
 		{
-			//  find the switch in the object list
-			if(((*sitr)->getType() == OSwitch) && ((*sitr)->getXPos() == robotX) && ((*sitr)->getYPos() == robotY))
-			{
-				// process through its stuff
-				//tempSwitch = (*sitr);
-				for(int xyx = 0; xyx < (*sitr)->getNumTargets(); xyx++)
-				{	
-					sx = (*sitr)->getNextX();
-					sy = (*sitr)->getNextY();
-					currentX = sx;
-					currentY = sy;
-
-					this->recalcPositions();
-					
-					// draw before
-					glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-					this->draw();
-					glutSwapBuffers();
-
-					timer = clock();
-					startTime = clock();
-					while(timer < startTime + 500)
-					{
-						timer = clock();
-					}
-					
-
-					mapList[sx][sy]->toggleActive();
-					
-					
-					// draw after
-					glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-					this->draw();
-					glutSwapBuffers();
-
-					timer = clock();
-					startTime = clock();
-					while(timer < startTime + 500)
-					{
-						timer = clock();
-					}
-				}
-			}
+			// if there is, lets set the happy go lucky bool in gameboard to true
+			switchInProgress = true;
+			GameVars->SM->startProcessing(robotX, robotY);
 		}
+
+		//////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////
+		// current switch system seems to be working, incase any weird bugs crop up
+		// i'm leaving this old code here, if no problems are found then all this old 
+		// shit needs to be nuked
+
+		//////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////
+
+		//for(;sitr != switchList.end(); sitr++)
+		//{
+		//	//  find the switch in the object list
+		//	if(((*sitr)->getType() == OSwitch) && ((*sitr)->getXPos() == robotX) && ((*sitr)->getYPos() == robotY))
+		//	{
+		//		// process through its stuff
+		//		//tempSwitch = (*sitr);
+		//		for(int xyx = 0; xyx < (*sitr)->getNumTargets(); xyx++)
+		//		{	
+		//			sx = (*sitr)->getNextX();
+		//			sy = (*sitr)->getNextY();
+		//			currentX = sx;
+		//			currentY = sy;
+
+		//			this->recalcPositions();
+		//			
+		//			// draw before
+		//			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//			this->draw();
+		//			glutSwapBuffers();
+
+		//			timer = clock();
+		//			startTime = clock();
+		//			while(timer < startTime + 500)
+		//			{
+		//				timer = clock();
+		//			}
+		//			
+
+		//			mapList[sx][sy]->toggleActive();
+		//			
+		//			
+		//			// draw after
+		//			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//			this->draw();
+		//			glutSwapBuffers();
+
+		//			timer = clock();
+		//			startTime = clock();
+		//			while(timer < startTime + 500)
+		//			{
+		//				timer = clock();
+		//			}
+		//		}
+		//	}
+		//}
+		//////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////
 	}
 
 	// now lets see if we're on a reprogrammable square or facing a reprogram wall
@@ -2488,30 +2550,31 @@ void gameBoard::rotateMapRight()
 
 
 	// now for switches
-	vector<Oswitch*>::iterator sitr = switchList.begin();
+	GameVars->SM->rotateRight(Width, Height);
+	//vector<Oswitch*>::iterator sitr = switchList.begin();
 
 	int tempTargetX;
 	int tempTargetY;
-	int numControlled;
-	for(;sitr < switchList.end(); sitr++)
-	{
-		// rotate the switch
-		tempX = (*sitr)->getXPos();
-		tempY = (*sitr)->getYPos();
-		(*sitr)->setXPos(Height - tempY-1);
-		(*sitr)->setYPos(tempX);
+	//int numControlled;
+	//for(;sitr < switchList.end(); sitr++)
+	//{
+	//	// rotate the switch
+	//	tempX = (*sitr)->getXPos();
+	//	tempY = (*sitr)->getYPos();
+	//	(*sitr)->setXPos(Height - tempY-1);
+	//	(*sitr)->setYPos(tempX);
 
-		numControlled = (*sitr)->getNumTargets();
-		// now rotate the targets
-		for(int x = 0; x < numControlled; x++)
-		{
-			tempTargetX = (*sitr)->getTargetX();
-			tempTargetY = (*sitr)->getTargetY();
-			(*sitr)->setTargetX(Height - tempTargetY - 1);
-			(*sitr)->setTargetY(tempTargetX);
-			(*sitr)->cycleTargets();
-		}
-	}
+	//	numControlled = (*sitr)->getNumTargets();
+	//	// now rotate the targets
+	//	for(int x = 0; x < numControlled; x++)
+	//	{
+	//		tempTargetX = (*sitr)->getTargetX();
+	//		tempTargetY = (*sitr)->getTargetY();
+	//		(*sitr)->setTargetX(Height - tempTargetY - 1);
+	//		(*sitr)->setTargetY(tempTargetX);
+	//		(*sitr)->cycleTargets();
+	//	}
+	//}
 
 	// now for teleporters
 	std::vector<Oteleport*>::iterator titr = teleportList.begin();
@@ -2619,31 +2682,33 @@ void gameBoard::rotateMapLeft()
 	currentX = tempX;
 	currentY = tempY;
 
-	// now for switches
-	vector<Oswitch*>::iterator sitr = switchList.begin();
-
 	int tempTargetX;
 	int tempTargetY;
-	int numControlled;
-	for(;sitr < switchList.end(); sitr++)
-	{
-		// rotate the switch
-		tempX = (*sitr)->getXPos();
-		tempY = (*sitr)->getYPos();
-		(*sitr)->setXPos(tempY);
-		(*sitr)->setYPos(Width-tempX-1);
 
-		numControlled = (*sitr)->getNumTargets();
-		// now rotate the targets
-		for(int x = 0; x < numControlled; x++)
-		{
-			tempTargetX = (*sitr)->getTargetX();
-			tempTargetY = (*sitr)->getTargetY();
-			(*sitr)->setTargetX(tempTargetY);
-			(*sitr)->setTargetY(Width-tempTargetX-1);
-			(*sitr)->cycleTargets();
-		}
-	}
+	// now for switches
+	GameVars->SM->rotateLeft(Width, Height);
+	//vector<Oswitch*>::iterator sitr = switchList.begin();
+
+	//int numControlled;
+	//for(;sitr < switchList.end(); sitr++)
+	//{
+	//	// rotate the switch
+	//	tempX = (*sitr)->getXPos();
+	//	tempY = (*sitr)->getYPos();
+	//	(*sitr)->setXPos(tempY);
+	//	(*sitr)->setYPos(Width-tempX-1);
+
+	//	numControlled = (*sitr)->getNumTargets();
+	//	// now rotate the targets
+	//	for(int x = 0; x < numControlled; x++)
+	//	{
+	//		tempTargetX = (*sitr)->getTargetX();
+	//		tempTargetY = (*sitr)->getTargetY();
+	//		(*sitr)->setTargetX(tempTargetY);
+	//		(*sitr)->setTargetY(Width-tempTargetX-1);
+	//		(*sitr)->cycleTargets();
+	//	}
+	//}
 
 	// now for teleporters
 	std::vector<Oteleport*>::iterator titr = teleportList.begin();
@@ -2770,4 +2835,35 @@ void gameBoard::outputSwitchInfo()
 		}
 	}
 
+}
+
+void gameBoard::processSwitch()
+{
+	// this function should NEVER be called other than by the update code
+	// switches adjust at the same rate that the robot moves
+	// all this code needs to do is change the currentx/y to match a switch
+	// then toggle the switch
+	// two cycles per switch, one pre, one post
+	
+	currentX = GameVars->SM->getCurrentTargetX(robotX, robotY);
+	currentY = GameVars->SM->getCurrentTargetY(robotX, robotY);
+	
+	if(!switchToggled)
+	{
+		// since this is the pre state, we just need to find out where this switch's next target is and set currentx/y to it
+		
+		switchToggled = true;
+	}
+	else
+	{
+		mapList[GameVars->SM->getCurrentTargetX(robotX, robotY)][GameVars->SM->getCurrentTargetY(robotX, robotY)]->toggleActive();
+		GameVars->SM->advanceTarget(robotX, robotY);
+		switchToggled = false;
+		// now in this state, we need to toggle it one single time and set the currentx/y to our position
+
+	}
+	if(GameVars->SM->doneProcessing())
+	{
+		switchInProgress = false;
+	}
 }
