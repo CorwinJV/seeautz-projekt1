@@ -96,6 +96,8 @@ Updates/Changes
 04/04/2009	Select profile screen how has a back button
 04/04/2009	If a profile already exists in the create profile screen, there
 		is now a back button
+04/05/2009	Scoring now gives a bonus for higher levels, tutorials give
+		almost no score now
 
 *******************************************************************************
 Bug Fixes

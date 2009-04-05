@@ -132,6 +132,7 @@ public:
 	std::vector<logicBlock*>*	GetCurrentMapLogicBank();
 	vector<logicBlock*>			*currentLogicBank;
 	vector<oglTexture2D*> levelArt;
+	int							numTutorialLevels;
 
 //	GLFT_Font					fontTimes;
 	GLFT_Font					fontArial32;

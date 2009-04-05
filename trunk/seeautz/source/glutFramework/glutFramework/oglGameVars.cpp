@@ -52,6 +52,8 @@ oglGameVars::oglGameVars()
 	levelData* tempLevel;
 	oglTexture2D* tempArt;
 
+	numTutorialLevels = 0;
+
 	tempLevel = new levelData("DEBUG MAP", "THIS IS FOR DAVE TO DEBUG MAP TILES", "maps\\testMap1.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
@@ -63,72 +65,84 @@ oglGameVars::oglGameVars()
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\tutorialMap1.png", 300, 150);
 	levelArt.push_back(tempArt);
+	numTutorialLevels++;
 	
 	tempLevel = new levelData("Instruction Tutorial 2", "Moving and Turning", "maps\\tutorialMap2.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\tutorialMap2.png", 300, 150);
 	levelArt.push_back(tempArt);
+	numTutorialLevels++;
 
 	tempLevel = new levelData("Instruction Tutorial 3", "Moving Forward Until Unable", "maps\\tutorialMap3.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\tutorialMap3.png", 300, 150);
 	levelArt.push_back(tempArt);
+	numTutorialLevels++;
 
 	tempLevel = new levelData("Instruction Tutorial 4", "Crouching", "maps\\tutorialMap4.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\tutorialMap4.png", 300, 150);
 	levelArt.push_back(tempArt);
+	numTutorialLevels++;
 
 	tempLevel = new levelData("Instruction Tutorial 5", "Jumping", "maps\\tutorialMap5.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\tutorialMap5.png", 300, 150);
 	levelArt.push_back(tempArt);
+	numTutorialLevels++;
 
 	tempLevel = new levelData("Instruction Tutorial 6", "Punching", "maps\\tutorialMap6.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\tutorialMap6.png", 300, 150);
 	levelArt.push_back(tempArt);
+	numTutorialLevels++;
 
 	tempLevel = new levelData("Instruction Tutorial 7", "Complete Instructions Tutorial", "maps\\tutorialMap7.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\tutorialMap7.png", 300, 150);
 	levelArt.push_back(tempArt);
+	numTutorialLevels++;
 
 	tempLevel = new levelData("Tile Tutorial Map 1", "Climb Up to Higher Levels", "maps\\tileTutorialMap1.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\tileTutorialMap1.png", 300, 150);
 	levelArt.push_back(tempArt);
+	numTutorialLevels++;
 
 	tempLevel = new levelData("Tile Tutorial Map 2", "Ice is Slippery.", "maps\\tileTutorialMap2.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\tileTutorialMap2.png", 300, 150);
 	levelArt.push_back(tempArt);
+	numTutorialLevels++;
 
 	tempLevel = new levelData("Tile Tutorial Map 3", "Switches and Electricity", "maps\\tileTutorialMap3.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\tileTutorialMap3.png", 300, 150);
 	levelArt.push_back(tempArt);
+	numTutorialLevels++;
 
 	tempLevel = new levelData("Tile Tutorial Map 4", "Teleporting", "maps\\tileTutorialMap4.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\tileTutorialMap4.png", 300, 150);
 	levelArt.push_back(tempArt);
+	numTutorialLevels++;
 
 	tempLevel = new levelData("Tile Tutorial Map 1 - Re-Visit", "Climbing - Subroutine Required", "maps\\tileTutorialMap1b.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\tileTutorialMap1b.png", 300, 150);
 	levelArt.push_back(tempArt);
+	numTutorialLevels++;
 
 	tempLevel = new levelData("Short and Sweet", "Not everything has to be complex", "maps\\Mapc1.txt");
 	levelList.push_back(tempLevel);
@@ -148,7 +162,7 @@ oglGameVars::oglGameVars()
 	tempArt->loadImage("maps\\Mapg2.png", 300, 150);
 	levelArt.push_back(tempArt);
 
-	tempLevel = new levelData("Obstructions", "The simplest path is not always the most obvious", "maps\\Mapc3.txt");
+	tempLevel = new levelData("Obstructions", "The simplest path is not always obvious", "maps\\Mapc3.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\Mapc3.png", 300, 150);
@@ -190,7 +204,7 @@ oglGameVars::oglGameVars()
 	tempArt->loadImage("maps\\Mapo4.png", 300, 150);
 	levelArt.push_back(tempArt);
 	
-	tempLevel = new levelData("Map o12", "Inasnity #o12", "maps\\Mapo2.txt");
+	tempLevel = new levelData("Map o2", "Inasnity #o12", "maps\\Mapo2.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\Mapo2.png", 300, 150);
@@ -235,6 +249,7 @@ oglGameVars::oglGameVars()
 	didYouKnow.push_back("You get more points by finishing a level with fewer bytes used.");
 	didYouKnow.push_back("Your command list loops when it is processing.");
 	didYouKnow.push_back("You can navigate the map with the number pad on the keyboard.");
+	didYouKnow.push_back("If you die, the next command that would processes is highlighted.");
 	//didYouKnow.push_back(""); // add whatever
 	didYouKnow.push_back("You can email the designers at admin@wilshiregamedevelopment.com");
 	didYouKnowI = didYouKnow.begin();
