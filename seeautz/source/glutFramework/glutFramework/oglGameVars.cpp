@@ -162,7 +162,7 @@ oglGameVars::oglGameVars()
 	tempLevel = new levelData("Map 6", "6 #6", "maps\\Mapg1.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
-	tempArt->loadImage("maps\\Mag1.png", 300, 150);
+	tempArt->loadImage("maps\\Mapg1.png", 300, 150);
 	levelArt.push_back(tempArt);
 
 	tempLevel = new levelData("Map 7", "7 #7", "maps\\Mapg2.txt");
