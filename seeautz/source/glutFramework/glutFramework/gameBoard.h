@@ -41,6 +41,7 @@ protected:
 	std::vector<object*> objectList;
 	std::vector<Oswitch*> switchList;
 	std::vector<Oteleport*> teleportList;
+	robot*		myRobot;
 	objectManager *OM;
 	oglTexture2D*	robotImage;
 	std::vector<logicBlock*>* logicBank;		// The usable logic blocks
@@ -132,6 +133,8 @@ protected:
 	void RCclimb();											// climb up a level or climb over a halfwall
 	void RCpunch();							
 	void RCactivate();
+
+	void outputSwitchInfo();							/// debug shows all switch information
 
 private:
 	GameBoardState curState;

@@ -31,8 +31,13 @@ public:
 	}
 	void addTarget(int x, int y);
 	int getNumTargets();
+	void cycleTargets();
 	int getNextX();
 	int getNextY();
+	int getTargetX();
+	int getTargetY();
+	void setTargetX(int newX);
+	void setTargetY(int newY);
 
 	
 };

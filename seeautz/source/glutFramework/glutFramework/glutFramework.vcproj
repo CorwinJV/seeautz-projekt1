@@ -257,6 +257,10 @@
 				Name="States"
 				>
 				<File
+					RelativePath=".\clickOKState.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\createProfileState.cpp"
 					>
 				</File>
@@ -310,14 +314,6 @@
 				</File>
 				<File
 					RelativePath=".\States\StartNewGameState.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Maps"
-				>
-				<File
-					RelativePath=".\clickOKState.cpp"
 					>
 				</File>
 			</Filter>
@@ -555,6 +551,10 @@
 			</File>
 			<File
 				RelativePath=".\My Inspector Results\r007-mi1\r007-mi1.insp"
+				>
+			</File>
+			<File
+				RelativePath=".\My Inspector Results\r008-mi1\r008-mi1.insp"
 				>
 			</File>
 		</Filter>

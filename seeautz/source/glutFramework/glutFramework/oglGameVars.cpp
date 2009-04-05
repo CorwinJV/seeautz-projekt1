@@ -234,6 +234,7 @@ oglGameVars::oglGameVars()
 	didYouKnow.push_back("You get more points by finishing a level with fewer bytes used.");
 	didYouKnow.push_back("Your command list loops when it is processing.");
 	didYouKnow.push_back("You can navigate the map with the number pad on the keyboard.");
+	//didYouKnow.push_back(""); // add whatever
 	didYouKnow.push_back("You can email the designers at admin@wilshiregamedevelopment.com");
 	didYouKnowI = didYouKnow.begin();
 }

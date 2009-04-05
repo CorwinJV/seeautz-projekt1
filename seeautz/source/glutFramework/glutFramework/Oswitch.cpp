@@ -36,3 +36,36 @@ int Oswitch::getNextY()
 	}
 	return tempy;
 }
+
+int Oswitch::getTargetX()
+{
+	return (*Xitr);
+}
+int Oswitch::getTargetY()
+{
+	return (*Yitr);
+}
+
+void Oswitch::setTargetX(int newX)
+{
+	(*Xitr) = newX;
+}
+
+void Oswitch::setTargetY(int newY)
+{
+	(*Yitr) = newY;
+}
+
+void Oswitch::cycleTargets()
+{
+	Xitr++;
+	if(Xitr == targetX.end())
+	{
+		Xitr = targetX.begin();
+	}
+	Yitr++;
+	if(Yitr == targetY.end())
+	{
+		Yitr = targetY.begin();
+	}
+}

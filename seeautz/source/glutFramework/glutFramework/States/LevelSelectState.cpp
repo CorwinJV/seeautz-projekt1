@@ -45,6 +45,8 @@ bool LevelSelectState::Draw()
 	tempString = "Level : ";
 	tempInt = playerCurrentLevel;
 	painInTheAss << tempInt;
+	painInTheAss << " / ";
+	painInTheAss << GameVars->getPlayerMaxLevel();
 	tempString += painInTheAss.str();
 	GameVars->fontArial24.drawText(offsetX, offsetY + offsetAmt*textspacing, tempString);
 	offsetAmt++;
@@ -60,7 +62,12 @@ bool LevelSelectState::Draw()
 	// your best score for level
 	painInTheAss.str("");
 	tempString = "Your best score on this level : ";
-	tempInt = 0;		// this needs to read in something
+	//tempInt = 0;		// this needs to read in something
+	tempInt = GameVars->PM->getPlayerLevelScore(playerCurrentLevel);
+	if(tempInt < 0)
+	{
+		tempInt = 0;
+	}
 	painInTheAss << tempInt;
 	tempString += painInTheAss.str();
 	GameVars->fontArial24.drawText(offsetX, offsetY + offsetAmt*textspacing, tempString);

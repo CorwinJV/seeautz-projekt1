@@ -46,23 +46,23 @@ bool clickOKState::Draw()
 
 	if(created)
 	{
-		GameVars->fontArial24.drawText(350, 350, "Profile has been created,");
-		GameVars->fontArial24.drawText(350, 400, "click OK to begin game");
+		GameVars->fontArial24.drawText(350, 350, "Profile has been created.");
+		GameVars->fontArial24.drawText(350, 400, "Click OK to begin game.");
 	}
 	if(selected)
 	{
-		GameVars->fontArial24.drawText(350, 350, "Profile has been selected,"); 
-		GameVars->fontArial24.drawText(350, 400, "click OK to select level");
+		GameVars->fontArial24.drawText(350, 350, "Profile has been selected."); 
+		GameVars->fontArial24.drawText(350, 400, "Click OK to select level.");
 	}
 	if(deleted)
 	{
-		GameVars->fontArial24.drawText(350, 350, "Profile has been deleted, ");
-		GameVars->fontArial24.drawText(350, 400, "click OK to continue ");
+		GameVars->fontArial24.drawText(350, 350, "Profile has been deleted.");
+		GameVars->fontArial24.drawText(350, 400, "Click OK to continue.");
 	}
 	if(noProfile)
 	{
-		GameVars->fontArial24.drawText(350, 350, "There are no existing profiles ");
-		GameVars->fontArial24.drawText(350, 400, "to load click OK to continue ");
+		GameVars->fontArial24.drawText(350, 350, "There are no existing profiles.");
+		GameVars->fontArial24.drawText(350, 400, "to load click OK to continue.");
 	}
 	return true;
 }

@@ -25,6 +25,12 @@ public:
 		selfY = y;
 		//std::cout << "switch created at " << x << ", " << y << endl;
 	}
+	void setPosition(int x, int y)
+	{
+		selfX = x;
+		selfY = y;
+	}
+
 	void setTarget(int x, int y)
 	{
 		targetX = x;
