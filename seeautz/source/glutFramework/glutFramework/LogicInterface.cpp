@@ -819,8 +819,9 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 			if(isMouseDragging == true
 				&& draggedBlock != NULL)
 			{
-				if(draggedBlockMouseX == x
-					&& draggedBlockMouseY == y)
+				// should have a buffer of 5 in each direction
+				if( (draggedBlockMouseX <= x+5) && (draggedBlockMouseX >= x-5)
+					&& (draggedBlockMouseY <= y+5) && (draggedBlockMouseY >= y-5))
 				{
 					std::vector<logicBlock*>* curExecutionList = NULL;
 					if(curInstrTab == TAB_MAIN)
