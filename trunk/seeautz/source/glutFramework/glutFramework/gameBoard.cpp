@@ -100,7 +100,7 @@ bool gameBoard::update()
 			}
 			else
 			{
-				processSwitch();
+				processSwitch();	
 			}
 			startTime = clock();
 		}
@@ -353,7 +353,6 @@ void gameBoard::initialize()
 
 	switchInProgress = false;
 	switchToggled = false;
-
 }
 
 void gameBoard::cleanup()
@@ -954,9 +953,13 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	case 't': // process next thing in robot loop
 	case 'T':
 		//break; // disabled
-		//switchInProgress = false;
-		processRobot();
-		//outputSwitchInfo();
+		// process the full switch list
+		GameVars->SM->startProcessing(robotX, robotY);
+		for(int x = 0; x < GameVars->SM->getNumTargets(robotX, robotY); x++)
+		{
+			mapList[GameVars->SM->getCurrentTargetX(robotX, robotY)][GameVars->SM->getCurrentTargetY(robotX, robotY)]->toggleActive();
+			GameVars->SM->advanceTarget(robotX, robotY);
+		}
 		break;
 	case 'r':
 	case 'R':
