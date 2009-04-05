@@ -11,6 +11,7 @@
 #include "gameBoard.h"
 #include "profileManager.h"
 #include <cstring>
+#include "switchManager.h"
 
 #define GameVars oglGameVars::Instance()
 
@@ -67,6 +68,8 @@ public:
     static oglGameVars* Instance();
 	playerInfo* PI;
 	profileManager* PM;
+	switchManager* SM;
+
 	vector<string> didYouKnow;
 	vector<string>::iterator didYouKnowI;
 protected:
@@ -76,6 +79,9 @@ protected:
 private:
     static oglGameVars* pinstance;
 	vector<levelData*> levelList;
+	void loadAllLevels();
+	void loadDidYouKnow();
+	void loadFonts();
 
 	//===============================================
 	// Non singleton functions and data members here

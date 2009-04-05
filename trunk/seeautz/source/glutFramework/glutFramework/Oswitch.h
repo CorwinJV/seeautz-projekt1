@@ -9,8 +9,15 @@
 
 using namespace std;
 
+struct targetSquare
+{
+	int targetX;
+	int targetY;
+};
+
 class Oswitch : public object
 {
+	vector<targetSquare*> targetList;
 	vector<int> targetX;
 	vector<int> targetY;
 	vector<int>::iterator Xitr;
@@ -38,6 +45,7 @@ public:
 	int getTargetY();
 	void setTargetX(int newX);
 	void setTargetY(int newY);
+	void reset();
 
 	
 };

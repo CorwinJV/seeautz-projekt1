@@ -59,13 +59,19 @@ void Oswitch::setTargetY(int newY)
 void Oswitch::cycleTargets()
 {
 	Xitr++;
-	if(Xitr == targetX.end())
+	if(Xitr >= targetX.end())
 	{
 		Xitr = targetX.begin();
 	}
 	Yitr++;
-	if(Yitr == targetY.end())
+	if(Yitr >= targetY.end())
 	{
 		Yitr = targetY.begin();
 	}
+}
+
+void Oswitch::reset()
+{
+	Xitr = targetX.begin();
+	Yitr = targetY.begin();
 }
