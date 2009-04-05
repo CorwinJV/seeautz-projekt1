@@ -116,5 +116,6 @@ Bug Fixes
 		auto-scrolls down if you go beyond what is visible
 04/04/2009	if you drag a command into the instruction list after scrolling down
 		it now drags it to the proper position
-04/04/2009	maps and teleporters now work properly after you rotate the map
+04/04/2009	switches and teleporters now work properly after you rotate the map
+04/05/2009	switches no longer hijack the graphics engine!
 
