@@ -270,6 +270,8 @@ bool playGame::Draw()
 		GameVars->fontArial32.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
 		offsetAmt++;
 
+		// level number
+
 		// level name
 		tempInt = GameVars->getCurrentLevel();
 		tempString = GameVars->getLevelName(tempInt);
@@ -291,6 +293,7 @@ bool playGame::Draw()
 		tempString += painInTheAss.str();
 		GameVars->fontArial32.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
 		offsetAmt++;
+
 		GameVars->fontArial16.drawText(preGameTextOffsetX, 630, "Did You Know:");
 		GameVars->fontArial16.drawText(preGameTextOffsetX, 650, (*GameVars->didYouKnowI));
 		break;
@@ -453,7 +456,7 @@ bool playGame::initialize()
 	//display a menu that shows info and contains advance, replay level and exit buttons
 
 	blackImage = new oglTexture2D();
-	blackImage->loadImage("black.png", 373, 61);
+	blackImage->loadImage("black.png", 373, 75);
 	
 
 	myMenu = new MenuSys(250, 50, "blank.png", None);
@@ -792,8 +795,8 @@ void playGame::drawLevelInfo()
 	string tempString;
 	int playerCurrentLevel;
 
-	int textOffsetX = 20;
-	int textOffsetY = 20;
+	int textOffsetX = 10;
+	int textOffsetY = 10;
 	int textSpacing = 20;
 	int offsetAmt = 0;
 
@@ -807,6 +810,13 @@ void playGame::drawLevelInfo()
 	//this wont work if we're coming in out of a level select
 	playerCurrentLevel = GameVars->getCurrentLevel();
 
+	stringstream levelNumText;
+
+	levelNumText << "Level " << playerCurrentLevel;
+	GameVars->fontArial12.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, levelNumText.str());
+	offsetAmt++;
+
+	// level name
 	tempString = GameVars->getLevelName(playerCurrentLevel);
 		
 	GameVars->fontArial12.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, tempString);

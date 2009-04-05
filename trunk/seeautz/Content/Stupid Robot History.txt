@@ -98,6 +98,7 @@ Updates/Changes
 		is now a back button
 04/05/2009	Scoring now gives a bonus for higher levels, tutorials give
 		almost no score now
+04/05/2009	level number is shown in game now
 
 *******************************************************************************
 Bug Fixes
