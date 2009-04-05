@@ -16,10 +16,6 @@ public:
 	{
 		deletingProfile = true;
 		checked = 0;
-		img = new oglTexture2D();
-		/*if(img != NULL)
-			img->loadImage("statescreens\\profilemanagement.png", 1024, 120);
-		img->mY = 618;*/
 		myMenu = new MenuSys(250, 250, "blankmenu.png", Auto);
 		Update();
 	}
@@ -36,7 +32,6 @@ public:
 	std::string tempString; 
 
 private:
-	oglTexture2D* img;
 	bool deletingProfile;
 	// add private stuff here
 

@@ -62,7 +62,6 @@ bool LevelSelectState::Draw()
 	// your best score for level
 	painInTheAss.str("");
 	tempString = "Your best score on this level : ";
-	//tempInt = 0;		// this needs to read in something
 	tempInt = GameVars->PM->getPlayerLevelScore(playerCurrentLevel);
 	if(tempInt < 0)
 	{

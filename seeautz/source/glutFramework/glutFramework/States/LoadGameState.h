@@ -18,11 +18,6 @@ public:
 	LoadGameState() {};
 	LoadGameState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
-		img = new oglTexture2D();
-		if(img != NULL)
-			img->loadImage("statescreens\\loadgame.png", 1024, 120);
-		img->mY = 618;
-
 		myMenu = new MenuSys(250, 250, "blankmenu.png", Auto);
 		myMenu->addButton("buttons\\returntomainmenu.png", "buttons\\returntomainmenuhover.png", "buttons\\returntomainmenuhover.png", CreateFunctionPointer0R(this, &LoadGameState::MainMenuCallback));
 		myMenu->addButton("buttons\\playgame.png", "buttons\\playgamehover.png", "buttons\\playgamehover.png", CreateFunctionPointer0R(this, &LoadGameState::playGameCallback));
@@ -44,7 +39,6 @@ public:
 	bool loadGame(string);
 
 private:
-	oglTexture2D* img;
 	std::string tempString;
 	int finished;
 	// add private stuff here
