@@ -2,6 +2,7 @@
 #include<fstream>
 #include<iostream>
 #include <string>
+#include <sstream>
 using namespace std;
 
 oglGameVars* oglGameVars::pinstance = 0;// initialize pointer
@@ -129,95 +130,95 @@ oglGameVars::oglGameVars()
 	tempArt->loadImage("maps\\tileTutorialMap1b.png", 300, 150);
 	levelArt.push_back(tempArt);
 
-	tempLevel = new levelData("Map 1", "Map #1", "maps\\Mapc1.txt");
+	tempLevel = new levelData("Short and Sweet", "Not everything has to be complex", "maps\\Mapc1.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\Mapc1.png", 300, 150);
 	levelArt.push_back(tempArt);
 
-	tempLevel = new levelData("Map 2", "Map #2", "maps\\Mapc2.txt");
-	levelList.push_back(tempLevel);
-	tempArt = new oglTexture2D;
-	tempArt->loadImage("maps\\Mapc2.png", 300, 150);
-	levelArt.push_back(tempArt);
-
-	tempLevel = new levelData("Map 3", "Map #3", "maps\\Mapc3.txt");
-	levelList.push_back(tempLevel);
-	tempArt = new oglTexture2D;
-	tempArt->loadImage("maps\\Mapc3.png", 300, 150);
-	levelArt.push_back(tempArt);
-
-	tempLevel = new levelData("Map 4", "Map #4", "maps\\Mapc4.txt");
-	levelList.push_back(tempLevel);
-	tempArt = new oglTexture2D;
-	tempArt->loadImage("maps\\Mapc4.png", 300, 150);
-	levelArt.push_back(tempArt);
-
-	tempLevel = new levelData("Map 5", "Map #5", "maps\\Mapc5.txt");
-	levelList.push_back(tempLevel);
-	tempArt = new oglTexture2D;
-	tempArt->loadImage("maps\\Mapc5.png", 300, 150);
-	levelArt.push_back(tempArt);
-
-	tempLevel = new levelData("Map 6", "6 #6", "maps\\Mapg1.txt");
+	tempLevel = new levelData("Nice and simple", "I wonder which way I want to go", "maps\\Mapg1.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\Mapg1.png", 300, 150);
 	levelArt.push_back(tempArt);
 
-	tempLevel = new levelData("Map 7", "7 #7", "maps\\Mapg2.txt");
+	tempLevel = new levelData("Electrical Disturbance", "There must be a way past all this electricity", "maps\\Mapg2.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\Mapg2.png", 300, 150);
 	levelArt.push_back(tempArt);
 
-	tempLevel = new levelData("Map 8", "H2O #8", "maps\\Mapg3.txt");
+	tempLevel = new levelData("Obstructions", "The simplest path is not always the most obvious", "maps\\Mapc3.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
-	tempArt->loadImage("maps\\Mapg3.png", 300, 150);
+	tempArt->loadImage("maps\\Mapc3.png", 300, 150);
 	levelArt.push_back(tempArt);
 
-	tempLevel = new levelData("Map 9", "9 #9", "maps\\Mapg4.txt");
-	levelList.push_back(tempLevel);
-	tempArt = new oglTexture2D;
-	tempArt->loadImage("maps\\Mapg4.png", 300, 150);
-	levelArt.push_back(tempArt);
-
-	tempLevel = new levelData("Map 10", "10 #10", "maps\\Mapg5.txt");
-	levelList.push_back(tempLevel);
-	tempArt = new oglTexture2D;
-	tempArt->loadImage("maps\\Mapg5.png", 300, 150);
-	levelArt.push_back(tempArt);
-
-	tempLevel = new levelData("Map 11", "Insanity #1", "maps\\Mapo1.txt");
+	tempLevel = new levelData("Roundabout", "This map has no catchy description", "maps\\Mapo1.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\Mapo1.png", 300, 150);
 	levelArt.push_back(tempArt);
 
-	tempLevel = new levelData("Map 12", "Insanity #2", "maps\\Mapo2.txt");
+	tempLevel = new levelData("I can see the end from here", "So close yet so far away", "maps\\Mapg5.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
-	tempArt->loadImage("maps\\Mapo2.png", 300, 150);
+	tempArt->loadImage("maps\\Mapg5.png", 300, 150);
+	levelArt.push_back(tempArt);	
+
+	tempLevel = new levelData("Waterworld", "Watch your step!", "maps\\Mapg3.txt");
+	levelList.push_back(tempLevel);
+	tempArt = new oglTexture2D;
+	tempArt->loadImage("maps\\Mapg3.png", 300, 150);
 	levelArt.push_back(tempArt);
 
-	tempLevel = new levelData("Map 13", "Insanity #3", "maps\\Mapo3.txt");
+	tempLevel = new levelData("Flip the Switch!", "It's not as hard as you think.", "maps\\Mapo3.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\Mapo3.png", 300, 150);
 	levelArt.push_back(tempArt);
 
-	tempLevel = new levelData("Map 14", "Insanity #4", "maps\\Mapo4.txt");
+	tempLevel = new levelData("Minor Obstructions", "To infinity and beyond!", "maps\\Mapg4.txt");
+	levelList.push_back(tempLevel);
+	tempArt = new oglTexture2D;
+	tempArt->loadImage("maps\\Mapg4.png", 300, 150);
+	levelArt.push_back(tempArt);
+
+	tempLevel = new levelData("Trapped!", "One of these switches must do something.", "maps\\Mapo4.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\Mapo4.png", 300, 150);
 	levelArt.push_back(tempArt);
+	
+	tempLevel = new levelData("Map o12", "Inasnity #o12", "maps\\Mapo2.txt");
+	levelList.push_back(tempLevel);
+	tempArt = new oglTexture2D;
+	tempArt->loadImage("maps\\Mapo2.png", 300, 150);
+	levelArt.push_back(tempArt);
 
-	tempLevel = new levelData("Map 15", "Insanity #5", "maps\\Mapo5.txt");
+	tempLevel = new levelData("Trapped on the Outside", "I want to be somewhere else.", "maps\\Mapo5.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\Mapo5.png", 300, 150);
 	levelArt.push_back(tempArt);
+
+	tempLevel = new levelData("Map o5", "Map #o5", "maps\\Mapc5.txt");
+	levelList.push_back(tempLevel);
+	tempArt = new oglTexture2D;
+	tempArt->loadImage("maps\\Mapc5.png", 300, 150);
+	levelArt.push_back(tempArt);
+	
+	tempLevel = new levelData("Map c4", "Map #c4", "maps\\Mapc4.txt");
+	levelList.push_back(tempLevel);
+	tempArt = new oglTexture2D;
+	tempArt->loadImage("maps\\Mapc4.png", 300, 150);
+	levelArt.push_back(tempArt);
+
+	tempLevel = new levelData("Map c2", "Map #c2", "maps\\Mapc2.txt");
+	levelList.push_back(tempLevel);
+	tempArt = new oglTexture2D;
+	tempArt->loadImage("maps\\Mapc2.png", 300, 150);
+	levelArt.push_back(tempArt);	
 
 	maxLevel = levelList.size();
 	PI = new playerInfo(maxLevel);
