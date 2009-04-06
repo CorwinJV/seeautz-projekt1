@@ -704,34 +704,34 @@ void oglGameVars::loadAllLevels()
 	tempArt->loadImage("maps\\Mapg3.png", 300, 150);
 	levelArt.push_back(tempArt);
 
+	tempLevel = new levelData("Minor Obstructions", "To infinity and beyond!", "maps\\Mapg4.txt");
+	levelList.push_back(tempLevel);
+	tempArt = new oglTexture2D;
+	tempArt->loadImage("maps\\Mapg4.png", 300, 150);
+	levelArt.push_back(tempArt);
+
+	tempLevel = new levelData("Out and About", "Wheee!", "maps\\Mapo2.txt");
+	levelList.push_back(tempLevel);
+	tempArt = new oglTexture2D;
+	tempArt->loadImage("maps\\Mapo2.png", 300, 150);
+	levelArt.push_back(tempArt);
+
 	tempLevel = new levelData("Flip the Switch!", "It's not as hard as you think.", "maps\\Mapo3.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\Mapo3.png", 300, 150);
 	levelArt.push_back(tempArt);
 
-	tempLevel = new levelData("Minor Obstructions", "To infinity and beyond!", "maps\\Mapg4.txt");
+	tempLevel = new levelData("Trapped on the Outside", "I want to be somewhere else.", "maps\\Mapo5.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
-	tempArt->loadImage("maps\\Mapg4.png", 300, 150);
-	levelArt.push_back(tempArt);
-	
-	tempLevel = new levelData("Map o2", "Insanity #o12", "maps\\Mapo2.txt");
-	levelList.push_back(tempLevel);
-	tempArt = new oglTexture2D;
-	tempArt->loadImage("maps\\Mapo2.png", 300, 150);
+	tempArt->loadImage("maps\\Mapo5.png", 300, 150);
 	levelArt.push_back(tempArt);
 
 	tempLevel = new levelData("Trapped!", "One of these switches must do something.", "maps\\Mapo4.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\Mapo4.png", 300, 150);
-	levelArt.push_back(tempArt);
-
-	tempLevel = new levelData("Trapped on the Outside", "I want to be somewhere else.", "maps\\Mapo5.txt");
-	levelList.push_back(tempLevel);
-	tempArt = new oglTexture2D;
-	tempArt->loadImage("maps\\Mapo5.png", 300, 150);
 	levelArt.push_back(tempArt);
 
 	/*tempLevel = new levelData("Map c5", "Map #o5", "maps\\Mapc5.txt");
