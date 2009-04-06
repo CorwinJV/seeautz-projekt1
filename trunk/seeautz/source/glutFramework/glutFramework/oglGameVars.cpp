@@ -662,6 +662,13 @@ void oglGameVars::loadAllLevels()
 	levelArt.push_back(tempArt);
 	numTutorialLevels++;
 
+	tempLevel = new levelData("Final Tutorial - Repetition..", "Did I repeat myself?", "maps\\Mapd1.txt");
+	levelList.push_back(tempLevel);
+	tempArt = new oglTexture2D;
+	tempArt->loadImage("maps\\Mapg1.png", 300, 150);
+	levelArt.push_back(tempArt);
+	numTutorialLevels++;
+
 	tempLevel = new levelData("Short and Sweet", "Not everything has to be complex", "maps\\Mapc1.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
