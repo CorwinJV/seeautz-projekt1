@@ -243,7 +243,7 @@ bool playGame::Draw()
 		glColor3ub(0, 0, 0);
 		GameVars->fontDigital12.drawText(265, 650, "CPU Speed: ");
 		painInTheAss.str("");
-		painInTheAss << speed << " Mhz";
+		painInTheAss << (1100 - speed) << " Mhz";
 		tempString += painInTheAss.str();
 		GameVars->fontDigital12.drawText(265, 670, tempString);
 		break;
@@ -259,7 +259,7 @@ bool playGame::Draw()
 		glColor3ub(0, 0, 0);
 		GameVars->fontDigital12.drawText(265, 650, "CPU Speed: ");
 		painInTheAss.str("");
-		painInTheAss << speed << " Mhz";
+		painInTheAss << (1100 - speed) << " Mhz";
 		tempString += painInTheAss.str();
 		GameVars->fontDigital12.drawText(265, 670, tempString);
 

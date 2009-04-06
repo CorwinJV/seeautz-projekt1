@@ -722,7 +722,7 @@ void oglGameVars::loadAllLevels()
 	tempArt->loadImage("maps\\Mapo4.png", 300, 150);
 	levelArt.push_back(tempArt);
 	
-	tempLevel = new levelData("Map o2", "Inasnity #o12", "maps\\Mapo2.txt");
+	tempLevel = new levelData("Map o2", "Insanity #o12", "maps\\Mapo2.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\Mapo2.png", 300, 150);
