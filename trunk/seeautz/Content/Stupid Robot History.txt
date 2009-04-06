@@ -99,6 +99,14 @@ Updates/Changes
 04/05/2009	Scoring now gives a bonus for higher levels, tutorials give
 		almost no score now
 04/05/2009	level number is shown in game now
+04/05/2009	You can now see what level number you are on in game
+04/05/2009	click ok to continue added after saving game from options menu in game
+04/05/2009	reset button now resets the zoom as well (and when executing)
+04/05/2009	processor speed added to speed up or slow down processing
+04/05/2009	help screen option when creating a new profile
+04/05/2009	reset/clear buttons locations switched so you don't accidentally
+		clear out your commands
+04/05/2009	MASSIVE map overhaul
 
 *******************************************************************************
 Bug Fixes
@@ -118,4 +126,7 @@ Bug Fixes
 		it now drags it to the proper position
 04/04/2009	switches and teleporters now work properly after you rotate the map
 04/05/2009	switches no longer hijack the graphics engine!
+04/05/2009	more profile fixes
+04/05/2009	replay level now restarts the map, versus starting at the last
+		reprogram spot that was clicked
 
