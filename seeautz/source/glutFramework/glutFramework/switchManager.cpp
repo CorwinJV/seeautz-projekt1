@@ -120,7 +120,7 @@ void switchManager::advanceTarget(int mapXPos, int mapYPos)
 			(*switchIter)->cycleTargets();
 			targetsProcessed++;
 			////
-			std::cout << "targets processed = " << targetsProcessed << " targetstoprocess = " << targetsToProcess << endl;
+			//std::cout << "targets processed = " << targetsProcessed << " targetstoprocess = " << targetsToProcess << endl;
 		}
 	}
 }
@@ -137,7 +137,7 @@ void switchManager::startProcessing(int mapXPos, int mapYPos)
 			targetsToProcess = (*switchIter)->getNumTargets();
 			targetsProcessed = 0;
 			/////
-			std::cout << "started processing switch with " << targetsToProcess << " targets" <<endl;
+			//std::cout << "started processing switch with " << targetsToProcess << " targets" <<endl;
 		}
 	}
 	targetsProcessed = 0;
