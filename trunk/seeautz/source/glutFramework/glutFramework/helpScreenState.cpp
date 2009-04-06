@@ -208,7 +208,7 @@ bool helpScreenState::drawTile(tileTypeEnum nType, int txPos, int tyPos, double 
 void helpScreenState::drawPage0()
 {
 	glColor3ub(0, 0, 0);
-	GameVars->fontArial24.drawText(textOffsetX, textOffsetY, "Overview");
+	GameVars->fontArial18.drawText(textOffsetX, textOffsetY, "Help Screen - Overview");
 	offsetAmt++;offsetAmt++;
 	offsetAmt++;offsetAmt++;
 	GameVars->fontArial18.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing2, 
@@ -243,7 +243,7 @@ void helpScreenState::drawPage0()
 void helpScreenState::drawPage1() // user interface
 {
 	glColor3ub(0, 0, 0);
-	GameVars->fontArial24.drawText(textOffsetX, textOffsetY, "User Interface");
+	GameVars->fontArial18.drawText(textOffsetX, textOffsetY, "Help Screen - User Interface");
 	offsetAmt++;		offsetAmt++;
 	logicInterfaceHelp->mX = 150;
 	logicInterfaceHelp->mY = 285;
@@ -252,7 +252,7 @@ void helpScreenState::drawPage1() // user interface
 void helpScreenState::drawPage2() // instructions
 {
 	glColor3ub(0, 0, 0);
-	GameVars->fontArial24.drawText(textOffsetX, textOffsetY, "Instructions");
+	GameVars->fontArial18.drawText(textOffsetX, textOffsetY, "Help Screen - Instructions");
 	//GameVars->fontArial18.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, "Stuff");
 	vector<logicBlock*>* logicBank = GameVars->Instance()->getAllLogicBlocks();
 
@@ -333,9 +333,11 @@ void helpScreenState::drawPage2() // instructions
 void helpScreenState::drawPage3() // scoring and subroutines
 {
 	glColor3ub(0, 0, 0);
+	GameVars->fontArial18.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, "Help Screen - Scoring and Subs");
 	offsetAmt++;
 	offsetAmt++;
-	GameVars->fontArial24.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, "Scoring");
+	offsetAmt++;
+	GameVars->fontArial18.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, "Scoring");
 	offsetAmt++;
 	GameVars->fontArial18.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing2, "Scoring is based off of how much memory is used versus how");
 	offsetAmt++;
@@ -347,7 +349,7 @@ void helpScreenState::drawPage3() // scoring and subroutines
 	offsetAmt++;
 	offsetAmt++;
 	offsetAmt++;
-	GameVars->fontArial24.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing2, "Subroutines");
+	GameVars->fontArial18.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing2, "Subroutines");
 	offsetAmt++;
 	offsetAmt++;
 	offsetAmt++;
@@ -377,7 +379,7 @@ void helpScreenState::drawPage3() // scoring and subroutines
 void helpScreenState::drawPage4() // tile list page 1
 {
 	glColor3ub(0, 0, 0);
-	GameVars->fontArial24.drawText(textOffsetX, textOffsetY, "Tiles (page 1)");
+	GameVars->fontArial18.drawText(textOffsetX, textOffsetY, "Help Screen - Tiles (page 1)");
 	offsetAmt++;offsetAmt++;
 	/*GameVars->fontArial18.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, "Stuff");
 	offsetAmt++;*/
@@ -501,7 +503,7 @@ void helpScreenState::drawPage4() // tile list page 1
 void helpScreenState::drawPage5() // tile list page 2
 {
 	glColor3ub(0, 0, 0);
-	GameVars->fontArial24.drawText(textOffsetX, textOffsetY, "Tiles (page 2)");
+	GameVars->fontArial18.drawText(textOffsetX, textOffsetY, "Help Screen - Tiles (page 2)");
 	offsetAmt++;offsetAmt++;
 
 	// draw the tiles
@@ -618,7 +620,7 @@ void helpScreenState::drawPage5() // tile list page 2
 void helpScreenState::drawPage6() // tile list page 3
 {
 	glColor3ub(0, 0, 0);
-	GameVars->fontArial24.drawText(textOffsetX, textOffsetY, "Tiles (page 3)");
+	GameVars->fontArial18.drawText(textOffsetX, textOffsetY, "Help Screen - Tiles (page 3)");
 	offsetAmt++;offsetAmt++;
 
 	// draw the tiles
@@ -727,7 +729,7 @@ void helpScreenState::drawPage6() // tile list page 3
 void helpScreenState::drawPage7() // tile list page 4
 {
 	glColor3ub(0, 0, 0);
-	GameVars->fontArial24.drawText(textOffsetX, textOffsetY, "Tiles (page 4)");
+	GameVars->fontArial18.drawText(textOffsetX, textOffsetY, "Help Screen - Tiles (page 4)");
 	offsetAmt++;offsetAmt++;
 
 	// draw the tiles

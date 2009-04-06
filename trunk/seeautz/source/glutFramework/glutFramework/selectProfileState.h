@@ -18,7 +18,10 @@ public:
 		done = 0;
 		maxNumProfiles = GameVars->PM->getMaxRecords() - 1;
 		profileViewing = 0;
-		GameVars->PM->setCurrentRecord(profileViewing);
+		if(maxNumProfiles > 0)
+		{
+			GameVars->PM->setCurrentRecord(profileViewing);
+		}
 	//	myMenu = new MenuSys(250, 250, "blankmenu.png", Auto);
 		myMenu = new MenuSys(250, 50, "blank.png", None);
 		myMenu->addButton("arrow_left.png", "arrow_lefthover.png", "arrow_lefthover.png", CreateFunctionPointer0R(this, &selectProfileState::decrement));

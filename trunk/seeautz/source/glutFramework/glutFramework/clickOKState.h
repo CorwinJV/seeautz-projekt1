@@ -17,10 +17,16 @@ public:
 	clickOKState();
 	clickOKState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
-		myMenu = new MenuSys(250, 250, "blankmenu.png");
+		myMenu = new MenuSys(250, 250, "blankmenu.png", None);
 		myMenu->addButton("buttons\\ok.png", "buttons\\okhover.png", "buttons\\okhover.png", CreateFunctionPointer0R(this, &clickOKState::clickOKCallback));
-		myMenu->setLastButtonDimensions(100, 75);
-		myMenu->setLastButtonPosition(500, 550);
+		myMenu->setLastButtonDimensions(100, 50);
+		myMenu->setLastButtonPosition(420, 550);
+		if(created)
+		{
+			myMenu->addButton("buttons\\help.png", "buttons\\helphover.png", "buttons\\helphover.png", CreateFunctionPointer0R(this, &clickOKState::helpCallback));
+			myMenu->setLastButtonDimensions(100, 50);
+			myMenu->setLastButtonPosition(550, 550);
+		}
 		Update();
 	}
 
@@ -29,10 +35,12 @@ public:
 	bool clickOKState::Update();
 	bool clickOKState::Draw();
 	bool clickOKCallback();
+	bool helpCallback();
 	bool selected;
 	bool created;
 	bool deleted;
 	bool noProfile;
+	bool saved;
 
 private:
 	std::string tempString;

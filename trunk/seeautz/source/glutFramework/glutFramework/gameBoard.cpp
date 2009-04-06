@@ -1060,6 +1060,7 @@ bool gameBoard::resetMap()
 	GameVars->SM->resetAllSwitches();
 	switchInProgress = false;
 	switchToggled = false;
+	scale = 1.0;
 	
 
 	for(;oitr != objectList.end(); oitr++)

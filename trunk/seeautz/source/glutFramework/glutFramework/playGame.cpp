@@ -10,6 +10,7 @@ bool playGame::Update()
 	int levelCounter;
 	string tempString;
 	int tempInt;
+	bool inGameStatus;
 	
 	// see if the robot is at the end square
 	if((gamePlay->robotAtEndSquare())&& (curState == GB_EXECUTION))
@@ -76,6 +77,8 @@ bool playGame::Update()
 	switch(curState)
 	{
 	case GB_LOGICVIEW:
+		inGameStatus = true;
+		GameVars->setInGame(inGameStatus);
 		gameSaved = false;
 		pregameRunning = false;
 		gamePlay->update();
@@ -83,6 +86,8 @@ bool playGame::Update()
 		break;
 
 	case GB_EXECUTION:
+		inGameStatus = true;
+		GameVars->setInGame(inGameStatus);
 		if(!finishNow && !finishing)
 		{
 			gameSaved = false;
@@ -92,6 +97,8 @@ bool playGame::Update()
 		break;
 
 	case GB_PREGAME:
+		inGameStatus = true;
+		GameVars->setInGame(inGameStatus);
 		gameSaved = false;
 		if(pregameRunning)
 		{
@@ -113,6 +120,8 @@ bool playGame::Update()
 		break;
 
 	case GB_ROBOTDIED:
+		inGameStatus = true;
+		GameVars->setInGame(inGameStatus);
 		gameSaved = false;
 		doneDead = false;
 		if(pregameRunning)
@@ -133,6 +142,8 @@ bool playGame::Update()
 		break;
 
 	case GB_VIEWSCORE:
+		inGameStatus = false;
+		GameVars->setInGame(inGameStatus);
 		//save the game for the player, if it hasn't been saved yet
 		finishNow = false;
 		if(!gameSaved)
@@ -152,6 +163,8 @@ bool playGame::Update()
 		break;
 
 	case GB_FINISHED:
+		inGameStatus = false;
+		GameVars->setInGame(inGameStatus);
 		//gamePlay->~gameBoard();
 
 		mInterface.ClearExecutionList();
@@ -748,7 +761,6 @@ bool playGame::replayLevel()
 	mInterface.ClearExecutionList();
 	mInterface.ResetExecutionMode();
 
-	//GameVars->PM->saveProfile();
 	GameVars->updatePlayerFile();
 
 	// is there a way to clear the instruction list?
@@ -759,7 +771,7 @@ bool playGame::replayLevel()
 	mInterface.ClearExecutionList();
 	mInterface.ResetExecutionMode();
 	
-	/*delete gamePlay;			
+	delete gamePlay;			
 	gamePlay = new gameBoard();	
 
 	int levelCounter = GameVars->getCurrentLevel();
@@ -775,7 +787,7 @@ bool playGame::replayLevel()
 	if(GameVars->didYouKnowI == GameVars->didYouKnow.end())
 	{
 		GameVars->didYouKnowI = GameVars->didYouKnow.begin();
-	}*/
+	}
 	return true;
 }
 
