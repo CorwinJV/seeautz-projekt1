@@ -227,6 +227,7 @@ bool playGame::Draw()
 	int tempInt;
 	oglTexture2D fadeToBlack;
 	int textspacing = 30;
+	int speed = gamePlay->getProcessSpeed();
 	int viewscoretext = backgroundImage->mY+50;
 
 	switch(curState)
@@ -237,6 +238,14 @@ bool playGame::Draw()
 		mInterface.Draw();
 		drawLevelInfo();
 		compass->Draw();
+		
+		// display starting speed
+		glColor3ub(0, 0, 0);
+		GameVars->fontDigital12.drawText(265, 650, "CPU Speed: ");
+		painInTheAss.str("");
+		painInTheAss << speed << " Mhz";
+		tempString += painInTheAss.str();
+		GameVars->fontDigital12.drawText(265, 670, tempString);
 		break;
 
 	case GB_EXECUTION:
@@ -245,6 +254,15 @@ bool playGame::Draw()
 		mInterface.Draw();
 		drawLevelInfo();
 		compass->Draw();
+
+		// display current speed
+		glColor3ub(0, 0, 0);
+		GameVars->fontDigital12.drawText(265, 650, "CPU Speed: ");
+		painInTheAss.str("");
+		painInTheAss << speed << " Mhz";
+		tempString += painInTheAss.str();
+		GameVars->fontDigital12.drawText(265, 670, tempString);
+
 		break;
 
 	case GB_PREGAME:
@@ -546,6 +564,16 @@ bool playGame::initialize()
 	compass->setLastButtonDimensions(49, 46);
 	compass->setLastButtonPosition(compassOffsetX+48+51+3, compassOffsetY+33+48+47-3);
 
+	// speed up
+	compass->addButton("compass\\greaterthan.png", "compass\\greaterthanhover.png", "compass\\greaterthanhover.png", CreateFunctionPointer0R(this, &playGame::speedUp));
+	compass->setLastButtonDimensions(35, 35);
+	compass->setLastButtonPosition(302, 600);
+
+	// slow down
+	compass->addButton("compass\\lessthan.png", "compass\\lessthanhover.png", "compass\\lessthanhover.png", CreateFunctionPointer0R(this, &playGame::slowDown));
+	compass->setLastButtonDimensions(35, 35);
+	compass->setLastButtonPosition(262, 600);
+
 	// pregame textinfo
 	preGameTextOffsetX = 150;
 	preGameTextOffsetY = 350;
@@ -831,5 +859,39 @@ void playGame::drawLevelInfo()
 bool playGame::launchHelpState()
 {
 	GSM->addGameState<helpScreenState>();
+	return true;
+}
+
+bool playGame::speedUp()
+{
+	// get the current game speed
+	int speed = gamePlay->getProcessSpeed();
+
+	//speed up the process time by lowering the timer
+	speed -= 100;
+
+	// make sure it doesn't get so fast the user can't tell what's going on
+	if(speed < 100)
+		speed = 100;
+
+	// set the speed to the newly altered value
+	gamePlay->setProcessSpeed(speed);
+	return true;
+}
+
+bool playGame::slowDown()
+{
+	// get the current game speed
+	int speed = gamePlay->getProcessSpeed();
+
+	//slow down the process time by lowering the timer
+	speed += 100;
+
+	// make sure it doesn't get too slow
+	if(speed > 1000)
+		speed = 1000;
+
+	// set the speed to the newly altered value
+	gamePlay->setProcessSpeed(speed);
 	return true;
 }

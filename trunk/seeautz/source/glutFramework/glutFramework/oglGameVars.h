@@ -151,6 +151,7 @@ public:
 	GLFT_Font					fontDigital200;
 	GLFT_Font					fontDigital32;
 	GLFT_Font					fontDigital16;
+	GLFT_Font					fontDigital12;
 	//GLFT_Font					fontCourier12;
 	//GLFT_Font					fontCourier18;
 	//GLFT_Font					fontCourier24;

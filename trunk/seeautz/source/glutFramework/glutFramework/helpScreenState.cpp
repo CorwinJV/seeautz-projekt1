@@ -403,9 +403,9 @@ void helpScreenState::drawPage4() // tile list page 1
 	offsetAmt++;
 	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "Space, you can not");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "enter or pass through");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "enter, jump over or  ");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "this tile.");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "pass through this tile.");
 	offsetAmt++;
 	offsetAmt++;
 	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "Default Tile - You");

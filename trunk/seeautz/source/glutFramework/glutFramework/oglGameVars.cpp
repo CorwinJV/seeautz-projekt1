@@ -788,6 +788,7 @@ void oglGameVars::loadFonts()
 	fontDigital200.open	("fonts\\DIGIRU__.ttf", 200);
 	fontDigital32.open  ("fonts\\DIGIRU__.ttf", 32);
 	fontDigital16.open  ("fonts\\DIGIRU__.ttf", 16);
+	fontDigital12.open	("fonts\\DIGIRU__.ttf", 12);
 	fontOurs.open		("fonts\\Schwaben_Alt_Bold.ttf", 32);
 //	fontTimes.open		("fonts\\times.ttf", 32);
 	currentLogicBank = NULL;

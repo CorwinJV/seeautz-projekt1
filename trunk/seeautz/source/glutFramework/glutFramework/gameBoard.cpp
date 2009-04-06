@@ -92,7 +92,7 @@ bool gameBoard::update()
 	if(curState == GB_EXECUTION)
 	{
 		timer = clock();
-		if(timer >= startTime + 500)
+		if(timer >= startTime + processSpeed)
 		{
 			if(!switchInProgress)
 			{
@@ -353,6 +353,8 @@ void gameBoard::initialize()
 
 	switchInProgress = false;
 	switchToggled = false;
+
+	processSpeed = 500;
 }
 
 void gameBoard::cleanup()
