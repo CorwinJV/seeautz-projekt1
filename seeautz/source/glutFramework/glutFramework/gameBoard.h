@@ -189,7 +189,10 @@ public:
 	void rotateMapLeft();
 	void rotateMapRight();
 	int getProcessSpeed(){return processSpeed;};			// returns the current value of processSpeed
-	void setProcessSpeed(int newSpeed){processSpeed = newSpeed;}; // sets the value of processSpeed to the value passed in
+	void setProcessSpeed(int newSpeed)						// sets the value of processSpeed to the value passed in
+	{
+		processSpeed = newSpeed;
+	}; 
 	
 
 
