@@ -129,6 +129,8 @@ public:
 	std::string					getLevelName(int);
 	void						setBytesUsed(int);
 	int							getBytesUsed();
+	bool						getInGame(){return inGame;};
+	void						setInGame(bool status){inGame = status;};
 	void						setCurrentLevel(int);
 	void						setCurrentLevelBytes(int newBytes);
 	int							commandsProcessed;

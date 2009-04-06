@@ -7,6 +7,7 @@ bool clickOKState::Update()
 	deleted = false;
 	created = false;
 	noProfile = false;
+	saved = false;
 	GSM->setAllButTopPassive();
 
 	int check = GameVars->getPMStatus();
@@ -24,6 +25,9 @@ bool clickOKState::Update()
 	case 3:
 		noProfile = true;
 		break;
+	case 4:
+		saved = true;
+		break;
 	default:
 		break;
 	}
@@ -36,8 +40,11 @@ bool clickOKState::Update()
 
 bool clickOKState::Draw()
 {
-	clearBackground();
-	logoImage->drawImage();
+	if(!saved)
+	{
+		clearBackground();
+		logoImage->drawImage();
+	}
 
 	if(myMenu != NULL)
 		myMenu->Draw();
@@ -47,7 +54,8 @@ bool clickOKState::Draw()
 	if(created)
 	{
 		GameVars->fontArial24.drawText(350, 350, "Profile has been created.");
-		GameVars->fontArial24.drawText(350, 400, "Click OK to begin game.");
+		GameVars->fontArial24.drawText(350, 400, "Click OK to begin game, or");
+		GameVars->fontArial24.drawText(350, 450, "Click help for helpful info");
 	}
 	if(selected)
 	{
@@ -63,6 +71,11 @@ bool clickOKState::Draw()
 	{
 		GameVars->fontArial24.drawText(350, 350, "There are no existing profiles.");
 		GameVars->fontArial24.drawText(350, 400, "to load click OK to continue.");
+	}
+	if(saved)
+	{
+		GameVars->fontArial24.drawText(350, 350, "Profile has been saved.");
+		GameVars->fontArial24.drawText(350, 400, "Click OK to continue.");
 	}
 	return true;
 }
@@ -80,6 +93,11 @@ bool clickOKState::clickOKCallback()
 		deleted = false;
 		noProfile = false;
 	}
+	else if(created)
+	{
+		GSM->addGameState<playGame>();
+		created = false;
+	}
 	this->setStatus(DeleteMe);
 	return true;
 }
@@ -94,4 +112,14 @@ void clickOKState::processMouseClick(int button, int state, int x, int y)
 {
 	if(myMenu != NULL)
 		myMenu->processMouseClick(button, state, x, y);
+}
+
+bool clickOKState::helpCallback()
+{
+	GSM->addGameState<helpScreenState>();
+	/*GSM->addGameState<playGame>();
+	this->setStatus(DeleteMe);
+	created = false;*/
+
+	return true;
 }

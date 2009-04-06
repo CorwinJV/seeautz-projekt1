@@ -78,12 +78,12 @@ LogicInterface::LogicInterface()
 	
 	myMenu->addButton("buttons\\clear.png", "buttons\\clearhover.png", "buttons\\clearhover.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ClearButtonClick));
 	myMenu->setLastButtonDimensions(75, 30);
-	myMenu->setLastButtonPosition(instructionListBox.x+45 + instructionListBox.width +  100+50, logicBankBox.y+25+35);
+	myMenu->setLastButtonPosition(instructionListBox.x+45 + instructionListBox.width +  100+50, logicBankBox.y+25+35+35);
 
 	resetMenu = new MenuSys(0, 0, "blank.png", None);
 	resetMenu->addButton("buttons\\reset.png", "buttons\\resethover.png", "buttons\\resethover.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ResetButtonClick));
 	resetMenu->setLastButtonDimensions(75, 30);
-	resetMenu->setLastButtonPosition(instructionListBox.x+45 + instructionListBox.width +  100+50, logicBankBox.y+25+35+35);
+	resetMenu->setLastButtonPosition(instructionListBox.x+45 + instructionListBox.width +  100+50, logicBankBox.y+25+35);
 
 	executingMenu = new MenuSys(0, 0, "blank.png", None);
 	executingMenu->addButton("buttons\\abort.png", "buttons\\aborthover.png", "buttons\\aborthover.png", BE::CreateFunctionPointer0R(this, &LogicInterface::AbortButtonClick));

@@ -98,12 +98,15 @@ bool profileManager::selectProfile(string name)
 {
 	string tempName = name;
 
-	for(int i = 0; i < maxRecords; i++)
+	if(maxRecords > 0)
 	{
-		if(name == allPlayerInfo[i]->getPlayerName())
+		for(int i = 0; i < maxRecords; i++)
 		{
-			currentRecord = i;
-			return true;
+			if(name == allPlayerInfo[i]->getPlayerName())
+			{
+				currentRecord = i;
+				return true;
+			}
 		}
 	}
 

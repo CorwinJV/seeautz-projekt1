@@ -18,6 +18,8 @@ bool PauseGameState::Draw()
 bool PauseGameState::SaveCallback()
 {
 	GameVars->updatePlayerFile();
+	GameVars->setPMStatus(4);
+	GSM->addGameState<clickOKState>();
 	//GSM->addGameState<SaveGameState>();
 	return true;
 }
