@@ -18,7 +18,7 @@ public:
 		done = 0;
 		maxNumProfiles = GameVars->PM->getMaxRecords() - 1;
 		profileViewing = 0;
-		if(maxNumProfiles > 0)
+		if(maxNumProfiles >= 0)
 		{
 			GameVars->PM->setCurrentRecord(profileViewing);
 		}
