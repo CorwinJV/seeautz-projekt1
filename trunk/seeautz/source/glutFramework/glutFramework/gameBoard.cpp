@@ -1312,7 +1312,7 @@ void gameBoard::teleporterCheck()
 
 				timer = clock();
 				startTime = clock();
-				while(timer < startTime + 500)
+				while(timer < startTime + processSpeed)
 				{
 					timer = clock();
 				}
