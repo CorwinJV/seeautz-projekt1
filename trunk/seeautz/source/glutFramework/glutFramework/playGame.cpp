@@ -880,11 +880,23 @@ bool playGame::speedUp()
 	int speed = gamePlay->getProcessSpeed();
 
 	//speed up the process time by lowering the timer
-	speed -= 100;
-
 	// make sure it doesn't get so fast the user can't tell what's going on
-	if(speed < 100)
-		speed = 100;
+	if(speed >= 200)
+	{
+		speed -= 100;
+	}
+	else if(speed == 100)
+	{
+		speed = 50;
+	}
+	else if(speed == 50)
+	{
+		speed = 25;
+	}
+	else if(speed == 25)
+	{
+		speed = 10;
+	}
 
 	// set the speed to the newly altered value
 	gamePlay->setProcessSpeed(speed);
@@ -896,12 +908,29 @@ bool playGame::slowDown()
 	// get the current game speed
 	int speed = gamePlay->getProcessSpeed();
 
-	//slow down the process time by lowering the timer
-	speed += 100;
+	//slow down the process time by raising the timer
+	if(speed == 10)
+	{
+		speed = 25;
+	}
+	else if (speed == 25)
+	{
+		speed = 50;
+	}
+	else if(speed == 50)
+	{
+		speed = 100;
+	}
+	else
+	{
+		speed += 100;
+	}
 
 	// make sure it doesn't get too slow
 	if(speed > 1000)
+	{
 		speed = 1000;
+	}
 
 	// set the speed to the newly altered value
 	gamePlay->setProcessSpeed(speed);
