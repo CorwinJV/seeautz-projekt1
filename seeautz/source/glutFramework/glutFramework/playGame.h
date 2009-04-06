@@ -59,6 +59,8 @@ private:
 	bool rotatemapleft();
 	bool rotatemapright();
 	bool center();
+	bool speedUp();
+	bool slowDown();
 
 	bool launchHelpState();
 

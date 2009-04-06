@@ -57,6 +57,7 @@ protected:
 	int robotReprogramX;
 	int robotReprogramY;
 	int mapRotation;
+	
 
 	bool switchInProgress;
 	void processSwitch();
@@ -137,12 +138,14 @@ protected:
 	void RCclimb();											// climb up a level or climb over a halfwall
 	void RCpunch();							
 	void RCactivate();
+	
 
 	void outputSwitchInfo();							/// debug shows all switch information
 
 private:
 	GameBoardState curState;
-
+	int processSpeed;
+	
 public:
 	gameBoard();
 	gameBoard(int nwidth, int nheight);
@@ -180,11 +183,15 @@ public:
 	void zoomout();
 	void zoomin();
 	void center();
-
+	
 	void spinRobot();
 
 	void rotateMapLeft();
 	void rotateMapRight();
+	int getProcessSpeed(){return processSpeed;};			// returns the current value of processSpeed
+	void setProcessSpeed(int newSpeed){processSpeed = newSpeed;}; // sets the value of processSpeed to the value passed in
+	
+
 
 	GameBoardState getCurState();							// returns the current state of the gameBoard	
 };
