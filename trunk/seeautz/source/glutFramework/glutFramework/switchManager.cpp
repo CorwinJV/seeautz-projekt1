@@ -125,6 +125,8 @@ void switchManager::advanceTarget(int mapXPos, int mapYPos)
 	}
 }
 
+////////////////////////////
+// startProcessing
 void switchManager::startProcessing(int mapXPos, int mapYPos)
 {
 	// lets iterate through the list, see what's at our position and find out it's current targets
@@ -142,6 +144,9 @@ void switchManager::startProcessing(int mapXPos, int mapYPos)
 	}
 	targetsProcessed = 0;
 }
+
+////////////////////////////
+// doneProcessing
 bool switchManager::doneProcessing()
 {
 	if(targetsProcessed >= targetsToProcess)
@@ -154,6 +159,8 @@ bool switchManager::doneProcessing()
 	}
 }
 
+////////////////////////////
+// resetAllSwitches
 void switchManager::resetAllSwitches()
 {
 	vector<Oswitch*>::iterator switchIter = switchList.begin();
@@ -164,7 +171,8 @@ void switchManager::resetAllSwitches()
 	}
 }
 
-
+////////////////////////////
+// rotateLeft
 void switchManager::rotateLeft(int mapWidth, int mapHeight)
 {
 	vector<Oswitch*>::iterator switchIter = switchList.begin();
@@ -195,6 +203,9 @@ void switchManager::rotateLeft(int mapWidth, int mapHeight)
 		}
 	}
 }
+
+////////////////////////////
+// rotateRight
 void switchManager::rotateRight(int mapWidth, int mapHeight)
 {
 	vector<Oswitch*>::iterator switchIter = switchList.begin();
