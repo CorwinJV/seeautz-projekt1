@@ -537,46 +537,6 @@
 		<Filter
 			Name="My Inspector Results"
 			>
-			<File
-				RelativePath=".\My Inspector Results\r000-mi4\r000-mi4.insp"
-				>
-			</File>
-			<File
-				RelativePath=".\My Inspector Results\r001-mi1\r001-mi1.insp"
-				>
-			</File>
-			<File
-				RelativePath=".\My Inspector Results\r001-ti4\r001-ti4.insp"
-				>
-			</File>
-			<File
-				RelativePath=".\My Inspector Results\r002-mi1\r002-mi1.insp"
-				>
-			</File>
-			<File
-				RelativePath=".\My Inspector Results\r003-mi1\r003-mi1.insp"
-				>
-			</File>
-			<File
-				RelativePath=".\My Inspector Results\r004-mi1\r004-mi1.insp"
-				>
-			</File>
-			<File
-				RelativePath=".\My Inspector Results\r005-mi1\r005-mi1.insp"
-				>
-			</File>
-			<File
-				RelativePath=".\My Inspector Results\r006-mi1\r006-mi1.insp"
-				>
-			</File>
-			<File
-				RelativePath=".\My Inspector Results\r007-mi1\r007-mi1.insp"
-				>
-			</File>
-			<File
-				RelativePath=".\My Inspector Results\r008-mi1\r008-mi1.insp"
-				>
-			</File>
 		</Filter>
 	</Files>
 	<Globals>
