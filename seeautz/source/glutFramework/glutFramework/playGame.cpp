@@ -463,7 +463,7 @@ bool playGame::initialize()
 
 	// debug brute force of level
 	// abcxyz
-	playerCurrentLevel = 0;
+	// playerCurrentLevel = 0;
 	GameVars->setLevel(playerCurrentLevel);
 	GameVars->setLevelSpecified(-1);
 	
