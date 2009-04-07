@@ -2049,6 +2049,7 @@ void gameBoard::RCactivate()
 		{
 			// if there is, lets set the happy go lucky bool in gameboard to true
 			switchInProgress = true;
+			mapList[robotX][robotY]->toggleActive();
 			GameVars->SM->startProcessing(robotX, robotY);
 		}
 
