@@ -375,6 +375,10 @@ void oglGameVars::loadAllLogicBlocks()
 	tmpBlock->addInstruction(SUBR2);
 	allLogicBlocks.push_back(tmpBlock);
 
+	tmpBlock = new logicBlock("instructions/stop.png", 130, 130, "Stop                 This instruction     stops all procressing.", 0, STOP);
+	tmpBlock->addInstruction(STOP);
+	allLogicBlocks.push_back(tmpBlock);
+
 	placeInstructionBlock = new logicBlock("instructions/place_new_instruction.png", 130, 130, "Place a new instruction here.", 0, DO_NOT_PROCESS);
 }
 
@@ -534,6 +538,8 @@ void oglGameVars::setCurrentLogicBank(bool moveForwardAvail, bool moveForwardUnt
 	{
 		currentLogicBank->back()->isUsable = false;
 	}
+	// stop always useable
+	currentLogicBank->push_back(allLogicBlocks[11]);
 }
 
 void oglGameVars::setPMStatus(int status)
