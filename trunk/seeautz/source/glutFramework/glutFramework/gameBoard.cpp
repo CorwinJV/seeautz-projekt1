@@ -2144,6 +2144,9 @@ void gameBoard::RCactivate()
 		robotStartX = robotX;
 		robotStartY = robotY;
 		curState = GB_LOGICVIEW;
+
+		// Go ahead and tell the interface it can stop processing...
+		mInterfaceReprogramHandler();
 	}
 }
 
@@ -2377,6 +2380,12 @@ void gameBoard::SetInterfaceAdvanceHandler(CFunctionPointer2R<bool, instructionT
 {
 	mInterfaceAdvanceHandler = interfaceAdvanceHandler;
 }
+
+void gameBoard::SetInterfaceReprogramHandler(CFunctionPointer0R<bool> interfaceReprogramHandler)
+{
+	mInterfaceReprogramHandler = interfaceReprogramHandler;
+}
+
 
 void gameBoard::panleft()
 {	
