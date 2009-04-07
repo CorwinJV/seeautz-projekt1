@@ -206,6 +206,7 @@ bool playGame::Update()
 		mInterface.SetAbortHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredAbortOrder));
 		mInterface.SetResetHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredResetOrder));
 		gamePlay->SetInterfaceAdvanceHandler(BE::CreateFunctionPointer2R(&mInterface, &LogicInterface::CommandAdvanced));
+		gamePlay->SetInterfaceReprogramHandler(BE::CreateFunctionPointer0R(&mInterface, &LogicInterface::ReprogramReached));
 
 		gamePlay->setState(curState);
 		pregameRunning = false;
@@ -462,7 +463,7 @@ bool playGame::initialize()
 
 	// debug brute force of level
 	// abcxyz
-	//playerCurrentLevel = 0;
+	playerCurrentLevel = 0;
 	GameVars->setLevel(playerCurrentLevel);
 	GameVars->setLevelSpecified(-1);
 	
@@ -478,7 +479,7 @@ bool playGame::initialize()
 	mInterface.SetAbortHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredAbortOrder));
 	mInterface.SetResetHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredResetOrder));
 	gamePlay->SetInterfaceAdvanceHandler(BE::CreateFunctionPointer2R(&mInterface, &LogicInterface::CommandAdvanced));
-
+	gamePlay->SetInterfaceReprogramHandler(BE::CreateFunctionPointer0R(&mInterface, &LogicInterface::ReprogramReached));
 	
 	gamePlay->setState(GB_PREGAME);
 	pregameRunning = false;

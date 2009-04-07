@@ -109,7 +109,7 @@ protected:
 
 	// Delegates / Function Pointers
 	CFunctionPointer2R<bool, instructionTab, logicBlock*> mInterfaceAdvanceHandler;
-
+	CFunctionPointer0R<bool> mInterfaceReprogramHandler;
 
 	bool moveTile(int sX, int sY, int dX, int dY);
 	bool drawTile(tileTypeEnum ntype, int txPos, int tyPos, double scale, bool isActive);
@@ -170,6 +170,7 @@ public:
 
 	// Setting Function Pointers
 	void SetInterfaceAdvanceHandler(CFunctionPointer2R<bool, instructionTab, logicBlock*> interfaceAdvanceHandler);
+	void SetInterfaceReprogramHandler(CFunctionPointer0R<bool> interfaceReprogramHandler);
 
 	bool resetMap();
 	void panup();

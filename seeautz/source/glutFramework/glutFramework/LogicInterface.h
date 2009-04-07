@@ -45,6 +45,7 @@ public:
 	void ClearExecutionList();
 	void ResetExecutionMode();
 	bool CommandAdvanced(instructionTab instrTab, logicBlock* curBlock);
+	bool ReprogramReached();
 
 	void SetExecuteHandler(CFunctionPointer3R<bool, std::vector<logicBlock*>, std::vector<logicBlock*>, std::vector<logicBlock*>> clickHandler);
 	void SetAbortHandler(CFunctionPointer0R<bool> clickHandler);

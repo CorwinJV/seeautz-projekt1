@@ -1311,6 +1311,14 @@ bool LogicInterface::CommandAdvanced(instructionTab instrTab, logicBlock* curBlo
 	return true;
 }
 
+bool LogicInterface::ReprogramReached()
+{
+	//cout << "Oh snap dawg, you done reached a reprogrammable tile!";
+	isExecuting = false;
+
+	return true;
+}
+
 
 //============================================
 // Abort Button Callback
