@@ -260,13 +260,13 @@ void helpScreenState::drawPage2() // instructions
 	for(int x = 0; x < (int)logicBank->size(); x++)
 	{
 		(*logicBank)[x]->blockTexture->mX = 200;
-		(*logicBank)[x]->blockTexture->mY = 290 + 37*x;
+		(*logicBank)[x]->blockTexture->mY = 290 + 34*x;
 		(*logicBank)[x]->blockTexture->drawImageSegment(0.0, 0.0, (double)1/3, 0.0, 0.0, 1.0, (double)1/3, 1.0, 1, 35, 35);
 	}
 
 	glColor3ub(0, 0, 0);
 	// text for column 1
-	textSpacing = 12.5;
+	textSpacing = 11.5;
 	tempX = 100; // extra offset for text
 	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "Move Forward - Use this instruction to move forward one tile.");
 	offsetAmt++;
@@ -324,6 +324,9 @@ void helpScreenState::drawPage2() // instructions
 	offsetAmt++;
 	offsetAmt++;
 	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "-----------------------------------------------------------------------");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing-10, "Stop - This command stops all processing.");
+	offsetAmt++;
 
 	textSpacing = 16;	
 
