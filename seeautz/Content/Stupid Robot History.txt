@@ -107,6 +107,7 @@ Updates/Changes
 04/05/2009	reset/clear buttons locations switched so you don't accidentally
 		clear out your commands
 04/05/2009	MASSIVE map overhaul
+04/06/2009	Stop instruction added to instruction list
 
 *******************************************************************************
 Bug Fixes
