@@ -579,13 +579,13 @@ bool playGame::initialize()
 
 	// speed up
 	compass->addButton("compass\\greaterthan.png", "compass\\greaterthanhover.png", "compass\\greaterthanhover.png", CreateFunctionPointer0R(this, &playGame::speedUp));
-	compass->setLastButtonDimensions(35, 35);
-	compass->setLastButtonPosition(302, 600);
+	compass->setLastButtonDimensions(32, 32);
+	compass->setLastButtonPosition(302+2, 600);
 
 	// slow down
 	compass->addButton("compass\\lessthan.png", "compass\\lessthanhover.png", "compass\\lessthanhover.png", CreateFunctionPointer0R(this, &playGame::slowDown));
-	compass->setLastButtonDimensions(35, 35);
-	compass->setLastButtonPosition(262, 600);
+	compass->setLastButtonDimensions(32, 32);
+	compass->setLastButtonPosition(262+2, 600);
 
 	// pregame textinfo
 	preGameTextOffsetX = 150;
