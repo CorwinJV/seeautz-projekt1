@@ -53,7 +53,7 @@ bool playGame::Update()
 			else
 			{
 				levelmultiplier = 0.25;	// 25% for tutorial levels, suck it tutorials
-			}			
+			}
 
 			scoreToAdd = ((100 - (((double)bytesUsed/(double)bytesAvail)*100)) * 10)*levelmultiplier + 200;
 			//scoreToAdd *= (double)GameVars->getCurrentLevel() * 0.1;

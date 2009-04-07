@@ -135,7 +135,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="DevIL.lib freetype.lib"
 				LinkIncremental="1"
-				GenerateManifest="false"
+				GenerateManifest="true"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
