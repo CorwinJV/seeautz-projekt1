@@ -2356,6 +2356,11 @@ bool gameBoard::processSub(int whichSub)
 
 			case DO_NOT_PROCESS:
 				break;
+			case STOP:
+				GameVars->commandsProcessed--;
+				return true;
+			default:
+				break;
 			}
 		}
 	}

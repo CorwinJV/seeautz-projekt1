@@ -25,6 +25,10 @@ bool MainMenuState::Draw()
 	if(myMenu != NULL)
 		myMenu->Draw();
 
+	// draw the current version number in the top right corner
+	glColor3ub(0, 0, 0);
+	GameVars->fontArial12.drawText(855, 750, "Stupid Robot v1.00");
+
 	return false;
 }
 
