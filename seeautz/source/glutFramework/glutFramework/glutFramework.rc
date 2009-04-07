@@ -54,7 +54,7 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_ICON1               ICON                    "C:\\Users\\David Moss\\Desktop\\School\\Game is in here\\seeautz\\Content\\icons\\stupidrobot.ico"
+IDI_ICON1               ICON                    ".\\..\\..\\..\\Content\\icons\\stupidrobot.ico"
 #endif    // English (U.S.) resources
 /////////////////////////////////////////////////////////////////////////////
 
