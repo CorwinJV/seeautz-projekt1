@@ -16,7 +16,8 @@ enum AiInstructions
 	ACTIVATE,
 	SUBR1,
 	SUBR2,
-	DO_NOT_PROCESS
+	STOP,
+	DO_NOT_PROCESS,
 };
 
 

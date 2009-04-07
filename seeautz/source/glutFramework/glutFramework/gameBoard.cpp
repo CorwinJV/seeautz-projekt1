@@ -1255,6 +1255,12 @@ void gameBoard::processRobot()
 				break;
 			case DO_NOT_PROCESS:
 				break;
+			case STOP:
+				GameVars->commandsProcessed++;
+				delayAdvance = true;
+				break;
+			default:
+				break;
 			}
 		}
 
