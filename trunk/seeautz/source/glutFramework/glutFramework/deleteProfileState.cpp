@@ -56,7 +56,7 @@ bool deleteProfileState::Draw()
 		displayString << tempInt;
 		tempString += displayString.str();
 		tempString += " of ";
-		tempInt = (GameVars->PM->getMaxRecords() - 1) + 1;
+		tempInt = GameVars->PM->getMaxRecords();
 		displayString.str("");
 		displayString << tempInt;
 		tempString += displayString.str();

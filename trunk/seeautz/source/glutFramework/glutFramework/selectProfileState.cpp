@@ -109,6 +109,7 @@ bool selectProfileState::Draw()
 	else if(maxNumProfiles < 0)
 	{
 		GameVars->setPMStatus(3);
+		GSM->addGameState<MainMenuState>();
 		GSM->addGameState<clickOKState>();
 		this->setStatus(DeleteMe);
 	}
