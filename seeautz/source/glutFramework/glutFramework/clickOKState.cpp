@@ -8,6 +8,7 @@ bool clickOKState::Update()
 	created = false;
 	noProfile = false;
 	saved = false;
+	reprogram = false;
 	GSM->setAllButTopPassive();
 
 	int check = GameVars->getPMStatus();
@@ -28,6 +29,8 @@ bool clickOKState::Update()
 	case 4:
 		saved = true;
 		break;
+	case 5:
+		reprogram = true;
 	default:
 		break;
 	}
@@ -77,6 +80,13 @@ bool clickOKState::Draw()
 		GameVars->fontArial24.drawText(350, 350, "Profile has been saved.");
 		GameVars->fontArial24.drawText(350, 400, "Click OK to continue.");
 	}
+	if(reprogram)
+	{
+		GameVars->fontArial24.drawText(350, 350, "You have hit a reprogrammable");
+		GameVars->fontArial24.drawText(350, 400, "square. Your instruction list");
+		GameVars->fontArial24.drawText(350, 450, "has been cleared, and all of your");
+		GameVars->fontArial24.drawText(350, 500, "memory has been replenished");
+	}
 	return true;
 }
 
@@ -99,6 +109,9 @@ bool clickOKState::clickOKCallback()
 		created = false;
 	}
 	this->setStatus(DeleteMe);
+	reprogram = false;
+	saved = false;
+
 	return true;
 }
 
@@ -117,9 +130,6 @@ void clickOKState::processMouseClick(int button, int state, int x, int y)
 bool clickOKState::helpCallback()
 {
 	GSM->addGameState<helpScreenState>();
-	/*GSM->addGameState<playGame>();
-	this->setStatus(DeleteMe);
-	created = false;*/
 
 	return true;
 }
