@@ -27,7 +27,7 @@ bool profileManager::createProfile(string name)
 	tempPlayerInfo->setPlayerName(tempName);
 	allPlayerInfo.push_back(tempPlayerInfo);
 	//currentRecord++;
-	currentRecord = allPlayerInfo.size();
+	currentRecord = allPlayerInfo.size()-1;
 	saveProfile();
 
 	return true;
