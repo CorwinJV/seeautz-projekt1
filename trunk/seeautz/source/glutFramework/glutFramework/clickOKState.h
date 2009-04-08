@@ -41,6 +41,7 @@ public:
 	bool deleted;
 	bool noProfile;
 	bool saved;
+	bool reprogram;
 
 private:
 	std::string tempString;
