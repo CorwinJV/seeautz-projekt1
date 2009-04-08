@@ -138,9 +138,10 @@ protected:
 	void RCclimb();											// climb up a level or climb over a halfwall
 	void RCpunch();							
 	void RCactivate();
-	
 
 	void outputSwitchInfo();							/// debug shows all switch information
+
+	bool reprogramHit;
 
 private:
 	GameBoardState curState;
@@ -194,6 +195,8 @@ public:
 	{
 		processSpeed = newSpeed;
 	}; 
+	bool getReprogramHit();
+	void setReprogramHit(bool newStatus);
 	
 
 

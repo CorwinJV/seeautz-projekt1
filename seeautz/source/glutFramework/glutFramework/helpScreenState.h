@@ -69,7 +69,7 @@ public:
 		textSpacing = 16;
 		textSpacing2 = 22;
 		maxPage = 7;
-		myMenu = new MenuSys(250, 250, "blank.png", None);
+		myMenu = new MenuSys((int)1024/2 - (int)600/2, (int)768/2 - (int)475/2 + 25, "blank.png", None);
 		myMenu->addButton("arrow_right.png", "arrow_righthover.png", "arrow_righthover.png", CreateFunctionPointer0R(this, &helpScreenState::next));
 		myMenu->setLastButtonDimensions(50, 50);
 		myMenu->setLastButtonPosition(830-140, textOffsetY-20);
