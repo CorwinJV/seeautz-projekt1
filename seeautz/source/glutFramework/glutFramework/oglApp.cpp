@@ -39,6 +39,8 @@ oglApp::oglApp(std::string title, int sizeX, int sizeY, int argc, char **argv)
 	// and has to be done from program.cpp
 }
 
+
+
 int oglApp::run()
 {
 	glutMainLoop();

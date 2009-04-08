@@ -4,6 +4,13 @@ bool selectProfileState::Update()
 {
 	if(myMenu != NULL)
 		myMenu->Update();
+	if(maxNumProfiles < 0)
+	{
+		GameVars->setPMStatus(3);
+		GSM->addGameState<MainMenuState>();
+		GSM->addGameState<clickOKState>();
+		this->setStatus(DeleteMe);
+	}
 
 	return true;
 }
@@ -106,14 +113,6 @@ bool selectProfileState::Draw()
 		glColor3ub(0, 0, 0);
 		GameVars->fontArial24.drawText(offsetX+125,565, "Would you like to load this profile?");
 	}
-	else if(maxNumProfiles < 0)
-	{
-		GameVars->setPMStatus(3);
-		GSM->addGameState<MainMenuState>();
-		GSM->addGameState<clickOKState>();
-		this->setStatus(DeleteMe);
-	}
-
 
 	return false;
 }
