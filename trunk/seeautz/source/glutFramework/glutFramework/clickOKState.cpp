@@ -121,25 +121,29 @@ bool clickOKState::Draw()
 
 bool clickOKState::clickOKCallback()
 {
-	if(selected)
+	/*if(selected)
 	{
 		GSM->addGameState<LevelSelectState>();
 		selected = false;
-	}
-	else if((deleted)||(noProfile))
-	{
-		GSM->addGameState<MainMenuState>();
-		deleted = false;
-		noProfile = false;
-	}
-	else if(created)
-	{
-		GSM->addGameState<playGame>();
-		created = false;
-	}
+	}*/
+	//else if(noProfile)
+	//{
+	//	//GSM->addGameState<MainMenuState>();
+	//	noProfile = false;
+	//}
+	//else if(created)
+	//{
+	//	//GSM->addGameState<playGame>();
+	//	created = false;
+	//}
 	this->setStatus(DeleteMe);
+	created = false;
 	reprogram = false;
 	saved = false;
+	deleted = false;
+	noProfile = false;
+	selected = false;
+	GameVars->setPMStatus(-1);
 
 	return true;
 }

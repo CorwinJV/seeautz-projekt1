@@ -7,8 +7,9 @@ bool selectProfileState::Update()
 	if(done == 1)
 	{
 		GameVars->setPMStatus(0);
-		GSM->addGameState<clickOKState>();
 		this->setStatus(DeleteMe);
+		GSM->addGameState<LevelSelectState>();
+		GSM->addGameState<clickOKState>();		
 	}
 
 	return true;

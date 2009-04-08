@@ -4,10 +4,10 @@ bool deleteProfileState::Update()
 {
 	if(myMenu != NULL)
 		myMenu->Update();
+
 	if(done == 1)
 	{
-		GameVars->setPMStatus(1);
-		GSM->addGameState<clickOKState>();
+		
 		//this->setStatus(DeleteMe);
 	}
 
@@ -115,8 +115,9 @@ bool deleteProfileState::Draw()
 	else if(maxNumProfiles < 0)
 	{
 		GameVars->setPMStatus(3);
-		GSM->addGameState<clickOKState>();
 		this->setStatus(DeleteMe);
+		GSM->addGameState<MainMenuState>();
+		GSM->addGameState<clickOKState>();
 	}
 
 
@@ -183,8 +184,7 @@ bool deleteProfileState::deleteProfile()
 	string profileName;
 	profileName = GameVars->PM->getPlayerName();
 	GameVars->PM->deleteProfile(profileName);
-
-	done = 1;
-
+	GameVars->setPMStatus(1);
+	GSM->addGameState<clickOKState>();
 	return true;
 }

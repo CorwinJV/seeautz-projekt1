@@ -25,6 +25,7 @@ bool createProfileState::Update()
 		GameVars->setPMStatus(2);
 		/*GSM->addGameState<playGame>();
 		GSM->addGameState<helpScreenState>();*/
+		GSM->addGameState<playGame>();
 		GSM->addGameState<clickOKState>();
 		GSM->setAllButTopPassive();
 		this->setStatus(DeleteMe);
