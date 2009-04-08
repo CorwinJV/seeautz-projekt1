@@ -73,14 +73,13 @@ class profileManager
 private:
 	vector<playerInfo*> allPlayerInfo;
 	playerInfo* tempPlayerInfo;
-	int	maxRecords;
 	int	currentRecord;
 	int maxLevel;
 
 public:
 	profileManager(int newMaxLevel)
 	{
-		maxRecords = 0;
+		//allPlayerInfo.size(); = 0;
 		currentRecord = -1;
 		maxLevel = newMaxLevel;
 		tempPlayerInfo = new playerInfo(maxLevel);
@@ -110,8 +109,8 @@ public:
 	void		setPlayerLevelScore(int level, int score){allPlayerInfo[currentRecord]->setPlayerLevelScore(level, score);};
 	void		setPlayerLeastCmd(int level, int command){allPlayerInfo[currentRecord]->setPlayerLeastCmd(level, command);};
 	void		setPlayerLeastInst(int level, int instructs){allPlayerInfo[currentRecord]->setPlayerLeastInst(level, instructs);};
-	int			getMaxRecords(){return maxRecords;};
-	void		setMaxRecords(int newRecords){maxRecords = newRecords;};
+	int			getMaxRecords(){return allPlayerInfo.size();};
+	//void		setMaxRecords(int newRecords){allPlayerInfo.size(); = newRecords;};
 	int			getPlayerTotalScore();
 };
 
