@@ -93,18 +93,6 @@ bool clickOKState::Draw()
 
 bool clickOKState::clickOKCallback()
 {
-	/*if(selected)
-	{
-		GSM->addGameState<LevelSelectState>();
-	}
-	else if(noProfile)
-	{
-		GSM->addGameState<MainMenuState>();
-	}
-	else if(created)
-	{
-		GSM->addGameState<playGame>();
-	}*/
 	this->setStatus(DeleteMe);
 	GameVars->setPMStatus(-1);
 

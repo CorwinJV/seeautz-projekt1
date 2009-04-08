@@ -129,6 +129,7 @@ bool gameBoard::update()
 
 bool gameBoard::draw()
 {
+	blackImage->drawImage();
 	int imageWidth = 144;
 	int imageHeight = 72;
 	imageWidth *= scale;
@@ -140,7 +141,6 @@ bool gameBoard::draw()
 	int basey = 0;
 	int drawAtX = 0;
 	int drawAtY = 0;
-
 
 	for(int x = 0; x < Width; x++)
 	{
@@ -357,6 +357,13 @@ void gameBoard::initialize()
 	processSpeed = 500;
 
 	reprogramHit = false;
+
+	blackImage = new oglTexture2D;
+	blackImage->loadImage("black.png", 1024, 768);
+	blackImage->dX = 1024;
+	blackImage->dY = 768;
+	blackImage->mX = 0;
+	blackImage->mY = 0;
 }
 
 void gameBoard::cleanup()

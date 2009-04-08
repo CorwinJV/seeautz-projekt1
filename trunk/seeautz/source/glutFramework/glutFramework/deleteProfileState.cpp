@@ -5,6 +5,14 @@ bool deleteProfileState::Update()
 	if(myMenu != NULL)
 		myMenu->Update();
 
+	if((GameVars->PM->getMaxRecords() - 1) < 0)
+	{
+		GameVars->setPMStatus(3);
+		this->setStatus(DeleteMe);
+		GSM->addGameState<MainMenuState>();
+		GSM->addGameState<clickOKState>();
+	}
+
 	return true;
 }
 
@@ -14,7 +22,7 @@ bool deleteProfileState::Draw()
 	std::string tempString;
 	std::stringstream displayString;
 
-	if(maxNumProfiles >= 0)
+	if((GameVars->PM->getMaxRecords() - 1) >= 0)
 	{
 		playerName = GameVars->PM->getPlayerName();
 		totScore = GameVars->PM->getPlayerTotalScore();
@@ -48,7 +56,7 @@ bool deleteProfileState::Draw()
 		displayString << tempInt;
 		tempString += displayString.str();
 		tempString += " of ";
-		tempInt = maxNumProfiles + 1;
+		tempInt = (GameVars->PM->getMaxRecords() - 1) + 1;
 		displayString.str("");
 		displayString << tempInt;
 		tempString += displayString.str();
@@ -106,15 +114,7 @@ bool deleteProfileState::Draw()
 		glColor3ub(0, 0, 0);
 		GameVars->fontArial24.drawText(offsetX+125,565, "Would you like to delete this profile?");
 	}
-	else if(maxNumProfiles < 0)
-	{
-		GameVars->setPMStatus(3);
-		this->setStatus(DeleteMe);
-		GSM->addGameState<MainMenuState>();
-		GSM->addGameState<clickOKState>();
-	}
-
-
+	
 	return false;
 }
 
@@ -151,7 +151,7 @@ bool deleteProfileState::back()
 
 bool deleteProfileState::increment()
 {
-	if(profileViewing != maxNumProfiles)
+	if(profileViewing != (GameVars->PM->getMaxRecords() - 1))
 	{
 		profileViewing++;
 		GameVars->PM->setCurrentRecord(profileViewing);
@@ -177,6 +177,7 @@ bool deleteProfileState::deleteProfile()
 	profileName = GameVars->PM->getPlayerName();
 	GameVars->PM->deleteProfile(profileName);
 	GameVars->setPMStatus(1);
+	setStatus(Passive);
 	GSM->addGameState<clickOKState>();
 	return true;
 }
