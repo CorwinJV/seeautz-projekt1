@@ -44,6 +44,7 @@ protected:
 	robot*		myRobot;
 	objectManager *OM;
 	oglTexture2D*	robotImage;
+	oglTexture2D*	blackImage;
 	std::vector<logicBlock*>* logicBank;		// The usable logic blocks
 	subroutine*	  SUB1;
 	subroutine*   SUB2;
