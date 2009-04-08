@@ -15,7 +15,8 @@ LogicInterface::LogicInterface()
 		executionListSub1YOffset(0), executionListSub2YOffset(0),
 		scrollBar(NULL), mapByteLimit(0), usedBytes(0), drawInsertionLine(false),
 		insertionLineColumn(0), insertionLineRow(0), insertionLine(NULL),
-		draggedBlockMouseX(0), draggedBlockMouseY(0), logicBankScrollbarXOffset(5)
+		draggedBlockMouseX(0), draggedBlockMouseY(0), logicBankScrollbarXOffset(5),
+		isProcessingSub(false)
 {
 	//sideBarBox.width = 150;
 	//sideBarBox.height = 618;
@@ -43,6 +44,24 @@ LogicInterface::LogicInterface()
 
 	//=============================================
 	// Menu buttons (scrolling the instruction lists)
+	alwaysActiveMenu = new MenuSys(0, 0, "blank.png", None);
+	alwaysActiveMenu->addButton("scrollbarUp.png", "scrollbarUp.png", "scrollbarUpLit.png", BE::CreateFunctionPointer0R(this, &LogicInterface::LogicBankUpArrowButtonClick));
+	alwaysActiveMenu->setLastButtonDimensions(25, 25);
+	alwaysActiveMenu->setLastButtonPosition(logicBankBox.x + logicBankBox.width + logicBankScrollbarXOffset, logicBankBox.y);
+
+	alwaysActiveMenu->addButton("scrollbarDown.png", "scrollbarDown.png", "scrollbarDownLit.png", BE::CreateFunctionPointer0R(this, &LogicInterface::LogicBankDownArrowButtonClick));
+	alwaysActiveMenu->setLastButtonDimensions(25, 25);
+	alwaysActiveMenu->setLastButtonPosition(logicBankBox.x + logicBankBox.width + logicBankScrollbarXOffset, logicBankBox.y + logicBankBox.height - 45);
+
+	alwaysActiveMenu->addButton("scrollbarUp.png", "scrollbarUp.png", "scrollbarUpLit.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ExecutionListUpArrowButtonClick));
+	alwaysActiveMenu->setLastButtonDimensions(25, 25);
+	alwaysActiveMenu->setLastButtonPosition(instructionListBox.x + instructionListBox.width, instructionListBox.y);
+
+	alwaysActiveMenu->addButton("scrollbarDown.png", "scrollbarDown.png", "scrollbarDownLit.png", BE::CreateFunctionPointer0R(this, &LogicInterface::ExecutionListDownArrowButtonClick));
+	alwaysActiveMenu->setLastButtonDimensions(25, 25);
+	alwaysActiveMenu->setLastButtonPosition(instructionListBox.x + instructionListBox.width, instructionListBox.y + instructionListBox.height - 45);
+
+
 	myMenu = new MenuSys(0, 0, "blank.png", None);
 	myMenu->addButton("scrollbarUp.png", "scrollbarUp.png", "scrollbarUpLit.png", BE::CreateFunctionPointer0R(this, &LogicInterface::LogicBankUpArrowButtonClick));
 	myMenu->setLastButtonDimensions(25, 25);
@@ -190,6 +209,7 @@ LogicInterface::~LogicInterface()
 
 void LogicInterface::Update()
 {
+	alwaysActiveMenu->Update();
 	resetMenu->Update();
 	myMenu->Update();
 	executingMenu->Update();
@@ -542,6 +562,7 @@ void LogicInterface::Draw()
 	//=============================================
 	// Menu Buttons (For scrolling and shizz)
 	resetMenu->Draw();
+	alwaysActiveMenu->Draw();
 	myMenu->Draw();
 	if(isExecuting == true)
 		executingMenu->Draw();
@@ -703,6 +724,7 @@ void LogicInterface::processMouse(int x, int y)
 	mouseY = y;
 
 	// Menu buttons
+	alwaysActiveMenu->processMouse(x, y);
 	resetMenu->processMouse(x, y);
 	myMenu->processMouse(x, y);
 	if(isExecuting == true)
@@ -765,6 +787,7 @@ void LogicInterface::processMouse(int x, int y)
 void LogicInterface::processMouseClick(int button, int state, int x, int y)
 {
 	// Menu buttons
+	alwaysActiveMenu->processMouseClick(button, state, x, y);
 	resetMenu->processMouseClick(button, state, x, y);
 
 	if(isExecuting == true)
@@ -827,14 +850,17 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 					if(curInstrTab == TAB_MAIN)
 					{
 						curExecutionList = &executionList;
+						curExecutionListYOffset = &(executionListYOffset);
 					}
 					else if(curInstrTab == TAB_SUB1)
 					{
 						curExecutionList = &executionListSub1;
+						curExecutionListYOffset = &(executionListSub1YOffset);
 					}
 					else if(curInstrTab == TAB_SUB2)
 					{
 						curExecutionList = &executionListSub2;
+						curExecutionListYOffset = &(executionListSub2YOffset);
 					}
 					// Add block to the end of the list
 					int bytesLeft = mapByteLimit - usedBytes;
@@ -850,7 +876,21 @@ void LogicInterface::processMouseClick(int button, int state, int x, int y)
 					isMouseDragging = false;
 					draggedBlockMouseX = 0;
 					draggedBlockMouseY = 0;
-					ExecutionListDownArrowButtonClick();
+
+
+					//=========================
+					// Scrolling To The Bottom
+					int curBlockIndex = curExecutionList->size();
+					int curBlockRowCount = curBlockIndex / instructionListNumColumns;
+
+					(*curExecutionListYOffset) = 0;
+					if(curBlockRowCount > instructionListNumRowsOnScreen - 1)
+					{
+						for(int i = 0; i < curBlockRowCount - (instructionListNumRowsOnScreen - 1); i++)
+						{
+							ExecutionListDownArrowButtonClick();
+						}
+					}
 				}
 			}
 		}
@@ -1280,34 +1320,115 @@ void LogicInterface::ResetExecutionMode()
 
 bool LogicInterface::CommandAdvanced(instructionTab instrTab, logicBlock* curBlock)
 {
+	//=================================
+	// NOTE & WARNING
+	// 4/7/09
+	// Corwin 
+	// Added in some tweaks to the way commands are highlighted,
+	// so that the main list properly updates when subroutines
+	// are being processed.
+	//
+	// WARNING: This code is being written reflecting the fact
+	// that sub-routines can't be placed in sub-routines
+	// which was a recent design decision. 
+	// If we reverse this design decision, this code WILL BREAK!
+
+
+
+	// To make sure the subs are highlighting correctly
+	// in the main tab.. use a bool flag to track whether
+	// or not we're executing a subroutine.
 	curInstrTab = instrTab;
 	std::vector<logicBlock*>* curExecutionList = NULL;
 	if(curInstrTab == TAB_MAIN)
 	{
 		curExecutionList = &executionList;
 		curExecutionListYOffset = &executionListYOffset;
+
+		isProcessingSub = false;
 	}
 	else if(curInstrTab == TAB_SUB1)
 	{
+		if(isProcessingSub == false)
+		{
+			// First command in a sub routine.. advance the main highlight
+			bool activateNextCommand = false;
+			std::vector<logicBlock*>::iterator itr = executionList.begin();
+			for(; itr != executionList.end(); itr++)
+			{
+				if((*itr)->curButtonState == BS_HIGHLIGHTED)
+				{
+					activateNextCommand = true;
+					(*itr)->curButtonState = BS_ACTIVE;
+				}
+				else if(activateNextCommand == true)
+				{
+					(*itr)->curButtonState = BS_HIGHLIGHTED;
+					activateNextCommand = false;
+				}
+			}
+
+			isProcessingSub = true;
+		}
+
 		curExecutionList = &executionListSub1;
 		curExecutionListYOffset = &executionListSub1YOffset;
-
 	}
 	else if(curInstrTab == TAB_SUB2)
 	{
+		if(isProcessingSub == false)
+		{
+			// First command in a sub routine.. advance the main highlight
+			bool activateNextCommand = false;
+			std::vector<logicBlock*>::iterator itr = executionList.begin();
+			for(; itr != executionList.end(); itr++)
+			{
+				if((*itr)->curButtonState == BS_HIGHLIGHTED)
+				{
+					activateNextCommand = true;
+					(*itr)->curButtonState = BS_ACTIVE;
+				}
+				else if(activateNextCommand == true)
+				{
+					(*itr)->curButtonState = BS_HIGHLIGHTED;
+					activateNextCommand = false;
+				}
+			}
+
+			isProcessingSub = true;
+		}
+
 		curExecutionList = &executionListSub2;
 		curExecutionListYOffset = &executionListSub2YOffset;
 	}
 
+	int curBlockIndex = 0;
 	std::vector<logicBlock*>::iterator itr = (*curExecutionList).begin();
 	for(; itr != (*curExecutionList).end(); itr++)
 	{
 		(*itr)->curButtonState = BS_ACTIVE;
-		// TODO: When tracking execution, make the command list scrolling 
-			// stay with the current highlighted command		
+		if((*itr) == curBlock)
+		{
+			curBlockIndex = std::distance((*curExecutionList).begin(), itr);
+		}
 	}
 	curBlock->curButtonState = BS_HIGHLIGHTED;
-	
+
+		// Auto-Scroll to follow the currently highlighted instruction
+	// 1) Figure out how many rows down the current block is
+	int curBlockRowCount = curBlockIndex / instructionListNumColumns;
+
+	// 2) Figure out if scrolling is needed to display that row
+	(*curExecutionListYOffset) = 0;
+	if(curBlockRowCount > instructionListNumRowsOnScreen - 1)
+	{
+		// 3) If so.. scroll however many times is needed
+		for(int i = 0; i < curBlockRowCount - (instructionListNumRowsOnScreen - 1); i++)
+		{
+			ExecutionListDownArrowButtonClick();
+		}
+	}
+
 	return true;
 }
 
