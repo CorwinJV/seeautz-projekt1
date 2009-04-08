@@ -1338,7 +1338,7 @@ bool LogicInterface::Sub2TabButtonClick()
 }
 
 
-void LogicInterface::ClearExecutionList()
+bool LogicInterface::ClearExecutionList()
 {
 	executionListYOffset = 0;
 	executionListSub1YOffset = 0;
@@ -1356,6 +1356,8 @@ void LogicInterface::ClearExecutionList()
 	executionListSub2.clear();
 	executionListSub2.push_back(new logicBlock((*GameVars->getPlaceInstructionBlock())));
 	executionListSub2.back()->curButtonState = BS_ACTIVE;
+
+	return true;
 }
 
 void LogicInterface::ResetExecutionMode()

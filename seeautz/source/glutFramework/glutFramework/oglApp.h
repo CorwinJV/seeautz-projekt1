@@ -16,7 +16,10 @@ class oglApp
 {
 public:
 	oglApp(std::string title, int sizeX, int sizeY, int argc, char **argv);
-	~oglApp() {};
+	~oglApp() 
+	{
+		glutLeaveGameMode();
+	};
 
 	virtual void updateScene(void) {};
 	virtual void drawScene(void);

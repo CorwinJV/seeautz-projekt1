@@ -2157,6 +2157,9 @@ void gameBoard::RCactivate()
 
 		// Go ahead and tell the interface it can stop processing...
 		mInterfaceReprogramHandler();
+
+		// and clear the instruction list
+		mInterfaceClearExecutionList();
 		GameVars->setPMStatus(5);
 		reprogramHit = true;
 	}
@@ -2401,6 +2404,11 @@ void gameBoard::SetInterfaceAdvanceHandler(CFunctionPointer2R<bool, instructionT
 void gameBoard::SetInterfaceReprogramHandler(CFunctionPointer0R<bool> interfaceReprogramHandler)
 {
 	mInterfaceReprogramHandler = interfaceReprogramHandler;
+}
+
+void gameBoard::SetInterfaceClearExecutionListHandler(CFunctionPointer0R<bool> InterfaceClearExecutionList)
+{
+	mInterfaceClearExecutionList = InterfaceClearExecutionList;
 }
 
 

@@ -184,6 +184,7 @@ bool selectProfileState::selectProfile()
 	setPlayerInfo(playerName, totScore, highestLevel, highestLevel);
 
 	GameVars->setPMStatus(0);
+	GSM->addGameState<playGame>();
 	GSM->addGameState<clickOKState>();
 	this->setStatus(DeleteMe);
 
