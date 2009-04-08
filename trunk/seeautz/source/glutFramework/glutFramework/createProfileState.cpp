@@ -16,6 +16,7 @@ bool createProfileState::Update()
 		GameVars->setPlayerName(tempString);
 		GameVars->setTotalScore(0);
 		GameVars->setLevelSpecified(-1);
+		//GameVars->PM->setCurrentRecord(GameVars->PM->getallPlayerInfo.size();()-1);
 		
 
 		//reset values for another record to be entered
@@ -269,8 +270,7 @@ int createProfileState::doesNameAlreadyExists(std::string playerGame)
 	if(playerGame == "")
 		return -2;
 
-	int recs = GameVars->PM->getMaxRecords();
-	for(int i = 0; i < recs; i++)
+	for(int i = 0; i < GameVars->PM->getMaxRecords(); i++)
 	{
 		GameVars->PM->setCurrentRecord(i);
 		if(playerGame == GameVars->PM->getPlayerName())

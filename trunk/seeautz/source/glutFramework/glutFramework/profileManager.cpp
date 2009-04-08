@@ -14,7 +14,7 @@ bool profileManager::createProfile(string name)
 	if(name == "")
 		return false;
 
-	for(int i = 0; i < maxRecords; i++)
+	for(int i = 0; i < (int)allPlayerInfo.size(); i++)
 	{
 		if(name == allPlayerInfo[i]->getPlayerName())
 		{
@@ -26,8 +26,8 @@ bool profileManager::createProfile(string name)
 	tempPlayerInfo = new playerInfo(maxLevel);
 	tempPlayerInfo->setPlayerName(tempName);
 	allPlayerInfo.push_back(tempPlayerInfo);
-	currentRecord++;
-	maxRecords++;
+	//currentRecord++;
+	currentRecord = allPlayerInfo.size();
 	saveProfile();
 
 	return true;
@@ -44,10 +44,9 @@ bool profileManager::deleteProfile(string name)
 		{
 			delete(*itr);
 			allPlayerInfo.erase(itr);
-			maxRecords--;
-			if(currentRecord > maxRecords)
+			if(currentRecord > (int)allPlayerInfo.size())
 			{
-				currentRecord = maxRecords;
+				currentRecord = allPlayerInfo.size();
 			}
 			if(currentRecord < 0)
 			{
@@ -73,9 +72,9 @@ void profileManager::saveProfile()
 	saveFile.open("savedGames\\savefile.txt");
 
 	saveFile << maxLevel << endl;
-	saveFile << maxRecords << endl;
+	saveFile << allPlayerInfo.size() << endl;
 
-	for (int i = 0; i < maxRecords; i++)
+	for (int i = 0; i < (int)allPlayerInfo.size(); i++)
 	{
 		tempName = allPlayerInfo[i]->getPlayerName();
 		saveFile << tempName << endl;
@@ -105,9 +104,9 @@ bool profileManager::selectProfile(string name)
 {
 	string tempName = name;
 
-	if(maxRecords > 0)
+	if(allPlayerInfo.size() > 0)
 	{
-		for(int i = 0; i < maxRecords; i++)
+		for(int i = 0; i < (int)allPlayerInfo.size(); i++)
 		{
 			if(name == allPlayerInfo[i]->getPlayerName())
 			{
@@ -158,20 +157,18 @@ void profileManager::loadAllProfiles()
 	{
 		saveFile.close();
 		createSaveFile.open("savedGames\\savefile.txt");
-		maxRecords = 0;
 
 		createSaveFile << maxLevel << endl;
-		createSaveFile << maxRecords << endl;
+		createSaveFile << allPlayerInfo.size() << endl;
 		createSaveFile.close();
 		saveFile.open("savedGames\\savefile.txt");
 	}
 
 	saveFile >> maxLevel;
-	saveFile >> maxRecords;
 
 	allPlayerInfo.clear();
 
-	for (int i = 0; i < maxRecords; i++)
+	for (int i = 0; i < (int)allPlayerInfo.size(); i++)
 	{
 		tempPlayerInfo = new playerInfo(maxLevel);
 
