@@ -355,6 +355,8 @@ void gameBoard::initialize()
 	switchToggled = false;
 
 	processSpeed = 500;
+
+	reprogramHit = false;
 }
 
 void gameBoard::cleanup()
@@ -2148,6 +2150,7 @@ void gameBoard::RCactivate()
 		// Go ahead and tell the interface it can stop processing...
 		mInterfaceReprogramHandler();
 		GameVars->setPMStatus(5);
+		reprogramHit = true;
 	}
 }
 
@@ -2894,4 +2897,14 @@ void gameBoard::processSwitch()
 	{
 		switchInProgress = false;
 	}
+}
+
+bool gameBoard::getReprogramHit()
+{
+	return reprogramHit;
+}
+
+void gameBoard::setReprogramHit(bool newStatus)
+{
+	reprogramHit = newStatus;
 }

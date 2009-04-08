@@ -21,7 +21,7 @@ GameState::GameState(GameStateManager &Parent, int newID)	// constructor
 	logoImage = new oglTexture2D;
 	logoImage->loadImage("stupidrobotnarrow.png", 1024, 150);
 	logoImage->mX = 0;
-	logoImage->mY = 50;
+	logoImage->mY = 15;
 
 	// background image
 	backgroundImage = new oglTexture2D;

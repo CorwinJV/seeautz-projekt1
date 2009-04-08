@@ -8,7 +8,7 @@ bool deleteProfileState::Update()
 	{
 		GameVars->setPMStatus(1);
 		GSM->addGameState<clickOKState>();
-		this->setStatus(DeleteMe);
+		//this->setStatus(DeleteMe);
 	}
 
 	return true;

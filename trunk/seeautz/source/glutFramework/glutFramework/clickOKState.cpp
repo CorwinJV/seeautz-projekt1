@@ -43,7 +43,7 @@ bool clickOKState::Update()
 
 bool clickOKState::Draw()
 {
-	if(!saved)
+	if((!saved) && (!reprogram))
 	{
 		clearBackground();
 		logoImage->drawImage();
@@ -54,39 +54,68 @@ bool clickOKState::Draw()
 
 	glColor3ub(0, 0, 0);
 
+	int offX = 300;
+	int offY = 250;
+
+	int offInc = 30;
+	int offAmt = 0;
+
 	if(created)
 	{
-		GameVars->fontArial24.drawText(350, 350, "Profile has been created.");
-		GameVars->fontArial24.drawText(350, 400, "Click OK to begin game, or");
-		GameVars->fontArial24.drawText(350, 450, "Click help for helpful info");
+		offAmt++;
+		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "Profile has been created.");
+		offAmt++;
+		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "Click OK to begin game.");
+		offAmt++;
 	}
 	if(selected)
 	{
-		GameVars->fontArial24.drawText(350, 350, "Profile has been selected."); 
-		GameVars->fontArial24.drawText(350, 400, "Click OK to select level.");
+		offAmt++;
+		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "Profile has been selected."); 
+		offAmt++;
+		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "Click OK to select level.");
+		offAmt++;
 	}
 	if(deleted)
 	{
-		GameVars->fontArial24.drawText(350, 350, "Profile has been deleted.");
-		GameVars->fontArial24.drawText(350, 400, "Click OK to continue.");
+		offAmt++;
+		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "Profile has been deleted.");
+		offAmt++;
+		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "Click OK to continue.");
+		offAmt++;
 	}
 	if(noProfile)
 	{
-		GameVars->fontArial24.drawText(350, 350, "There are no existing profiles.");
-		GameVars->fontArial24.drawText(350, 400, "to load click OK to continue.");
+		offAmt++;
+		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "There are no existing profiles.");
+		offAmt++;
+		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "to load click OK to continue.");
+		offAmt++;
 	}
 	if(saved)
 	{
-		GameVars->fontArial24.drawText(350, 350, "Profile has been saved.");
-		GameVars->fontArial24.drawText(350, 400, "Click OK to continue.");
+		offAmt++;
+		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "Profile has been saved.");
+		offAmt++;
+		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "Click OK to continue.");
+		offAmt++;
 	}
 	if(reprogram)
 	{
-		GameVars->fontArial24.drawText(350, 350, "You have hit a reprogrammable");
-		GameVars->fontArial24.drawText(350, 400, "square. Your instruction list");
-		GameVars->fontArial24.drawText(350, 450, "has been cleared, and all of your");
-		GameVars->fontArial24.drawText(350, 500, "memory has been replenished");
+		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "You have hit a reprogrammable");
+		offAmt++;
+		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "square. Your instruction list");
+		offAmt++;
+		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "has been cleared, and all of your");
+		offAmt++;
+		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "memory has been replenished");
+		offAmt++;
 	}
+
+	GameVars->fontArial24.drawText(offX, 460, "Click \"Help\" to learn more");
+	offAmt++;
+	GameVars->fontArial24.drawText(offX, 490, "about the game.");
+	offAmt++;
 	return true;
 }
 

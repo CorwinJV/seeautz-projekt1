@@ -22,8 +22,8 @@ public:
 		{
 			GameVars->PM->setCurrentRecord(profileViewing);
 		}
-	//	myMenu = new MenuSys(250, 250, "blankmenu.png", Auto);
-		myMenu = new MenuSys(250, 50, "blank.png", None);
+	//	myMenu = new MenuSys((int)1024/2 - (int)600/2, (int)768/2 - (int)475/2 + 25, "blankmenu.png", Auto);
+		myMenu = new MenuSys(256, 50, "blank.png", None);
 		myMenu->addButton("arrow_left.png", "arrow_lefthover.png", "arrow_lefthover.png", CreateFunctionPointer0R(this, &selectProfileState::decrement));
 		myMenu->setLastButtonDimensions(100, 100);
 		myMenu->setLastButtonPosition(150, 600);

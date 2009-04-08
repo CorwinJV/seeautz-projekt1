@@ -23,7 +23,7 @@ public:
 		creatingProfile = false; 
 		checked = 0;
 		int numProfiles = GameVars->PM->getMaxRecords();
-		myMenu = new MenuSys(250, 250, "blankmenu.png", Auto);
+		myMenu = new MenuSys((int)1024/2 - (int)600/2, (int)768/2 - (int)475/2 + 25, "blankmenu.png", Auto);
 		myMenu->addButton("buttons\\createprofile.png", "buttons\\createprofilehover.png", "buttons\\createprofilehover.png", CreateFunctionPointer0R(this, &ProfileMgrState::CreateProfile));
 		if(numProfiles > 0)
 		{

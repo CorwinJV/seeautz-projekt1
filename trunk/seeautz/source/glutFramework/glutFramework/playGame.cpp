@@ -230,6 +230,13 @@ bool playGame::Update()
 		gamePlay->setState(GB_LOGICVIEW);
 	}
 
+	// ask the gameboard is a reprogrammable square was hit, if so we need to make a popup screen!
+	if(gamePlay->getReprogramHit())
+	{
+		gamePlay->setReprogramHit(false);
+		GSM->addGameState<clickOKState>();
+	}
+
 	return true;
 }
 
