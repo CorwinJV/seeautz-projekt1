@@ -52,7 +52,9 @@ public:
 	void SetResetHandler(CFunctionPointer0R<bool> resetHandler);
 	void GetCurrentMapLogicBank();
 	void GetCurrentLevelBytes();
+
 private:
+	MenuSys* alwaysActiveMenu;
 	MenuSys* myMenu;
 	MenuSys* executingMenu;
 	MenuSys* resetMenu;
@@ -124,6 +126,9 @@ private:
 
 	screenBox logicBankBox;
 	screenBox instructionListBox;
+
+	// Highlighted Command Tracking
+	bool isProcessingSub;
 
 	std::vector<logicBlock*>* logicBank;		// The usable logic blocks
 	std::vector<logicBlock*> executionList;	// The command to give the robot
