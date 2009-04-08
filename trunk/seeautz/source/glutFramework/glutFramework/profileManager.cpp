@@ -150,6 +150,7 @@ void profileManager::loadAllProfiles()
 	int highScore;
 	int leastCmds;
 	int leastInstructs;
+	int numRecords;
 
 	saveFile.open("savedGames\\savefile.txt");
 
@@ -165,10 +166,11 @@ void profileManager::loadAllProfiles()
 	}
 
 	saveFile >> maxLevel;
+	saveFile >> numRecords;
 
 	allPlayerInfo.clear();
 
-	for (int i = 0; i < (int)allPlayerInfo.size(); i++)
+	for (int i = 0; i < numRecords; i++)
 	{
 		tempPlayerInfo = new playerInfo(maxLevel);
 
