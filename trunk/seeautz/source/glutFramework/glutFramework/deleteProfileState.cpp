@@ -5,6 +5,12 @@ bool deleteProfileState::Update()
 	if(myMenu != NULL)
 		myMenu->Update();
 
+	// make sure we're staying in range of the vector
+	if(profileViewing > GameVars->PM->getMaxRecords())
+		profileViewing = GameVars->PM->getMaxRecords();
+	else if(profileViewing < 0)
+		profileViewing = 0;
+
 	if((GameVars->PM->getMaxRecords() - 1) < 0)
 	{
 		GameVars->setPMStatus(3);
@@ -114,7 +120,7 @@ bool deleteProfileState::Draw()
 		glColor3ub(0, 0, 0);
 		GameVars->fontArial24.drawText(offsetX+125,565, "Would you like to delete this profile?");
 	}
-	
+
 	return false;
 }
 
@@ -178,6 +184,12 @@ bool deleteProfileState::deleteProfile()
 	GameVars->PM->deleteProfile(profileName);
 	GameVars->setPMStatus(1);
 	setStatus(Passive);
+
+	if(profileViewing == GameVars->PM->getMaxRecords())
+	{
+		decrement();
+	}
+
 	GSM->addGameState<clickOKState>();
 	return true;
 }
