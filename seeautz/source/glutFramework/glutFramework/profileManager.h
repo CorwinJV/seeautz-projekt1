@@ -110,7 +110,6 @@ public:
 	void		setPlayerLeastCmd(int level, int command){allPlayerInfo[currentRecord]->setPlayerLeastCmd(level, command);};
 	void		setPlayerLeastInst(int level, int instructs){allPlayerInfo[currentRecord]->setPlayerLeastInst(level, instructs);};
 	int			getMaxRecords(){return allPlayerInfo.size();};
-	//void		setMaxRecords(int newRecords){allPlayerInfo.size(); = newRecords;};
 	int			getPlayerTotalScore();
 };
 
