@@ -15,7 +15,6 @@ public:
 	deleteProfileState() {};
 	deleteProfileState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
-		done = 0;
 		maxNumProfiles = GameVars->PM->getMaxRecords() - 1;
 		profileViewing = 0;
 		if(maxNumProfiles >= 0)
@@ -57,7 +56,6 @@ private:
 	int totScore;
 	int highestLevel;
 	std::string playerName; 
-	int done;
 	// add private stuff here
 
 };

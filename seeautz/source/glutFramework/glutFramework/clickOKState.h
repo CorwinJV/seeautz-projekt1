@@ -11,6 +11,14 @@
 
 using namespace std;
 
+enum clickOKenum{
+				selected,		// 0
+				deleted,		// 1
+				created,  		// 2
+				noProfile, 		// 3
+				saved, 			// 4
+				reprogram};		// 5
+
 class clickOKState : public GameState
 {
 public:
@@ -35,12 +43,8 @@ public:
 	bool clickOKState::Draw();
 	bool clickOKCallback();
 	bool helpCallback();
-	bool selected;
-	bool created;
-	bool deleted;
-	bool noProfile;
-	bool saved;
-	bool reprogram;
+	clickOKenum check;
+
 
 private:
 	std::string tempString;

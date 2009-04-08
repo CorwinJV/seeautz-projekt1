@@ -4,13 +4,6 @@ bool selectProfileState::Update()
 {
 	if(myMenu != NULL)
 		myMenu->Update();
-	if(done == 1)
-	{
-		GameVars->setPMStatus(0);
-		this->setStatus(DeleteMe);
-		GSM->addGameState<LevelSelectState>();
-		GSM->addGameState<clickOKState>();		
-	}
 
 	return true;
 }
@@ -169,7 +162,6 @@ bool selectProfileState::increment()
 	{
 		profileViewing++;
 		GameVars->PM->setCurrentRecord(profileViewing);
-		done = 0;
 	}
 
 	return true;
@@ -181,7 +173,6 @@ bool selectProfileState::decrement()
 	{
 		profileViewing--;
 		GameVars->PM->setCurrentRecord(profileViewing);
-		done = 0;
 	}
 		
 	return true;
@@ -190,7 +181,10 @@ bool selectProfileState::decrement()
 bool selectProfileState::selectProfile()
 {
 	setPlayerInfo(playerName, totScore, highestLevel, highestLevel);
-	done = 1;
+
+	GameVars->setPMStatus(0);
+	GSM->addGameState<clickOKState>();
+	this->setStatus(DeleteMe);
 
 	return true;
 }

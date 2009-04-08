@@ -2143,6 +2143,7 @@ void gameBoard::RCactivate()
 		}
 		GameVars->totalCommandsProcessed += GameVars->commandsProcessed;
 		GameVars->commandsProcessed = 0;
+		
 		robotStartX = robotX;
 		robotStartY = robotY;
 		curState = GB_LOGICVIEW;

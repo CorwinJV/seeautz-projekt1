@@ -5,12 +5,6 @@ bool deleteProfileState::Update()
 	if(myMenu != NULL)
 		myMenu->Update();
 
-	if(done == 1)
-	{
-		
-		//this->setStatus(DeleteMe);
-	}
-
 	return true;
 }
 
@@ -161,7 +155,6 @@ bool deleteProfileState::increment()
 	{
 		profileViewing++;
 		GameVars->PM->setCurrentRecord(profileViewing);
-		done = 0;
 	}
 
 	return true;
@@ -173,7 +166,6 @@ bool deleteProfileState::decrement()
 	{
 		profileViewing--;
 		GameVars->PM->setCurrentRecord(profileViewing);
-		done = 0;
 	}
 		
 	return true;

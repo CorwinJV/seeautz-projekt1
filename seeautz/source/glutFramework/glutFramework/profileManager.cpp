@@ -50,7 +50,6 @@ bool profileManager::deleteProfile(string name)
 			return true;
 		}
 	}
-
 	
 	return false;
 }
