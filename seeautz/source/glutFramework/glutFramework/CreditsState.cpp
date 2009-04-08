@@ -9,6 +9,9 @@ bool CreditsState::Update()
 
 bool CreditsState::Draw()
 {
+	solidWhite->dX = 1024;
+	solidWhite->dY = 768;
+	solidWhite->drawImage();
 	if(timer > startTime + scrollSpeed)
 	{
 		startTime = clock();
