@@ -61,6 +61,23 @@ LogicInterface::LogicInterface()
 	alwaysActiveMenu->setLastButtonDimensions(25, 25);
 	alwaysActiveMenu->setLastButtonPosition(instructionListBox.x + instructionListBox.width, instructionListBox.y + instructionListBox.height - 45);
 
+	// help button
+	// visual location is kinda sorta hard coded, don't expect any automagical stuff on this one
+	// and since i'm hacking this to hell and back i'm using the compass menu system
+	alwaysActiveMenu->addButton("buttons\\help.png", "buttons\\helphover.png", "buttons\\helphover.png", BE::CreateFunctionPointer0R(this, &LogicInterface::launchHelpState));
+	alwaysActiveMenu->setLastButtonDimensions(75, 30);
+	alwaysActiveMenu->setLastButtonPosition(925, 725);
+
+	// speed up
+	alwaysActiveMenu->addButton("compass\\greaterthan.png", "compass\\greaterthanhover.png", "compass\\greaterthanhover.png", CreateFunctionPointer0R(this, &LogicInterface::speedUpButtonClick));
+	alwaysActiveMenu->setLastButtonDimensions(32, 32);
+	alwaysActiveMenu->setLastButtonPosition(302+2, 600);
+
+	// slow down
+	alwaysActiveMenu->addButton("compass\\lessthan.png", "compass\\lessthanhover.png", "compass\\lessthanhover.png", CreateFunctionPointer0R(this, &LogicInterface::slowDownButtonClick));
+	alwaysActiveMenu->setLastButtonDimensions(32, 32);
+	alwaysActiveMenu->setLastButtonPosition(262+2, 600);
+
 
 	myMenu = new MenuSys(0, 0, "blank.png", None);
 	myMenu->addButton("scrollbarUp.png", "scrollbarUp.png", "scrollbarUpLit.png", BE::CreateFunctionPointer0R(this, &LogicInterface::LogicBankUpArrowButtonClick));
@@ -696,10 +713,23 @@ void LogicInterface::Draw()
 			if(tmpBlock->isCurrentlyUsable != true
 				&& (tmpBlock->isUsable == true))
 			{
-				GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, "[Not Enough Memory");
-				currentLine++;
-				GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, "Available]");
-				currentLine++;
+				if((tmpBlock->enumInstruction == SUBR1
+					|| tmpBlock->enumInstruction == SUBR2)
+					&& (curInstrTab == TAB_SUB1 
+						|| curInstrTab == TAB_SUB2))
+				{
+					GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, "[You can't place");
+					currentLine++;
+					GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, "SubRoutines Here]");
+					currentLine++;
+				}
+				else
+				{
+					GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, "[Not Enough Memory");
+					currentLine++;
+					GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, "Available]");
+					currentLine++;
+				}
 			}
 
 			glColor3ub(0, 0, 0);
@@ -1100,6 +1130,21 @@ void LogicInterface::SetResetHandler(CFunctionPointer0R<bool> resetHandler)
 	mResetHandler = resetHandler;
 }
 
+void LogicInterface::SetHelpHandler(CFunctionPointer0R<bool> helpHandler)
+{
+	mHelpHandler = helpHandler;
+}
+
+void LogicInterface::SetSpeedUpHandler(CFunctionPointer0R<bool> speedUpHandler)
+{
+	mSpeedUpHandler = speedUpHandler;
+}
+
+void LogicInterface::SetSlowDownHandler(CFunctionPointer0R<bool> slowDownHandler)
+{
+	mSlowDownHandler = slowDownHandler;
+}
+
 void LogicInterface::GetCurrentMapLogicBank()
 {
 	logicBank = GameVars->GetCurrentMapLogicBank();
@@ -1440,6 +1485,32 @@ bool LogicInterface::ReprogramReached()
 	return true;
 }
 
+bool LogicInterface::launchHelpState()
+{
+	if(mHelpHandler)
+	{
+		return mHelpHandler();
+	}
+	return true;
+}
+
+bool LogicInterface::speedUpButtonClick()
+{
+	if(mSpeedUpHandler)
+	{
+		return mSpeedUpHandler();
+	}
+	return true;
+}
+
+bool LogicInterface::slowDownButtonClick()
+{
+	if(mSlowDownHandler)
+	{
+		return mSlowDownHandler();
+	}
+	return true;
+}
 
 //============================================
 // Abort Button Callback

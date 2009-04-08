@@ -205,6 +205,9 @@ bool playGame::Update()
 		mInterface.SetExecuteHandler(BE::CreateFunctionPointer3R(gamePlay, &gameBoard::interfaceHasFiredExecuteOrder));
 		mInterface.SetAbortHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredAbortOrder));
 		mInterface.SetResetHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredResetOrder));
+		mInterface.SetHelpHandler(BE::CreateFunctionPointer0R(this, &playGame::launchHelpState));
+		mInterface.SetSpeedUpHandler(BE::CreateFunctionPointer0R(this, &playGame::speedUp));
+		mInterface.SetSlowDownHandler(BE::CreateFunctionPointer0R(this, &playGame::slowDown));
 		gamePlay->SetInterfaceAdvanceHandler(BE::CreateFunctionPointer2R(&mInterface, &LogicInterface::CommandAdvanced));
 		gamePlay->SetInterfaceReprogramHandler(BE::CreateFunctionPointer0R(&mInterface, &LogicInterface::ReprogramReached));
 
@@ -478,6 +481,9 @@ bool playGame::initialize()
 	mInterface.SetExecuteHandler(BE::CreateFunctionPointer3R(gamePlay, &gameBoard::interfaceHasFiredExecuteOrder));
 	mInterface.SetAbortHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredAbortOrder));
 	mInterface.SetResetHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredResetOrder));
+	mInterface.SetHelpHandler(BE::CreateFunctionPointer0R(this, &playGame::launchHelpState));
+	mInterface.SetSpeedUpHandler(BE::CreateFunctionPointer0R(this, &playGame::speedUp));
+	mInterface.SetSlowDownHandler(BE::CreateFunctionPointer0R(this, &playGame::slowDown));
 	gamePlay->SetInterfaceAdvanceHandler(BE::CreateFunctionPointer2R(&mInterface, &LogicInterface::CommandAdvanced));
 	gamePlay->SetInterfaceReprogramHandler(BE::CreateFunctionPointer0R(&mInterface, &LogicInterface::ReprogramReached));
 	
@@ -578,27 +584,10 @@ bool playGame::initialize()
 	compass->setLastButtonDimensions(49, 46);
 	compass->setLastButtonPosition(compassOffsetX+48+51+3, compassOffsetY+33+48+47-3);
 
-	// speed up
-	compass->addButton("compass\\greaterthan.png", "compass\\greaterthanhover.png", "compass\\greaterthanhover.png", CreateFunctionPointer0R(this, &playGame::speedUp));
-	compass->setLastButtonDimensions(32, 32);
-	compass->setLastButtonPosition(302+2, 600);
-
-	// slow down
-	compass->addButton("compass\\lessthan.png", "compass\\lessthanhover.png", "compass\\lessthanhover.png", CreateFunctionPointer0R(this, &playGame::slowDown));
-	compass->setLastButtonDimensions(32, 32);
-	compass->setLastButtonPosition(262+2, 600);
-
 	// pregame textinfo
 	preGameTextOffsetX = 150;
 	preGameTextOffsetY = 350;
 	preGameTextSpacing = 45;
-
-	// help button
-	// visual location is kinda sorta hard coded, don't expect any automagical stuff on this one
-	// and since i'm hacking this to hell and back i'm using the compass menu system
-	compass->addButton("buttons\\help.png", "buttons\\helphover.png", "buttons\\helphover.png", BE::CreateFunctionPointer0R(this, &playGame::launchHelpState));
-	compass->setLastButtonDimensions(75, 30);
-	compass->setLastButtonPosition(925, 725);
 
 	Update();
 	return true;
