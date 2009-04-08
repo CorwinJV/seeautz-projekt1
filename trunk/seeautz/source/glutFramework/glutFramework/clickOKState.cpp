@@ -93,7 +93,7 @@ bool clickOKState::Draw()
 
 bool clickOKState::clickOKCallback()
 {
-	if(selected)
+	/*if(selected)
 	{
 		GSM->addGameState<LevelSelectState>();
 	}
@@ -104,7 +104,7 @@ bool clickOKState::clickOKCallback()
 	else if(created)
 	{
 		GSM->addGameState<playGame>();
-	}
+	}*/
 	this->setStatus(DeleteMe);
 	GameVars->setPMStatus(-1);
 
