@@ -46,10 +46,17 @@ public:
 	void ResetExecutionMode();
 	bool CommandAdvanced(instructionTab instrTab, logicBlock* curBlock);
 	bool ReprogramReached();
+	bool launchHelpState();
+	
+	bool speedUpButtonClick();
+	bool slowDownButtonClick();
 
 	void SetExecuteHandler(CFunctionPointer3R<bool, std::vector<logicBlock*>, std::vector<logicBlock*>, std::vector<logicBlock*>> clickHandler);
 	void SetAbortHandler(CFunctionPointer0R<bool> clickHandler);
 	void SetResetHandler(CFunctionPointer0R<bool> resetHandler);
+	void SetHelpHandler(CFunctionPointer0R<bool> helpHandler);
+	void SetSpeedUpHandler(CFunctionPointer0R<bool> speedUpHandler);
+	void SetSlowDownHandler(CFunctionPointer0R<bool> slowDownHandler);
 	void GetCurrentMapLogicBank();
 	void GetCurrentLevelBytes();
 
@@ -84,6 +91,9 @@ private:
 	CFunctionPointer3R<bool, std::vector<logicBlock*>, std::vector<logicBlock*>, std::vector<logicBlock*>> mExecuteHandler;
 	CFunctionPointer0R<bool> mAbortHandler;
 	CFunctionPointer0R<bool> mResetHandler;
+	CFunctionPointer0R<bool> mHelpHandler;
+	CFunctionPointer0R<bool> mSpeedUpHandler;
+	CFunctionPointer0R<bool> mSlowDownHandler;
 
 	//======================
 	// Score Tracking
