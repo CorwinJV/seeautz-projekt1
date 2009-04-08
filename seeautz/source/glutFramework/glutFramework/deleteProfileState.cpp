@@ -2,57 +2,123 @@
 
 bool deleteProfileState::Update()
 {
-	if((!deletingProfile)&&(checked==2))
+	if(myMenu != NULL)
+		myMenu->Update();
+	if(done == 1)
 	{
-		// code for deleting profile
-		GameVars->PM->deleteProfile(tempString);
-
-		//reset values for another record to be entered
-		checked = 0;
-		deletingProfile = false;
-		tempString = "";
 		GameVars->setPMStatus(1);
 		GSM->addGameState<clickOKState>();
-	}
-
-	// if we aren't in the middle of any profile management or checking anything
-	// then update the menu
-	if((!deletingProfile)&&(checked == 0))
-	{
 		this->setStatus(DeleteMe);
 	}
+
 	return true;
 }
 
 bool deleteProfileState::Draw()
 {
+	int tempInt;
+	std::string tempString;
+	std::stringstream displayString;
 
-	logoImage->drawImage();
-	
-	
-	if((!deletingProfile)&&(checked == 0))
+	if(maxNumProfiles >= 0)
 	{
+		playerName = GameVars->PM->getPlayerName();
+		totScore = GameVars->PM->getPlayerTotalScore();
+		highestLevel = GameVars->PM->getPlayerHighestLevel();
+
+		clearBackground();
+		solidWhite->drawImage();
+		logoImage->drawImage();
+
+		backgroundImage->drawImage();
+
 		if(myMenu != NULL)
 			myMenu->Draw();
-	}
-	if((deletingProfile)&&(checked == 0))
-	{
-		backgroundImage->drawImage();
+
+		// Have a button to go back or forth a level if applicable until desired level is found 
+		// right side increments one, left side decrements one, if you get to the end on either 
+		// side, it wraps around to the other side.
+
+		int offsetAmt = 0;
+		int textspacing = 30;
+		int offsetX = backgroundImage->mX + 50;
+		int offsetY = backgroundImage->mY + 50;
+
 		glColor3ub(0, 0, 0);
-		GameVars->fontArial24.drawText(150, 300, "Enter the name of the profile you wish to delete: ");
-		GameVars->fontArial24.drawText(400, 350, tempString);
-		GameVars->fontArial24.drawText(150, 400, "Press the ENTER key when finished");
-		GameVars->fontArial24.drawText(150, 450, "No numbers or special characters");
-		GameVars->fontArial24.drawText(150, 500, "Or press the escape key to return to the main menu");
-	}
-	if((!deletingProfile)&&(checked == 1))
-	{
-		backgroundImage->drawImage();
+
+
+		// display which profile are you looking at
+		displayString.str("");
+		tempString = "Profile # ";
+		tempInt = profileViewing + 1;
+		displayString << tempInt;
+		tempString += displayString.str();
+		tempString += " of ";
+		tempInt = maxNumProfiles + 1;
+		displayString.str("");
+		displayString << tempInt;
+		tempString += displayString.str();
+		GameVars->fontArial24.drawText(offsetX, offsetY + offsetAmt*textspacing, tempString);
+		offsetAmt++;
+
+		// profile name
+		GameVars->fontArial24.drawText(offsetX, offsetY + offsetAmt*textspacing, playerName);
+		offsetAmt++;
+
+		// total score
+		displayString.str("");
+		tempString = "Total Overall Score : ";
+		if(totScore < 0)
+			totScore = 0;
+		displayString << totScore;
+		tempString += displayString.str();
+		GameVars->fontArial24.drawText(offsetX, offsetY + offsetAmt*textspacing, tempString);
+		offsetAmt++;
+
+		// max level 
+		displayString.str("");
+		tempString = "Highest Level Reached: ";
+		tempInt = highestLevel;
+		displayString << tempInt;
+		tempString += displayString.str();
+		GameVars->fontArial24.drawText(offsetX, offsetY + offsetAmt*textspacing, tempString);
+		offsetAmt++;
+
+		// level description
+		GameVars->fontArial24.drawText(offsetX, offsetY + offsetAmt*textspacing, GameVars->getDesc(highestLevel));
+		offsetAmt++;
+
+		// your best score for level
+		displayString.str("");
+		tempString = "Your best score on this level : ";
+		tempInt = GameVars->PM->getPlayerLevelScore(highestLevel);
+		if(tempInt < 0)
+			tempInt = 0;
+		displayString << tempInt;
+		tempString += displayString.str();
+		GameVars->fontArial24.drawText(offsetX, offsetY + offsetAmt*textspacing, tempString);
+		offsetAmt++;
+
+
+		// picture of level
+		GameVars->levelArt[highestLevel]->mX = 1024/2 - GameVars->levelArt[highestLevel]->dX/2;
+		GameVars->levelArt[highestLevel]->mY = offsetY + offsetAmt*textspacing;
+		int tempheight = GameVars->levelArt[highestLevel]->dY;
+		GameVars->levelArt[highestLevel]->dY *= 0.75;
+		GameVars->levelArt[highestLevel]->drawImage();
+		GameVars->levelArt[highestLevel]->dY = tempheight;
+
+
 		glColor3ub(0, 0, 0);
-		GameVars->fontArial24.drawText(250, 400, "Profile does not exist, press Enter ");
-		GameVars->fontArial24.drawText(250, 450, "to try another name, or press the ");
-		GameVars->fontArial24.drawText(250, 500, "escape key to return to the main menu");
+		GameVars->fontArial24.drawText(offsetX+125,565, "Would you like to delete this profile?");
 	}
+	else if(maxNumProfiles < 0)
+	{
+		GameVars->setPMStatus(3);
+		GSM->addGameState<clickOKState>();
+		this->setStatus(DeleteMe);
+	}
+
 
 	return false;
 }
@@ -71,89 +137,8 @@ void deleteProfileState::processMouseClick(int button, int state, int x, int y)
 
 void deleteProfileState::keyboardInput(unsigned char c, int x, int y)
 {
-	bool profileCheck;
-
 	switch(c)
 	{
-	case 'a':
-	case 'b':
-	case 'c':
-	case 'd':
-	case 'e':
-	case 'f':
-	case 'g':
-	case 'h':
-	case 'i':
-	case 'j':
-	case 'k':
-	case 'l':
-	case 'm':
-	case 'n':
-	case 'o':
-	case 'p':
-	case 'q':
-	case 'r':
-	case 's':
-	case 't':
-	case 'u':
-	case 'v':
-	case 'w':
-	case 'x':
-	case 'y':
-	case 'z':
-	case 'A':
-	case 'B':
-	case 'C':
-	case 'D':
-	case 'E':
-	case 'F':
-	case 'G':
-	case 'H':
-	case 'I':
-	case 'J':
-	case 'K':
-	case 'L':
-	case 'M':
-	case 'N':
-	case 'O':
-	case 'P':
-	case 'Q':
-	case 'R':
-	case 'S':
-	case 'T':
-	case 'U':
-	case 'V':
-	case 'W':
-	case 'X':
-	case 'Y':
-	case 'Z':
-		if((deletingProfile)&&(tempString.length() <= 10))
-		{
-			tempString += c;
-			deletingProfile = true;
-		}
-		break;
-	case 13: // enter key
-		if((deletingProfile)&&(checked == 0))
-		{
-			deletingProfile = false;
-			//checked = 1;
-		}
-		else if((!deletingProfile)&&(checked == 1))
-		{
-			deletingProfile = true;
-			checked = 0;
-		}
-		else if(tempString == "")
-		{
-			deletingProfile = true;
-			checked = 1;
-		}
-		break;
-	case 8:	 // backspace
-		if(tempString.length() > 0)
-			tempString.erase(tempString.length() - 1, 1);
-		break;
 	case 27: // escape key
 		GSM->addGameState<MainMenuState>();
 		this->setStatus(DeleteMe);
@@ -161,32 +146,45 @@ void deleteProfileState::keyboardInput(unsigned char c, int x, int y)
 	default:
 		break;
 	}
+}
+bool deleteProfileState::back()
+{
+	GSM->addGameState<MainMenuState>();
+	this->setStatus(DeleteMe);
+	return true;
+}
 
-	//once player is finished, check to see if profile under same name already exists
-	if((!deletingProfile)&&(checked == 0))
+bool deleteProfileState::increment()
+{
+	if(profileViewing != maxNumProfiles)
 	{
-		profileCheck = doesNameAlreadyExists(tempString);
-		if(profileCheck)
-		{
-			checked = 1;		// if profile doesn't exist, try again
-			tempString = "";
-		}
-		else 
-		{
-			checked = 2;		// Profile exists, proceed to deletion
-		}
+		profileViewing++;
+		GameVars->PM->setCurrentRecord(profileViewing);
+		done = 0;
 	}
+
+	return true;
 }
 
-void deleteProfileState::setPlayerInfo(std::string name, int score, int curLevel, int maxLevel)
+bool deleteProfileState::decrement()
 {
-	GameVars->setPlayerName(name);
-	GameVars->setTotalScore(score);	
-	GameVars->setCurrentLevel(curLevel);
-	GameVars->setPlayerMaxLevel(maxLevel);
+	if(profileViewing != 0)
+	{
+		profileViewing--;
+		GameVars->PM->setCurrentRecord(profileViewing);
+		done = 0;
+	}
+		
+	return true;
 }
 
-bool deleteProfileState::doesNameAlreadyExists(std::string playerGame)
+bool deleteProfileState::deleteProfile()
 {
-	return GameVars->PM->createProfile(tempString);
+	string profileName;
+	profileName = GameVars->PM->getPlayerName();
+	GameVars->PM->deleteProfile(profileName);
+
+	done = 1;
+
+	return true;
 }

@@ -22,9 +22,6 @@ bool selectProfileState::Draw()
 
 	if(maxNumProfiles >= 0)
 	{
-		/////////////////
-		/// breaking here
-		/////////////////
 		playerName = GameVars->PM->getPlayerName();
 		totScore = GameVars->PM->getPlayerTotalScore();
 		highestLevel = GameVars->PM->getPlayerHighestLevel();

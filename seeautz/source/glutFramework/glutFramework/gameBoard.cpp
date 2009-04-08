@@ -2148,7 +2148,6 @@ void gameBoard::RCactivate()
 		// Go ahead and tell the interface it can stop processing...
 		mInterfaceReprogramHandler();
 		GameVars->setPMStatus(5);
-		//GSM->addGameState<clickOKState>();
 	}
 }
 
