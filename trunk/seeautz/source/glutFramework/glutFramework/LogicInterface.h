@@ -42,7 +42,7 @@ public:
 	bool ResetButtonClick();
 	bool ClearButtonClick();
 
-	void ClearExecutionList();
+	bool ClearExecutionList();
 	void ResetExecutionMode();
 	bool CommandAdvanced(instructionTab instrTab, logicBlock* curBlock);
 	bool ReprogramReached();

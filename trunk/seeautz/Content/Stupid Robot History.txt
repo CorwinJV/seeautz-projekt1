@@ -108,6 +108,10 @@ Updates/Changes
 		clear out your commands
 04/05/2009	MASSIVE map overhaul
 04/06/2009	Stop instruction added to instruction list
+04/07/2009	mini map images updated
+04/07/2009	switches toggle visually now
+04/07/2009	gui form of delete profile added
+04/07/2009	autoscroll for instruction list while processing added
 
 *******************************************************************************
 Bug Fixes
@@ -130,4 +134,7 @@ Bug Fixes
 04/05/2009	more profile fixes
 04/05/2009	replay level now restarts the map, versus starting at the last
 		reprogram spot that was clicked
-
+04/07/2009	graphics are no longer hijacked permanently
+04/07/2009	proper text when sub1/2 are disabled due to being in a sub
+04/07/2009	speed up/down/help buttons moved to a different layer
+04/07/2009	stop command works in subs now

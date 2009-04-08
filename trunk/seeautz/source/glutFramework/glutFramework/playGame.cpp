@@ -210,6 +210,7 @@ bool playGame::Update()
 		mInterface.SetSlowDownHandler(BE::CreateFunctionPointer0R(this, &playGame::slowDown));
 		gamePlay->SetInterfaceAdvanceHandler(BE::CreateFunctionPointer2R(&mInterface, &LogicInterface::CommandAdvanced));
 		gamePlay->SetInterfaceReprogramHandler(BE::CreateFunctionPointer0R(&mInterface, &LogicInterface::ReprogramReached));
+		gamePlay->SetInterfaceClearExecutionListHandler(BE::CreateFunctionPointer0R(&mInterface, &LogicInterface::ClearExecutionList));
 
 		gamePlay->setState(curState);
 		pregameRunning = false;
