@@ -45,7 +45,15 @@ bool profileManager::deleteProfile(string name)
 			delete(*itr);
 			allPlayerInfo.erase(itr);
 			maxRecords--;
-			currentRecord--;
+			//currentRecord--;
+			if(currentRecord > maxRecords)
+			{
+				currentRecord = maxRecords;
+			}
+			if(currentRecord < 0)
+			{
+				currentRecord = 0;
+			}
 			saveProfile();
 			return true;
 		}
