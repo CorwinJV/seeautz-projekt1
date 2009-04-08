@@ -3,37 +3,10 @@
 
 bool clickOKState::Update()
 {
-	selected = false;
-	deleted = false;
-	created = false;
-	noProfile = false;
-	saved = false;
-	reprogram = false;
+	
 	GSM->setAllButTopPassive();
 
-	int check = GameVars->getPMStatus();
-	switch(check)
-	{
-	case 0:
-		selected = true;
-		break;
-	case 1:
-		deleted = true;
-		break;
-	case 2:
-		created = true;
-		break;
-	case 3:
-		noProfile = true;
-		break;
-	case 4:
-		saved = true;
-		break;
-	case 5:
-		reprogram = true;
-	default:
-		break;
-	}
+	check = (clickOKenum)GameVars->getPMStatus();
 
 	if(myMenu != NULL)
 		myMenu->Update();
@@ -43,7 +16,7 @@ bool clickOKState::Update()
 
 bool clickOKState::Draw()
 {
-	if((!saved) && (!reprogram))
+	if((check != saved) && (check != reprogram))
 	{
 		clearBackground();
 		logoImage->drawImage();
@@ -60,48 +33,44 @@ bool clickOKState::Draw()
 	int offInc = 30;
 	int offAmt = 0;
 
-	if(created)
+	switch(check)
 	{
+	case created:
 		offAmt++;
 		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "Profile has been created.");
 		offAmt++;
 		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "Click OK to begin game.");
 		offAmt++;
-	}
-	if(selected)
-	{
+		break;
+	case selected:
 		offAmt++;
 		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "Profile has been selected."); 
 		offAmt++;
 		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "Click OK to select level.");
 		offAmt++;
-	}
-	if(deleted)
-	{
+		break;
+	case deleted:
 		offAmt++;
 		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "Profile has been deleted.");
 		offAmt++;
 		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "Click OK to continue.");
 		offAmt++;
-	}
-	if(noProfile)
-	{
+		break;
+	case noProfile:
 		offAmt++;
 		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "There are no existing profiles.");
 		offAmt++;
 		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "to load click OK to continue.");
 		offAmt++;
-	}
-	if(saved)
-	{
+		break;
+	case saved:
 		offAmt++;
 		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "Profile has been saved.");
 		offAmt++;
 		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "Click OK to continue.");
 		offAmt++;
-	}
-	if(reprogram)
-	{
+		break;
+	case reprogram:
 		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "You have hit a reprogrammable");
 		offAmt++;
 		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "square. Your instruction list");
@@ -110,6 +79,9 @@ bool clickOKState::Draw()
 		offAmt++;
 		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "memory has been replenished");
 		offAmt++;
+		break;
+	default:
+		break;
 	}
 
 	GameVars->fontArial24.drawText(offX, 460, "Click \"Help\" to learn more");
@@ -121,28 +93,19 @@ bool clickOKState::Draw()
 
 bool clickOKState::clickOKCallback()
 {
-	/*if(selected)
+	if(selected)
 	{
 		GSM->addGameState<LevelSelectState>();
-		selected = false;
-	}*/
-	//else if(noProfile)
-	//{
-	//	//GSM->addGameState<MainMenuState>();
-	//	noProfile = false;
-	//}
-	//else if(created)
-	//{
-	//	//GSM->addGameState<playGame>();
-	//	created = false;
-	//}
+	}
+	else if(noProfile)
+	{
+		GSM->addGameState<MainMenuState>();
+	}
+	else if(created)
+	{
+		GSM->addGameState<playGame>();
+	}
 	this->setStatus(DeleteMe);
-	created = false;
-	reprogram = false;
-	saved = false;
-	deleted = false;
-	noProfile = false;
-	selected = false;
 	GameVars->setPMStatus(-1);
 
 	return true;
