@@ -40,13 +40,13 @@ Corwin VanHook - corwin.j@gmail.com
 Tom Lindeman - tomlindeman@xnaprotege.com
 
 Level Designers
-David Moss - davidbmoss@gmail.com (tutorials)
+David Moss - davidbmoss@gmail.com
 Oscar Maldonado - fool133@yahoo.com
 Geovani Oliva- giovancito9878@yahoo.com
 Chris Gonzalez - krisryan87@yahoo.com
 
 QA
-David Moss - davidbmoss@gmail.com (tutorials)
+David Moss - davidbmoss@gmail.com
 Tom Lindeman - tomlindeman@xnaprotege.com
 
 Sound Research
