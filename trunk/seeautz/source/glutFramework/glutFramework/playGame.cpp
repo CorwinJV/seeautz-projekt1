@@ -266,11 +266,11 @@ bool playGame::Draw()
 		
 		// display starting speed
 		glColor3ub(0, 0, 0);
-		GameVars->fontDigital12.drawText(265, 650, "CPU Speed: ");
+		GameVars->fontArial12.drawText(258, 650, "Speed: ");
 		painInTheAss.str("");
-		painInTheAss << (1100 - speed) << " Mhz";
+		painInTheAss << (1100 - speed) << " MHZ";
 		tempString += painInTheAss.str();
-		GameVars->fontDigital12.drawText(265, 670, tempString);
+		GameVars->fontDigital12.drawText(258, 670, tempString);
 		break;
 
 	case GB_EXECUTION:

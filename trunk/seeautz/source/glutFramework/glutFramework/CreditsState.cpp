@@ -87,7 +87,7 @@ void CreditsState::drawCredits()
 	for(;sitr < creditsList.end(); sitr++)
 	{
 		int length = (*sitr)->length();
-		GameVars->fontArial24.drawText(200, offsetY + drawOffsetY, (*sitr)->c_str());
+		GameVars->fontArial24.drawText(100, offsetY + drawOffsetY, (*sitr)->c_str());
 		drawOffsetY += lineSpacing;
 	}
 

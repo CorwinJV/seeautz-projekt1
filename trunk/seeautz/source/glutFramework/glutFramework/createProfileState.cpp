@@ -53,7 +53,7 @@ bool createProfileState::Draw()
 
 	logoImage->drawImage();
 	
-	
+	int offsetX = 0;
 	if((!creatingProfile)&&(checked == 0))
 	{
 		if(img != NULL)
@@ -64,21 +64,26 @@ bool createProfileState::Draw()
 	}
 	if((creatingProfile)&&(checked == 0))
 	{
+		offsetX = 200;
 		backgroundImage->drawImage();
 		glColor3ub(0, 0, 0);
-		GameVars->fontArial24.drawText(150, 300, "Enter Your Name: ");
-		GameVars->fontArial24.drawText(400, 300, tempString);
-		GameVars->fontArial24.drawText(150, 350, "Press the ENTER key when finished");
-		GameVars->fontArial24.drawText(150, 400, "No numbers or special characters");
-		GameVars->fontArial24.drawText(150, 450, "Or press the escape key to return to the main menu");
+		GameVars->fontArial24.drawText(offsetX, 300, "Enter Your Name: ");
+		GameVars->fontArial24.drawText(offsetX+300, 300, tempString);
+		GameVars->fontArial24.drawText(offsetX, 350, "Press the ENTER key when finished");
+		GameVars->fontArial24.drawText(offsetX, 400, "No numbers or special characters");
+		GameVars->fontArial24.drawText(offsetX, 450, "Or press the ESCAPE key to return");
+		GameVars->fontArial24.drawText(offsetX, 500, "to the main menu");
 	}
 	if((!creatingProfile)&&(checked == 1)&&(profileCheck >= 0))
 	{
 		backgroundImage->drawImage();
 		glColor3ub(0, 0, 0);
-		GameVars->fontArial24.drawText(150, 300, "Name already exists, click select this profile button");
-		GameVars->fontArial24.drawText(150, 350, "         below to select profile with this name");
-		GameVars->fontArial24.drawText(150, 400, "Or press the enter key to return to try another name");
+		offsetX = 200;
+		GameVars->fontArial24.drawText(offsetX, 300, "That name already exists, click the");
+		GameVars->fontArial24.drawText(offsetX, 350, "\"select this profile\" button below");
+		GameVars->fontArial24.drawText(offsetX, 400, "below to select the profile with this");
+		GameVars->fontArial24.drawText(offsetX, 450, "name, or press the ENTER key to enter");
+		GameVars->fontArial24.drawText(offsetX, 500, "a different name.");
 
 		if(!added)
 		{
@@ -98,9 +103,10 @@ bool createProfileState::Draw()
 	{
 		backgroundImage->drawImage();
 		glColor3ub(0, 0, 0);
-		GameVars->fontArial24.drawText(150, 300, "Name can't be left blank, press enter to try another");
-		GameVars->fontArial24.drawText(150, 325, "name, or press the escape key to return to the");
-		GameVars->fontArial24.drawText(150, 350, "main menu");
+		offsetX = 175;
+		GameVars->fontArial24.drawText(offsetX, 300, "Name can't be left blank, press enter"); 
+		GameVars->fontArial24.drawText(offsetX, 350, "to try another name, or press the");
+		GameVars->fontArial24.drawText(offsetX, 400, "escape key to return to the main menu");
 	}
 	return false;
 }
