@@ -35,8 +35,7 @@ bool MainMenuState::Draw()
 	oglSpriteFont* bleh;
 	bleh = new oglSpriteFont;
 	bleh->open("arialSpriteFontBlack.png", 64);
-	bleh->drawText(50, 100, "testonetwothree123");
-		
+	bleh->drawText(50, 100, "testonetwothree123");		
 
 	return false;
 }

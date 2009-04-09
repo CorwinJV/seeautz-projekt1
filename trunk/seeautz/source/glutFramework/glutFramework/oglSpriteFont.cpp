@@ -8,7 +8,10 @@ oglSpriteFont::oglSpriteFont()
 
 oglSpriteFont::~oglSpriteFont()
 {
-
+	if(fontImage != NULL)
+	{
+		delete fontImage;
+	}
 }
 
 oglSpriteFont::oglSpriteFont(const std::string &filename, unsigned int size)
