@@ -45,6 +45,9 @@ Oscar Maldonado - fool133@yahoo.com
 Geovani Oliva- giovancito9878@yahoo.com
 Chris Gonzalez - krisryan87@yahoo.com
 
+QA
+David Moss - davidbmoss@gmail.com (tutorials)
+Tom Lindeman - tomlindeman@xnaprotege.com
 
 Sound Research
 Christian Martinez - christianmtnz@yahoo.com
@@ -52,16 +55,16 @@ Christian Martinez - christianmtnz@yahoo.com
 
 
 "I'm going back over here where shit makes sense." 
-                                     - Programming Team
+                       - Programming Team
 
-"Why isn't this working?" 
-                 - Design Team
+"Why isn't this working?"  
+                       - Design Team
 
 "You're a towel"
-          - Towlie
+                       - Towlie
 
 "We have achieved functionability"
-                  - Tom
+                       - Tom
 
 Special Thanks to...
 Caffeine
