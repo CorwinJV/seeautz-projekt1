@@ -116,7 +116,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
-				RuntimeLibrary="2"
+				RuntimeLibrary="3"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -223,6 +223,10 @@
 			</File>
 			<File
 				RelativePath=".\oglGameVars.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\oglSpriteFont.cpp"
 				>
 			</File>
 			<File
@@ -405,6 +409,10 @@
 			</File>
 			<File
 				RelativePath=".\oglGameVars.h"
+				>
+			</File>
+			<File
+				RelativePath=".\oglSpriteFont.h"
 				>
 			</File>
 			<File
