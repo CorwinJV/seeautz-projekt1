@@ -166,9 +166,9 @@ LogicInterface::LogicInterface()
 	isMouseDragging = false;
 
 	bytesLeftBackground = new oglTexture2D;
-	bytesLeftBackground->loadImage("CommandList.png", 265, 125);
-	bytesLeftBackground->mX = 745;
-	bytesLeftBackground->mY = logicBankBox.y - 60;
+	bytesLeftBackground->loadImage("CommandList.png", 285, 145);
+	bytesLeftBackground->mX = 725;
+	bytesLeftBackground->mY = logicBankBox.y - 70;
 
 	executionListScrolled = 0;
 	executionListSub1Scrolled = 0;
@@ -595,13 +595,13 @@ void LogicInterface::Draw()
 	ss << mapByteLimit;
 	ss << " BYTES used.";
 	s = ss.str();
-	GameVars->fontDigital16.drawText(750, logicBankBox.y - 70, s.c_str());
+	GameVars->fontDigital16.drawText(740, logicBankBox.y - 60, s.c_str());
 
 	std::stringstream ss2;
 	ss2 << mapByteLimit - usedBytes;
 	ss2 << " BYTES remaining.";
 	s = ss2.str();
-	GameVars->fontDigital16.drawText(750, logicBankBox.y - 70 + 16, s.c_str());
+	GameVars->fontDigital16.drawText(740, logicBankBox.y - 60 + 16, s.c_str());
 
 	if(drawInsertionLine == true)
 	{
