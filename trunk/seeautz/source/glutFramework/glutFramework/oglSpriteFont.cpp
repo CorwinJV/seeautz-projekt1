@@ -33,7 +33,7 @@ void oglSpriteFont::open(const std::string &filename, unsigned int size)
 	fontImage->dX = 1024;
 	fontImage->dY = 512;
 
-	kernAmount = 15 + (64-charSize)*kernTweak;
+	kernAmount = 35.37 + (64-charSize)*0.4;
 
 	//kernAmount = charSize/64 - 1;
 }
@@ -42,7 +42,7 @@ void oglSpriteFont::drawText(float x, float y, const std::string &str)
 {
 	// temp here, this is for figuring this shit out...
 
-	kernAmount = kernTweakb + (64-charSize)*kernTweak;
+	//kernAmount = kernTweakb + (64-charSize)*kernTweak;
 	// strip the string into chars
 	parseText(str);
 	int offsetX = x;
