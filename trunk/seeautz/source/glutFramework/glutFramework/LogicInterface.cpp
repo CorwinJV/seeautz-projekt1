@@ -595,13 +595,13 @@ void LogicInterface::Draw()
 	ss << mapByteLimit;
 	ss << " BYTES used.";
 	s = ss.str();
-	GameVars->fontDigital16.drawText(775, logicBankBox.y - 50, s.c_str());
+	GameVars->fontDigital16.drawText(750, logicBankBox.y - 60, s.c_str());
 
 	std::stringstream ss2;
 	ss2 << mapByteLimit - usedBytes;
 	ss2 << " BYTES remaining.";
 	s = ss2.str();
-	GameVars->fontDigital16.drawText(775, logicBankBox.y - 50 + 16, s.c_str());
+	GameVars->fontDigital16.drawText(750, logicBankBox.y - 60 + 16, s.c_str());
 
 	if(drawInsertionLine == true)
 	{
@@ -677,11 +677,11 @@ void LogicInterface::Draw()
 			menuBar->mY = tmpBlock->blockTexture->mY - 170;
 			menuBar->drawImageFaded(1.0, 210, 140);
 
-			int MAX_CHARS_PER_LINE = 21;
+			int MAX_CHARS_PER_LINE = 16;
 			int currentLine = 1;
 			bool endOfText = false;
 			int extraYSpacing = 0;			
-			glColor3ub(255, 0, 0);
+			glColor3ub(255, 0, 0); // done adding new red font
 			if(tmpBlock->isUsable != true)
 			{
 				GameVars->fontArialRed12.drawText(menuBar->mX + 10, menuBar->mY + 12, "[Unavailable on");
@@ -709,7 +709,7 @@ void LogicInterface::Draw()
 				}
 			}
 			currentLine++;
-			glColor3ub(255, 0, 0);
+			glColor3ub(255, 0, 0); // done adding new red font
 			if(tmpBlock->isCurrentlyUsable != true
 				&& (tmpBlock->isUsable == true))
 			{
@@ -718,16 +718,16 @@ void LogicInterface::Draw()
 					&& (curInstrTab == TAB_SUB1 
 						|| curInstrTab == TAB_SUB2))
 				{
-					GameVars->fontArialRed12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, "[You can't place");
+					GameVars->fontArialRed12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 13) + extraYSpacing, "[You can't place");
 					currentLine++;
-					GameVars->fontArialRed12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, "SubRoutines Here]");
+					GameVars->fontArialRed12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 13) + extraYSpacing, "SubRoutines Here]");
 					currentLine++;
 				}
 				else
 				{
-					GameVars->fontArialRed12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, "[Not Enough Memory");
+					GameVars->fontArialRed12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 13) + extraYSpacing, "[Not Enough Memory");
 					currentLine++;
-					GameVars->fontArialRed12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, "Available]");
+					GameVars->fontArialRed12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 13) + extraYSpacing, "Available]");
 					currentLine++;
 				}
 			}
@@ -741,7 +741,7 @@ void LogicInterface::Draw()
 			byteCost << "(Uses ";
 			byteCost << tmpBlock->byteCost;
 			byteCost << " Bytes)";
-			GameVars->fontArial12.drawText(menuBar->mX+10, menuBar->mY + (currentLine * 12) + extraYSpacing, byteCost.str());
+			GameVars->fontArial12.drawText(menuBar->mX+10, menuBar->mY + (currentLine * 13) + extraYSpacing, byteCost.str());
 
 		}
 	}

@@ -160,6 +160,7 @@ public:
 	oglSpriteFont				fontDigital16;
 	oglSpriteFont				fontDigital12;
 	oglSpriteFont				fontArialRed12;
+	oglSpriteFont				fontArialRed14;
 	//GLFT_Font					fontCourier12;
 	//GLFT_Font					fontCourier18;
 	//GLFT_Font					fontCourier24;
