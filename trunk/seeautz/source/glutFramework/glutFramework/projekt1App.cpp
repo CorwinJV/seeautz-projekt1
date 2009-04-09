@@ -20,6 +20,20 @@ projekt1App::projekt1App(std::string title, int sizeX, int sizeY, int argc, char
 
 	//Load our starting state into the GameStateManager
 	GameVars->Instance();
+
+	//string temp = "01234567890123456789012345678901234567890123456789012345678901234567890123456789";
+
+	// text parsing system example... nuke this at will, the damn thing works perfectly though woohoo!
+	//string temp = "This is a test of my random text parsing system, lets see what happens when i do random things to it.";
+	//vector<string*> tempb;
+
+	//GameVars->parseMeIntoRows(&tempb, temp, 10, true);
+	//GameVars->parseMeIntoRows(&tempb, temp, 12, true);
+	//GameVars->parseMeIntoRows(&tempb, temp, 13, true);
+	//GameVars->parseMeIntoRows(&tempb, temp, 15, true);
+	//GameVars->parseMeIntoRows(&tempb, temp, 16, true);
+	//GameVars->parseMeIntoRows(&tempb, temp, 17, true);
+	//GameVars->parseMeIntoRows(&tempb, temp, 20, true);
 	
 	//myStateManager.addGameState<playGame>();
 	//myStateManager.addGameState<LogicViewState>();

@@ -684,8 +684,8 @@ void LogicInterface::Draw()
 			glColor3ub(255, 0, 0);
 			if(tmpBlock->isUsable != true)
 			{
-				GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + 12, "[Unavailable on");
-				GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + 24, "Current Level]");
+				GameVars->fontArialRed12.drawText(menuBar->mX + 10, menuBar->mY + 12, "[Unavailable on");
+				GameVars->fontArialRed12.drawText(menuBar->mX + 10, menuBar->mY + 24, "Current Level]");
 				extraYSpacing = 24;
 			}
 			glColor3ub(0, 0, 0);
@@ -718,16 +718,16 @@ void LogicInterface::Draw()
 					&& (curInstrTab == TAB_SUB1 
 						|| curInstrTab == TAB_SUB2))
 				{
-					GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, "[You can't place");
+					GameVars->fontArialRed12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, "[You can't place");
 					currentLine++;
-					GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, "SubRoutines Here]");
+					GameVars->fontArialRed12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, "SubRoutines Here]");
 					currentLine++;
 				}
 				else
 				{
-					GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, "[Not Enough Memory");
+					GameVars->fontArialRed12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, "[Not Enough Memory");
 					currentLine++;
-					GameVars->fontArial12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, "Available]");
+					GameVars->fontArialRed12.drawText(menuBar->mX + 10, menuBar->mY + (currentLine * 12) + extraYSpacing, "Available]");
 					currentLine++;
 				}
 			}

@@ -42,6 +42,13 @@ public:
 										double bottomRightX, double bottomRightY, 
 										double fadeAmount, int dWidth, int dHeight);
 
+		bool oglTexture2D::drawImageSegment(double topLeftX, double topLeftY, 
+										double topRightX, double topRightY,
+										double bottomLeftX, double bottomLeftY, 
+										double bottomRightX, double bottomRightY, 
+										double fadeAmount, int dWidth, int dHeight,
+										float r, float g, float b);
+
 	int mX;
 	int mY;
 	int dX;
