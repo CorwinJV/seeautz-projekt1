@@ -225,8 +225,8 @@ void helpScreenState::drawPage0()
 	offsetAmt++;
 	offsetAmt++;
 	drawTile(TStart,  300, 400, 0.5, true);
-	drawTile(TEnd,   485, 400, 0.5, true);
-	robotImage->mX = 660;
+	drawTile(TEnd,   495, 400, 0.5, true);
+	robotImage->mX = 670;
 	robotImage->mY = 400;
 	tempX = robotImage->dX;
 	tempY = robotImage->dY;
@@ -235,7 +235,7 @@ void helpScreenState::drawPage0()
 	robotImage->drawImageSegment(0.0, 0.0,	0.25, 0.0, 0.0, 1.0,  0.25, 1.0, 1);
 	glColor3ub(0, 0, 0);
 	GameVars->fontArial18.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing2, 
-		"        Start Square  End Square      Robot");
+		"        Start Square   End Square     Robot");
 	robotImage->dX = tempX;
 	robotImage->dY = tempY;
 	offsetAmt++;
@@ -529,9 +529,9 @@ void helpScreenState::drawPage5() // tile list page 2
 	glColor3ub(0, 0, 0);
 	offsetAmt-=2;
 	// text for column 1
-	tempX = 160; // extra offset for text
+	tempX = 145; // extra offset for text
 	tempY = offsetAmt;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "Electric Walls -");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "Electric Walls (con't)-");
 	offsetAmt++;
 	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "Touching the wall ");
 	offsetAmt++;
@@ -560,20 +560,22 @@ void helpScreenState::drawPage5() // tile list page 2
 	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "it enters this tile.");
 	offsetAmt++;
 	offsetAmt++;
+	offsetAmt++;
 	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "Switch Tiles - You");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "can ACTIVATE a switch");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "can ACTIVATE a ");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "by facing the dark");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "switch by facing  ");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "edge of the tile and");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "the dark edge of   ");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "using ACTIVATE.");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "the tile and using ");
 	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "ACTIVATE.");
 	offsetAmt++;
 
 	// column 2
-	tempX = 14 + 6;
+	tempX = 14+6;
 	for(int x = tempX; x < tempX + 6; x++)
 	{
 		drawTile(tileList[x]->getType(), (int)textOffsetX +375             , (int)(textOffsetY+55+ (x-tempX)*160*scale), scale, true);
@@ -583,7 +585,7 @@ void helpScreenState::drawPage5() // tile list page 2
 	glColor3ub(0, 0, 0);
 	// text for column 2
 	offsetAmt = tempY;
-	tempX = 535; // extra offset for text
+	tempX = 517; // extra offset for text
 	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "Switch Tile - You");
 	offsetAmt++;
 	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "can ACTIVATE a switch");
@@ -597,8 +599,6 @@ void helpScreenState::drawPage5() // tile list page 2
 	offsetAmt++;
 	offsetAmt++;
 	offsetAmt++;
-	offsetAmt++;
-
 	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "Switch Tile - You");
 	offsetAmt++;
 	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "can ACTIVATE this");
@@ -608,22 +608,22 @@ void helpScreenState::drawPage5() // tile list page 2
 	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "using ACTIVATE.");
 	offsetAmt++;
 	offsetAmt++;
-
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "Reprogram Tile - These");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "act as save points. By");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "Reprogram Tile - ");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "using ACTIVATE, your");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "These act as save ");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "robot's start spot is");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "points. By using ");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "reset to the tile's");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "ACTIVATE, the robot's ");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "position and you can");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "start spot is reset to");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "re-access your robot's");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "this tile's position");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "memory.");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "and you can re-access");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "your robot's memory.");
 	offsetAmt++;
 }
 void helpScreenState::drawPage6() // tile list page 3
@@ -646,34 +646,39 @@ void helpScreenState::drawPage6() // tile list page 3
 	glColor3ub(0, 0, 0);
 	offsetAmt-=2;
 	// text for column 1
-	tempX = 160; // extra offset for text
+	tempX = 150; // extra offset for text
 	tempY = offsetAmt;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "Reprogram Tile - These");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "Reprogram Tile - ");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "act as save points. By");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "These act as save ");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "using ACTIVATE, your");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "points. By using ");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "robot's start spot is");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "ACTIVATE, your  ");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "reset to the tile's");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "robot's start spot  ");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "position and you can");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "is reset to the  ");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "re-access your robot's");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "tile's position and  ");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "memory.");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "you can re-access ");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "your robot's memory.");
+	offsetAmt++;
 	offsetAmt++;
 	offsetAmt++;
 	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "Breakable Walls -");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "You can PUNCH a wall");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "You can PUNCH a ");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "to remove the wall,");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "wall to remove the ");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "this will also break");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "wall, this will  ");
 	offsetAmt++;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "or deactivate whatever");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "also break or  ");
+	offsetAmt++;
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "deactivate whatever  ");
 	offsetAmt++;
 	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "is behind the wall.");
 	offsetAmt++;
@@ -689,7 +694,7 @@ void helpScreenState::drawPage6() // tile list page 3
 	glColor3ub(0, 0, 0);
 	// text for column 2
 	offsetAmt = tempY;
-	tempX = 535; // extra offset for text
+	tempX = 525; // extra offset for text
 	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "Solid Tile - This");
 	offsetAmt++;
 	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "tile is a solid wall.");
