@@ -1,3 +1,6 @@
+#ifndef OGLSPRITEFONT_H
+#define OGLSPRITEFONT_H
+
 //=================================
 // oglSpriteFont
 //    This class is designed to
@@ -29,6 +32,16 @@ public:
 
 	// drawText
 	// open
+	void more()
+	{
+		kernTweak += 0.1;
+		std::cout << "kernTweak = " << kernTweak << std::endl;
+	}
+	void less()
+	{
+		kernTweak -= 0.1;
+		std::cout << "kernTweak = " << kernTweak << std::endl;
+	}
 
 private:
 	std::vector<char> drawMe;
@@ -39,6 +52,9 @@ private:
 	int charSize;
 	int numColumns;
 	int maxAsciiCount;
+	double kernAmount;
+	double kernTweak;
 
 	void parseText(const std::string& parseMe);
 };
+#endif

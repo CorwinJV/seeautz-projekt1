@@ -7,6 +7,7 @@
 //#include "States\LogicViewState.h"
 #include "SG400KGA1.h"
 #include "helpScreenState.h"
+#include "fontTest.h"
 // end additional state includes
 
 #include <iostream>
@@ -22,9 +23,10 @@ projekt1App::projekt1App(std::string title, int sizeX, int sizeY, int argc, char
 	
 	//myStateManager.addGameState<playGame>();
 	//myStateManager.addGameState<LogicViewState>();
-	myStateManager.addGameState<DevLogoState>();		// main game start screen
+	//myStateManager.addGameState<DevLogoState>();		// main game start screen
 	//myStateManager.addGameState<helpScreenState>();
 	//myStateManager.addGameState<SG400KGA1>();			// sg400 kga1 heh
+	myStateManager.addGameState<fontTest>();
 }
 
 void projekt1App::initOpenGL()

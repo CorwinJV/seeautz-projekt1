@@ -229,13 +229,6 @@ bool oglTexture2D::drawImageSegment(double topLeftX, double topLeftY,
 										double bottomRightX, double bottomRightY, 
 										double fadeAmount, int dWidth, int dHeight)
 {
-	if(dWidth != 0
-		&& dHeight != 0)
-	{
-		dX = dWidth;
-		dY = dHeight;
-	}
-
 	// Bind texture to current context 
 	glBindTexture(GL_TEXTURE_2D, texture); 
 	// Set the alpha
@@ -249,13 +242,13 @@ bool oglTexture2D::drawImageSegment(double topLeftX, double topLeftY,
 		glVertex2i(mX, mY); 
 		// Top right 
 		glTexCoord2f(topRightX, topRightY); 
-		glVertex2i(mX + dX, mY); 
+		glVertex2i(mX + dWidth, mY); 
 		// Bottom right 
 		glTexCoord2f(bottomRightX, bottomRightY); 
-		glVertex2i(mX + dX, mY + dY); 
+		glVertex2i(mX + dWidth, mY + dHeight); 
 		// Bottom left 
 		glTexCoord2f(bottomLeftX, bottomLeftY); 
-		glVertex2i(mX, mY + dY); 
+		glVertex2i(mX, mY + dHeight); 
 		// Finish quad drawing 
 	glEnd();
 

@@ -23,17 +23,26 @@ oglSpriteFont::oglSpriteFont(const std::string &filename, unsigned int size)
 
 void oglSpriteFont::open(const std::string &filename, unsigned int size)
 {
-	charSize = size;
+	charSize = size * 1.5;
 	if(fontImage != NULL)
 	{
 		delete fontImage;
 	}
 	fontImage = new oglTexture2D;
 	fontImage->loadImage(filename, 1024, 512);
+	fontImage->dX = 1024;
+	fontImage->dY = 512;
+
+	kernAmount = 15 + (64-charSize)*kernTweak;
+
+	//kernAmount = charSize/64 - 1;
 }
 
 void oglSpriteFont::drawText(float x, float y, const std::string &str)
 {
+	// temp here, this is for figuring this shit out...
+
+	kernAmount = 15 + (64-charSize)*kernTweak;
 	// strip the string into chars
 	parseText(str);
 	int offsetX = x;
@@ -41,21 +50,24 @@ void oglSpriteFont::drawText(float x, float y, const std::string &str)
 
 	if(fontImage != NULL)
 	{
-		for(int i = 0; i < drawMe.size(); i++)
+		for(int i = 0; i < (int)drawMe.size(); i++)
 		{
 			// Check the current character (drawMe[i]) to see what 
 			// image segment we need to draw in fontImage
 			int currentCharacter = drawMe[i];
 
 			// Draw the image segment
-			fontImage->mX = offsetX + (i * charWidth);
+			fontImage->mX = offsetX + (i * charWidth) - (i*kernAmount);
 			fontImage->mY = offsetY;
 
 			int currentRow = currentCharacter / (numColumns);
 			int currentColumn =  currentCharacter % (numColumns);
-
-			fontImage->drawImageSegment((currentColumn * charWidth), (currentRow * charHeight), (currentColumn * charWidth) + charWidth, (currentRow * charHeight), (currentColumn * charWidth) + charWidth, (currentRow * charHeight) + charHeight, (currentColumn * charWidth) + charWidth, (currentRow * charHeight) + charHeight, 1.0);
-
+			double bW = (double)fontImage->dX;
+			double bY = (double)fontImage->dY;
+			
+			fontImage->drawImageSegment((currentColumn * charWidth)/bW, (currentRow * charHeight)/bY,			     ((currentColumn * charWidth) + charWidth)/bW, (currentRow * charHeight)/bY, 
+										(currentColumn * charWidth)/bW, ((currentRow * charHeight) + charHeight)/bY, ((currentColumn * charWidth) + charWidth)/bW, ((currentRow * charHeight) + charHeight)/bY, 
+										1.0, charSize, charSize);
 		}
 	}
 }
@@ -67,6 +79,8 @@ void oglSpriteFont::init()
 	numColumns = 16;
 	charSize = 64;
 	fontImage = NULL;
+	kernAmount = 15;
+	kernTweak = 0.1;
 }
 
 void oglSpriteFont::parseText(const std::string& parseMe)

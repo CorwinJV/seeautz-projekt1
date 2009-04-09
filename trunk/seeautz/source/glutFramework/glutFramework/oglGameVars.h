@@ -7,11 +7,14 @@
 #include <vector>
 #include "logicBlock.h"
 #include "aiInstructionEnums.h"
-#include "GLFT_Font.h"
 #include "gameBoard.h"
 #include "profileManager.h"
 #include <cstring>
 #include "switchManager.h"
+// doesn't work for some reason on alot of systems
+//#include "GLFT_Font.h"
+#include "oglSpriteFont.h"
+
 
 #define GameVars oglGameVars::Instance()
 
@@ -143,17 +146,17 @@ public:
 	int							numTutorialLevels;
 
 //	GLFT_Font					fontTimes;
-	GLFT_Font					fontArial32;
-	GLFT_Font					fontArial24;
-	GLFT_Font					fontArial18;
-	GLFT_Font					fontArial16;
-	GLFT_Font					fontArial12;
-	GLFT_Font					fontDigital64;
-	GLFT_Font					fontOurs;
-	GLFT_Font					fontDigital200;
-	GLFT_Font					fontDigital32;
-	GLFT_Font					fontDigital16;
-	GLFT_Font					fontDigital12;
+	oglSpriteFont				fontArial32;
+	oglSpriteFont				fontArial24;
+	oglSpriteFont				fontArial18;
+	oglSpriteFont				fontArial16;
+	oglSpriteFont				fontArial12;
+	oglSpriteFont				fontDigital64;
+	oglSpriteFont				fontOurs;
+	oglSpriteFont				fontDigital200;
+	oglSpriteFont				fontDigital32;
+	oglSpriteFont				fontDigital16;
+	oglSpriteFont				fontDigital12;
 	//GLFT_Font					fontCourier12;
 	//GLFT_Font					fontCourier18;
 	//GLFT_Font					fontCourier24;
