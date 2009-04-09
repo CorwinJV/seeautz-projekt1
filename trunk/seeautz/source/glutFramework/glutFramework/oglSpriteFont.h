@@ -38,6 +38,7 @@ private:
 	int charHeight;
 	int charSize;
 	int numColumns;
+	int maxAsciiCount;
 
 	void parseText(const std::string& parseMe);
 };
