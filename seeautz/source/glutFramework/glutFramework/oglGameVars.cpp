@@ -805,18 +805,18 @@ void oglGameVars::loadFonts()
 //	fontOurs.open		("fonts\\Schwaben_Alt_Bold.ttf", 38);
 ////	fontTimes.open		("fonts\\times.ttf", 32);
 
-	fontArial32.open	("fonts\\courierSpriteFontBlack.png", 32);
-	fontArial24.open	("fonts\\courierSpriteFontBlack.png", 24);
-	fontArial18.open	("fonts\\courierSpriteFontBlack.png", 18);
-	fontArial16.open	("fonts\\courierSpriteFontBlack.png", 16);
-	fontArial12.open	("fonts\\courierSpriteFontBlack.png", 16);
+	fontArial32.open	("fonts\\courierSpriteFontBlackDark.png", 32);
+	fontArial24.open	("fonts\\courierSpriteFontBlackDark.png", 18);
+	fontArial18.open	("fonts\\courierSpriteFontBlackDark.png", 16);
+	fontArial16.open	("fonts\\courierSpriteFontBlackDark.png", 16);
+	fontArial12.open	("fonts\\courierSpriteFontBlackDark.png", 14);
 	//fontCourier24.open	("fonts\\cour.ttf", 24);
 	//fontCourier18.open	("fonts\\cour.ttf", 18);
 	//fontCourier12.open	("fonts\\cour.ttf", 12);
 	//fontDigital64.open	("fonts\\DIGIRU__.ttf", 38);
-	fontDigital32.open  ("fonts\\courierSpriteFontBlack.png", 32);
-	fontDigital16.open  ("fonts\\courierSpriteFontBlack.png", 16);
-	fontDigital12.open	("fonts\\courierSpriteFontBlack.png", 12);
+	fontDigital32.open  ("fonts\\courierSpriteFontBlackDark.png", 32);
+	fontDigital16.open  ("fonts\\courierSpriteFontBlackDark.png", 16);
+	fontDigital12.open	("fonts\\courierSpriteFontBlackDark.png", 12);
 	fontOurs.open		("fonts\\schwabenSpriteFontWhite.png", 32);
 	currentLogicBank = NULL;
 }

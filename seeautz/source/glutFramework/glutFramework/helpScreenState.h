@@ -63,7 +63,7 @@ public:
 	helpScreenState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
 		pageNum = 0;
-		textOffsetX = backgroundImage->mX + 50;
+		textOffsetX = backgroundImage->mX + 25;
 		textOffsetY = backgroundImage->mY + 40;
 		offsetAmt = 0;
 		textSpacing = 16;
