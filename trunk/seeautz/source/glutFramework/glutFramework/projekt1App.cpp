@@ -24,8 +24,8 @@ projekt1App::projekt1App(std::string title, int sizeX, int sizeY, int argc, char
 	//string temp = "01234567890123456789012345678901234567890123456789012345678901234567890123456789";
 
 	// text parsing system example... nuke this at will, the damn thing works perfectly though woohoo!
-	//string temp = "This is a test of my random text parsing system, lets see what happens when i do random things to it.";
-	//vector<string*> tempb;
+	string temp = "This is a test of my random text parsing system, lets see what happens when i do random things to it.";
+	vector<string*> tempb;
 
 	//GameVars->parseMeIntoRows(&tempb, temp, 10, true);
 	//GameVars->parseMeIntoRows(&tempb, temp, 12, true);

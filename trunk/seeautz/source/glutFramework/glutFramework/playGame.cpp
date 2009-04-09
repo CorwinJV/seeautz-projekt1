@@ -254,6 +254,13 @@ bool playGame::Draw()
 	int textspacing = 30;
 	int speed = gamePlay->getProcessSpeed();
 	int viewscoretext = backgroundImage->mY+50;
+	
+	// did you know stuffs
+	int tY = 600;
+	int tYspace = 20;
+	int tAmt = 0;
+	vector<string*> didYouKnowParsed;
+	vector<string*>::iterator dykItr;
 
 	switch(curState)
 	{
@@ -322,11 +329,18 @@ bool playGame::Draw()
 		GameVars->fontArial32.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
 		offsetAmt++;
 
+
 		// level description
-		tempString = GameVars->getDesc(tempInt);
-		// description
-		GameVars->fontArial32.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
-		offsetAmt++;
+
+		// reusing the variables used for did you know
+		GameVars->parseMeIntoRows(&didYouKnowParsed, GameVars->getDesc(tempInt), 31, true);
+		dykItr = didYouKnowParsed.begin();
+
+		for(;dykItr < didYouKnowParsed.end(); dykItr++)
+		{
+			GameVars->fontArial32.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, (*dykItr)->c_str());
+			offsetAmt++;
+		}
 
 		// bytes available
 		tempString = "Bytes Available: ";
@@ -337,8 +351,19 @@ bool playGame::Draw()
 		GameVars->fontArial32.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
 		offsetAmt++;
 
-		GameVars->fontArial16.drawText(preGameTextOffsetX, 630, "Did You Know:");
-		GameVars->fontArial16.drawText(preGameTextOffsetX, 650, (*GameVars->didYouKnowI));
+		
+		// did you know
+		GameVars->fontArial16.drawText(preGameTextOffsetX, tY+ (tAmt*tYspace), "Did You Know:");
+		tAmt++;
+	
+		GameVars->parseMeIntoRows(&didYouKnowParsed, (*GameVars->didYouKnowI), 56, true);
+		dykItr = didYouKnowParsed.begin();
+
+		for(;dykItr < didYouKnowParsed.end(); dykItr++)
+		{
+			GameVars->fontArial16.drawText(preGameTextOffsetX, tY+ (tAmt*tYspace), (*dykItr)->c_str());
+			tAmt++;
+		}
 		break;
 
 	case GB_ROBOTDIED:
@@ -594,7 +619,7 @@ bool playGame::initialize()
 
 	// pregame textinfo
 	preGameTextOffsetX = 150;
-	preGameTextOffsetY = 350;
+	preGameTextOffsetY = 250;
 	preGameTextSpacing = 45;
 
 	Update();
@@ -817,8 +842,9 @@ void playGame::doEndGameDraw()
 		// iterate through the pictures drawing them
 		(*endGameAnimation)->drawImage(0, 0);
 		glColor3ub(0, 0, 0);
-		GameVars->fontArial24.drawText(50, 80, "We apologize for the crappy ending, we needed to save space.");
-		GameVars->fontArial24.drawText(250, 120, "Press ESC to return to the main menu.");
+		GameVars->fontArial24.drawText(200,  80, "We apologize for the crappy ending,");
+		GameVars->fontArial24.drawText(200, 120, "we needed to save space.");
+		GameVars->fontArial24.drawText(200, 160, "Press ESC to return to the main menu.");
 		endGameAnimation++;
 		if(endGameAnimation == endGamePics.end())
 			endGameAnimation = endGamePics.begin();

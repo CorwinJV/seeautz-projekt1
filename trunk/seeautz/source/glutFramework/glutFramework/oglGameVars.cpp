@@ -687,7 +687,7 @@ void oglGameVars::loadAllLevels()
 	tempArt->loadImage("maps\\Mapg1.png", 300, 150);
 	levelArt.push_back(tempArt);
 
-	tempLevel = new levelData("Electrical Disturbance", "There must be a way past all this electricity", "maps\\Mapg2.txt");
+	tempLevel = new levelData("Electrical Disturbance", "There must be a way past this electricity", "maps\\Mapg2.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\Mapg2.png", 300, 150);
@@ -853,7 +853,7 @@ void oglGameVars::parseMeIntoRows(vector<std::string*> *storageContainer, std::s
 		{
 			// if we're not on row zero, check the first character of the line
 			// if its a space, increment until its not a space
-			if(curStart > numCharsPerRow)
+			if(curStart >= numCharsPerRow)
 			{
 				while(stringToParse.substr(curStart, 1) == " ")
 				{
@@ -882,7 +882,7 @@ void oglGameVars::parseMeIntoRows(vector<std::string*> *storageContainer, std::s
 				// #3 its a word that's so long it goes on for multiple lines in which case we have to backtrack and just cut anyways
 
 				// #1
-				if(curEnd < stringToParse.length())
+				if(curEnd < (int)stringToParse.length())
 				{
 					if(stringToParse.substr(curEnd+1, 1) == " ")
 					{

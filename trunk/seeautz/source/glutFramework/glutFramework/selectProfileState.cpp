@@ -42,8 +42,8 @@ bool selectProfileState::Draw()
 
 		int offsetAmt = 0;
 		int textspacing = 30;
-		int offsetX = backgroundImage->mX + 50;
-		int offsetY = backgroundImage->mY + 50;
+		int offsetX = backgroundImage->mX + 25;
+		int offsetY = backgroundImage->mY + 25;
 
 		glColor3ub(0, 0, 0);
 
@@ -99,6 +99,7 @@ bool selectProfileState::Draw()
 		tempString += displayString.str();
 		GameVars->fontArial24.drawText(offsetX, offsetY + offsetAmt*textspacing, tempString);
 		offsetAmt++;
+		offsetAmt++;
 
 
 		// picture of level
@@ -111,7 +112,7 @@ bool selectProfileState::Draw()
 
 
 		glColor3ub(0, 0, 0);
-		GameVars->fontArial24.drawText(offsetX+125,565, "Would you like to load this profile?");
+		GameVars->fontArial24.drawText(offsetX+50,565, "Would you like to load this profile?");
 	}
 
 	return false;
@@ -183,7 +184,7 @@ bool selectProfileState::selectProfile()
 	setPlayerInfo(playerName, totScore, highestLevel, highestLevel);
 
 	GameVars->setPMStatus(0);
-	GSM->addGameState<playGame>();
+	GSM->addGameState<LevelSelectState>();
 	GSM->addGameState<clickOKState>();
 	this->setStatus(DeleteMe);
 
