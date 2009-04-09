@@ -3,6 +3,7 @@
 oglSpriteFont::oglSpriteFont()
 {
 
+	init();
 }
 
 oglSpriteFont::~oglSpriteFont()
@@ -12,15 +13,19 @@ oglSpriteFont::~oglSpriteFont()
 
 oglSpriteFont::oglSpriteFont(const std::string &filename, unsigned int size)
 {
-	//oglSpriteFont::open(filename, size);
+	init();
+	oglSpriteFont::open(filename, size);
 }
 
 void oglSpriteFont::open(const std::string &filename, unsigned int size)
 {
 	charSize = size;
+	if(fontImage != NULL)
+	{
+		delete fontImage;
+	}
 	fontImage = new oglTexture2D;
 	fontImage->loadImage(filename, 1024, 512);
-
 }
 
 void oglSpriteFont::drawText(float x, float y, const std::string &str)
@@ -38,6 +43,7 @@ void oglSpriteFont::init()
 	charHeight = 64;
 	numColumns = 16;
 	charSize = 64;
+	fontImage = NULL;
 }
 
 void oglSpriteFont::parseText(const std::string& parseMe)
