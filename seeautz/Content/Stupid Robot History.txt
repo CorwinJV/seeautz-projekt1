@@ -47,10 +47,14 @@ Corwin VanHook - corwin.j@gmail.com
 Tom Lindeman - tomlindeman@xnaprotege.com
 
 Level Designers
-David Moss - davidbmoss@gmail.com (tutorials)
+David Moss - davidbmoss@gmail.com
 Oscar Maldonado - fool133@yahoo.com
-Chris Gonzalez - krisryan87@yahoo.com
 Geovani Oliva- giovancito9878@yahoo.com
+Chris Gonzalez - krisryan87@yahoo.com
+
+QA
+David Moss - davidbmoss@gmail.com
+Tom Lindeman - tomlindeman@xnaprotege.com
 
 Sound Research
 Christian Martinez - christianmtnz@yahoo.com
@@ -61,7 +65,7 @@ Revision History
 0.99
 First public release yay!
 
-1.00
+1.00 - 4/9/2009
 First Final Release
 
 *******************************************************************************
@@ -112,6 +116,7 @@ Updates/Changes
 04/07/2009	switches toggle visually now
 04/07/2009	gui form of delete profile added
 04/07/2009	autoscroll for instruction list while processing added
+04/09/2008	new font system added
 
 *******************************************************************************
 Bug Fixes
