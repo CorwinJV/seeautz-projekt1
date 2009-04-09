@@ -6,7 +6,6 @@
 #include "gameBoard.h"
 #include "LogicInterface.h"
 #include "oglGameVars.h"
-#include "GLFT_Font.h"
 #include "Button.h"
 #include "States\\PauseGameState.h"
 #include "States\\DevLogoState.h"
