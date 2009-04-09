@@ -15,6 +15,7 @@
 //#include "GLFT_Font.h"
 #include "oglSpriteFont.h"
 
+// for future implementation by dave
 
 #define GameVars oglGameVars::Instance()
 
@@ -145,6 +146,7 @@ public:
 	vector<oglTexture2D*> levelArt;
 	int							numTutorialLevels;
 
+	void						parseMeIntoRows(vector<std::string*> *storageContainer, std::string stringToParse, int numCharsPerRow, bool autoFeed = true);
 //	GLFT_Font					fontTimes;
 	oglSpriteFont				fontArial32;
 	oglSpriteFont				fontArial24;
@@ -157,6 +159,7 @@ public:
 	oglSpriteFont				fontDigital32;
 	oglSpriteFont				fontDigital16;
 	oglSpriteFont				fontDigital12;
+	oglSpriteFont				fontArialRed12;
 	//GLFT_Font					fontCourier12;
 	//GLFT_Font					fontCourier18;
 	//GLFT_Font					fontCourier24;
