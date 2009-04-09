@@ -822,3 +822,114 @@ void oglGameVars::loadFonts()
 	fontArialRed14.open	("fonts\\courierSpriteFontRedDark.png", 14);
 	currentLogicBank = NULL;
 }
+
+void oglGameVars::parseMeIntoRows(vector<std::string*> *storageContainer, std::string stringToParse, int numCharsPerRow, bool autoFeed)
+{
+	storageContainer->clear();
+	string* tempString = new string;
+	//*tempString = stringToParse;
+	int row = 0;
+
+	if(!autoFeed)
+	{
+		for(int x = 0; x < (int)(stringToParse.length() / numCharsPerRow); x++)
+		{
+			*tempString = stringToParse.substr(numCharsPerRow*row, numCharsPerRow);
+			storageContainer->push_back(tempString);
+			tempString = new string;
+			row++;
+		}
+		*tempString = stringToParse.substr(numCharsPerRow*row, stringToParse.length()%numCharsPerRow);
+		storageContainer->push_back(tempString);
+	}
+	else
+	{
+		// auto separation
+		int curStart = 0;
+		int curEnd = numCharsPerRow-1;
+
+		bool done = false;
+		while(!done)
+		{
+			// if we're not on row zero, check the first character of the line
+			// if its a space, increment until its not a space
+			if(curStart > numCharsPerRow)
+			{
+				while(stringToParse.substr(curStart, 1) == " ")
+				{
+					curStart++;
+				}
+			}
+
+			curEnd = curStart + numCharsPerRow-1;
+			if(curEnd > (int)stringToParse.length())
+			{
+				curEnd = stringToParse.length();
+			}
+
+			// check the last character of the line
+			// if its a space, leave it alone
+			if(stringToParse.substr(curEnd, 1) == " ")
+			{
+				// leave curEnd alone
+			}
+			else
+			{
+				// if its a character, we have three possibilities
+				// #1 it is a character with a space after it in which we're ok to cut and move on
+				// #2 its a character with another character after it, in which case we have to go backward
+				// and figure out where the cut spot is
+				// #3 its a word that's so long it goes on for multiple lines in which case we have to backtrack and just cut anyways
+
+				// #1
+				if(curEnd < stringToParse.length())
+				{
+					if(stringToParse.substr(curEnd+1, 1) == " ")
+					{
+						// do nothing
+					}
+					else
+					{
+						// find a new ending
+						while((stringToParse.substr(curEnd, 1) != " ") && (curEnd < (int)stringToParse.length()))
+						{
+							curEnd++;
+						}
+						// #2
+						if((curEnd - curStart) < numCharsPerRow*2)
+						{
+							curEnd = curStart + numCharsPerRow;
+							// backtrack until we find a space
+							while(stringToParse.substr(curEnd,1) != " ")
+							{
+								curEnd--;
+							}
+						}
+						// #3
+						else
+						{
+							// reset it and just cut
+							curEnd = curStart + numCharsPerRow;
+						}
+					}
+				}
+			}
+
+			// with the newly calculated curEnd lets chop it and move on
+			if(curEnd > (int)stringToParse.length())
+			{
+				curEnd = stringToParse.length();
+			}
+		
+			*tempString = stringToParse.substr(curStart, curEnd-curStart+1);
+			storageContainer->push_back(tempString);
+			tempString = new string;
+			curStart = curEnd + 1;
+
+			if(curStart > (int)stringToParse.length())
+			{
+				done = true;
+			}
+		}
+	}
+}
