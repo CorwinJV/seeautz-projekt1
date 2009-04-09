@@ -595,13 +595,13 @@ void LogicInterface::Draw()
 	ss << mapByteLimit;
 	ss << " BYTES used.";
 	s = ss.str();
-	GameVars->fontDigital16.drawText(750, logicBankBox.y - 60, s.c_str());
+	GameVars->fontDigital16.drawText(750, logicBankBox.y - 70, s.c_str());
 
 	std::stringstream ss2;
 	ss2 << mapByteLimit - usedBytes;
 	ss2 << " BYTES remaining.";
 	s = ss2.str();
-	GameVars->fontDigital16.drawText(750, logicBankBox.y - 60 + 16, s.c_str());
+	GameVars->fontDigital16.drawText(750, logicBankBox.y - 70 + 16, s.c_str());
 
 	if(drawInsertionLine == true)
 	{

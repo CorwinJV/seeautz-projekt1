@@ -194,16 +194,9 @@ bool gameBoard::draw()
 	// temp text crap
 	if(drawText)
 	{
-		// Red Text
-		glColor3ub(rand()%255,rand()%255,rand()%255);
-
-		//glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-
-		GLFT_Font fnt("fonts\\Schwaben_Alt_Bold.ttf", 128);
-
-		fnt.drawText(rand()%500, rand()%500, "SEEAUTS");
-		fnt.endDraw();
-		fnt.release();
+		//fnt.drawText(rand()%500, rand()%500, "SEEAUTS");
+		//fnt.endDraw();
+		//fnt.release();
 	}
 
 	return true;

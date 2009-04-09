@@ -363,7 +363,7 @@ void oglGameVars::loadAllLogicBlocks()
 	//tmpBlock->addInstruction(LOOP);
 	//allLogicBlocks.push_back(tmpBlock);
 
-	tmpBlock = new logicBlock("instructions/activate.png", 130, 130,				"Activate        Use this to     activate Doors, Switches and to use  Reprogram Tiles.", 2, ACTIVATE);
+	tmpBlock = new logicBlock("instructions/activate.png", 130, 130,				"Activate        Use this to     activate Doors, Switches and to use  Reprogram  Tiles.", 2, ACTIVATE);
 	tmpBlock->addInstruction(ACTIVATE);
 	allLogicBlocks.push_back(tmpBlock);
 
