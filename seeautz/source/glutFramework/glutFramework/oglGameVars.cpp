@@ -327,35 +327,35 @@ void oglGameVars::loadAllLogicBlocks()
 {
 	logicBlock* tmpBlock;
 
-	tmpBlock = new logicBlock("instructions/moveforward.png", 130, 130, "Move Forward         Use this instruction to move forward one  tile.", 2, MOVE_FORWARD1);
+	tmpBlock = new logicBlock("instructions/moveforward.png", 130, 130,				"Move Forward    Use this to     move forward onetile", 2, MOVE_FORWARD1);
 	tmpBlock->addInstruction(MOVE_FORWARD1);
 	allLogicBlocks.push_back(tmpBlock);
 
-	tmpBlock = new logicBlock("instructions/moveforwarduntilunable.png", 130, 130, "Move Forward         (Until Unable)       Use this instruction to move forward untilyou are unable to    move forward any     more, or die.", 8, MOVE_FORWARD_UNTIL_UNABLE);
+	tmpBlock = new logicBlock("instructions/moveforwarduntilunable.png", 130, 130,	"Move Forward    (Until Unable)  Move forward    until you are   unable to any   more, or die.", 8, MOVE_FORWARD_UNTIL_UNABLE);
 	tmpBlock->addInstruction(MOVE_FORWARD_UNTIL_UNABLE);
 	allLogicBlocks.push_back(tmpBlock);
 	
-	tmpBlock = new logicBlock("instructions/turnleft.png", 130, 130, "Rotate Left          Use this instruction to rotate left.", 2, TURN_LEFT1);
+	tmpBlock = new logicBlock("instructions/turnleft.png", 130, 130,                "Rotate Left     Use this to     rotate left.", 2, TURN_LEFT1);
 	tmpBlock->addInstruction(TURN_LEFT1);
 	allLogicBlocks.push_back(tmpBlock);
 
-	tmpBlock = new logicBlock("instructions/turnright.png", 130, 130, "Rotate Right         Use this instruction to rotate right.", 2, TURN_RIGHT1);
+	tmpBlock = new logicBlock("instructions/turnright.png", 130, 130,				"Rotate Right    Use this to     rotate right.", 2, TURN_RIGHT1);
 	tmpBlock->addInstruction(TURN_RIGHT1);
 	allLogicBlocks.push_back(tmpBlock);
 
-	tmpBlock = new logicBlock("instructions/punch.png", 130, 130, "Punch                Use this instruction to break breakable   walls.", 4, PUNCH);
+	tmpBlock = new logicBlock("instructions/punch.png", 130, 130,					"Punch           Use this to     break breakable walls.", 4, PUNCH);
 	tmpBlock->addInstruction(PUNCH);
 	allLogicBlocks.push_back(tmpBlock);
 
-	tmpBlock = new logicBlock("instructions/climb.png", 130, 130, "Climb                Use this instruction to climb up to a     higher level.", 4, CLIMB);
+	tmpBlock = new logicBlock("instructions/climb.png", 130, 130,					"Climb           Use this to     climb up to a   higher level.", 4, CLIMB);
 	tmpBlock->addInstruction(CLIMB);
 	allLogicBlocks.push_back(tmpBlock);
 
-	tmpBlock = new logicBlock("instructions/crouch.png", 130, 130, "Crouch               Use this instruction to crawl through     small holes.", 4, CROUCH);
+	tmpBlock = new logicBlock("instructions/crouch.png", 130, 130,					"Crouch          Use this to     crawl through   small holes.", 4, CROUCH);
 	tmpBlock->addInstruction(CROUCH);
 	allLogicBlocks.push_back(tmpBlock);
 
-	tmpBlock = new logicBlock("instructions/jump.png", 130, 130, "Jump                 Use this instruction to jump over most    obstacles.", 8, JUMP);
+	tmpBlock = new logicBlock("instructions/jump.png", 130, 130,					"Jump            Use this to jumpover most       obstacles.", 8, JUMP);
 	tmpBlock->addInstruction(JUMP);
 	allLogicBlocks.push_back(tmpBlock);
 
@@ -363,19 +363,19 @@ void oglGameVars::loadAllLogicBlocks()
 	//tmpBlock->addInstruction(LOOP);
 	//allLogicBlocks.push_back(tmpBlock);
 
-	tmpBlock = new logicBlock("instructions/activate.png", 130, 130, "Activate             Use this instruction to activate Doors,   Switches and to use  Reprogram Tiles.", 2, ACTIVATE);
+	tmpBlock = new logicBlock("instructions/activate.png", 130, 130,				"Activate        Use this to     activate Doors, Switches and to use  Reprogram Tiles.", 2, ACTIVATE);
 	tmpBlock->addInstruction(ACTIVATE);
 	allLogicBlocks.push_back(tmpBlock);
 
-	tmpBlock = new logicBlock("instructions/sub1.png", 130, 130, "Sub 1                Use this instruction to call Subroutine 1.", 2, SUBR1);
+	tmpBlock = new logicBlock("instructions/sub1.png", 130, 130,					"Sub 1           Use this to callSubroutine 1.", 2, SUBR1);
 	tmpBlock->addInstruction(SUBR1);
 	allLogicBlocks.push_back(tmpBlock);
 
-	tmpBlock = new logicBlock("instructions/sub2.png", 130, 130, "Sub 2                Use this instruction to call Subroutine 2.", 2, SUBR2);
+	tmpBlock = new logicBlock("instructions/sub2.png", 130, 130,					"Sub 2           Use this to callSubroutine 2.", 2, SUBR2);
 	tmpBlock->addInstruction(SUBR2);
 	allLogicBlocks.push_back(tmpBlock);
 
-	tmpBlock = new logicBlock("instructions/stop.png", 130, 130, "Stop                 This instruction     stops all procressing.", 0, STOP);
+	tmpBlock = new logicBlock("instructions/stop.png", 130, 130,					"Stop            This stops all  procressing.", 0, STOP);
 	tmpBlock->addInstruction(STOP);
 	allLogicBlocks.push_back(tmpBlock);
 
@@ -818,6 +818,7 @@ void oglGameVars::loadFonts()
 	fontDigital16.open  ("fonts\\courierSpriteFontBlack.png", 16);
 	fontDigital12.open	("fonts\\courierSpriteFontBlack.png", 12);
 	fontOurs.open		("fonts\\schwabenSpriteFontWhite.png", 32);
-	fontArialRed12.open	("fonts\\courierSpriteFontRedDark.png", 14);
+	fontArialRed12.open	("fonts\\courierSpriteFontRedDark.png", 12);
+	fontArialRed14.open	("fonts\\courierSpriteFontRedDark.png", 14);
 	currentLogicBank = NULL;
 }

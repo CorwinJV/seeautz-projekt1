@@ -348,9 +348,9 @@ bool playGame::Draw()
 		//glEnable(GL_TEXTURE_2D);
 		//glEnable(GL_BLEND);
 
-		glColor3ub(255, 0, 0);
+		/*glColor3ub(255, 0, 0);
 
-		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);*/
 
 		// player name
 		//GameVars->fontDigital200.drawText(150 + rand()%15, 250 + rand()%15, "YOU DIED");
@@ -854,18 +854,18 @@ void playGame::drawLevelInfo()
 	stringstream levelNumText;
 
 	levelNumText << "Level " << playerCurrentLevel;
-	GameVars->fontArial12.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, levelNumText.str());
+	GameVars->fontArialRed14.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, levelNumText.str());
 	offsetAmt++;
 
 	// level name
 	tempString = GameVars->getLevelName(playerCurrentLevel);
 		
-	GameVars->fontArial12.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, tempString);
+	GameVars->fontArialRed14.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, tempString);
 	offsetAmt++;
 
 	// description
 	tempString = GameVars->getDesc(playerCurrentLevel);
-	GameVars->fontArial12.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, tempString);
+	GameVars->fontArialRed14.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, tempString);
 	offsetAmt++;
 }
 
