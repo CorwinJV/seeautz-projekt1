@@ -809,7 +809,7 @@ void oglGameVars::loadFonts()
 	fontArial24.open	("fonts\\courierSpriteFontBlack.png", 24);
 	fontArial18.open	("fonts\\courierSpriteFontBlack.png", 18);
 	fontArial16.open	("fonts\\courierSpriteFontBlack.png", 16);
-	fontArial12.open	("fonts\\courierSpriteFontBlack.png", 12);
+	fontArial12.open	("fonts\\courierSpriteFontBlack.png", 16);
 	//fontCourier24.open	("fonts\\cour.ttf", 24);
 	//fontCourier18.open	("fonts\\cour.ttf", 18);
 	//fontCourier12.open	("fonts\\cour.ttf", 12);

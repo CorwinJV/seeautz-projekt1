@@ -35,7 +35,7 @@ public:
 		for(;fitr < fontList.end(); fitr++)
 		{
 			x++;
-			(*fitr)->drawText(15, 25*x, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890");
+			(*fitr)->drawText(15, 30*x, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890");
 		}
 		return true;
 	}
