@@ -11,6 +11,8 @@
 // 4/8/09
 //
 #include <string>
+#include <vector>
+#include "oglTexture2D.h"
 
 class oglSpriteFont
 {
@@ -20,10 +22,22 @@ public:
 
 	~oglSpriteFont();
 
+	void init();
+
 	void open(const std::string& filename, unsigned int size);
     void drawText(float x, float y, const std::string& str);
 
 	// drawText
 	// open
+
 private:
+	std::vector<char> drawMe;
+
+	oglTexture2D* fontImage;
+	int charWidth;
+	int charHeight;
+	int charSize;
+	int numColumns;
+
+	void parseText(const std::string& parseMe);
 };

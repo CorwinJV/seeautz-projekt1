@@ -706,7 +706,7 @@ void playGame::keyboardInput(unsigned char c, int x, int y)
 		{
 		case 27:
 			this->setStatus(DeleteMe);
-			GSM->addGameState<PauseGameState>();
+			GSM->addGameState<MainMenuState>();
 			break;
 		default:
 			break;
@@ -816,6 +816,9 @@ void playGame::doEndGameDraw()
 	{
 		// iterate through the pictures drawing them
 		(*endGameAnimation)->drawImage(0, 0);
+		glColor3ub(0, 0, 0);
+		GameVars->fontArial24.drawText(50, 80, "We apologize for the crappy ending, we needed to save space.");
+		GameVars->fontArial24.drawText(250, 120, "Press ESC to return to the main menu.");
 		endGameAnimation++;
 		if(endGameAnimation == endGamePics.end())
 			endGameAnimation = endGamePics.begin();
