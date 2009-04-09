@@ -790,20 +790,33 @@ void oglGameVars::loadDidYouKnow()
 
 void oglGameVars::loadFonts()
 {
-	fontArial32.open	("fonts\\arial.ttf", 32);
-	fontArial24.open	("fonts\\arial.ttf", 24);
-	fontArial18.open	("fonts\\arial.ttf", 18);
-	fontArial16.open	("fonts\\arial.ttf", 16);
-	fontArial12.open	("fonts\\arial.ttf", 12);
+//	fontArial32.open	("fonts\\arial.ttf", 33);
+//	fontArial24.open	("fonts\\arial.ttf", 24);
+//	fontArial18.open	("fonts\\arial.ttf", 24);
+//	fontArial16.open	("fonts\\arial.ttf", 18);
+//	fontArial12.open	("fonts\\arial.ttf", 12);
+//	//fontCourier24.open	("fonts\\cour.ttf", 24);
+//	//fontCourier18.open	("fonts\\cour.ttf", 18);
+//	//fontCourier12.open	("fonts\\cour.ttf", 12);
+//	//fontDigital64.open	("fonts\\DIGIRU__.ttf", 38);
+//	fontDigital32.open  ("fonts\\DIGIRU__.ttf", 38);
+//	fontDigital16.open  ("fonts\\DIGIRU__.ttf", 24);
+//	fontDigital12.open	("fonts\\DIGIRU__.ttf", 18);
+//	fontOurs.open		("fonts\\Schwaben_Alt_Bold.ttf", 38);
+////	fontTimes.open		("fonts\\times.ttf", 32);
+
+	fontArial32.open	("fonts\\courierSpriteFontBlack.png", 32);
+	fontArial24.open	("fonts\\courierSpriteFontBlack.png", 24);
+	fontArial18.open	("fonts\\courierSpriteFontBlack.png", 18);
+	fontArial16.open	("fonts\\courierSpriteFontBlack.png", 16);
+	fontArial12.open	("fonts\\courierSpriteFontBlack.png", 12);
 	//fontCourier24.open	("fonts\\cour.ttf", 24);
 	//fontCourier18.open	("fonts\\cour.ttf", 18);
 	//fontCourier12.open	("fonts\\cour.ttf", 12);
-	fontDigital64.open	("fonts\\DIGIRU__.ttf", 32);
-	fontDigital200.open	("fonts\\DIGIRU__.ttf", 200);
-	fontDigital32.open  ("fonts\\DIGIRU__.ttf", 32);
-	fontDigital16.open  ("fonts\\DIGIRU__.ttf", 16);
-	fontDigital12.open	("fonts\\DIGIRU__.ttf", 12);
-	fontOurs.open		("fonts\\Schwaben_Alt_Bold.ttf", 32);
-//	fontTimes.open		("fonts\\times.ttf", 32);
+	//fontDigital64.open	("fonts\\DIGIRU__.ttf", 38);
+	fontDigital32.open  ("fonts\\courierSpriteFontBlack.png", 32);
+	fontDigital16.open  ("fonts\\courierSpriteFontBlack.png", 16);
+	fontDigital12.open	("fonts\\courierSpriteFontBlack.png", 12);
+	fontOurs.open		("fonts\\schwabenSpriteFontWhite.png", 32);
 	currentLogicBank = NULL;
 }
