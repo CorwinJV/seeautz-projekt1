@@ -817,7 +817,7 @@ void oglGameVars::loadFonts()
 	fontDigital32.open  ("fonts\\courierSpriteFontBlack.png", 32);
 	fontDigital16.open  ("fonts\\courierSpriteFontBlack.png", 16);
 	fontDigital12.open	("fonts\\courierSpriteFontBlack.png", 12);
-	fontOurs.open		("fonts\\schwabenSpriteFontWhite.png", 32);
+	fontOurs.open		("fonts\\schwabenSpriteFontWhite.png", 64);
 	fontArialRed12.open	("fonts\\courierSpriteFontRedDark.png", 12);
 	fontArialRed14.open	("fonts\\courierSpriteFontRedDark.png", 14);
 	currentLogicBank = NULL;
