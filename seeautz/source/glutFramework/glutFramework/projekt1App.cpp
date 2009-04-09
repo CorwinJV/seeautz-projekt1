@@ -27,9 +27,9 @@ projekt1App::projekt1App(std::string title, int sizeX, int sizeY, int argc, char
 	string temp = "This is a test of my random text parsing system, lets see what happens when i do random things to it.";
 	vector<string*> tempb;
 
-	//GameVars->parseMeIntoRows(&tempb, temp, 10, true);
+	//GameVars->parseMeIntoRows(&tempb, temp, 10, false);
 	//GameVars->parseMeIntoRows(&tempb, temp, 12, true);
-	//GameVars->parseMeIntoRows(&tempb, temp, 13, true);
+	//GameVars->parseMeIntoRows(&tempb, temp, 13, false);
 	//GameVars->parseMeIntoRows(&tempb, temp, 15, true);
 	//GameVars->parseMeIntoRows(&tempb, temp, 16, true);
 	//GameVars->parseMeIntoRows(&tempb, temp, 17, true);
@@ -37,8 +37,8 @@ projekt1App::projekt1App(std::string title, int sizeX, int sizeY, int argc, char
 	
 	//myStateManager.addGameState<playGame>();
 	//myStateManager.addGameState<LogicViewState>();
-	myStateManager.addGameState<DevLogoState>();		// main game start screen
-	//myStateManager.addGameState<helpScreenState>();
+	//myStateManager.addGameState<DevLogoState>();		// main game start screen
+	myStateManager.addGameState<helpScreenState>();
 	//myStateManager.addGameState<SG400KGA1>();			// sg400 kga1 heh
 	//myStateManager.addGameState<fontTest>();
 }
