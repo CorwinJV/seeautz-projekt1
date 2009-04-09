@@ -193,9 +193,7 @@ bool gameBoard::draw()
 	// temp text crap
 	if(drawText)
 	{
-		//fnt.drawText(rand()%500, rand()%500, "SEEAUTS");
-		//fnt.endDraw();
-		//fnt.release();
+		GameVars->fontOurs.drawText(rand()%500, rand()%500, "SEEAUTS");
 	}
 
 	return true;
@@ -750,17 +748,6 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 		break;
 	case '2':
 		pandown();
-		////////////
-		//find the robot
-		oitr = objectList.begin();
-		for(;oitr != objectList.end(); oitr++)
-		{
-			if((*oitr)->getType() == ORobot)
-			{
-			// find ACTIVATE in allLogicBlocks
-				(*oitr)->rotate(1);
-			}
-		}
 		break;
 	case '-':	// zoom out (decrease scale)
 	case '_':
@@ -777,249 +764,47 @@ void gameBoard::keyboardInput(unsigned char c, int x, int y)
 	case '5':
 		center();
 		break;
-	// move forward
-	case 'i':
-	case 'I':
-		break; // disabled
-		// find the robot
-		//oitr = objectList.begin();
-		//for(;oitr != objectList.end(); oitr++)
-		//{
-		//	if((*oitr)->getType() == ORobot)
-		//	{
-		//	// find forward in allLogicBlocks
-		//		lbitr = logicBank->begin();
-		//		for(;lbitr != logicBank->end(); lbitr++)
-		//		{
-		//			if((*lbitr)->enumInstruction == MOVE_FORWARD1)
-		//			{
-		//	//			// add move forward to the robot command queue
-		//				(*oitr)->addCommand(*lbitr);
-		//				//std::cout << "added MOVE_FORWARD1 to robot command list " << endl;
-		//				(*oitr)->coreDump();
-		//			}
-		//		}
-		//	}
-		//}		
-		//break;
-	// turn left
-	case 'j':
-	case 'J':
-		break; // disabled
-		// find the robot
-		//oitr = objectList.begin();
-		//for(;oitr != objectList.end(); oitr++)
-		//{
-		//	if((*oitr)->getType() == ORobot)
-		//	{
-		//	// find turn left in allLogicBlocks
-		//		lbitr = logicBank->begin();
-		//		for(;lbitr != logicBank->end(); lbitr++)
-		//		{
-		//			if((*lbitr)->enumInstruction == TURN_LEFT1)
-		//			{
-		//	//			// add move forward to the robot command queue
-		//				(*oitr)->addCommand(*lbitr);
-		//			//	std::cout << "added TURN_LEFT1 to robot command list " << endl;
-		//				(*oitr)->coreDump();
-		//			}
-		//		}
-		//	}
-		//}	
-		//break;
-	// turn right
-	case 'l':
-	case 'L':
-		break; // disabled
-		// find the robot
-		//oitr = objectList.begin();
-		//for(;oitr != objectList.end(); oitr++)
-		//{
-		//	if((*oitr)->getType() == ORobot)
-		//	{
-		//	// find turn right in allLogicBlocks
-		//		lbitr = logicBank->begin();
-		//		for(;lbitr != logicBank->end(); lbitr++)
-		//		{
-		//			if((*lbitr)->enumInstruction == TURN_RIGHT1)
-		//			{
-		//	//			// add move forward to the robot command queue
-		//				(*oitr)->addCommand(*lbitr);
-		//			//	std::cout << "added TURN_RIGHT1 to robot command list " << endl;
-		//				(*oitr)->coreDump();
-		//			}
-		//		}
-		//	}
-		//}	
-		//break;
-		//break;
-	// jump
-	case 'u':
-	case 'U':
-		break; // disabled
-		// find the robot
-		//oitr = objectList.begin();
-		//for(;oitr != objectList.end(); oitr++)
-		//{
-		//	if((*oitr)->getType() == ORobot)
-		//	{
-		//	// find JUMP in allLogicBlocks
-		//		lbitr = logicBank->begin();
-		//		for(;lbitr != logicBank->end(); lbitr++)
-		//		{
-		//			if((*lbitr)->enumInstruction == JUMP)
-		//			{
-		//	//			// add move forward to the robot command queue
-		//				(*oitr)->addCommand(*lbitr);
-		//			//	std::cout << "added JUMP to robot command list " << endl;
-		//				(*oitr)->coreDump();
-		//			}
-		//		}
-		//	}
-		//}	
-		//break;
-	// crouch
-	case 'k':
-	case 'K':
-		break; // disabled
-		// find the robot
-		//oitr = objectList.begin();
-		//for(;oitr != objectList.end(); oitr++)
-		//{
-		//	if((*oitr)->getType() == ORobot)
-		//	{
-		//	// find CROUCH in allLogicBlocks
-		//		lbitr = logicBank->begin();
-		//		for(;lbitr != logicBank->end(); lbitr++)
-		//		{
-		//			if((*lbitr)->enumInstruction == CROUCH)
-		//			{
-		//	//			// add move forward to the robot command queue
-		//				(*oitr)->addCommand(*lbitr);
-		//			//	std::cout << "added CROUCH to robot command list " << endl;
-		//				(*oitr)->coreDump();
-		//			}
-		//		}
-		//	}
-		//}	
-		//break;
-	// activate
-	case 'o':
-	case 'O':
-		//break; // disabled
-		//find the robot
-		oitr = objectList.begin();
-		for(;oitr != objectList.end(); oitr++)
-		{
-			if((*oitr)->getType() == ORobot)
-			{
-			// find ACTIVATE in allLogicBlocks
-				lbitr = logicBank->begin();
-				for(;lbitr != logicBank->end(); lbitr++)
-				{
-					if((*lbitr)->enumInstruction == ACTIVATE)
-					{
-			//			// add move forward to the robot command queue
-						(*oitr)->addCommand(*lbitr);
-						//std::cout << "added ACTIVATE to robot command list " << endl;
-						(*oitr)->coreDump();
-					}
-				}
-			}
-		}	
-		break;
-	// punch
-	case 'p':
-	case 'P':
-		break; // disabled
-		// find the robot
-		//oitr = objectList.begin();
-		//for(;oitr != objectList.end(); oitr++)
-		//{
-		//	if((*oitr)->getType() == ORobot)
-		//	{
-		//	// find PUNCH in allLogicBlocks
-		//		lbitr = logicBank->begin();
-		//		for(;lbitr != logicBank->end(); lbitr++)
-		//		{
-		//			if((*lbitr)->enumInstruction == PUNCH)
-		//			{
-		//	//			// add move forward to the robot command queue
-		//				(*oitr)->addCommand(*lbitr);
-		//				//std::cout << "added PUNCH to robot command list " << endl;
-		//				(*oitr)->coreDump();
-		//			}
-		//		}
-		//	}
-		//}	
-		//break;
-	case 't': // process next thing in robot loop
+	case 't': // 
 	case 'T':
-		//break; // disabled
+		break; // disabled
 		// process the full switch list
-		GameVars->SM->startProcessing(robotX, robotY);
+		/*GameVars->SM->startProcessing(robotX, robotY);
 		for(int x = 0; x < GameVars->SM->getNumTargets(robotX, robotY); x++)
 		{
 			mapList[GameVars->SM->getCurrentTargetX(robotX, robotY)][GameVars->SM->getCurrentTargetY(robotX, robotY)]->toggleActive();
 			GameVars->SM->advanceTarget(robotX, robotY);
-		}
+		}*/
 		break;
-	case 'r':
-	case 'R':
-		break; // disabled
-		/*robotX = robotStartX;
-		robotY = robotStartY;
-		break;*/
 	case 'X':
-		//break; // disabled
-		robotX--;
+		break; // disabled
+		/*robotX--;
 		currentX = robotX;
 		std::cout << "robot x/y = " << robotX << ", " << robotY << endl;
-		break;
+		break;*/
 	case 'x':
-		//break; // disabled
-		robotX++;
+		break; // disabled
+		/*robotX++;
 		currentX = robotX;
 		std::cout << "robot x/y = " << robotX << ", " << robotY << endl;
-		break;
+		break;*/
 	case 'Y':
-		//break; // disabled
-		robotY--;
+		break; // disabled
+		/*robotY--;
 		currentY = robotY;
 		std::cout << "robot x/y = " << robotX << ", " << robotY << endl;
-		break;
+		break;*/
 	case 'y':
-		//break; // disabled
-		robotY++;
+		break; // disabled
+		/*robotY++;
 		currentY = robotY;
 		std::cout << "robot x/y = " << robotX << ", " << robotY << endl;
-		break;
+		break;*/
 	case '/':
 		rotateMapLeft();
-		break; // disabled
-		// find the robot
-	/*	oitr = objectList.begin();
-		for(;oitr != objectList.end(); oitr++)
-		{
-			if((*oitr)->getType() == ORobot)
-			{
-				(*oitr)->rotate(-1);				
-			}
-		}	*/
-		//break;
+		break; 
 	case '*':
 		rotateMapRight();
-		break; // disabled
-		// find the robot
-	/*	oitr = objectList.begin();
-		for(;oitr != objectList.end(); oitr++)
-		{
-			if((*oitr)->getType() == ORobot)
-			{
-				(*oitr)->rotate(1);				
-			}
-		}*/	
-		//break;
+		break; 
 	case '`':
 		// toggle drawtext
 		if(drawText == false)
