@@ -87,7 +87,7 @@ bool LevelSelectState::Draw()
 
 
 	glColor3ub(0, 0, 0);
-	GameVars->fontArial24.drawText(offsetX+125,565, "Would you like to load this level?");
+	GameVars->fontArial24.drawText(offsetX,565, "Would you like to load this level?");
 
 	return false;
 }
