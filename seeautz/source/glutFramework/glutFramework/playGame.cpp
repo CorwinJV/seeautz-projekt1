@@ -289,11 +289,12 @@ bool playGame::Draw()
 
 		// display current speed
 		glColor3ub(0, 0, 0);
-		GameVars->fontDigital12.drawText(265, 650, "CPU Speed: ");
+		GameVars->fontArial12.drawText(258, 650, "Speed: ");
 		painInTheAss.str("");
-		painInTheAss << (1100 - speed) << " Mhz";
+		painInTheAss << (1100 - speed) << " MHZ";
 		tempString += painInTheAss.str();
-		GameVars->fontDigital12.drawText(265, 670, tempString);
+		GameVars->fontDigital12.drawText(258, 670, tempString);
+		break;
 
 		break;
 
@@ -396,7 +397,7 @@ bool playGame::Draw()
 		//
 		// level name
 		tempString = "Congratulations! Level Complete!";
-		GameVars->fontArial32.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
+		GameVars->fontArial32.drawText(150, viewscoretext+ offsetAmt*textspacing, tempString);
 		offsetAmt++;
 		offsetAmt++;
 		offsetAmt++;

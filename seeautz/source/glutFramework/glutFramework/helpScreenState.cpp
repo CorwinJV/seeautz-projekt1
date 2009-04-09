@@ -531,7 +531,7 @@ void helpScreenState::drawPage5() // tile list page 2
 	// text for column 1
 	tempX = 145; // extra offset for text
 	tempY = offsetAmt;
-	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "Electric Walls (con't)-");
+	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "Electric Walls pt 2)-");
 	offsetAmt++;
 	GameVars->fontArial12.drawText(textOffsetX+tempX, textOffsetY+55 + offsetAmt*textSpacing, "Touching the wall ");
 	offsetAmt++;
