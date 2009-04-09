@@ -45,7 +45,18 @@ void CreditsState::keyboardInput(unsigned char c, int x, int y)
 	{
 	case 27:
 		scrollSpeed = 1;
-		scrollAmount = 8;
+		if(scrollAmount == 1)
+		{
+			scrollAmount = 8;
+		}
+		else if(scrollAmount == 8)
+		{
+			scrollAmount = 20;
+		}
+		else if(scrollAmount == 20)
+		{
+			scrollAmount = 50;
+		}
 		break;
 	default:
 		break;
