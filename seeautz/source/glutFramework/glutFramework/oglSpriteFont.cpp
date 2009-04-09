@@ -1,8 +1,9 @@
 #include "oglSpriteFont.h"
 
-oglSpriteFont::oglSpriteFont()
+oglSpriteFont::oglSpriteFont() : fontImage(NULL), charWidth(0),
+	charHeight(0), charSize(0), numColumns(0), maxAsciiCount(127)
 {
-
+	init();
 	init();
 }
 
@@ -38,6 +39,25 @@ void oglSpriteFont::drawText(float x, float y, const std::string &str)
 	int offsetX = x;
 	int offsetY = y;
 
+	if(fontImage != NULL)
+	{
+		for(int i = 0; i < drawMe.size(); i++)
+		{
+			// Check the current character (drawMe[i]) to see what 
+			// image segment we need to draw in fontImage
+			int currentCharacter = drawMe[i];
+
+			// Draw the image segment
+			fontImage->mX = offsetX + (i * charWidth);
+			fontImage->mY = offsetY;
+
+			int currentRow = currentCharacter / (numColumns);
+			int currentColumn =  currentCharacter % (numColumns);
+
+			fontImage->drawImageSegment((currentColumn * charWidth), (currentRow * charHeight), (currentColumn * charWidth) + charWidth, (currentRow * charHeight), (currentColumn * charWidth) + charWidth, (currentRow * charHeight) + charHeight, (currentColumn * charWidth) + charWidth, (currentRow * charHeight) + charHeight, 1.0);
+
+		}
+	}
 }
 
 void oglSpriteFont::init()
