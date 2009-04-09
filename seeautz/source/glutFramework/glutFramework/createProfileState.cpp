@@ -51,6 +51,7 @@ bool createProfileState::Update()
 bool createProfileState::Draw()
 {
 
+	solidWhite->drawImage();
 	logoImage->drawImage();
 	
 	int offsetX = 0;

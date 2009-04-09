@@ -49,8 +49,8 @@ bool deleteProfileState::Draw()
 
 		int offsetAmt = 0;
 		int textspacing = 30;
-		int offsetX = backgroundImage->mX + 50;
-		int offsetY = backgroundImage->mY + 50;
+		int offsetX = backgroundImage->mX + 25;
+		int offsetY = backgroundImage->mY + 25;
 
 		glColor3ub(0, 0, 0);
 
@@ -106,7 +106,7 @@ bool deleteProfileState::Draw()
 		tempString += displayString.str();
 		GameVars->fontArial24.drawText(offsetX, offsetY + offsetAmt*textspacing, tempString);
 		offsetAmt++;
-
+		offsetAmt++;
 
 		// picture of level
 		GameVars->levelArt[highestLevel]->mX = 1024/2 - GameVars->levelArt[highestLevel]->dX/2;
@@ -118,7 +118,7 @@ bool deleteProfileState::Draw()
 
 
 		glColor3ub(0, 0, 0);
-		GameVars->fontArial24.drawText(offsetX+125,565, "Would you like to delete this profile?");
+		GameVars->fontArial24.drawText(offsetX+50,565, "Would you like to delete this profile?");
 	}
 
 	return false;

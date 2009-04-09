@@ -27,7 +27,7 @@ bool clickOKState::Draw()
 
 	glColor3ub(0, 0, 0);
 
-	int offX = 300;
+	int offX = 250;
 	int offY = 250;
 
 	int offInc = 30;
