@@ -8,7 +8,6 @@
 #include "Oswitch.h"
 #include "Oteleport.h"
 #include <cmath>
-#include "GLFT_Font.h"
 #include <ctime>
 
 using namespace std;

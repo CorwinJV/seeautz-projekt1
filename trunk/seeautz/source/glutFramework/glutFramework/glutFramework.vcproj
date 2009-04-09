@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="DevIL.lib alut.lib odbc32.lib odbccp32.lib opengl32.lib glu32.lib  freetype.lib"
+				AdditionalDependencies="DevIL.lib alut.lib odbc32.lib odbccp32.lib opengl32.lib glu32.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -188,10 +188,6 @@
 			</File>
 			<File
 				RelativePath=".\GameStateManager.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\GLFT_Font.cpp"
 				>
 			</File>
 			<File
@@ -370,10 +366,6 @@
 			</File>
 			<File
 				RelativePath=".\GameStateManager.h"
-				>
-			</File>
-			<File
-				RelativePath=".\GLFT_Font.h"
 				>
 			</File>
 			<File
