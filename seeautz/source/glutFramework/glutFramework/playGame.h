@@ -64,7 +64,10 @@ private:
 	bool launchHelpState();
 
 public:
-	playGame();
+	playGame()
+	{
+		initialize();
+	}
 	playGame(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
 		initialize();		
