@@ -6,7 +6,10 @@
 
 bool playGame::Update()
 {
+	// get the game state
 	curState = gamePlay->getCurState();
+
+	// level variables
 	int levelCounter;
 	string tempString;
 	int tempInt;
@@ -57,6 +60,8 @@ bool playGame::Update()
 
 			scoreToAdd = ((100 - (((double)bytesUsed/(double)bytesAvail)*100)) * 10)*levelmultiplier + 200;
 			//scoreToAdd *= (double)GameVars->getCurrentLevel() * 0.1;
+
+			// sends in your score for the level just completed to be compared against previous attempts
 			GameVars->setLevelScore(scoreToAdd);
 			// Get the level score from the level just completed, and add it up with all previous levels completed
 			GameVars->setTotalScore(GameVars->getLevelScore() + GameVars->getTotalScore());
@@ -519,6 +524,7 @@ bool playGame::initialize()
 	mInterface.SetHelpHandler(BE::CreateFunctionPointer0R(this, &playGame::launchHelpState));
 	mInterface.SetSpeedUpHandler(BE::CreateFunctionPointer0R(this, &playGame::speedUp));
 	mInterface.SetSlowDownHandler(BE::CreateFunctionPointer0R(this, &playGame::slowDown));
+
 	gamePlay->SetInterfaceAdvanceHandler(BE::CreateFunctionPointer2R(&mInterface, &LogicInterface::CommandAdvanced));
 	gamePlay->SetInterfaceReprogramHandler(BE::CreateFunctionPointer0R(&mInterface, &LogicInterface::ReprogramReached));
 	
@@ -783,9 +789,6 @@ bool playGame::replayLevel()
 	// reset the map for a fresh start for the replay
 	gamePlay->resetMap();
 
-	mInterface.ClearExecutionList();
-	mInterface.ResetExecutionMode();
-
 	GameVars->updatePlayerFile();
 
 	// is there a way to clear the instruction list?
@@ -813,6 +816,21 @@ bool playGame::replayLevel()
 	{
 		GameVars->didYouKnowI = GameVars->didYouKnow.begin();
 	}
+
+
+	//=====================================================
+	// Register the gameBoard callback with the interface!
+	mInterface.SetExecuteHandler(BE::CreateFunctionPointer3R(gamePlay, &gameBoard::interfaceHasFiredExecuteOrder));
+	mInterface.SetAbortHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredAbortOrder));
+	mInterface.SetResetHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredResetOrder));
+	mInterface.SetHelpHandler(BE::CreateFunctionPointer0R(this, &playGame::launchHelpState));
+	mInterface.SetSpeedUpHandler(BE::CreateFunctionPointer0R(this, &playGame::speedUp));
+	mInterface.SetSlowDownHandler(BE::CreateFunctionPointer0R(this, &playGame::slowDown));
+	gamePlay->SetInterfaceAdvanceHandler(BE::CreateFunctionPointer2R(&mInterface, &LogicInterface::CommandAdvanced));
+	gamePlay->SetInterfaceReprogramHandler(BE::CreateFunctionPointer0R(&mInterface, &LogicInterface::ReprogramReached));
+	gamePlay->SetInterfaceClearExecutionListHandler(BE::CreateFunctionPointer0R(&mInterface, &LogicInterface::ClearExecutionList));
+
+
 	return true;
 }
 
