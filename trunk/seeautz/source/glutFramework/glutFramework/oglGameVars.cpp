@@ -400,7 +400,22 @@ std::vector<logicBlock*>*	oglGameVars::GetCurrentMapLogicBank()
 
 int oglGameVars::getTotalScore()
 {
-	return mTotalScore;
+	// zero out the total score
+	int totScore = 0;
+
+	// determine the highest level the player has reached that has been saved
+	for(int i = 0; i < GameVars->PM->getPlayerHighestLevel(); i++)
+	{
+		// iterate through adding all level scores to the players score
+		totScore += GameVars->PM->getPlayerLevelScore(i);
+	}
+
+	// add 1 to players score to makeup for the the initial score for each level 
+	// being intialized to 0
+	totScore += 1;
+
+	// return the newly calculated score
+	return totScore;
 }
 
 int oglGameVars::getPlayerMaxLevel()

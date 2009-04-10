@@ -58,6 +58,7 @@ bool playGame::Update()
 			scoreToAdd = ((100 - (((double)bytesUsed/(double)bytesAvail)*100)) * 10)*levelmultiplier + 200;
 			//scoreToAdd *= (double)GameVars->getCurrentLevel() * 0.1;
 			GameVars->setLevelScore(scoreToAdd);
+			// Get the level score from the level just completed, and add it up with all previous levels completed
 			GameVars->setTotalScore(GameVars->getLevelScore() + GameVars->getTotalScore());
 		}
 		spintimer = clock();
