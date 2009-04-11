@@ -2709,3 +2709,8 @@ void gameBoard::setReprogramHit(bool newStatus)
 {
 	reprogramHit = newStatus;
 }
+
+void gameBoard::resetZoom()
+{
+	scale = 1.0;
+}
