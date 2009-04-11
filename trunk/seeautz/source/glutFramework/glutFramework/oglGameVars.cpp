@@ -662,14 +662,14 @@ void oglGameVars::loadAllLevels()
 	levelArt.push_back(tempArt);
 	numTutorialLevels++;
 
-	tempLevel = new levelData("Repetition..", "Tutorial - Subroutines - Did I repeat myself?", "maps\\Mapd1.txt");
+	tempLevel = new levelData("Repetition..", "Tutorial - Subroutines - Use subroutines to repeat a set of commands using a minimal amount of memory.", "maps\\Mapd1.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\Mapd1.png", 300, 150);
 	levelArt.push_back(tempArt);
 	numTutorialLevels++;
 
-	tempLevel = new levelData("Minority", "Whee", "maps\\tutorialMap7.txt");
+	tempLevel = new levelData("Escape!", "Use what you have learned wizely.", "maps\\tutorialMap7.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\tutorialMap7.png", 300, 150);

@@ -188,6 +188,7 @@ public:
 	void zoomout();
 	void zoomin();
 	void center();
+	void resetZoom();
 	
 	void spinRobot();
 

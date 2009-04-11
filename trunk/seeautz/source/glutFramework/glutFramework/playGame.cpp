@@ -644,7 +644,12 @@ bool playGame::pandownleft()	{	gamePlay->pandownleft();return true;}
 bool playGame::pandownright()	{	gamePlay->pandownright();return true;}
 bool playGame::zoomout()		{	gamePlay->zoomout();	return true;}
 bool playGame::zoomin()			{	gamePlay->zoomin();		return true;}
-bool playGame::center()			{	gamePlay->center();		return true;}
+bool playGame::center()			
+{	
+	gamePlay->center();		
+	gamePlay->resetZoom();
+	return true;
+}
 bool playGame::rotatemapleft()	{	gamePlay->rotateMapLeft(); return true;}
 bool playGame::rotatemapright()	{	gamePlay->rotateMapRight(); return true;}
 
@@ -697,6 +702,18 @@ void playGame::processMouseClick(int button, int state, int x, int y)
 
 void playGame::keyboardInput(unsigned char c, int x, int y)
 {
+	switch(c)
+	{
+	case ',':
+	case '<':
+		slowDown();
+		break;
+	case '.':
+	case '>':
+		speedUp();
+		break;
+	}
+
 	switch(curState)
 	{
 	case GB_LOGICVIEW:
