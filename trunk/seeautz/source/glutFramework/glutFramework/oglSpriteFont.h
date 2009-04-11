@@ -34,23 +34,23 @@ public:
 	// open
 	void more()
 	{
-		kernTweak += 0.01;
-		std::cout << "kernTweak = " << kernTweak << "   kernTweakb = " << kernTweakb << std::endl;
+		//kernTweak += 0.01;
+		//std::cout << "kernTweak = " << kernTweak << "   kernTweakb = " << kernTweakb << std::endl;
 	}
 	void less()
 	{
-		kernTweak -= 0.01;
-		std::cout << "kernTweak = " << kernTweak << "   kernTweakb = " << kernTweakb << std::endl;
+		//kernTweak -= 0.01;
+		//std::cout << "kernTweak = " << kernTweak << "   kernTweakb = " << kernTweakb << std::endl;
 	}
 	void lessb()
 	{
-		kernTweakb += 0.01;
-		std::cout << "kernTweak = " << kernTweak << "   kernTweakb = " << kernTweakb << std::endl;
+		//kernTweakb += 0.01;
+		//std::cout << "kernTweak = " << kernTweak << "   kernTweakb = " << kernTweakb << std::endl;
 	}
 	void moreb()
 	{
-		kernTweakb -= 0.01;
-		std::cout << "kernTweak = " << kernTweak << "   kernTweakb = " << kernTweakb << std::endl;
+		//kernTweakb -= 0.01;
+		//std::cout << "kernTweak = " << kernTweak << "   kernTweakb = " << kernTweakb << std::endl;
 	}
 
 private:

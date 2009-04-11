@@ -20,45 +20,71 @@ public:
 	fontTest(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
 		oglSpriteFont* courier;
+		courier = new oglSpriteFont();
+		courier->open("fonts\\courierSpritefontWhite.png", 12);
+		fontList.push_back(courier);			
+		courier = new oglSpriteFont();
+		courier->open("fonts\\courierSpritefontWhite.png", 18);
+		fontList.push_back(courier);
+		courier = new oglSpriteFont();
+		courier->open("fonts\\courierSpritefontWhite.png", 24);
+		fontList.push_back(courier);
+		courier = new oglSpriteFont();
+		courier->open("fonts\\courierSpritefontWhite.png", 36);
+		fontList.push_back(courier);			
 		for(int x = 12; x < 100; x+=5)
 		{
 			courier = new oglSpriteFont();
 			courier->open("fonts\\courierSpriteFontWhite.png", x);
 			fontList.push_back(courier);			
 		}
+
+		fontSpacing = 1;
 	}
 
+	int x;
 	bool fontTest::Draw()
 	{
 		vector<oglSpriteFont*>::iterator fitr = fontList.begin();
-		int x = 0;
-		for(;fitr < fontList.end(); fitr++)
+		for(int x = 0; x < 50; x++)
 		{
-			x++;
-			(*fitr)->drawText(15, 30*x, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890");
+			fontList[0]->drawText(15, fontSpacing*x*12, "This is a test.");
 		}
+
+		for(int x = 0; x < 50; x++)
+		{
+			fontList[1]->drawText(215, fontSpacing*x*18, "This is a test.");
+		}
+
+		for(int x = 0; x < 50; x++)
+		{
+			fontList[2]->drawText(455, fontSpacing*x*24, "This is a test.");
+		}		
+
+		for(int x = 0; x < 50; x++)
+		{
+			fontList[2]->drawText(755, fontSpacing*x*36, "This is a test.");
+		}		
 		return true;
 	}
 
 	
 private:
 	vector<oglSpriteFont*> fontList;
+	double fontSpacing;
+	double fontSpacingMultiplier;
 	void keyboardInput(unsigned char c, int x, int y)
 	{
 		vector<oglSpriteFont*>::iterator fitr = fontList.begin();
 		switch(c)
 		{
 		case '1':
-			for(;fitr < fontList.end(); fitr++)
-			{
-				(*fitr)->less();
-			}
+			fontSpacing+= 0.1;
+			std::cout << "font spacing " << fontSpacing << endl;
 			break;
 		case '2':
-			for(;fitr < fontList.end(); fitr++)
-			{
-				(*fitr)->more();
-			}
+			fontSpacing-= 0.1;
+			std::cout << "font spacing " << fontSpacing << endl;
 			break;
 		case '3':
 			for(;fitr < fontList.end(); fitr++)
