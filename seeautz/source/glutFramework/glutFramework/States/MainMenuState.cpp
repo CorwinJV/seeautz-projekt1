@@ -29,7 +29,7 @@ bool MainMenuState::Draw()
 
 	// draw the current version number in the top right corner
 	glColor3ub(0, 0, 0);
-	GameVars->fontArial12.drawText(770, 735, "Stupid Robot v1.00");
+	GameVars->fontArial12.drawText(770, 735, "Stupid Robot v1.01");
 	return false;
 }
 
