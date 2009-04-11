@@ -116,7 +116,7 @@ void oglSpriteFont::drawParsedText(float x, float y)
 void oglSpriteFont::parseMeIntoRows(std::vector<std::string*> *storageContainer, std::string stringToParse, int numCharsPerRow, bool autoFeed)
 {
 	storageContainer->clear();
-	std::string* tempString = new std::string;
+	std::string* tempString = NULL;
 	//*tempString = stringToParse;
 	int row = 0;
 
@@ -126,11 +126,12 @@ void oglSpriteFont::parseMeIntoRows(std::vector<std::string*> *storageContainer,
 		{
 			*tempString = stringToParse.substr(numCharsPerRow*row, numCharsPerRow);
 			storageContainer->push_back(tempString);
-			tempString = new std::string;
+			tempString = NULL;
 			row++;
 		}
 		*tempString = stringToParse.substr(numCharsPerRow*row, stringToParse.length()%numCharsPerRow);
 		storageContainer->push_back(tempString);
+		tempString = NULL;
 	}
 	else
 	{
@@ -213,7 +214,7 @@ void oglSpriteFont::parseMeIntoRows(std::vector<std::string*> *storageContainer,
 		
 			*tempString = stringToParse.substr(curStart, curEnd-curStart+1);
 			storageContainer->push_back(tempString);
-			tempString = new std::string;
+			tempString = NULL;
 			curStart = curEnd + 1;
 
 			if(curStart > (int)stringToParse.length())
