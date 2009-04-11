@@ -86,8 +86,7 @@ bool selectProfileState::Draw()
 		offsetAmt++;
 
 		// level description
-		GameVars->fontArial24.drawText(offsetX, offsetY + offsetAmt*textspacing, GameVars->getDesc(highestLevel));
-		offsetAmt++;
+		offsetAmt += GameVars->fontArial18.drawText(offsetX, offsetY + offsetAmt*textspacing, GameVars->getDesc(highestLevel), 48);
 
 		// your best score for level
 		displayString.str("");
