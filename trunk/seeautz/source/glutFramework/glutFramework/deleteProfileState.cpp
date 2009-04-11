@@ -95,7 +95,6 @@ bool deleteProfileState::Draw()
 		// level description
 		offsetAmt += GameVars->fontArial24.drawText(offsetX, offsetY + offsetAmt*textspacing, GameVars->getLevelName(highestLevel), 35);
 		
-
 		// your best score for level
 		displayString.str("");
 		tempString = "Your best score on this level : ";

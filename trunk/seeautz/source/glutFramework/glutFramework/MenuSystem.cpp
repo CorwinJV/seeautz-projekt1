@@ -4,7 +4,7 @@
 #include <cstring>
 
 //constructor
-MenuSys::MenuSys(int xpos, int ypos, string imgname, Justification nbuttonJust)
+MenuSys::MenuSys(int xpos, int ypos, string imgname, Justification nbuttonJust, bool nclickAndHold)
 : menuImage(NULL), MOUSE_LEFT_BUTTON_STATE(GLUT_UP), timer(0), startTime(0), 
 	buttonDelay(500)
 {
@@ -17,6 +17,7 @@ MenuSys::MenuSys(int xpos, int ypos, string imgname, Justification nbuttonJust)
 	menuImage->mY = ypos;
 	numButtons = 0;
 	buttonJust = nbuttonJust;
+	clickAndHold = nclickAndHold;
 }
 
 MenuSys::MenuSys()
@@ -100,19 +101,22 @@ bool MenuSys::Update()
 		(*itr)->Update();
     }
 
-	// For clicking and holding a button, we're gonna
-	// want to fire the buttons click event over and 
-	// over
-	if (MOUSE_LEFT_BUTTON_STATE == GLUT_DOWN)
+	if(clickAndHold)
 	{
-		if(startTime != 0)
+		// For clicking and holding a button, we're gonna
+		// want to fire the buttons click event over and 
+		// over
+		if (MOUSE_LEFT_BUTTON_STATE == GLUT_DOWN)
 		{
-			timer += clock() - startTime;
-			if(timer >= buttonDelay)
+			if(startTime != 0)
 			{
-				buttonClick();
-				timer = 0;
-				startTime = clock();
+				timer += clock() - startTime;
+				if(timer >= buttonDelay)
+				{
+					buttonClick();
+					timer = 0;
+					startTime = clock();
+				}
 			}
 		}
 	}
