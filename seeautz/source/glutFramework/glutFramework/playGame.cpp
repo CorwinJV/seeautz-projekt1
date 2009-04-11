@@ -539,7 +539,7 @@ bool playGame::initialize()
 	// compass stuff
 	compassOffsetX = 763;
 	compassOffsetY = 580;
-	compass = new MenuSys(compassOffsetX, compassOffsetY, "blank.png", None);
+	compass = new MenuSys(compassOffsetX, compassOffsetY, "blank.png", None, true);
 
 	// rotate map left
 	compass->addButton("compass\\rotateleftnormal.png", "compass\\rotatelefthover.png", "compass\\rotatelefthover.png", CreateFunctionPointer0R(this, &playGame::rotatemapleft));

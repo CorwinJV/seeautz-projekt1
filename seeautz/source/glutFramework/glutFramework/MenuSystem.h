@@ -42,6 +42,8 @@ protected:
 	int mouseXPos;
 	int mouseYPos;
 
+	bool clickAndHold;
+
 	// each mouse-button can have it's own state,
 	// so ideally we should be retaining a state
 	// for each button.
@@ -56,7 +58,7 @@ protected:
 	vector<Button*> buttonList;
 
 public:
-	MenuSys(int xpos, int ypos, string imgname, Justification nbuttonJust = Auto);
+	MenuSys(int xpos, int ypos, string imgname, Justification nbuttonJust = Auto, bool nclickAndHold = false);
 	MenuSys();
 	~MenuSys();
 
