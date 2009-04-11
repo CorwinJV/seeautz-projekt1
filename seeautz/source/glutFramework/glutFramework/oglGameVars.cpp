@@ -599,96 +599,81 @@ void oglGameVars::loadAllLevels()
 	tempArt->loadImage("maps\\tutorialMap1.png", 300, 150);
 	levelArt.push_back(tempArt);
 
-	tempLevel = new levelData("Instruction Tutorial 1", "Using Activate to Open a Door", "maps\\tutorialMap1.txt");
+	tempLevel = new levelData("Moving Forward", "Click the \"Move Forward\" Instruction, then click \"Execute\".", "maps\\tutorialMoveForward.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\tutorialMap1.png", 300, 150);
 	levelArt.push_back(tempArt);
 	numTutorialLevels++;
-	
-	tempLevel = new levelData("Instruction Tutorial 2", "Moving and Turning", "maps\\tutorialMap2.txt");
-	levelList.push_back(tempLevel);
-	tempArt = new oglTexture2D;
-	tempArt->loadImage("maps\\tutorialMap2.png", 300, 150);
-	levelArt.push_back(tempArt);
-	numTutorialLevels++;
 
-	tempLevel = new levelData("Instruction Tutorial 3", "Moving Forward Until Unable", "maps\\tutorialMap3.txt");
+	tempLevel = new levelData("Moving forward Until Unable", "Tutorial - Move Forward Until Unable, then turn left", "maps\\tutorialMap3.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\tutorialMap3.png", 300, 150);
 	levelArt.push_back(tempArt);
 	numTutorialLevels++;
 
-	tempLevel = new levelData("Instruction Tutorial 4", "Crouching", "maps\\tutorialMap4.txt");
+	tempLevel = new levelData("Activating Switches and Doors", "Tutorial - Use activate on the door and the switch", "maps\\tutorialSwitchDoorBlock.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
-	tempArt->loadImage("maps\\tutorialMap4.png", 300, 150);
+	tempArt->loadImage("maps\\tutorialMap3.png", 300, 150);
 	levelArt.push_back(tempArt);
 	numTutorialLevels++;
 
-	tempLevel = new levelData("Instruction Tutorial 5", "Jumping", "maps\\tutorialMap5.txt");
+	tempLevel = new levelData("Moving, Turning and Punching", "Tutorial - Place instructions to move, turn and punch your way through this level.", "maps\\tutorialMoveTurnPunch.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
-	tempArt->loadImage("maps\\tutorialMap5.png", 300, 150);
+	tempArt->loadImage("maps\\tutorialMap1.png", 300, 150);
 	levelArt.push_back(tempArt);
 	numTutorialLevels++;
 
-	tempLevel = new levelData("Instruction Tutorial 6", "Punching", "maps\\tutorialMap6.txt");
+	tempLevel = new levelData("Crouching, Climbing and Jumping", "Tutorial - Place instructions to crouch, climb and jump over obstacles to reach the end.", "maps\\tutorialCrouchClimbJump.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
-	tempArt->loadImage("maps\\tutorialMap6.png", 300, 150);
+	tempArt->loadImage("maps\\tutorialMap1.png", 300, 150);
 	levelArt.push_back(tempArt);
 	numTutorialLevels++;
 
-	tempLevel = new levelData("Instruction Tutorial 7", "Complete Instructions Tutorial", "maps\\tutorialMap7.txt");
+	tempLevel = new levelData("Teleporters and AutoLoop", "Tutorial - Instructions auto-loop and teleporters move you to new locations.", "maps\\tutorialTeleporters.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
-	tempArt->loadImage("maps\\tutorialMap7.png", 300, 150);
+	tempArt->loadImage("maps\\tutorialMap1.png", 300, 150);
 	levelArt.push_back(tempArt);
 	numTutorialLevels++;
 
-	tempLevel = new levelData("Tile Tutorial Map 1", "Climb Up to Higher Levels", "maps\\tileTutorialMap1.txt");
-	levelList.push_back(tempLevel);
-	tempArt = new oglTexture2D;
-	tempArt->loadImage("maps\\tileTutorialMap1.png", 300, 150);
-	levelArt.push_back(tempArt);
-	numTutorialLevels++;
-
-	tempLevel = new levelData("Tile Tutorial Map 2", "Ice is Slippery.", "maps\\tileTutorialMap2.txt");
+	tempLevel = new levelData("Ice Ice Baby!", "Tutorial - Ice is Slippery.", "maps\\tileTutorialMap2.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\tileTutorialMap2.png", 300, 150);
 	levelArt.push_back(tempArt);
 	numTutorialLevels++;
 
-	tempLevel = new levelData("Tile Tutorial Map 3", "Switches and Electricity", "maps\\tileTutorialMap3.txt");
+	tempLevel = new levelData("Zzzzap! Flip! Silence...", "Tutorial - Switches and Electricity, make sure you're facing the red switch edge.", "maps\\tileTutorialMap3.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\tileTutorialMap3.png", 300, 150);
 	levelArt.push_back(tempArt);
 	numTutorialLevels++;
 
-	tempLevel = new levelData("Tile Tutorial Map 4", "Teleporting", "maps\\tileTutorialMap4.txt");
+	tempLevel = new levelData("Not enough memory...", "Tutorial - Reprogrammable Squares let you reprogram your robot at them.", "maps\\tutorialReprogrammable.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
-	tempArt->loadImage("maps\\tileTutorialMap4.png", 300, 150);
+	tempArt->loadImage("maps\\tileTutorialMap3.png", 300, 150);
 	levelArt.push_back(tempArt);
 	numTutorialLevels++;
 
-	tempLevel = new levelData("Tile Tutorial Map 1 - Re-Visit", "Climbing - Subroutine Required", "maps\\tileTutorialMap1b.txt");
-	levelList.push_back(tempLevel);
-	tempArt = new oglTexture2D;
-	tempArt->loadImage("maps\\tileTutorialMap1b.png", 300, 150);
-	levelArt.push_back(tempArt);
-	numTutorialLevels++;
-
-	tempLevel = new levelData("Final Tutorial - Repetition..", "Did I repeat myself?", "maps\\Mapd1.txt");
+	tempLevel = new levelData("Repetition..", "Tutorial - Subroutines - Did I repeat myself?", "maps\\Mapd1.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\Mapd1.png", 300, 150);
 	levelArt.push_back(tempArt);
 	numTutorialLevels++;
+
+	tempLevel = new levelData("Minority", "Whee", "maps\\tutorialMap7.txt");
+	levelList.push_back(tempLevel);
+	tempArt = new oglTexture2D;
+	tempArt->loadImage("maps\\tutorialMap7.png", 300, 150);
+	levelArt.push_back(tempArt);
 
 	tempLevel = new levelData("Short and Sweet", "Not everything has to be complex", "maps\\Mapc1.txt");
 	levelList.push_back(tempLevel);
@@ -706,6 +691,12 @@ void oglGameVars::loadAllLevels()
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\Mapg2.png", 300, 150);
+	levelArt.push_back(tempArt);
+
+	tempLevel = new levelData("Steps of Doom", "Climb Up to Higher Levels", "maps\\tileTutorialMap1.txt");
+	levelList.push_back(tempLevel);
+	tempArt = new oglTexture2D;
+	tempArt->loadImage("maps\\tileTutorialMap1.png", 300, 150);
 	levelArt.push_back(tempArt);
 
 	tempLevel = new levelData("Obstructions", "The simplest path is not always obvious", "maps\\Mapc3.txt");
@@ -732,6 +723,12 @@ void oglGameVars::loadAllLevels()
 	tempArt->loadImage("maps\\Mapg3.png", 300, 150);
 	levelArt.push_back(tempArt);
 
+	tempLevel = new levelData("Steps of Doom - Revist", "Subroutine Required", "maps\\tileTutorialMap1b.txt");
+	levelList.push_back(tempLevel);
+	tempArt = new oglTexture2D;
+	tempArt->loadImage("maps\\tileTutorialMap1b.png", 300, 150);
+	levelArt.push_back(tempArt);
+
 	tempLevel = new levelData("Minor Obstructions", "To infinity and beyond!", "maps\\Mapg4.txt");
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
@@ -742,6 +739,12 @@ void oglGameVars::loadAllLevels()
 	levelList.push_back(tempLevel);
 	tempArt = new oglTexture2D;
 	tempArt->loadImage("maps\\Mapo2.png", 300, 150);
+	levelArt.push_back(tempArt);
+
+	tempLevel = new levelData("Three to beam up.", "Engage.", "maps\\tileTutorialMap4.txt");
+	levelList.push_back(tempLevel);
+	tempArt = new oglTexture2D;
+	tempArt->loadImage("maps\\tileTutorialMap4.png", 300, 150);
 	levelArt.push_back(tempArt);
 
 	tempLevel = new levelData("Flip the Switch!", "It's not as hard as you think.", "maps\\Mapo3.txt");

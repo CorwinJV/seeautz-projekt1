@@ -653,7 +653,7 @@ void gameBoard::mapScroll()
 	int mouseDelay = 50;
 
 	// see if mouse is at top of screen
-	if((mouseY > 0) && (mouseY < screenEdgeHeight*screenEdge))
+	if((mouseY >= 0) && (mouseY < screenEdgeHeight*screenEdge))
 	{
 		if(mouseTimer > mouseTimerStart + mouseDelay)
 		{
@@ -673,7 +673,7 @@ void gameBoard::mapScroll()
 		}
 	}
 	// see if mouse is at left side of screen
-	if((mouseX > 0) && (mouseX < screenEdgeWidth * screenEdge))
+	if((mouseX >= 0) && (mouseX < screenEdgeWidth * screenEdge))
 	{
 		if(mouseTimer > mouseTimerStart + mouseDelay)
 		{
@@ -1372,10 +1372,10 @@ bool gameBoard::RCcanRobotMoveForward(int direction, int destNum)
 			 (destType == TProgramBL) ||
 			 (destType == TProgramBR) ||
 			 (destType == TProgram) ||
-			 (destType == TBreakableTL) ||
-			 (destType == TBreakableTR) ||
-			 (destType == TBreakableBL) ||
-			 (destType == TBreakableBR) ||
+			 ((destType == TBreakableTL) && (((direction == 0) || (direction == 2) || (direction == 3)) || !destActive)) ||
+			 ((destType == TBreakableTR) && (((direction == 0) || (direction == 1) || (direction == 3)) || !destActive)) ||
+			 ((destType == TBreakableBL) && (((direction == 1) || (direction == 2) || (direction == 3)) || !destActive)) ||
+			 ((destType == TBreakableBR) && (((direction == 0) || (direction == 1) || (direction == 2)) || !destActive)) ||
 			 ((destType == TBreakable) && (!destActive)) ||
 			 ((destType == TSolid) && (!destActive)) ||
 			 (destType == TStart) ||
@@ -1713,6 +1713,14 @@ void gameBoard::RCpunch()
 				//robotY = destY;
 				//(*oitr)->setXPos(robotX);
 				//(*oitr)->setYPos(robotY);
+			}
+			// now lets check if its a breakable wall that we're facing the back of
+			else if( ((destSquare == TBreakableBL) && (robotDirection == 0)) ||
+				     ((destSquare == TBreakableTL) && (robotDirection == 1)) ||
+					 ((destSquare == TBreakableTR) && (robotDirection == 2)) ||
+					 ((destSquare == TBreakableBR) && (robotDirection == 3)))
+			{
+				mapList[destX][destY]->setActive(false);
 			}
 			// or lets also check to see if the square we're standing in is a breakable directional square
 			// since our dest's are set, we don't need to set anything additional
