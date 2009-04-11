@@ -18,7 +18,7 @@ bool deleteProfileState::Update()
 	}
 
 	// once the timer hits the mark, allow left click to be processed again
-	if(startTime = timer + 200)
+	if(timer >= startTime + 500)
 	{
 		clicked = false;
 	}
@@ -143,14 +143,8 @@ void deleteProfileState::processMouse(int x, int y)
 
 void deleteProfileState::processMouseClick(int button, int state, int x, int y)
 {
-	if (button == GLUT_LEFT_BUTTON && state==GLUT_DOWN && !clicked)
-	{
-		clicked = true;
-		startTime = clock();
-
-		if(myMenu != NULL)
-			myMenu->processMouseClick(button, state, x, y);
-	}
+	if(myMenu != NULL)
+		myMenu->processMouseClick(button, state, x, y);
 }
 
 void deleteProfileState::keyboardInput(unsigned char c, int x, int y)
@@ -196,17 +190,24 @@ bool deleteProfileState::decrement()
 
 bool deleteProfileState::deleteProfile()
 {
-	string profileName;
-	profileName = GameVars->PM->getPlayerName();
-	GameVars->PM->deleteProfile(profileName);
-	GameVars->setPMStatus(1);
-	setStatus(Passive);
-
-	if(profileViewing == GameVars->PM->getMaxRecords())
+	if (!clicked)
 	{
-		decrement();
-	}
+		startTime = clock();
+		timer = clock();
+		clicked = true;
 
-	GSM->addGameState<clickOKState>();
+		string profileName;
+		profileName = GameVars->PM->getPlayerName();
+		GameVars->PM->deleteProfile(profileName);
+		GameVars->setPMStatus(1);
+		setStatus(Passive);
+
+		if(profileViewing == GameVars->PM->getMaxRecords())
+		{
+			decrement();
+		}
+
+		GSM->addGameState<clickOKState>();
+	}
 	return true;
 }
