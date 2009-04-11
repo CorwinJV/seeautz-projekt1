@@ -13,7 +13,8 @@ class LevelSelectState : public GameState
 {
 public:
 	LevelSelectState() {};
-	LevelSelectState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
+	LevelSelectState(GameStateManager &Parent, int newID) : GameState(Parent, newID),
+		textColumnWidth(48)
 	{
 		playerCurrentLevel = GameVars->getPlayerMaxLevel();
 			
@@ -46,6 +47,7 @@ public:
 
 private:
 	int playerCurrentLevel;
+	int textColumnWidth;
 	vector<levelData*> levelList;
 	// add private stuff here
 

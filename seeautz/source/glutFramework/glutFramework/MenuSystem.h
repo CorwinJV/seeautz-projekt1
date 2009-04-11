@@ -12,12 +12,12 @@
 #include "oglUtility.h"
 //#include "pixmap.h"
 #include "Button.h"
+#include "consoleDefines.h"
+#include "oglTexture2D.h"
 #include <cstring>
 #include <vector>
 #include <iostream>
-#include "consoleDefines.h"
-#include "oglTexture2D.h"
-
+#include <ctime>
 
 using namespace std;
 
@@ -25,6 +25,7 @@ enum Justification{
 				None,		// no justification - use default values
 				Auto		// automatically justified
 };
+
 
 class MenuSys
 {
@@ -40,6 +41,16 @@ protected:
 	bool rightButtonDown;
 	int mouseXPos;
 	int mouseYPos;
+
+	// each mouse-button can have it's own state,
+	// so ideally we should be retaining a state
+	// for each button.
+	int MOUSE_LEFT_BUTTON_STATE;
+
+	// Timer jazz for button holding, wee.
+	clock_t timer;
+	clock_t startTime;
+	int buttonDelay;
 
 	oglTexture2D* menuImage;
 	vector<Button*> buttonList;
@@ -101,6 +112,9 @@ public:
     virtual bool Draw();
 	virtual bool Remove();
 	virtual void keyboardInput(unsigned char c, int x, int y);
+
+private:
+	void buttonClick();
 };
 
 #endif

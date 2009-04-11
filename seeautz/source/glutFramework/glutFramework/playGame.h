@@ -41,6 +41,7 @@ private:
 	int preGameTextOffsetX;
 	int preGameTextOffsetY;
 	int preGameTextSpacing;
+	int preGameTitleDescSpacing;
 	int playerScore;
 	void drawLevelInfo();
 	bool doneDead;

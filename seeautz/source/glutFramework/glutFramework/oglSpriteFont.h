@@ -28,7 +28,9 @@ public:
 	void init();
 
 	void open(const std::string& filename, unsigned int size);
-    void drawText(float x, float y, const std::string& str);
+    int drawText(float x, float y, const std::string& str, int numColumns = 0);
+	void drawParsedText(float x, float y);
+	void parseMeIntoRows(std::vector<std::string*> *storageContainer, std::string stringToParse, int numCharsPerRow, bool autoFeed);
 
 	// drawText
 	// open
@@ -62,6 +64,7 @@ private:
 	int charSize;
 	int numColumns;
 	int maxAsciiCount;
+	int fontLineSpacing;
 	double kernAmount;
 	double kernTweak;
 	double kernTweakb;

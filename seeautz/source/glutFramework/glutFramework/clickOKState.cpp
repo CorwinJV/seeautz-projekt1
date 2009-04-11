@@ -27,8 +27,8 @@ bool clickOKState::Draw()
 
 	glColor3ub(0, 0, 0);
 
-	int offX = 250;
-	int offY = 250;
+	int offX = 245;
+	int offY = 200;
 
 	int offInc = 30;
 	int offAmt = 0;
@@ -60,7 +60,7 @@ bool clickOKState::Draw()
 		offAmt++;
 		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "There are no existing profiles.");
 		offAmt++;
-		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "to load click OK to continue.");
+		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "To load click OK to continue.");
 		offAmt++;
 		break;
 	case saved:
@@ -71,14 +71,8 @@ bool clickOKState::Draw()
 		offAmt++;
 		break;
 	case reprogram:
-		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "You have hit a reprogrammable");
-		offAmt++;
-		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "square. Your instruction list");
-		offAmt++;
-		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "has been cleared, and all of your");
-		offAmt++;
-		GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "memory has been replenished");
-		offAmt++;
+		offAmt += GameVars->fontArial24.drawText(offX, offY + offAmt*offInc, "You have hit a reprogrammable square. Your instruction list has been cleared, and all of your memory has been replenished.", 30);
+
 		break;
 	default:
 		break;

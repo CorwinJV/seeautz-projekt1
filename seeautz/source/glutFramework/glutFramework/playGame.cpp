@@ -324,40 +324,26 @@ bool playGame::Draw()
 		// player name
 		tempString = "Player Name: ";
 		tempString += GameVars->PM->getPlayerName();
-		GameVars->fontArial32.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
+		GameVars->fontArial24.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
 		offsetAmt++;
-
-		// level number
 
 		// level name
 		tempInt = GameVars->getCurrentLevel();
 		tempString = GameVars->getLevelName(tempInt);
 
-		GameVars->fontArial32.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
-		offsetAmt++;
-
+		offsetAmt += GameVars->fontArial24.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString, 48);
 
 		// level description
+		offsetAmt += GameVars->fontArial18.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, GameVars->getDesc(tempInt), 48);
 
-		// reusing the variables used for did you know
-		GameVars->parseMeIntoRows(&didYouKnowParsed, GameVars->getDesc(tempInt), 31, true);
-		dykItr = didYouKnowParsed.begin();
-
-		for(;dykItr < didYouKnowParsed.end(); dykItr++)
-		{
-			GameVars->fontArial32.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, (*dykItr)->c_str());
-			offsetAmt++;
-		}
-
-		// bytes available
+				// bytes available
 		tempString = "Bytes Available: ";
 		painInTheAss.str("");
 		tempInt = GameVars->getCurrentLevelBytes();
 		painInTheAss << tempInt;
 		tempString += painInTheAss.str();
-		GameVars->fontArial32.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
+		GameVars->fontArial18.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
 		offsetAmt++;
-
 		
 		// did you know
 		GameVars->fontArial16.drawText(preGameTextOffsetX, tY+ (tAmt*tYspace), "Did You Know:");
@@ -412,14 +398,12 @@ bool playGame::Draw()
 		tempInt = GameVars->getCurrentLevel();
 		tempString = GameVars->getLevelName(tempInt);
 
-		GameVars->fontArial24.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
-		offsetAmt++;
+		offsetAmt += GameVars->fontArial18.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString, 45);
 
 		// level description
 		tempString = GameVars->getDesc(tempInt);
 		// description
-		GameVars->fontArial24.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
-		offsetAmt++;
+		offsetAmt += GameVars->fontArial18.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString, 45);
 		offsetAmt++;
 
 		painInTheAss.str("");
@@ -527,7 +511,8 @@ bool playGame::initialize()
 
 	gamePlay->SetInterfaceAdvanceHandler(BE::CreateFunctionPointer2R(&mInterface, &LogicInterface::CommandAdvanced));
 	gamePlay->SetInterfaceReprogramHandler(BE::CreateFunctionPointer0R(&mInterface, &LogicInterface::ReprogramReached));
-	
+	gamePlay->SetInterfaceClearExecutionListHandler(BE::CreateFunctionPointer0R(&mInterface, &LogicInterface::ClearExecutionList));
+
 	gamePlay->setState(GB_PREGAME);
 	pregameRunning = false;
 	gameSaved = false;
@@ -629,6 +614,7 @@ bool playGame::initialize()
 	preGameTextOffsetX = 150;
 	preGameTextOffsetY = 250;
 	preGameTextSpacing = 45;
+	preGameTitleDescSpacing = 18;
 
 	Update();
 	return true;
@@ -906,7 +892,7 @@ void playGame::drawLevelInfo()
 
 	blackImage->mX = 0;
 	blackImage->mY = 0;
-	blackImage->drawImageFaded(0.75);
+	blackImage->drawImageFaded(0.75, 1024, 85);
 	
 	glColor3ub(255, 0, 0);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
@@ -916,20 +902,14 @@ void playGame::drawLevelInfo()
 
 	stringstream levelNumText;
 
-	levelNumText << "Level " << playerCurrentLevel;
-	GameVars->fontArialRed14.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, levelNumText.str());
-	offsetAmt++;
+	levelNumText << "Level " << playerCurrentLevel << " - " << GameVars->getLevelName(playerCurrentLevel);
+	offsetAmt += GameVars->fontArialRed14.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, levelNumText.str(), 87);
 
-	// level name
-	tempString = GameVars->getLevelName(playerCurrentLevel);
-		
-	GameVars->fontArialRed14.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, tempString);
-	offsetAmt++;
 
 	// description
 	tempString = GameVars->getDesc(playerCurrentLevel);
-	GameVars->fontArialRed14.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, tempString);
-	offsetAmt++;
+	offsetAmt += GameVars->fontArialRed14.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, tempString, 87);
+	
 }
 
 bool playGame::launchHelpState()

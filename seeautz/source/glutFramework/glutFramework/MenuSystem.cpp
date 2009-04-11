@@ -5,7 +5,8 @@
 
 //constructor
 MenuSys::MenuSys(int xpos, int ypos, string imgname, Justification nbuttonJust)
-: menuImage(NULL)
+: menuImage(NULL), MOUSE_LEFT_BUTTON_STATE(GLUT_UP), timer(0), startTime(0), 
+	buttonDelay(500)
 {
 	menuXPos = xpos;
 	menuYPos = ypos;
@@ -55,7 +56,7 @@ bool MenuSys::Draw()
 
 	vector<Button*>::iterator itr = buttonList.begin();
 
-	// update buttonlist
+	// draw buttonlist
 	for (; itr != buttonList.end(); itr++)
     {
 		(*itr)->Draw();
@@ -98,6 +99,23 @@ bool MenuSys::Update()
     {
 		(*itr)->Update();
     }
+
+	// For clicking and holding a button, we're gonna
+	// want to fire the buttons click event over and 
+	// over
+	if (MOUSE_LEFT_BUTTON_STATE == GLUT_DOWN)
+	{
+		if(startTime != 0)
+		{
+			timer += clock() - startTime;
+			if(timer >= buttonDelay)
+			{
+				buttonClick();
+				timer = 0;
+				startTime = clock();
+			}
+		}
+	}
 	return true;
 }
 
@@ -157,6 +175,17 @@ void MenuSys::keyboardInput(unsigned char c, int x, int y)
 void MenuSys::processMouse(int x, int y)
 {
 	setMousePos(x, y);
+	
+	// The mouse has moved, so we don't want to
+	// save any state information regarding the
+	// button being pressed (we don't want the
+	// user to be able to move their mouse around
+	// and activate multiple buttons)
+	MOUSE_LEFT_BUTTON_STATE = GLUT_UP;
+	startTime = 0;
+	timer = 0;
+
+
 #ifdef mouseWork
 	std::cout << "MOUSE POSITION:: " << x << ", " << y << endl;
 #endif
@@ -211,17 +240,38 @@ void MenuSys::processMouse(int x, int y)
 
 void MenuSys::processMouseClick(int button, int state, int x, int y)
 {
+	// Save the current state of the button...
+	if (button == GLUT_LEFT_BUTTON)
+	{
+		MOUSE_LEFT_BUTTON_STATE = state;
+		startTime = clock();
+	}
+	else
+	{
+		startTime = 0;
+		timer = 0;
+	}
+
 	if (button==GLUT_LEFT_BUTTON && state==GLUT_DOWN)
 	{
-		vector<Button*>::iterator itr = buttonList.begin();
-		for(; itr != buttonList.end(); itr++)
+		buttonClick();
+	}
+}
+
+///===========================
+// Functionalized this block,
+// moving it from processMouseClick
+// so that it can be called from multiple places easier.
+void MenuSys::buttonClick()
+{
+	vector<Button*>::iterator itr = buttonList.begin();
+	for(; itr != buttonList.end(); itr++)
+	{
+		int mX = (*itr)->getXPos();
+		int mY = (*itr)->getYPos();
+		if((*itr)->checkInBounds(mouseXPos, mouseYPos))
 		{
-			int mX = (*itr)->getXPos();
-			int mY = (*itr)->getYPos();
-			if((*itr)->checkInBounds(x, y))
-			{
-				(*itr)->callClickHandler();
-			}
+			(*itr)->callClickHandler();
 		}
 	}
 }
