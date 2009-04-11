@@ -11,6 +11,18 @@ bool deleteProfileState::Update()
 	else if(profileViewing < 0)
 		profileViewing = 0;
 
+	// if the left mouse button has been clicked, run the timer
+	if(clicked)
+	{
+		timer = clock();
+	}
+
+	// once the timer hits the mark, allow left click to be processed again
+	if(startTime = timer + 200)
+	{
+		clicked = false;
+	}
+
 	if((GameVars->PM->getMaxRecords() - 1) < 0)
 	{
 		GameVars->setPMStatus(3);
@@ -131,8 +143,14 @@ void deleteProfileState::processMouse(int x, int y)
 
 void deleteProfileState::processMouseClick(int button, int state, int x, int y)
 {
-	if(myMenu != NULL)
-		myMenu->processMouseClick(button, state, x, y);
+	if (button == GLUT_LEFT_BUTTON && state==GLUT_DOWN && !clicked)
+	{
+		clicked = true;
+		startTime = clock();
+
+		if(myMenu != NULL)
+			myMenu->processMouseClick(button, state, x, y);
+	}
 }
 
 void deleteProfileState::keyboardInput(unsigned char c, int x, int y)

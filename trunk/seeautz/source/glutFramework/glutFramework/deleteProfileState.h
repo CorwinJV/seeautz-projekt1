@@ -7,6 +7,8 @@
 #include "playGame.h"
 #include "clickOKState.h"
 #include "oglGameVars.h"
+#include "MenuSystem.h"
+#include <ctime>
 
 
 class deleteProfileState : public GameState
@@ -16,6 +18,7 @@ public:
 	deleteProfileState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
 		profileViewing = 0;
+		clicked = false;
 		if((GameVars->PM->getMaxRecords() - 1) >= 0)
 		{
 			GameVars->PM->setCurrentRecord(profileViewing);
@@ -55,6 +58,9 @@ private:
 	int totScore;
 	int highestLevel;
 	std::string playerName; 
+	clock_t timer;
+	clock_t startTime;
+	bool clicked;
 	// add private stuff here
 
 };
