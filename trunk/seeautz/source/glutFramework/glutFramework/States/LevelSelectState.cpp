@@ -30,14 +30,14 @@ bool LevelSelectState::Draw()
 	// side, it wraps around to the other side.
 
 	int offsetAmt = 0;
-	int textspacing = 30;
+	int textspacing = 18;
 	int offsetX = backgroundImage->mX + 50;
-	int offsetY = backgroundImage->mY + 50;
+	int offsetY = backgroundImage->mY + 25;
 
 	glColor3ub(0, 0, 0);
 
 	// profile name
-	GameVars->fontArial24.drawText(offsetX, offsetY + offsetAmt*textspacing, GameVars->getPlayerName());
+	GameVars->fontArial18.drawText(offsetX, offsetY + offsetAmt*textspacing, GameVars->getPlayerName());
 	offsetAmt++;
 
 	// level number
@@ -48,16 +48,17 @@ bool LevelSelectState::Draw()
 	painInTheAss << " / ";
 	painInTheAss << GameVars->getPlayerMaxLevel();
 	tempString += painInTheAss.str();
-	GameVars->fontArial24.drawText(offsetX, offsetY + offsetAmt*textspacing, tempString);
+	GameVars->fontArial18.drawText(offsetX, offsetY + offsetAmt*textspacing, tempString);
 	offsetAmt++;
 
 	// level name
-	GameVars->fontArial24.drawText(offsetX, offsetY + offsetAmt*textspacing, GameVars->getLevelName(playerCurrentLevel));
-	offsetAmt++;
+	offsetAmt += GameVars->fontArial18.drawText(offsetX, offsetY + offsetAmt*textspacing, GameVars->getLevelName(playerCurrentLevel), textColumnWidth);
 
 	// level description
-	GameVars->fontArial24.drawText(offsetX, offsetY + offsetAmt*textspacing, GameVars->getDesc(playerCurrentLevel));
-	offsetAmt++;
+	offsetAmt += GameVars->fontArial18.drawText(offsetX, offsetY + offsetAmt*textspacing, GameVars->getDesc(playerCurrentLevel), textColumnWidth);
+	
+
+
 
 	// your best score for level
 	painInTheAss.str("");
@@ -69,7 +70,9 @@ bool LevelSelectState::Draw()
 	}
 	painInTheAss << tempInt;
 	tempString += painInTheAss.str();
-	GameVars->fontArial24.drawText(offsetX, offsetY + offsetAmt*textspacing, tempString);
+	GameVars->fontArial18.drawText(offsetX, offsetY + offsetAmt*textspacing, tempString);
+	offsetAmt++;
+	offsetAmt++;
 	offsetAmt++;
 
 	// your best commands for level
