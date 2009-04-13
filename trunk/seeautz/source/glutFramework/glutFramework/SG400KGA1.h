@@ -7,6 +7,25 @@
 #include "playGame.h"
 #include "oglTexture2D.h"
 #include "GameStateManager.h"
+#include <vector>
+
+//class token
+//{
+//private :
+//	std::string tokenName;
+//	vector<token*> subTokenList;
+//	int numModifiers;	
+//
+//
+//public:
+//	void addToken(std::string newToken, numModifiers)
+//	{
+//		token* tempToken;
+//		tempToken = new token(newToken, numModifiers);
+//		subTokenList.push_back(tempToken);
+//	};
+//
+//};
 
 class SG400KGA1 : public GameState
 {
@@ -35,7 +54,7 @@ private:
 	std::string* tString;
 	std::string tempString;
 	int finished;
-	void interpret(string);
+	void interpret(std::string*);
 	double alpha;
 	// add private stuff here
 

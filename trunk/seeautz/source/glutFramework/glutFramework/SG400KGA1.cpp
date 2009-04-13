@@ -10,6 +10,8 @@ bool SG400KGA1::Update()
 
 bool SG400KGA1::Draw()
 {
+	// since all fonts are now well, blackish stuff, lets draw a white background
+	solidWhite->drawImage();
 	// image
 	if(imgSG400)
 	{
@@ -27,21 +29,21 @@ bool SG400KGA1::Draw()
 	glColor3ub(255, 255, 255);
 	GameVars->fontArial18.drawText(25, 10, "Command History");
 	int offsetAmt = 0;
-	int textOffset = 19;
+	int textOffset = 14;
 
 	vector<string*>::iterator sitr;
 	sitr = commandList.begin();
 	
 	for(;sitr < commandList.end(); sitr++)
 	{
-		GameVars->fontArial18.drawText(25, 29 + offsetAmt*textOffset, (*sitr)->c_str());
+		GameVars->fontArial12.drawText(25, 29 + offsetAmt*textOffset, (*sitr)->c_str());
 		offsetAmt++;
 	}
 
 	// draw instruction list on top right
 	offsetAmt = 0;
 	textOffset = 15;
-	int xp = 700;
+	int xp = 575;
 	int yp = 25;
 
 	GameVars->fontArial12.drawText(xp, yp + offsetAmt * textOffset, "Available Commands");
@@ -70,8 +72,6 @@ bool SG400KGA1::Draw()
 	offsetAmt++;
 	GameVars->fontArial12.drawText(xp, yp + offsetAmt * textOffset, "quit");
 	offsetAmt++;
-
-
 	return false;
 }
 
@@ -121,14 +121,14 @@ void SG400KGA1::keyboardInput(unsigned char c, int x, int y)
 	{
 		tString = new string;
 		*tString = tempString;
+		interpret(tString);
 		commandList.push_back(tString);
-		interpret(tempString);
 		tempString = "";
 	}
 
 }
 
-void SG400KGA1::interpret(string iString)
+void SG400KGA1::interpret(string *iString)
 {
 	// parse this out into various things first
 	vector<string*> parseList;
@@ -141,28 +141,28 @@ void SG400KGA1::interpret(string iString)
 	string var1 = "";
 	string var2 = "";
 	int targetSpot = 0;
-	iString += " ";
+	(*iString) += " ";
 
-	for(int x = 0; x < (int)iString.length(); x++)
+	for(int x = 0; x < (int)iString->length(); x++)
 	{
-		if(iString.substr(x, 1) == " ")
+		if(iString->substr(x, 1) == " ")
 		{
 			// we found a space, lets do something with it
 			if(!foundCommand)
 			{
-				command = iString.substr(0, x);
+				command = iString->substr(0, x);
 				foundCommand = true;
 				targetSpot = x+1;
 			}
 			else if(!foundvar1)
 			{
-				var1 = (iString.substr(targetSpot, x-targetSpot).c_str());
+				var1 = (iString->substr(targetSpot, x-targetSpot).c_str());
 				foundvar1 = true;
 				targetSpot = x+1;
 			}
 			else if(!done)
 			{
-				var2 = (iString.substr(targetSpot, x-targetSpot).c_str());
+				var2 = (iString->substr(targetSpot, x-targetSpot).c_str());
 				done = true;
 				foundvar2 = true;
 			}
@@ -178,6 +178,7 @@ void SG400KGA1::interpret(string iString)
 		else if(command == "move")
 		{
 			if(foundvar1)
+			{
 				if(var1 == "up")
 				{
 					imgSG400->mY = imgSG400->mY - atoi(var2.c_str());
@@ -194,13 +195,23 @@ void SG400KGA1::interpret(string iString)
 				{
 					imgSG400->mX = imgSG400->mX + atoi(var2.c_str());
 				}
+				else
+				{
+					*iString += " <invalid direction>";
+				}
+			}
 		}
 		else if(command == "resize")
 		{
 			if(foundvar1)
+			{
 				imgSG400->dX = atoi(var1.c_str());
+			}
+			
 			if(foundvar2)
+			{
 				imgSG400->dY = atoi(var2.c_str());
+			}
 		}
 		else if(command == "reset")
 		{
@@ -219,7 +230,10 @@ void SG400KGA1::interpret(string iString)
 			{
 				delete imgSG400;
 				imgSG400 = new oglTexture2D();
-				imgSG400->loadImage(var1.c_str(), 256, 256);
+				if(!imgSG400->loadImage(var1.c_str(), 256, 256))
+				{
+					*iString += " <invalid file>";
+				}
 				imgSG400->dX = 256;
 				imgSG400->dY = 256;
 				imgSG400->mX = 300;
@@ -248,6 +262,10 @@ void SG400KGA1::interpret(string iString)
 			{
 				imgSG400->mY = atoi(var2.c_str());
 			}
+		}
+		else	// invalid command
+		{
+			*iString += " <Invalid Command>";
 		}
 	}
 
