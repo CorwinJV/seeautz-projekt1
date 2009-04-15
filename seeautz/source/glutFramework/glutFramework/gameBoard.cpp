@@ -150,7 +150,7 @@ bool gameBoard::draw()
 		for(int y = 0; y < Height; y++)
 		{
 			drawAtX = mapOffsetX + (x * hw - (y * hw) + (hw));
-			drawAtY = mapOffsetY + (y * imageHeight - (y * hh) + (x * hh));
+			drawAtY = mapOffsetY + (y * hh) + (x * hh);
 			if((*itr)->getIsActive())
 				drawTile((*itr)->getType(), drawAtX, drawAtY, scale, true);
 			else
@@ -1204,7 +1204,7 @@ bool gameBoard::interfaceHasFiredExecuteOrder(std::vector<logicBlock*> execution
 
 bool gameBoard::interfaceHasFiredAbortOrder()
 {
-	if(curState == GB_EXECUTION)
+	if((curState == GB_EXECUTION) && (!robotAtEndSquare()))
 	{
 		curState = GB_LOGICVIEW;
 		GameVars->SM->resetAllSwitches();
