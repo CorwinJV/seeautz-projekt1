@@ -318,6 +318,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\skipTutorialsPopupState.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\States\StartNewGameState.cpp"
 					>
 				</File>
@@ -513,6 +517,10 @@
 				</File>
 				<File
 					RelativePath=".\SG400KGA1.h"
+					>
+				</File>
+				<File
+					RelativePath=".\skipTutorialsPopupState.h"
 					>
 				</File>
 				<File

@@ -8,6 +8,7 @@
 #include "SG400KGA1.h"
 #include "helpScreenState.h"
 #include "fontTest.h"
+#include "skipTutorialsPopupState.h"
 // end additional state includes
 
 #include <iostream>
@@ -24,8 +25,8 @@ projekt1App::projekt1App(std::string title, int sizeX, int sizeY, int argc, char
 	//string temp = "01234567890123456789012345678901234567890123456789012345678901234567890123456789";
 
 	// text parsing system example... nuke this at will, the damn thing works perfectly though woohoo!
-	string temp = "This is a test of my random text parsing system, lets see what happens when i do random things to it.";
-	vector<string*> tempb;
+	//string temp = "This is a test of my random text parsing system, lets see what happens when i do random things to it.";
+	//vector<string*> tempb;
 
 	//GameVars->parseMeIntoRows(&tempb, temp, 10, false);
 	//GameVars->parseMeIntoRows(&tempb, temp, 12, true);
@@ -37,7 +38,10 @@ projekt1App::projekt1App(std::string title, int sizeX, int sizeY, int argc, char
 	
 	//myStateManager.addGameState<playGame>();
 	//myStateManager.addGameState<LogicViewState>();
+
+	//myStateManager.addGameState<skipTutorialsPopupState>();
 	myStateManager.addGameState<DevLogoState>();		// main game start screen
+
 	//myStateManager.addGameState<helpScreenState>();
 	//myStateManager.addGameState<SG400KGA1>();			// sg400 kga1 heh
 	//myStateManager.addGameState<fontTest>();
