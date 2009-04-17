@@ -59,6 +59,7 @@ protected:
 
 public:
 	MenuSys(int xpos, int ypos, string imgname, Justification nbuttonJust = Auto, bool nclickAndHold = false);
+	MenuSys(int xpos, int ypos, int nWidth = 500, int nHeight = 400, string imgname = "", Justification nbuttonJust = Auto, bool nclickAndHold = false);
 	MenuSys();
 	~MenuSys();
 
@@ -66,9 +67,6 @@ public:
 	inline bool addButton(string buttonImageNormal = "normal.png", string buttonImageClicked = "clicked.png", string buttonImageHover = "hover.png", int buttonXpos = 0, int buttonYpos = 0)
 	{
 		numButtons++;
-#ifdef menuWork
-	//	std::cout << "MS:addButton - Adding new Button " << std::endl;
-#endif
 		Button* newButton = new Button(buttonXpos, buttonYpos, buttonImageNormal, buttonImageClicked, buttonImageHover);  // this needs to be implemented for button constructor
 
 		buttonList.push_back(newButton);
@@ -77,13 +75,17 @@ public:
 		// if something bad happens, return false
 	}
 
-	inline bool addButton(string buttonImageNormal, string buttonImageClicked, string buttonImageHover, CFunctionPointer0R<bool> clickEventHandler)
+	inline bool addButton(string buttonImageNormal, string buttonImageClicked, string buttonImageHover, CFunctionPointer0R<bool> clickEventHandler, int buttonXpos = 0, int buttonYpos = 0, int buttonWidth = 50, int buttonHeight = 50)
 	{
 		numButtons++;
-#ifdef menuWork
-		std::cout << "MS:addButton - Adding new Button " << std::endl;
-#endif
 		Button* newButton = new Button(0, 0, buttonImageNormal, buttonImageClicked, buttonImageHover);  // this needs to be implemented for button constructor
+		newButton->setButtonXYPos(buttonXpos, buttonYpos);
+		if(buttonJust == Auto)
+		{
+			buttonWidth = (int)(menuWidth * 0.9);
+			buttonHeight = (int)(menuHeight * 0.1);
+		}
+		newButton->setDimensions(buttonWidth, buttonHeight);
 		
 		// Click handler (callback / function pointer)
 		if(clickEventHandler)
@@ -97,6 +99,8 @@ public:
 	virtual void recalcButtonPositions();
 	virtual void setMenuXPos(int position);
 	virtual void setMenuYPos(int position);
+	virtual void setMenuWidth(int nWidth);
+	virtual void setMenuHeight(int nHeight);
 	virtual void setLastButtonPosition(int x, int y);
 	virtual void setLastButtonDimensions(int width, int height);
 	virtual void setLastButtonHoverHandler(CFunctionPointer0R<bool> clickHoverHandler);

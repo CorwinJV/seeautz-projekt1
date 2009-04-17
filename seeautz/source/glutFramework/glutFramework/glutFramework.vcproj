@@ -286,6 +286,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\highScoresState.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\States\LevelSelectState.cpp"
 					>
 				</File>
@@ -485,6 +489,10 @@
 				</File>
 				<File
 					RelativePath=".\helpScreenState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\highScoresState.h"
 					>
 				</File>
 				<File
