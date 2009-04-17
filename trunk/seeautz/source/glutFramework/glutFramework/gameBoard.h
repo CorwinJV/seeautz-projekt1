@@ -30,6 +30,7 @@ enum GameBoardState
 	GB_FINISHED,		// used to load next level after score is displayed
 	GB_ROBOTDIED,		// take a wild guess what this state is for
 	GB_YOUWIN,			// executes when player finishes game
+	GB_VICTORYDANCE,	// little robot victory dance yay
 };
 
 class gameBoard

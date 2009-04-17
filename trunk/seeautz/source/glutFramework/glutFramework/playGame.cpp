@@ -18,61 +18,7 @@ bool playGame::Update()
 	// see if the robot is at the end square
 	if((gamePlay->robotAtEndSquare())&& (curState == GB_EXECUTION))
 	{
-		if(!finishing)
-		{
-			startTime = clock();
-			spintimer = clock();
-			spintimerStart = clock();
-			finishing = true;
-		}
-		timer = clock();
-		if(timer > startTime + 2000)
-		{
-			finishing = false;
-			finishNow = true;
-			curState = GB_VIEWSCORE;
-			gamePlay->setState(curState);
-			GameVars->totalCommandsProcessed += GameVars->commandsProcessed;
-			double scoreToAdd = 0;
-			int bytesUsed = GameVars->getBytesUsed();
-			int bytesAvail = GameVars->getCurrentLevelBytes();
-			// happy magical scoring stuff yay
-
-			// for the time being, we're going to add a 10% bonus per level
-			// such that at level 1 you get 110% score, level 2 you get  120%
-			// and so on and so on capping out at roughly 250% at 15 levels
-			// so bust out those subroutines on the higher levels for maximum scorage yay!
-			// score bonus is only applied to the memory used portion of the scoring
-			// function, the default of 200 base is always default of 200 base so yeah there
-			// for shitz n gigglez i'm having it give only 25% bonus on tutorial levels
-			// you won't get a whole lot of points on the tutorials
-			double levelmultiplier = 0.0;
-			if(GameVars->getCurrentLevel() > GameVars->numTutorialLevels)
-			{	// if we're in a normal level, do this
-				levelmultiplier = GameVars->getCurrentLevel() - GameVars->numTutorialLevels;
-				levelmultiplier *= 0.1;  // here's our 10% 
-				levelmultiplier += 1;
-			}
-			else
-			{
-				levelmultiplier = 0.25;	// 25% for tutorial levels, suck it tutorials
-			}
-
-			scoreToAdd = ((100 - (((double)bytesUsed/(double)bytesAvail)*100)) * 10)*levelmultiplier + 200;
-			//scoreToAdd *= (double)GameVars->getCurrentLevel() * 0.1;
-
-			// sends in your score for the level just completed to be compared against previous attempts
-			GameVars->setLevelScore(scoreToAdd);
-			// Get the level score from the level just completed, and add it up with all previous levels completed
-			GameVars->setTotalScore(GameVars->getLevelScore() + GameVars->getTotalScore());
-		}
-		spintimer = clock();
-		if(spintimer > spintimerStart + 200)
-		{
-			gamePlay->spinRobot();
-			spintimerStart = clock();
-		}
-
+		curState = GB_VICTORYDANCE;
 	}
 
 	// Update mInterface all the time
@@ -225,7 +171,62 @@ bool playGame::Update()
 		// upload score onto server (when it gets implemented)
 
 		break;
+	case GB_VICTORYDANCE:
+		if(!finishing)
+		{
+			startTime = clock();
+			spintimer = clock();
+			spintimerStart = clock();
+			finishing = true;
+		}
+		timer = clock();
+		if(timer > startTime + 2000)
+		{
+			finishing = false;
+			finishNow = true;
+			curState = GB_VIEWSCORE;
+			gamePlay->setState(curState);
+			GameVars->totalCommandsProcessed += GameVars->commandsProcessed;
+			double scoreToAdd = 0;
+			int bytesUsed = GameVars->getBytesUsed();
+			int bytesAvail = GameVars->getCurrentLevelBytes();
+			// happy magical scoring stuff yay
 
+			// for the time being, we're going to add a 10% bonus per level
+			// such that at level 1 you get 110% score, level 2 you get  120%
+			// and so on and so on capping out at roughly 250% at 15 levels
+			// so bust out those subroutines on the higher levels for maximum scorage yay!
+			// score bonus is only applied to the memory used portion of the scoring
+			// function, the default of 200 base is always default of 200 base so yeah there
+			// for shitz n gigglez i'm having it give only 25% bonus on tutorial levels
+			// you won't get a whole lot of points on the tutorials
+			double levelmultiplier = 0.0;
+			if(GameVars->getCurrentLevel() > GameVars->numTutorialLevels)
+			{	// if we're in a normal level, do this
+				levelmultiplier = GameVars->getCurrentLevel() - GameVars->numTutorialLevels;
+				levelmultiplier *= 0.1;  // here's our 10% 
+				levelmultiplier += 1;
+			}
+			else
+			{
+				levelmultiplier = 0.25;	// 25% for tutorial levels, suck it tutorials
+			}
+
+			scoreToAdd = ((100 - (((double)bytesUsed/(double)bytesAvail)*100)) * 10)*levelmultiplier + 200;
+			//scoreToAdd *= (double)GameVars->getCurrentLevel() * 0.1;
+
+			// sends in your score for the level just completed to be compared against previous attempts
+			GameVars->setLevelScore(scoreToAdd);
+			// Get the level score from the level just completed, and add it up with all previous levels completed
+			GameVars->setTotalScore(GameVars->getLevelScore() + GameVars->getTotalScore());
+		}
+		spintimer = clock();
+		if(spintimer > spintimerStart + 200)
+		{
+			gamePlay->spinRobot();
+			spintimerStart = clock();
+		}
+		break;
 	default:
 		break;
 	}
