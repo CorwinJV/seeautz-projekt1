@@ -1,4 +1,5 @@
 #include "createProfileState.h"
+#include "skipTutorialsPopupState.h"
 
 bool createProfileState::Update()
 {
@@ -26,7 +27,8 @@ bool createProfileState::Update()
 		GameVars->setPMStatus(2);
 		/*GSM->addGameState<playGame>();
 		GSM->addGameState<helpScreenState>();*/
-		GSM->addGameState<playGame>();
+		//GSM->addGameState<playGame>();
+		GSM->addGameState<skipTutorialsPopupState>();
 		GSM->addGameState<clickOKState>();
 		GSM->setAllButTopPassive();
 		this->setStatus(DeleteMe);
