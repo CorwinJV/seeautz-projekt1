@@ -26,13 +26,13 @@ public:
 	clickOKState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
 		myMenu = new MenuSys((int)1024/2 - (int)600/2, (int)768/2 - (int)475/2 + 25, "blankmenu.png", None);
-		myMenu->addButton("buttons\\ok.png", "buttons\\okhover.png", "buttons\\okhover.png", CreateFunctionPointer0R(this, &clickOKState::clickOKCallback));
-		myMenu->setLastButtonDimensions(100, 50);
-		myMenu->setLastButtonPosition((int)1024/2 - 50, 385);
+		myMenu->addButton("buttons\\ok.png", "buttons\\okhover.png", "buttons\\okhover.png", CreateFunctionPointer0R(this, &clickOKState::clickOKCallback), (int)1024/2 - 50, 385, 100, 50);
+		//myMenu->setLastButtonDimensions(100, 50);
+		//myMenu->setLastButtonPosition((int)1024/2 - 50, 385);
 
-		myMenu->addButton("buttons\\help.png", "buttons\\helphover.png", "buttons\\helphover.png", CreateFunctionPointer0R(this, &clickOKState::helpCallback));
-		myMenu->setLastButtonDimensions(100, 50);
-		myMenu->setLastButtonPosition((int)1024/2 - 50, 530);
+		myMenu->addButton("buttons\\help.png", "buttons\\helphover.png", "buttons\\helphover.png", CreateFunctionPointer0R(this, &clickOKState::helpCallback), (int)1024/2 - 50, 530, 100, 50);
+		//myMenu->setLastButtonDimensions(100, 50);
+		//myMenu->setLastButtonPosition((int)1024/2 - 50, 530);
 	
 		Update();
 	}

@@ -13,8 +13,27 @@ MenuSys::MenuSys(int xpos, int ypos, string imgname, Justification nbuttonJust, 
 	menuImage = new oglTexture2D();
 	if(menuImage != NULL)
 		menuImage->loadImage(imgname.c_str(), 600, 475);
+	menuWidth = 600;
+	menuHeight = 475;
 	menuImage->mX = xpos;
 	menuImage->mY = ypos;
+	numButtons = 0;
+	buttonJust = nbuttonJust;
+	clickAndHold = nclickAndHold;
+}
+
+MenuSys::MenuSys(int xpos, int ypos, int nWidth, int nHeight, string imgname, Justification nbuttonJust, bool nclickAndHold)
+: menuImage(NULL), MOUSE_LEFT_BUTTON_STATE(GLUT_UP), timer(0), startTime(0), buttonDelay(500)
+{
+	menuXPos = xpos;
+	menuYPos = ypos;
+	menuImage = new oglTexture2D();
+	if(menuImage != NULL)
+		menuImage->loadImage(imgname.c_str(), nWidth, nHeight);
+	menuImage->mX = xpos;
+	menuImage->mY = ypos;
+	menuWidth = nWidth;
+	menuHeight = nHeight;
 	numButtons = 0;
 	buttonJust = nbuttonJust;
 	clickAndHold = nclickAndHold;
@@ -131,6 +150,14 @@ void MenuSys::setMenuXPos(int position)
 void MenuSys::setMenuYPos(int position)
 {
 	menuYPos = position;
+}
+void MenuSys::setMenuWidth(int nWidth)
+{
+	menuWidth = nWidth;
+}
+void MenuSys::setMenuHeight(int nHeight)
+{
+	menuHeight = nHeight;
 }
 
 void MenuSys::setLastButtonPosition(int x, int y)
