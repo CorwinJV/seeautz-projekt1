@@ -25,7 +25,7 @@ bool playGame::Update()
 	mInterface.Update();
 	compass->Update();
 
-	//if(GameVars->getCurrentLevel() <= GameVars->numTutorialLevels)
+	if(GameVars->getCurrentLevel() <= GameVars->numTutorialLevels)
 	{
 		skipMenu->Update();
 	}
@@ -255,8 +255,6 @@ bool playGame::Update()
 
 bool playGame::Draw()
 {
-	
-
 	GameBoardState curState;
 	curState = gamePlay->getCurState();
 	string tempString;
@@ -276,16 +274,15 @@ bool playGame::Draw()
 	vector<string*> didYouKnowParsed;
 	vector<string*>::iterator dykItr;
 
-	//if(GameVars->getCurrentLevel() <= GameVars->numTutorialLevels)
-	{
-		skipMenu->Draw();
-	}
-
 	switch(curState)
 	{
 	case GB_LOGICVIEW:
 		glClearColor(0, 0, 0, 0);
 		gamePlay->draw();
+		if(GameVars->getCurrentLevel() <= GameVars->numTutorialLevels)
+		{
+			skipMenu->Draw();
+		}
 		mInterface.Draw();
 		drawLevelInfo();
 		compass->Draw();
@@ -535,9 +532,9 @@ bool playGame::initialize()
 	blackImage = new oglTexture2D();
 	blackImage->loadImage("black.png", 373, 75);
 	
-
-	skipMenu = new MenuSys(5, 440, 200, 75, "blankmenu.png", None, false);
-	skipMenu->addButton("buttons\\skipthistutorial.png", "buttons\\skipthistutorialhover.png", "buttons\\skipthistutorialhover.png", CreateFunctionPointer0R(this, &playGame::advance), 8, 445, 198, 70);
+	// skip tutorial level button
+	skipMenu = new MenuSys(5, 440, 200, 75, "blank.png", None, false);
+	skipMenu->addButton("buttons\\skipthistutorial.png", "buttons\\skipthistutorialhover.png", "buttons\\skipthistutorialhover.png", CreateFunctionPointer0R(this, &playGame::advance), 30, 535, 200, 40);
 
 	myMenu = new MenuSys(250, 50, "blank.png", None);
 	myMenu->addButton("buttons\\advance.png", "buttons\\advancehover.png", "buttons\\advancehover.png", CreateFunctionPointer0R(this, &playGame::advance));
