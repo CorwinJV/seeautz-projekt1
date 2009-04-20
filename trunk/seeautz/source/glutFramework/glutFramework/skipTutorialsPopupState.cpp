@@ -51,6 +51,8 @@ void skipTutorialsPopupState::processMouseClick(int button, int state, int x, in
 
 bool skipTutorialsPopupState::yesCallback()
 {
+	GameVars->setCurrentLevel(1);
+	GameVars->setPlayerMaxLevel(GameVars->numTutorialLevels +1);
 	GSM->addGameState<playGame>();
 	this->setStatus(DeleteMe);
 	return true;

@@ -665,6 +665,7 @@ void playGame::processMouse(int x, int y)
 		compass->processMouse(x, y);
 		if(myMenu != NULL)
 			myMenu->processMouse(x, y);
+		skipMenu->processMouse(x,y);
 		break;
 	case GB_PREGAME:
 	case GB_ROBOTDIED:
@@ -690,6 +691,7 @@ void playGame::processMouseClick(int button, int state, int x, int y)
 			if(myMenu != NULL)
 				myMenu->processMouseClick(button, state, x, y);
 		}
+		skipMenu->processMouseClick(button, state, x, y);
 		break;
 	case GB_PREGAME:
 	case GB_ROBOTDIED:
