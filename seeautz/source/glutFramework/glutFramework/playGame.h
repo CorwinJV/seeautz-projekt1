@@ -24,6 +24,7 @@ private:
 	vector<oglTexture2D*>::iterator endGameAnimation;
 	MenuSys* myMenu;
 	MenuSys* compass;
+	MenuSys* skipMenu;
 	int compassOffsetX;
 	int compassOffsetY;
 	oglTexture2D* img;

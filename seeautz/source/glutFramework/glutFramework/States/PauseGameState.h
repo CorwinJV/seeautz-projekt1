@@ -16,7 +16,7 @@ public:
 	PauseGameState(GameStateManager &Parent, int newID) : GameState(Parent, newID)
 	{
 		
-		myMenu = new MenuSys(250, 100, "blankmenu.png", Auto);
+		myMenu = new MenuSys(212, 100, "blankmenu.png", Auto);
 		myMenu->addButton("buttons\\savegame.png", "buttons\\savegamehover.png", "buttons\\savegamehover.png", CreateFunctionPointer0R(this, &PauseGameState::SaveCallback));
 		myMenu->addButton("buttons\\saveandquit.png", "buttons\\saveandquithover.png", "buttons\\saveandquithover.png", CreateFunctionPointer0R(this, &PauseGameState::SaveQuitCallback));
 		myMenu->addButton("buttons\\levelselect.png", "buttons\\levelselecthover.png", "buttons\\levelselecthover.png", CreateFunctionPointer0R(this, &PauseGameState::LevelSelectCallback));

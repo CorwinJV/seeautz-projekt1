@@ -25,6 +25,11 @@ bool playGame::Update()
 	mInterface.Update();
 	compass->Update();
 
+	//if(GameVars->getCurrentLevel() <= GameVars->numTutorialLevels)
+	{
+		skipMenu->Update();
+	}
+
 	int maxLevel;
 	switch(curState)
 	{
@@ -250,6 +255,8 @@ bool playGame::Update()
 
 bool playGame::Draw()
 {
+	
+
 	GameBoardState curState;
 	curState = gamePlay->getCurState();
 	string tempString;
@@ -268,6 +275,11 @@ bool playGame::Draw()
 	int tAmt = 0;
 	vector<string*> didYouKnowParsed;
 	vector<string*>::iterator dykItr;
+
+	//if(GameVars->getCurrentLevel() <= GameVars->numTutorialLevels)
+	{
+		skipMenu->Draw();
+	}
 
 	switch(curState)
 	{
@@ -523,6 +535,9 @@ bool playGame::initialize()
 	blackImage = new oglTexture2D();
 	blackImage->loadImage("black.png", 373, 75);
 	
+
+	skipMenu = new MenuSys(5, 440, 200, 75, "blankmenu.png", None, false);
+	skipMenu->addButton("buttons\\skipthistutorial.png", "buttons\\skipthistutorialhover.png", "buttons\\skipthistutorialhover.png", CreateFunctionPointer0R(this, &playGame::advance), 8, 445, 198, 70);
 
 	myMenu = new MenuSys(250, 50, "blank.png", None);
 	myMenu->addButton("buttons\\advance.png", "buttons\\advancehover.png", "buttons\\advancehover.png", CreateFunctionPointer0R(this, &playGame::advance));
