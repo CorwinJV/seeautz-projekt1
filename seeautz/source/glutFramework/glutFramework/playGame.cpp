@@ -136,7 +136,7 @@ bool playGame::Update()
 			// in with the new
 			gamePlay = new gameBoard();			
 			tempString = GameVars->getFilename(levelCounter);
-			tempInt = GameVars->getCurrentLevel();
+			//tempInt = GameVars->getCurrentLevel();
 			gamePlay->LoadGameMapFromFile(tempString);
 			mInterface.GetCurrentMapLogicBank();
 			mInterface.GetCurrentLevelBytes();
@@ -156,6 +156,10 @@ bool playGame::Update()
 		}
 
 		GameVars->setLevel(levelCounter);
+		if(levelCounter > GameVars->getPlayerMaxLevel())
+		{
+			GameVars->setPlayerMaxLevel(levelCounter);
+		}
 	
 		//=====================================================
 		// Register the gameBoard callback with the interface!
