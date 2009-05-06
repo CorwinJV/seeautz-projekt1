@@ -1,0 +1,1 @@
+if you are facing a breakable wall but are on a different tile... then punch the wall, it breaks it in code but not visually
